@@ -4,6 +4,16 @@
 export type ProjectId = 'lastfm' | 'dynamo' | 'ecommerce' | 'cesi'
 export type LinkKind = 'repository' | 'walkthrough' | 'live'
 
+export type Pipeline = {
+  // Main flow, left to right.
+  steps: { name: string; detail: string }[]
+  // Side input that feeds one of the steps (by index).
+  branch?: { name: string; detail: string; target: number }
+  caption: string
+}
+
+export type Figure = { src: string; alt: string; caption?: string }
+
 export type ProjectText = {
   title: string
   kind: string
@@ -11,6 +21,8 @@ export type ProjectText = {
   highlights: string[]
   // Short label shown on cards that are not finished yet.
   status?: string
+  pipeline?: Pipeline
+  images?: Figure[]
 }
 
 export type Entry = {
@@ -20,7 +32,7 @@ export type Entry = {
   period: string
   description?: string
   highlights?: string[]
-  image?: { src: string; alt: string; caption: string }
+  image?: Figure
 }
 
 export type Content = {
@@ -35,6 +47,8 @@ export type Content = {
     portraitAlt: string
   }
   hero: { title: string; tagline: string; viewWork: string; downloadCv: string }
+  // What I'm working on right now. Update the date when the text changes.
+  now: { label: string; text: string; updated: string }
   sections: {
     about: string
     work: string

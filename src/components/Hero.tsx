@@ -1,8 +1,12 @@
+import type { CSSProperties } from 'react'
 import { site } from '../data/site'
 import { useLang } from '../i18n'
 
 const secondary =
   'inline-flex items-center rounded-md border border-line px-4 py-2 text-sm font-medium text-fg hover:border-muted'
+
+// Staggered entrance order for each block (see .enter in index.css).
+const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 export default function Hero() {
   const { lang, c } = useLang()
@@ -15,20 +19,41 @@ export default function Hero() {
         alt={c.ui.portraitAlt}
         width={96}
         height={96}
-        className="size-20 rounded-full object-cover sm:size-24"
+        style={step(0)}
+        className="enter size-20 rounded-full object-cover ring-1 ring-line sm:size-24"
       />
-      <h1 id="hero-title" className="mt-8 text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
+      <h1
+        id="hero-title"
+        style={step(1)}
+        className="enter mt-8 text-4xl font-semibold tracking-tight text-fg sm:text-5xl"
+      >
         {site.name}
       </h1>
-      <p className="mt-3 text-lg text-muted sm:text-xl">{c.hero.title}</p>
-      <p className="mt-8 max-w-xl leading-relaxed">{c.hero.tagline}</p>
+      <p style={step(2)} className="enter mt-3 text-lg text-muted sm:text-xl">
+        {c.hero.title}
+      </p>
+      <p style={step(3)} className="enter mt-8 max-w-xl leading-relaxed">
+        {c.hero.tagline}
+      </p>
 
-      <div className="mt-10 flex flex-wrap gap-3">
+      <p style={step(4)} className="enter mt-6 flex max-w-xl gap-3 text-sm leading-relaxed">
+        <span className="now-dot mt-1.5 shrink-0" aria-hidden="true" />
+        <span>
+          <span className="font-medium text-fg">{c.now.label}</span>
+          <span className="text-muted"> · {c.now.updated} — </span>
+          {c.now.text}
+        </span>
+      </p>
+
+      <div style={step(5)} className="enter mt-10 flex flex-wrap gap-3">
         <a
           href="#work"
-          className="inline-flex items-center rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
+          className="group inline-flex items-center gap-1.5 rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
         >
           {c.hero.viewWork}
+          <span aria-hidden="true" className="nudge-down">
+            ↓
+          </span>
         </a>
         <a href={site.github} target="_blank" rel="noreferrer" className={secondary}>
           GitHub

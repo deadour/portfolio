@@ -48,7 +48,9 @@ export default function Timeline({ id, title, entries, children }: Props) {
                     loading="lazy"
                     className="aspect-[4/3] w-full rounded-lg border border-line object-cover"
                   />
-                  <figcaption className="mt-2 text-xs text-muted">{entry.image.caption}</figcaption>
+                  {entry.image.caption && (
+                    <figcaption className="mt-2 text-xs text-muted">{entry.image.caption}</figcaption>
+                  )}
                 </figure>
               )}
             </li>

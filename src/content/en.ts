@@ -22,6 +22,11 @@ export const en: Content = {
     viewWork: 'View my work',
     downloadCv: 'Download CV',
   },
+  now: {
+    label: 'Now',
+    text: 'Working on the Last.fm Data Platform and on Malaca, an e-commerce platform for a client.',
+    updated: 'October 2026',
+  },
   sections: {
     about: 'About',
     work: 'Selected work',
@@ -48,6 +53,17 @@ export const en: Content = {
         'Gold marts for activity, artists, discovery, streaks and diversity, plus artist enrichment from MusicBrainz and Last.fm tags with a local cache.',
         'Streamlit dashboard over ~117k listening events. Tests run with pytest against mocked HTTP responses.',
       ],
+      pipeline: {
+        steps: [
+          { name: 'Last.fm API', detail: 'source' },
+          { name: 'Bronze', detail: 'raw JSON' },
+          { name: 'Silver', detail: 'typed Parquet' },
+          { name: 'Gold', detail: 'analytical marts' },
+          { name: 'Dashboard', detail: 'Streamlit' },
+        ],
+        branch: { name: 'Enrichment', detail: 'MusicBrainz + Last.fm tags', target: 3 },
+        caption: 'Pipeline architecture. Raw data stays immutable; each layer is derived from the one before.',
+      },
     },
     dynamo: {
       title: 'Dynamo',
@@ -62,10 +78,10 @@ export const en: Content = {
       ],
     },
     ecommerce: {
-      title: 'E-commerce Platform',
-      kind: 'Client project',
+      title: 'Malaca',
+      kind: 'Client project · E-commerce',
       summary:
-        'E-commerce platform for a real client, currently in development. A link and technical details will be added once it’s live.',
+        'E-commerce platform built for a real client, currently in development. I’ll add the link and technical details once it’s live.',
       highlights: [],
       status: 'In development',
     },
@@ -88,7 +104,7 @@ export const en: Content = {
       highlights: [
         'Built ETL pipelines with Python and Pandas that load SQL Server data into a data warehouse, unifying sales, stock, service and equipment rental.',
         'Design and maintain executive Power BI dashboards (DAX) on SQL Server, and automate recurring reports with Python.',
-        'Administer the company’s multi-branch SQL Server databases.',
+        'Administer the company’s SQL Server databases across its 3 branches.',
         'Led the re-engineering of the Rental and Technical Service modules with Django REST Framework and React, and built an API that syncs inventory with WooCommerce.',
         'Deploy internal services (Django, Celery, Nginx) with Docker on Linux servers, and build AppSheet apps for field logistics.',
       ],

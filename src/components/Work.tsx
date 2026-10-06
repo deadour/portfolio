@@ -1,4 +1,5 @@
 import Section from './Section'
+import Pipeline from './Pipeline'
 import { projects } from '../data/projects'
 import { useLang } from '../i18n'
 
@@ -11,7 +12,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       className={`rounded-lg border p-5 sm:p-6 ${
-        text.status ? 'border-dashed border-line' : 'border-line bg-surface'
+        text.status ? 'border-dashed border-line' : 'card border-line bg-surface'
       }`}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -32,6 +33,26 @@ function ProjectCard({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {text.pipeline && <Pipeline data={text.pipeline} />}
+
+      {text.images && text.images.length > 0 && (
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {text.images.map((image) => (
+            <figure key={image.src}>
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                className="w-full rounded-md border border-line"
+              />
+              {image.caption && (
+                <figcaption className="mt-2 text-xs text-muted">{image.caption}</figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
       )}
 
       {project.stack.length > 0 && (

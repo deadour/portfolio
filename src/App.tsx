@@ -12,7 +12,7 @@ export default function App() {
   const { c } = useLang()
 
   return (
-    <div id="top" className="mx-auto max-w-3xl px-5 sm:px-8">
+    <div id="top" className="mx-auto max-w-[52rem] px-5 sm:px-8">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:rounded focus:bg-fg focus:px-3 focus:py-2 focus:text-bg"

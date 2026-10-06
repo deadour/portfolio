@@ -22,6 +22,11 @@ export const es: Content = {
     viewWork: 'Ver proyectos',
     downloadCv: 'Descargar CV',
   },
+  now: {
+    label: 'Ahora',
+    text: 'Trabajando en Last.fm Data Platform y en Malaca, una plataforma de e-commerce para un cliente.',
+    updated: 'Octubre 2026',
+  },
   sections: {
     about: 'Sobre mí',
     work: 'Proyectos destacados',
@@ -48,6 +53,17 @@ export const es: Content = {
         'Marts Gold de actividad, artistas, descubrimiento, rachas y diversidad, más enriquecimiento de artistas con MusicBrainz y tags de Last.fm usando caché local.',
         'Dashboard en Streamlit sobre ~117 mil eventos de escucha. Tests con pytest sobre respuestas HTTP simuladas.',
       ],
+      pipeline: {
+        steps: [
+          { name: 'Last.fm API', detail: 'origen' },
+          { name: 'Bronze', detail: 'JSON crudo' },
+          { name: 'Silver', detail: 'Parquet tipado' },
+          { name: 'Gold', detail: 'marts analíticos' },
+          { name: 'Dashboard', detail: 'Streamlit' },
+        ],
+        branch: { name: 'Enriquecimiento', detail: 'MusicBrainz + tags de Last.fm', target: 3 },
+        caption: 'Arquitectura del pipeline. Los datos crudos son inmutables; cada capa se deriva de la anterior.',
+      },
     },
     dynamo: {
       title: 'Dynamo',
@@ -62,10 +78,10 @@ export const es: Content = {
       ],
     },
     ecommerce: {
-      title: 'Plataforma de e-commerce',
-      kind: 'Proyecto para cliente',
+      title: 'Malaca',
+      kind: 'Proyecto para cliente · E-commerce',
       summary:
-        'Plataforma de e-commerce para un cliente real, actualmente en desarrollo. Voy a sumar el link y los detalles técnicos cuando esté publicada.',
+        'Plataforma de e-commerce desarrollada para un cliente real, actualmente en desarrollo. Voy a sumar el link y los detalles técnicos cuando esté publicada.',
       highlights: [],
       status: 'En desarrollo',
     },
@@ -88,7 +104,7 @@ export const es: Content = {
       highlights: [
         'Desarrollé pipelines ETL con Python y Pandas que cargan datos de SQL Server en un data warehouse, unificando ventas, stock, service y alquiler de equipos.',
         'Diseño y mantengo tableros ejecutivos en Power BI (DAX) sobre SQL Server, y automatizo reportes recurrentes con Python.',
-        'Administro las bases de datos SQL Server de las distintas sucursales.',
+        'Administro las bases de datos SQL Server de las 3 sucursales de la empresa.',
         'Lideré la reingeniería de los módulos de Alquiler y Servicio Técnico con Django REST Framework y React, y desarrollé una API que sincroniza el inventario con WooCommerce.',
         'Despliego servicios internos (Django, Celery, Nginx) con Docker en servidores Linux, y desarrollo apps en AppSheet para la logística de campo.',
       ],
