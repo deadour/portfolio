@@ -9,6 +9,7 @@ type Project = (typeof projects)[number]
 function ProjectCard({ project }: { project: Project }) {
   const { c } = useLang()
   const text = c.projects[project.id]
+  const wide = project.gallery === 'wide'
 
   return (
     <article
@@ -26,11 +27,20 @@ function ProjectCard({ project }: { project: Project }) {
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
       {text.images && text.images.length > 0 && (
-        // Swipeable strip on mobile, 4-column grid on desktop.
-        <div className="-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0">
+        // Swipeable strip on mobile; a grid on desktop (4 columns for phone screens, 2 for wide ones).
+        <div
+          className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${
+            wide ? 'sm:grid-cols-2' : 'sm:grid-cols-4'
+          }`}
+        >
           {text.images.map((image) => (
-            <figure key={image.src} className="w-32 shrink-0 snap-start sm:w-auto">
-              <a href={image.src} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-md border border-line">
+            <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${wide ? 'w-64' : 'w-32'}`}>
+              <a
+                href={image.href ?? image.src}
+                target="_blank"
+                rel="noreferrer"
+                className="block overflow-hidden rounded-md border border-line"
+              >
                 <img
                   src={image.src}
                   alt={image.alt}
@@ -45,6 +55,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
       )}
+      {text.imagesNote && <p className="mt-2 text-xs text-muted">{text.imagesNote}</p>}
 
       {text.highlights.length > 0 && (
         <Disclosure label={c.ui.howItsBuilt}>

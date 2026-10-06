@@ -72,9 +72,20 @@ export const en: Content = {
       title: 'BIAMAQ Reports',
       kind: 'Work project · BIAMAQ · Business Intelligence',
       summary:
-        'Internal reporting platform where BIAMAQ’s management follows sales, stock, service and rentals across its 3 branches. It sits on top of the ETL pipelines and the data warehouse I built from the company’s SQL Server databases.',
-      highlights: [],
-      status: 'Screens coming soon',
+        'Internal reporting platform where BIAMAQ’s management follows sales, purchases, receivables, customers and workshop activity across its 3 branches. It runs on top of the extractors and data warehouse I built from the company’s SQL Server ERP.',
+      highlights: [
+        'Django REST Framework API over SQL Server (ERP + data warehouse), with a React frontend.',
+        'Python and Pandas extractors, scheduled with Celery and Redis: daily loads, monthly receivables snapshots and customer classification.',
+        'Analyses include a management sales dashboard, purchases vs sales history, an 80/20 customer analysis with retention, receivables aging and workshop stock.',
+        'CI/CD with GitHub Actions: Docker images published to Docker Hub and deployed on a self-hosted runner.',
+      ],
+      images: [
+        { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Management sales dashboard with KPIs and daily target vs invoiced chart' },
+        { src: '/images/reports-purchases-vs-sales-thumb.webp', href: '/images/reports-purchases-vs-sales.webp', alt: 'Monthly purchases vs sales history from 2023 to 2026' },
+        { src: '/images/reports-customers-8020-thumb.webp', href: '/images/reports-customers-8020.webp', alt: '80/20 customer analysis comparing two periods, with retention and loyal customers' },
+        { src: '/images/reports-service-thumb.webp', href: '/images/reports-service.webp', alt: 'Workshop stock by month with intake, output and machines in repair' },
+      ],
+      imagesNote: 'Screens shown with sample data. Click to enlarge.',
     },
     rentos: {
       title: 'RENT-OS',

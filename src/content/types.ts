@@ -12,7 +12,8 @@ export type Pipeline = {
   caption: string
 }
 
-export type Figure = { src: string; alt: string; caption?: string }
+// `href` optionally points to a larger version opened on click.
+export type Figure = { src: string; alt: string; caption?: string; href?: string }
 
 export type ProjectText = {
   title: string
@@ -23,6 +24,8 @@ export type ProjectText = {
   status?: string
   pipeline?: Pipeline
   images?: Figure[]
+  // Short note under the images, e.g. that the data is fictional.
+  imagesNote?: string
 }
 
 export type Entry = {

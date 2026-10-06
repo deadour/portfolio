@@ -3,6 +3,8 @@ import type { LinkKind, ProjectId } from '../content/types'
 // Order, stack and links of the project cards. Texts are in src/content/.
 export const projects: {
   id: ProjectId
+  // 'phone' (default): narrow screenshots in a row of 4. 'wide': desktop screenshots in a 2×2 grid.
+  gallery?: 'phone' | 'wide'
   stack: string[]
   links: { kind: LinkKind; href: string }[]
 }[] = [
@@ -20,7 +22,8 @@ export const projects: {
   {
     // Internal system: screens must be mockups with sample data only.
     id: 'reports',
-    stack: ['Python', 'Pandas', 'SQL Server', 'Django REST Framework', 'React'],
+    gallery: 'wide',
+    stack: ['Python', 'Pandas', 'SQL Server', 'Django REST Framework', 'Celery', 'Redis', 'React', 'Docker'],
     links: [],
   },
   {

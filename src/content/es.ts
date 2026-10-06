@@ -72,9 +72,20 @@ export const es: Content = {
       title: 'Reportes BIAMAQ',
       kind: 'Proyecto laboral · BIAMAQ · Business Intelligence',
       summary:
-        'Plataforma interna de reportes desde la que la dirección de BIAMAQ sigue ventas, stock, service y alquileres de sus 3 sucursales. Se apoya en los pipelines ETL y el data warehouse que construí a partir de las bases SQL Server de la empresa.',
-      highlights: [],
-      status: 'Pantallas próximamente',
+        'Plataforma interna de reportes desde la que la dirección de BIAMAQ sigue ventas, compras, cobranzas, clientes y la actividad del taller de sus 3 sucursales. Funciona sobre los extractores y el data warehouse que construí a partir del ERP en SQL Server.',
+      highlights: [
+        'API en Django REST Framework sobre SQL Server (ERP + data warehouse), con frontend en React.',
+        'Extractores en Python y Pandas programados con Celery y Redis: cargas diarias, snapshots mensuales de cobranzas y clasificación de clientes.',
+        'Incluye tablero gerencial de ventas, histórico de compras vs ventas, análisis 80/20 de clientes con retención, antigüedad de deuda y stock del taller.',
+        'CI/CD con GitHub Actions: imágenes Docker publicadas en Docker Hub y desplegadas en un runner self-hosted.',
+      ],
+      images: [
+        { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Tablero gerencial de ventas con KPIs y gráfico de objetivo vs facturado diario' },
+        { src: '/images/reports-purchases-vs-sales-thumb.webp', href: '/images/reports-purchases-vs-sales.webp', alt: 'Histórico mensual de compras vs ventas de 2023 a 2026' },
+        { src: '/images/reports-customers-8020-thumb.webp', href: '/images/reports-customers-8020.webp', alt: 'Análisis 80/20 de clientes comparando dos períodos, con retención y clientes fieles' },
+        { src: '/images/reports-service-thumb.webp', href: '/images/reports-service.webp', alt: 'Stock del taller por mes con ingresos, egresos y máquinas en reparación' },
+      ],
+      imagesNote: 'Pantallas con datos de ejemplo. Clic para ampliar.',
     },
     rentos: {
       title: 'RENT-OS',
