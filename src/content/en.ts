@@ -68,6 +68,14 @@ export const en: Content = {
         caption: 'Pipeline architecture. Raw data stays immutable; each layer is derived from the one before.',
       },
     },
+    reports: {
+      title: 'BIAMAQ Reports',
+      kind: 'Work project · BIAMAQ · Business Intelligence',
+      summary:
+        'Internal reporting platform where BIAMAQ’s management follows sales, stock, service and rentals across its 3 branches. It sits on top of the ETL pipelines and the data warehouse I built from the company’s SQL Server databases.',
+      highlights: [],
+      status: 'Screens coming soon',
+    },
     rentos: {
       title: 'RENT-OS',
       kind: 'Work project · BIAMAQ',

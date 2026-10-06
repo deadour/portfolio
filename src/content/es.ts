@@ -68,6 +68,14 @@ export const es: Content = {
         caption: 'Arquitectura del pipeline. Los datos crudos son inmutables; cada capa se deriva de la anterior.',
       },
     },
+    reports: {
+      title: 'Reportes BIAMAQ',
+      kind: 'Proyecto laboral · BIAMAQ · Business Intelligence',
+      summary:
+        'Plataforma interna de reportes desde la que la dirección de BIAMAQ sigue ventas, stock, service y alquileres de sus 3 sucursales. Se apoya en los pipelines ETL y el data warehouse que construí a partir de las bases SQL Server de la empresa.',
+      highlights: [],
+      status: 'Pantallas próximamente',
+    },
     rentos: {
       title: 'RENT-OS',
       kind: 'Proyecto laboral · BIAMAQ',

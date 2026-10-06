@@ -19,6 +19,13 @@ export const projects: {
   },
   {
     // Internal system: screens must be mockups with sample data only.
+    // TODO: confirm the web stack of the reporting site.
+    id: 'reports',
+    stack: ['Python', 'Pandas', 'SQL Server', 'Power BI'],
+    links: [],
+  },
+  {
+    // Internal system: screens must be mockups with sample data only.
     id: 'rentos',
     stack: ['Django', 'Django REST Framework', 'React', 'Docker', 'Linux'],
     links: [],
