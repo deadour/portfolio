@@ -8,5 +8,5 @@ export const site = {
   email: 'edu.ramirez645@gmail.com',
   portrait: '/images/portrait.webp',
   // PDF paths under public/, e.g. 'cv/eduardo-ramirez-en.pdf'. The button is hidden while empty.
-  cv: { en: '', es: '' },
+  cv: { en: '/cv/eduardo-ramirez-cv-en.pdf', es: '/cv/eduardo-ramirez-cv-es.pdf' },
 }
