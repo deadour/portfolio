@@ -45,6 +45,7 @@ export type Content = {
     themeToLight: string
     links: Record<LinkKind, string>
     portraitAlt: string
+    credential: string
   }
   hero: { title: string; tagline: string; viewWork: string; downloadCv: string }
   // What I'm working on right now. Update the date when the text changes.
@@ -55,6 +56,7 @@ export type Content = {
     experience: string
     education: string
     languages: string
+    certifications: string
     tech: string
     contact: string
   }

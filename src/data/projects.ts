@@ -21,6 +21,7 @@ export const projects: {
     id: 'dynamo',
     stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
     links: [
+      { kind: 'live', href: 'https://dynamo-1.onrender.com' },
       { kind: 'repository', href: 'https://github.com/deadour/dynamo' },
       {
         kind: 'post',

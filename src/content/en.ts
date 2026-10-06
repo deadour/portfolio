@@ -14,6 +14,7 @@ export const en: Content = {
     themeToLight: 'Switch to light theme',
     links: { repository: 'Repository', walkthrough: 'Technical walkthrough', live: 'Live site', post: 'LinkedIn post' },
     portraitAlt: 'Portrait of Eduardo M. Ramírez',
+    credential: 'Credential',
   },
   hero: {
     title: 'Data Engineer & Systems Engineer',
@@ -33,6 +34,7 @@ export const en: Content = {
     experience: 'Experience',
     education: 'Education',
     languages: 'Languages',
+    certifications: 'Certifications',
     tech: 'Tech',
     contact: 'Contact',
   },
@@ -127,16 +129,6 @@ export const en: Content = {
         alt: 'Eduardo in front of the CESI École d’Ingénieurs sign',
         caption: 'CESI Rouen, 2026',
       },
-    },
-    {
-      title: 'Informatorio Chaco',
-      meta: ['Software development program · Stages 1–3'],
-      period: 'Aug 2022 — Dec 2023',
-    },
-    {
-      title: 'Argentina Programa',
-      meta: ['Web development and software testing'],
-      period: '2022 — 2023',
     },
   ],
   languages: [

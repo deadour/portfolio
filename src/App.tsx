@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Work from './components/Work'
 import Timeline from './components/Timeline'
+import Certifications from './components/Certifications'
 import Tech from './components/Tech'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -38,6 +39,7 @@ export default function App() {
             </ul>
           </div>
         </Timeline>
+        <Certifications />
         <Tech />
         <Contact />
       </main>
