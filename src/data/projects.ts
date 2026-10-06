@@ -20,7 +20,13 @@ export const projects: {
   {
     id: 'dynamo',
     stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
-    links: [{ kind: 'repository', href: 'https://github.com/deadour/dynamo' }],
+    links: [
+      { kind: 'repository', href: 'https://github.com/deadour/dynamo' },
+      {
+        kind: 'post',
+        href: 'https://www.linkedin.com/posts/eduramirez645_hace-un-tiempo-me-di-cuenta-de-que-en-el-ugcPost-7511498777858441217-nD0B/',
+      },
+    ],
   },
   {
     // TODO: add stack and a { kind: 'live', href } link once it's deployed.
