@@ -1,18 +1,17 @@
 import Section from './Section'
+import { site } from '../data/site'
+import { ui } from '../data/ui'
+import { useLang } from '../i18n'
 
 export default function About() {
+  const { t } = useLang()
+
   return (
-    <Section id="about" title="About">
-      <div className="max-w-xl space-y-4 leading-relaxed text-zinc-300">
-        <p>
-          I’m finishing my degree in Systems Engineering and work across data and software
-          development. Professionally, I’ve worked on systems for an industrial company, covering
-          data, automation and software.
-        </p>
-        <p>
-          I spent an academic semester at CESI École d’Ingénieurs in France, working on data
-          science and IoT projects. I’m now focusing my career on Data Engineering.
-        </p>
+    <Section id="about" title={t(ui.sections.about)}>
+      <div className="max-w-xl space-y-4 leading-relaxed">
+        {site.about.map((paragraph) => (
+          <p key={paragraph.en}>{t(paragraph)}</p>
+        ))}
       </div>
     </Section>
   )
