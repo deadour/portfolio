@@ -1,5 +1,6 @@
 import Section from './Section'
 import Pipeline from './Pipeline'
+import Disclosure from './Disclosure'
 import { projects } from '../data/projects'
 import { useLang } from '../i18n'
 
@@ -22,25 +23,13 @@ function ProjectCard({ project }: { project: Project }) {
       <p className="mt-1 text-sm text-accent">{text.kind}</p>
       <p className="mt-4 text-sm leading-relaxed">{text.summary}</p>
 
-      {text.highlights.length > 0 && (
-        <ul className="mt-4 space-y-2 text-sm leading-relaxed">
-          {text.highlights.map((item, i) => (
-            <li key={i} className="relative pl-4">
-              <span aria-hidden="true" className="absolute left-0 text-muted">
-                –
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
-
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
       {text.images && text.images.length > 0 && (
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        // Swipeable strip on mobile, 4-column grid on desktop.
+        <div className="-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0">
           {text.images.map((image) => (
-            <figure key={image.src}>
+            <figure key={image.src} className="w-32 shrink-0 snap-start sm:w-auto">
               <a href={image.src} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-md border border-line">
                 <img
                   src={image.src}
@@ -57,8 +46,23 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
       )}
 
+      {text.highlights.length > 0 && (
+        <Disclosure label={c.ui.howItsBuilt}>
+          <ul className="mt-3 space-y-2 text-sm leading-relaxed">
+            {text.highlights.map((item, i) => (
+              <li key={i} className="relative pl-4">
+                <span aria-hidden="true" className="absolute left-0 text-muted">
+                  –
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </Disclosure>
+      )}
+
       {project.stack.length > 0 && (
-        <p className="mt-5 font-mono text-xs leading-relaxed text-muted">
+        <p className="mt-4 font-mono text-xs leading-relaxed text-muted">
           {project.stack.join(' · ')}
         </p>
       )}

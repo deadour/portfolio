@@ -15,6 +15,8 @@ export const es: Content = {
     links: { repository: 'Repositorio', walkthrough: 'Recorrido técnico', live: 'Ver sitio', post: 'Post en LinkedIn' },
     portraitAlt: 'Retrato de Eduardo M. Ramírez',
     credential: 'Credencial',
+    howItsBuilt: 'Cómo está hecho',
+    showMore: 'Ver {n} más',
   },
   hero: {
     title: 'Ingeniero de Datos · Ingeniería en Sistemas',
@@ -39,8 +41,7 @@ export const es: Content = {
     contact: 'Contacto',
   },
   about: [
-    'Desde noviembre de 2023 lidero el área de IT y Sistemas de BIAMAQ, una empresa de maquinaria industrial. El trabajo abarca infraestructura, datos y software: pipelines ETL y un data warehouse, tableros en Power BI y aplicaciones internas con Django y React.',
-    'Estoy cursando el último año de Ingeniería en Sistemas de Información en la UTN, y en 2026 hice un semestre en CESI École d’Ingénieurs, en Rouen, Francia, con una beca de intercambio ARFITEC, enfocado en data science, IA e IoT.',
+    'En BIAMAQ lidero IT y Sistemas de punta a punta: infraestructura, datos y software para una empresa con 3 sucursales. Estoy en el último año de Ingeniería en Sistemas de Información en la UTN y cursé el primer semestre de 2026 en CESI École d’Ingénieurs, en Francia, con una beca ARFITEC.',
     'Hoy estoy orientando mi carrera hacia Data Engineering. En mis proyectos pongo el foco en lo que hace confiables a los datos: cargas incrementales, controles de calidad, tests y documentar las decisiones detrás de cada capa.',
   ],
   projects: {
@@ -108,13 +109,11 @@ export const es: Content = {
       meta: ['IT Lead & Data Engineer', 'Jornada completa · Remoto, Argentina'],
       period: 'Nov. 2023 — Actualidad',
       description:
-        'Lidero de punta a punta el área de IT y Sistemas de una empresa de maquinaria industrial: infraestructura, desarrollo, automatización e inteligencia de negocios.',
+        'IT y Sistemas de una empresa de maquinaria industrial: infraestructura, desarrollo, automatización e inteligencia de negocios.',
       highlights: [
-        'Desarrollé pipelines ETL con Python y Pandas que cargan datos de SQL Server en un data warehouse, unificando ventas, stock, service y alquiler de equipos.',
-        'Diseño y mantengo tableros ejecutivos en Power BI (DAX) sobre SQL Server, y automatizo reportes recurrentes con Python.',
-        'Administro las bases de datos SQL Server de las 3 sucursales de la empresa.',
-        'Lideré la reingeniería de los módulos de Alquiler y Servicio Técnico con Django REST Framework y React, y desarrollé una API que sincroniza el inventario con WooCommerce.',
-        'Despliego servicios internos (Django, Celery, Nginx) con Docker en servidores Linux, y desarrollo apps en AppSheet para la logística de campo.',
+        'Desarrollé pipelines ETL con Python y Pandas que cargan datos de SQL Server en un data warehouse, unificando ventas, stock, service y alquiler de equipos de las 3 sucursales.',
+        'Diseño y mantengo tableros ejecutivos en Power BI (DAX) y automatizo reportes recurrentes con Python.',
+        'Lideré la reingeniería de los módulos de Alquiler y Servicio Técnico con Django REST Framework y React, desplegados con Docker en servidores Linux.',
       ],
     },
   ],

@@ -15,6 +15,8 @@ export const en: Content = {
     links: { repository: 'Repository', walkthrough: 'Technical walkthrough', live: 'Live site', post: 'LinkedIn post' },
     portraitAlt: 'Portrait of Eduardo M. Ramírez',
     credential: 'Credential',
+    howItsBuilt: 'How it’s built',
+    showMore: 'Show {n} more',
   },
   hero: {
     title: 'Data Engineer & Systems Engineer',
@@ -39,9 +41,8 @@ export const en: Content = {
     contact: 'Contact',
   },
   about: [
-    'Since November 2023 I’ve led IT and Systems at BIAMAQ, an industrial machinery company. The work spans infrastructure, data and software: ETL pipelines and a data warehouse, Power BI dashboards, and internal applications built with Django and React.',
-    'I’m in the final year of Information Systems Engineering at UTN, and in 2026 I spent a semester at CESI École d’Ingénieurs in Rouen, France, on an ARFITEC exchange scholarship, studying data science, AI and IoT.',
-    'I’m now focusing my career on Data Engineering. In my own projects I care most about what makes data reliable: incremental loads, data quality checks, tests, and writing down the decisions behind each layer.',
+    'At BIAMAQ I lead IT and Systems end to end: infrastructure, data and software for a company with 3 branches. I’m in the final year of Information Systems Engineering at UTN, and spent the spring 2026 semester at CESI École d’Ingénieurs in France on an ARFITEC scholarship.',
+    'I’m now focusing my career on Data Engineering. In my own projects I care most about what makes data reliable: incremental loads, data quality checks, tests, and documenting the decisions behind each layer.',
   ],
   projects: {
     lastfm: {
@@ -108,13 +109,11 @@ export const en: Content = {
       meta: ['IT Lead & Data Engineer', 'Full-time · Remote, Argentina'],
       period: 'Nov 2023 — Present',
       description:
-        'I lead the IT and Systems department of an industrial machinery company end to end: infrastructure, development, automation and business intelligence.',
+        'IT and Systems for an industrial machinery company: infrastructure, development, automation and business intelligence.',
       highlights: [
-        'Built ETL pipelines with Python and Pandas that load SQL Server data into a data warehouse, unifying sales, stock, service and equipment rental.',
-        'Design and maintain executive Power BI dashboards (DAX) on SQL Server, and automate recurring reports with Python.',
-        'Administer the company’s SQL Server databases across its 3 branches.',
-        'Led the re-engineering of the Rental and Technical Service modules with Django REST Framework and React, and built an API that syncs inventory with WooCommerce.',
-        'Deploy internal services (Django, Celery, Nginx) with Docker on Linux servers, and build AppSheet apps for field logistics.',
+        'Built ETL pipelines with Python and Pandas that load SQL Server data into a data warehouse, unifying sales, stock, service and equipment rental across 3 branches.',
+        'Design and maintain executive Power BI dashboards (DAX) and automate recurring reports with Python.',
+        'Led the re-engineering of the Rental and Technical Service modules with Django REST Framework and React, deployed with Docker on Linux servers.',
       ],
     },
   ],

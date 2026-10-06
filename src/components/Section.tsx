@@ -15,7 +15,7 @@ export default function Section({ id, title, children }: Props) {
       ref={ref}
       id={id}
       aria-labelledby={`${id}-title`}
-      className="reveal grid gap-6 border-t border-line py-14 sm:grid-cols-[9rem_1fr] sm:gap-10 sm:py-20"
+      className="reveal grid gap-5 border-t border-line py-12 sm:grid-cols-[9rem_1fr] sm:gap-10 sm:py-20"
     >
       <h2 id={`${id}-title`} className="text-sm font-medium text-muted">
         {title}

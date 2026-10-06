@@ -46,6 +46,9 @@ export type Content = {
     links: Record<LinkKind, string>
     portraitAlt: string
     credential: string
+    howItsBuilt: string
+    // {n} is replaced by the number of hidden items.
+    showMore: string
   }
   hero: { title: string; tagline: string; viewWork: string; downloadCv: string }
   // What I'm working on right now. Update the date when the text changes.
