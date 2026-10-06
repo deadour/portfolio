@@ -1,6 +1,6 @@
 # eduramirez.dev
 
-Personal portfolio of Eduardo M. Ramírez — a single static page with projects, experience and contact links.
+Personal portfolio of Eduardo M. Ramírez — a single static page in English and Spanish, with light and dark themes.
 
 ## Stack
 
@@ -8,12 +8,13 @@ React, TypeScript, Vite and Tailwind CSS. No backend; the build output is plain 
 
 ## Editing content
 
-All content lives in `src/data/`:
+All content lives in `src/data/`. Every text has an `en` and an `es` version.
 
-- `site.ts` — name, title, GitHub / LinkedIn / email (empty values are hidden)
+- `site.ts` — name, title, about text, GitHub / LinkedIn / email (empty values are hidden)
 - `projects.ts` — project cards (`pending: true` marks a card still to be written)
-- `experience.ts` — experience entries
+- `experience.ts` — experience and education entries
 - `tech.ts` — tech list
+- `ui.ts` — interface labels
 
 ## Local development
 
@@ -33,9 +34,10 @@ npm run preview   # serve dist/ locally
 
 ## Deployment
 
-Any static host works. With Cloudflare Pages, Netlify or Vercel:
+Every push to `main` builds and deploys the site to GitHub Pages (`.github/workflows/deploy.yml`). Pull requests only run the build.
 
-- Build command: `npm run build`
-- Output directory: `dist`
+One-time setup:
 
-Then add `eduramirez.dev` as a custom domain in the host's dashboard and point the DNS records it shows.
+1. Repository **Settings → Pages → Source**: select **GitHub Actions**.
+2. On the same page, set the custom domain to `eduramirez.dev` and enable **Enforce HTTPS**.
+3. In the DNS provider, add a `CNAME` record for `@` pointing to `deadour.github.io` (on Cloudflare, set it to *DNS only*).
