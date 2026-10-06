@@ -69,7 +69,7 @@ export const en: Content = {
       },
     },
     rentos: {
-      title: 'Rentos',
+      title: 'RENT-OS',
       kind: 'Work project · BIAMAQ',
       summary:
         'Equipment rental platform for BIAMAQ, built as part of the re-engineering of the company’s Rental module. Django REST Framework API with a React frontend, deployed with Docker on Linux servers.',
