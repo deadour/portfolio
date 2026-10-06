@@ -68,6 +68,14 @@ export const en: Content = {
         caption: 'Pipeline architecture. Raw data stays immutable; each layer is derived from the one before.',
       },
     },
+    rentos: {
+      title: 'Rentos',
+      kind: 'Work project · BIAMAQ',
+      summary:
+        'Equipment rental platform for BIAMAQ, built as part of the re-engineering of the company’s Rental module. Django REST Framework API with a React frontend, deployed with Docker on Linux servers.',
+      highlights: [],
+      status: 'Screens coming soon',
+    },
     dynamo: {
       title: 'Dynamo',
       kind: 'Personal project · Full-stack web app',

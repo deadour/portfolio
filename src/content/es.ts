@@ -68,6 +68,14 @@ export const es: Content = {
         caption: 'Arquitectura del pipeline. Los datos crudos son inmutables; cada capa se deriva de la anterior.',
       },
     },
+    rentos: {
+      title: 'Rentos',
+      kind: 'Proyecto laboral · BIAMAQ',
+      summary:
+        'Plataforma de alquiler de equipos para BIAMAQ, desarrollada como parte de la reingeniería del módulo de Alquiler de la empresa. API en Django REST Framework con frontend en React, desplegada con Docker en servidores Linux.',
+      highlights: [],
+      status: 'Pantallas próximamente',
+    },
     dynamo: {
       title: 'Dynamo',
       kind: 'Proyecto personal · Aplicación web full-stack',

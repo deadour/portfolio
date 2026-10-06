@@ -1,7 +1,7 @@
 // Shape of every translatable text on the page.
 // Each language file must implement it fully, so a missing translation is a type error.
 
-export type ProjectId = 'lastfm' | 'dynamo' | 'ecommerce' | 'cesi'
+export type ProjectId = 'lastfm' | 'rentos' | 'dynamo' | 'ecommerce' | 'cesi'
 export type LinkKind = 'repository' | 'walkthrough' | 'live' | 'post'
 
 export type Pipeline = {
