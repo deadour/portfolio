@@ -8,13 +8,18 @@ React, TypeScript, Vite and Tailwind CSS. No backend; the build output is plain 
 
 ## Editing content
 
-All content lives in `src/data/`. Every text has an `en` and an `es` version.
+Translatable text lives in `src/content/`:
 
-- `site.ts` — name, title, about text, GitHub / LinkedIn / email (empty values are hidden)
-- `projects.ts` — project cards (`pending: true` marks a card still to be written)
-- `experience.ts` — experience and education entries
+- `en.ts` / `es.ts` — every visible text, one file per language. Both implement the `Content` type in `types.ts`, so a missing translation fails the build.
+- `index.ts` — available languages and the default one (English).
+
+Non-translatable data lives in `src/data/`:
+
+- `site.ts` — name, links, email, portrait and CV paths (empty values are hidden)
+- `projects.ts` — order, stack and links of the project cards
 - `tech.ts` — tech list
-- `ui.ts` — interface labels
+
+Images are in `public/images/`.
 
 ## Local development
 
@@ -34,10 +39,7 @@ npm run preview   # serve dist/ locally
 
 ## Deployment
 
-Every push to `main` builds and deploys the site to GitHub Pages (`.github/workflows/deploy.yml`). Pull requests only run the build.
+Deployed on Cloudflare Pages, connected to this repository. Every push to `main` triggers a new build.
 
-One-time setup:
-
-1. Repository **Settings → Pages → Source**: select **GitHub Actions**.
-2. On the same page, set the custom domain to `eduramirez.dev` and enable **Enforce HTTPS**.
-3. In the DNS provider, add a `CNAME` record for `@` pointing to `deadour.github.io` (on Cloudflare, set it to *DNS only*).
+- Build command: `npm run build`
+- Output directory: `dist`
