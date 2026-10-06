@@ -1,20 +1,13 @@
 import { useState } from 'react'
 import { site } from '../data/site'
-import { ui } from '../data/ui'
-import { useLang, type Lang } from '../i18n'
-
-const nav = [
-  { label: ui.nav.work, href: '#work' },
-  { label: ui.nav.experience, href: '#experience' },
-  { label: ui.nav.contact, href: '#contact' },
-]
-
-const langs: Lang[] = ['en', 'es']
+import { languages } from '../content'
+import { useLang } from '../i18n'
 
 function ThemeToggle() {
-  const { t } = useLang()
+  const { c } = useLang()
   // The initial theme is set by an inline script in index.html before the first paint.
   const [dark, setDark] = useState(() => document.documentElement.dataset.theme === 'dark')
+  const label = dark ? c.ui.themeToLight : c.ui.themeToDark
 
   const toggle = () => {
     const next = dark ? 'light' : 'dark'
@@ -31,8 +24,8 @@ function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={t(dark ? ui.themeToLight : ui.themeToDark)}
-      title={t(dark ? ui.themeToLight : ui.themeToDark)}
+      aria-label={label}
+      title={label}
       className="grid size-8 place-items-center rounded-md text-muted hover:text-fg"
     >
       <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -50,7 +43,12 @@ function ThemeToggle() {
 }
 
 export default function Header() {
-  const { lang, setLang, t } = useLang()
+  const { lang, setLang, c } = useLang()
+  const nav = [
+    { label: c.ui.nav.work, href: '#work' },
+    { label: c.ui.nav.experience, href: '#experience' },
+    { label: c.ui.nav.contact, href: '#contact' },
+  ]
 
   return (
     <header className="flex items-center justify-between gap-4 py-6">
@@ -63,27 +61,33 @@ export default function Header() {
             {nav.map((item) => (
               <li key={item.href}>
                 <a href={item.href} className="hover:text-fg">
-                  {t(item.label)}
+                  {item.label}
                 </a>
               </li>
             ))}
           </ul>
         </nav>
         <div className="flex items-center gap-1">
-          <div role="group" aria-label={t(ui.language)} className="flex text-xs font-medium">
-            {langs.map((code) => (
-              <button
-                key={code}
-                type="button"
-                lang={code}
-                onClick={() => setLang(code)}
-                aria-pressed={lang === code}
-                className={`rounded-md px-2 py-1.5 uppercase ${
-                  lang === code ? 'text-fg' : 'text-muted hover:text-fg'
-                }`}
-              >
-                {code}
-              </button>
+          <div role="group" aria-label={c.ui.language} className="flex items-center text-xs font-medium">
+            {languages.map((code, i) => (
+              <span key={code} className="flex items-center">
+                {i > 0 && (
+                  <span aria-hidden="true" className="text-line">
+                    |
+                  </span>
+                )}
+                <button
+                  type="button"
+                  lang={code}
+                  onClick={() => setLang(code)}
+                  aria-pressed={lang === code}
+                  className={`rounded-md px-2 py-1.5 uppercase ${
+                    lang === code ? 'text-fg' : 'text-muted hover:text-fg'
+                  }`}
+                >
+                  {code}
+                </button>
+              </span>
             ))}
           </div>
           <ThemeToggle />

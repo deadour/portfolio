@@ -6,12 +6,10 @@ import Timeline from './components/Timeline'
 import Tech from './components/Tech'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { experience, education } from './data/experience'
-import { ui } from './data/ui'
 import { useLang } from './i18n'
 
 export default function App() {
-  const { t } = useLang()
+  const { c } = useLang()
 
   return (
     <div id="top" className="mx-auto max-w-3xl px-5 sm:px-8">
@@ -19,15 +17,27 @@ export default function App() {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:rounded focus:bg-fg focus:px-3 focus:py-2 focus:text-bg"
       >
-        {t(ui.skip)}
+        {c.ui.skip}
       </a>
       <Header />
       <main id="main">
         <Hero />
         <About />
         <Work />
-        <Timeline id="experience" title={t(ui.sections.experience)} entries={experience} />
-        <Timeline id="education" title={t(ui.sections.education)} entries={education} />
+        <Timeline id="experience" title={c.sections.experience} entries={c.experience} />
+        <Timeline id="education" title={c.sections.education} entries={c.education}>
+          <div className="mt-12">
+            <h3 className="text-sm text-muted">{c.sections.languages}</h3>
+            <ul className="mt-3 space-y-1.5">
+              {c.languages.map((item) => (
+                <li key={item.name}>
+                  <span className="text-fg">{item.name}</span>
+                  <span className="text-muted"> — {item.level}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Timeline>
         <Tech />
         <Contact />
       </main>

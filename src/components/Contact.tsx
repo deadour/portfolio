@@ -1,25 +1,25 @@
 import Section from './Section'
 import { site } from '../data/site'
-import { ui } from '../data/ui'
 import { useLang } from '../i18n'
 
 // Entries with an empty href (not configured yet) are skipped.
 const links = [
-  { label: 'GitHub', href: site.github, text: site.github.replace(/^https:\/\//, ''), external: true },
+  { label: 'Email', href: site.email && `mailto:${site.email}`, text: site.email, external: false },
   {
     label: 'LinkedIn',
     href: site.linkedin,
-    text: site.linkedin.replace(/^https:\/\/(www\.)?/, ''),
+    text: site.linkedin.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, ''),
     external: true,
   },
-  { label: 'Email', href: site.email && `mailto:${site.email}`, text: site.email, external: false },
+  { label: 'GitHub', href: site.github, text: site.github.replace(/^https:\/\//, ''), external: true },
 ].filter((link) => link.href)
 
 export default function Contact() {
-  const { t } = useLang()
+  const { c } = useLang()
 
   return (
-    <Section id="contact" title={t(ui.sections.contact)}>
+    <Section id="contact" title={c.sections.contact}>
+      <p className="mb-6 max-w-xl leading-relaxed">{c.contact.intro}</p>
       <ul className="divide-y divide-line border-y border-line">
         {links.map((link) => (
           <li key={link.label}>

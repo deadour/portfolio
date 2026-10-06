@@ -6,21 +6,23 @@
     <title>Eduardo M. Ramírez — Data Engineer</title>
     <meta
       name="description"
-      content="Eduardo M. Ramírez — Systems Engineering student focused on Data Engineering: data pipelines, analytical models and the software around them. English / Español."
+      content="Eduardo M. Ramírez — IT Lead & Data Engineer at an industrial machinery company and final-year Information Systems Engineering student. Data pipelines, warehouses and the software around them."
     />
     <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#17171a" media="(prefers-color-scheme: dark)" />
     <script>
-      // Apply the saved (or system) theme before the first paint to avoid a flash.
+      // Apply the saved theme (or the system one) and language before the first paint.
       ;(function () {
-        var theme
+        var theme, lang
         try {
           theme = localStorage.getItem('theme')
+          lang = localStorage.getItem('lang')
         } catch (e) {}
         if (theme !== 'light' && theme !== 'dark') {
           theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
         document.documentElement.dataset.theme = theme
+        if (lang === 'es') document.documentElement.lang = 'es'
       })()
     </script>
     <link rel="canonical" href="https://eduramirez.dev/" />

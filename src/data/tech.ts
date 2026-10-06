@@ -1,12 +1,5 @@
-import type { Localized } from '../i18n'
-
-export const tech: { group: Localized; items: string[] }[] = [
-  {
-    group: { en: 'Data', es: 'Datos' },
-    items: ['Python', 'SQL', 'PostgreSQL', 'Parquet', 'Streamlit', 'Power BI'],
-  },
-  {
-    group: { en: 'Software', es: 'Software' },
-    items: ['Django', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
-  },
-]
+// Group titles are translated in src/content/.
+export const tech = {
+  data: ['Python', 'SQL', 'SQL Server', 'PostgreSQL', 'Pandas', 'Power BI'],
+  software: ['Django', 'React', 'TypeScript', 'Docker', 'Linux', 'GitHub Actions'],
+}
