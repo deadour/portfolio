@@ -38,15 +38,17 @@ function ProjectCard({ project }: { project: Project }) {
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
       {text.images && text.images.length > 0 && (
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {text.images.map((image) => (
             <figure key={image.src}>
-              <img
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                className="w-full rounded-md border border-line"
-              />
+              <a href={image.src} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-md border border-line">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading="lazy"
+                  className="w-full transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                />
+              </a>
               {image.caption && (
                 <figcaption className="mt-2 text-xs text-muted">{image.caption}</figcaption>
               )}

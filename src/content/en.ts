@@ -78,6 +78,12 @@ export const en: Content = {
         'Idempotent import of an open exercise dataset, with names and instructions prepared in Spanish.',
         'React + TypeScript frontend, Docker Compose for local development and GitHub Actions running lint, tests and builds.',
       ],
+      images: [
+        { src: '/images/dynamo-home.webp', alt: 'Dynamo home screen with today’s routines and 30-day stats' },
+        { src: '/images/dynamo-progress.webp', alt: 'Progress screen with best weight, estimated 1RM and a per-session chart' },
+        { src: '/images/dynamo-workout.webp', alt: 'Workout in progress with duration, sets, volume and exercise list' },
+        { src: '/images/dynamo-profile.webp', alt: 'Profile with a yearly training heatmap and saved routines' },
+      ],
     },
     ecommerce: {
       title: 'Malaca',
