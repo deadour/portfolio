@@ -224,9 +224,9 @@ export const es: Content = {
       description:
         'Un semestre del Máster en Data Science, con cursada en data science, IA, IoT y desarrollo web, y proyectos de ingeniería en equipos multidisciplinarios.',
       images: [
-        { src: '/images/cesi-thumb.webp', href: '/images/cesi.webp', alt: 'Eduardo frente al cartel de CESI École d’Ingénieurs', caption: 'CESI Rouen, 2026' },
-        { src: '/images/cesi-presenting.webp', alt: 'Eduardo presentando un proyecto en equipo en un auditorio de CESI', caption: 'Presentando un proyecto' },
-        { src: '/images/cesi-team.webp', alt: 'Eduardo trabajando con su equipo de proyecto alrededor de una mesa con notebooks', caption: 'Trabajando con mi equipo' },
+        { src: '/images/cesi-thumb.webp', href: '/images/cesi.webp', alt: 'Eduardo frente al cartel de CESI École d’Ingénieurs' },
+        { src: '/images/cesi-presenting.webp', alt: 'Eduardo presentando un proyecto en equipo en un auditorio de CESI' },
+        { src: '/images/cesi-team.webp', alt: 'Eduardo trabajando con su equipo de proyecto alrededor de una mesa con notebooks' },
       ],
     },
   ],
