@@ -19,7 +19,7 @@ export default function Section({ id, title, children }: Props) {
     >
       <h2
         id={`${id}-title`}
-        className="self-start text-lg leading-snug font-semibold tracking-tight text-fg before:mb-3 before:block before:h-0.5 before:w-6 before:rounded-full before:bg-accent sm:sticky sm:top-8 sm:text-base"
+        className="self-start text-lg leading-snug font-semibold tracking-tight text-fg before:mb-3 before:block before:h-0.5 before:w-6 before:rounded-full before:bg-accent sm:sticky sm:top-24 sm:text-base"
       >
         {title}
       </h2>
