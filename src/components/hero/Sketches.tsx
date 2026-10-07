@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties }
 
 import { MAP, SKETCHES, type Asset } from './sketchAssets'
 import { getSketchState, subscribeSketches } from './pageSlots'
+import SketchImage from './SketchImage'
 
 const ANIMATIONS = ['float', 'drift-slow', 'rotate-slow']
 
@@ -120,10 +121,10 @@ export default function HeroSketches({ className = '' }: { className?: string })
         {sketches.map((s, i) => (
           <div
             key={s.src + i}
-            className={`absolute pointer-events-auto ${s.animation ? `anim-${s.animation}` : ''}`}
+            className={`sketch-hit absolute ${s.animation ? `anim-${s.animation}` : ''}`}
             style={{ left: s.x, top: s.y, width: s.w, '--d': `${s.duration}s` } as CSSProperties}
           >
-            <img src={s.src} alt="" decoding="async" className="block w-full hero-sketch" style={{ opacity: `calc(${s.opacity.toFixed(3)} * var(--sketch-boost, 1))` }} />
+            <SketchImage src={s.src} style={{ opacity: `calc(${s.opacity.toFixed(3)} * var(--sketch-boost, 1))` }} />
             {s.home && (
               // Accent dot on Resistencia; the name shows as a tooltip on hover (larger invisible hit area).
               <span

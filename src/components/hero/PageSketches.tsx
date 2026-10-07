@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react'
 
 import { getSketchState, subscribeSketches, type PageSpot } from './pageSlots'
+import SketchImage from './SketchImage'
 
 type Placed = { src: string; x: number; y: number; w: number; opacity: number; anim: string; duration: number }
 
@@ -106,13 +107,13 @@ export default function PageSketches() {
       {placed.map((s) => (
         <div
           key={s.src}
-          className="page-sketch absolute"
+          className="page-sketch sketch-hit absolute"
           // After a shuffle the visitor is mid-page: show the new drawings at once.
           data-visible={shuffled || undefined}
           style={{ left: s.x, top: s.y, width: s.w, '--o': s.opacity } as CSSProperties}
         >
           <div className={`anim-${s.anim}`} style={{ '--d': `${s.duration}s` } as CSSProperties}>
-            <img src={s.src} alt="" loading="lazy" decoding="async" className="hero-sketch block w-full" />
+            <SketchImage src={s.src} />
           </div>
         </div>
       ))}

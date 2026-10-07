@@ -133,6 +133,19 @@
   transition: opacity 0.4s ease, filter 0.4s ease;
   cursor: crosshair;
 }
+.sketch-song .hero-sketch {
+  cursor: pointer;
+}
+/* Sketches react to the mouse only on devices with a precise pointer, so a tap on a phone
+   never opens a song by accident. Content above them keeps its own clicks. */
+.sketch-hit {
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .sketch-hit {
+    pointer-events: auto;
+  }
+}
 
 :root[data-theme='dark'] .hero-sketch {
   filter: none;
@@ -162,6 +175,14 @@
 }
 .page-sketch[data-visible] {
   opacity: calc(var(--o) * var(--sketch-boost, 1));
+}
+/* Hover lights the whole sketch up (the image itself stays at full strength inside it). */
+.page-sketch[data-visible]:hover {
+  opacity: 0.6;
+  transition-duration: 250ms;
+}
+.page-sketch .hero-sketch:hover {
+  opacity: 1 !important;
 }
 @media (prefers-reduced-motion: no-preference) {
   .page-sketch {
