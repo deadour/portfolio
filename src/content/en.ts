@@ -172,7 +172,12 @@ export const en: Content = {
         'Explainability with SHAP and LIME, and energy tracking with CodeCarbon.',
         'Prototype deployment as a FastAPI service.',
       ],
-      images: [{ src: '/images/cesi-dl-team.webp', alt: 'The team presenting the Diabetes Prediction with Deep Learning project at CESI' }],
+      images: [
+        { src: '/images/cesi-dl-team.webp', alt: 'The team presenting the Diabetes Prediction with Deep Learning project at CESI' },
+        { src: '/images/cesi-dl-pipeline.webp', alt: 'Slide with the nine stages of the end-to-end pipeline, from data ingestion to FastAPI deployment' },
+        { src: '/images/cesi-dl-model.webp', alt: 'Diagram of the tuned PyTorch model: two dense layers with ReLU and dropout and a sigmoid output' },
+        { src: '/images/cesi-dl-results.webp', alt: 'Confusion matrices before and after oversampling: missed diabetes cases drop from 6,704 to 2,035' },
+      ],
     },
     cesiIot: {
       title: 'Classroom Noise Monitor',
