@@ -158,9 +158,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .anim-float { animation: float 18s ease-in-out infinite; }
-  .anim-drift-slow { animation: drift-slow 24s ease-in-out infinite; }
-  .anim-rotate-slow { animation: rotate-slow 30s ease-in-out infinite; }
+  .anim-float { animation: float ease-in-out infinite alternate; }
+  .anim-drift-slow { animation: drift-slow ease-in-out infinite alternate; }
+  .anim-rotate-slow { animation: rotate-slow ease-in-out infinite alternate; }
 }
 
 /* ---------- Pipeline diagram ---------- */
