@@ -226,7 +226,7 @@ export const en: Content = {
       images: [
         { src: '/images/cesi-presenting.webp', alt: 'Eduardo presenting a team project in a CESI lecture hall' },
         { src: '/images/cesi-team.webp', alt: 'Eduardo working with his project team around a table with laptops' },
-        { src: '/images/cesi-thumb.webp', href: '/images/cesi.webp', alt: 'Eduardo in front of the CESI École d’Ingénieurs sign' },
+        { src: '/images/cesi.webp', alt: 'Eduardo in front of the CESI École d’Ingénieurs sign' },
       ],
     },
   ],
