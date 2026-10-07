@@ -41,14 +41,14 @@ function layout(W: number, H: number): Placed[] {
   ]
   const taken: Rect[] = [mapRect]
 
-  const target = mobile ? 7 : W < 1100 ? 12 : 16
+  const target = mobile ? 5 : W < 1100 ? 8 : 11
   for (const asset of shuffle(POOL)) {
     if (placed.length > target) break
     const w = asset.size * rem * scale * (0.85 + Math.random() * 0.3)
     const h = (w * asset.h) / asset.w
     if (w > W - 32) continue
     for (let attempt = 0; attempt < 60; attempt++) {
-      const r = { x: Math.random() * (W - w), y: Math.random() * (H * 0.85 - h), w, h }
+      const r = { x: Math.random() * (W - w), y: Math.random() * (H * 0.7 - h), w, h }
       if (taken.some((t) => overlaps(r, t))) continue
       taken.push(r)
       placed.push({

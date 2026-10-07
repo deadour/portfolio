@@ -16,7 +16,7 @@ export type Slot = {
 }
 
 const SLOTS: Slot[] = [
-  { options: [S.obelisco, S.colosseum], at: '#about', y: 0, side: 'left' },
+  { options: [S.obelisco, S.colosseum], at: '#about', y: 0.4, side: 'left', jitter: 0.08 },
   { options: [S.david, S.helmet], at: '#about', y: 0.9, side: 'right' },
   { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#work article', index: 0, y: 0.15, side: 'left' },
   { options: [S.waves, S.vinyl, S.prism], at: '#work article', index: 0, y: 0.6, side: 'right' },
@@ -24,8 +24,8 @@ const SLOTS: Slot[] = [
   { options: [S.database, S.sqlCode], at: '#work article', index: 1, y: 0.6, side: 'right', jitter: 0.08 },
   { options: [S.crane, S.drill], at: '#work article', index: 2, y: 0.3, side: 'right' },
   { options: [S.hardHat], at: '#work article', index: 2, y: 0.75, side: 'left' },
-  { options: [S.mate, S.thermos], at: '#work article', index: 3, y: 0.2, side: 'right' },
-  { options: [S.leaf], at: '#work article', index: 3, y: 0.7, side: 'left' },
+  { options: [S.mate], at: '#work article', index: 3, y: 0.2, side: 'right' },
+  { options: [S.thermos, S.leaf], at: '#work article', index: 3, y: 0.7, side: 'left' },
   { options: [S.player, S.football], at: '#work h3.uppercase', index: 1, y: 0, side: 'right' },
   { options: [S.dumbbell], at: '#work article', index: 4, y: 0.6, side: 'left' },
   { options: [S.neuralNetwork, S.sigmoid], at: '#work article', index: 5, y: 0.2, side: 'left' },
