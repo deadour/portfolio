@@ -42,8 +42,8 @@ export default function HeroSketches({ className = '' }: { className?: string })
       // Larger sizes because these are clusters of multiple drawings
       const width = `${14 + Math.random() * 8}rem`
       
-      // Extremely subtle opacity (0.03 to 0.09)
-      const opacity = 0.03 + (Math.random() * 0.06)
+      // Subtle opacity but visible (0.10 to 0.20)
+      const opacity = 0.10 + (Math.random() * 0.10)
       
       const animation = animations[Math.floor(Math.random() * animations.length)]
       
