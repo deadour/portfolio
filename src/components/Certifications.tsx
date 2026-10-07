@@ -3,8 +3,9 @@ import Disclosure from './Disclosure'
 import { certifications } from '../data/certifications'
 import { useLang } from '../i18n'
 
-// How many certifications are visible before "Show N more".
-const VISIBLE = 4
+// Featured certifications are visible; the rest (newest first) go behind "Show N more".
+const featured = certifications.filter((c) => c.featured)
+const others = certifications.filter((c) => !c.featured)
 
 type Cert = (typeof certifications)[number]
 
@@ -44,11 +45,11 @@ export default function Certifications() {
     </ul>
   )
 
-  const rest = certifications.slice(VISIBLE)
+  const rest = others
 
   return (
     <Section id="certifications" title={c.sections.certifications}>
-      <div className="border-y border-line">{list(certifications.slice(0, VISIBLE))}</div>
+      <div className="border-y border-line">{list(featured)}</div>
       {rest.length > 0 && (
         <Disclosure label={c.ui.showMore.replace('{n}', String(rest.length))}>
           <div className="mt-2 border-y border-line">{list(rest)}</div>

@@ -22,22 +22,44 @@ function ProjectCard({ project }: { project: Project }) {
   const itemWidth = count === 1 ? 'w-full' : wide ? 'w-64' : project.gallery === 'photo' ? 'w-44' : 'w-32'
   const crop = project.gallery === 'photo' ? 'aspect-[4/5] object-cover' : ''
 
+  const featured = project.tier === 'featured'
+  const compact = project.tier === 'secondary'
+  const pill = text.badge ?? text.status
+
   return (
     <article
-      className={`rounded-lg border p-5 sm:p-6 ${
-        text.status ? 'border-dashed border-line' : 'card border-line bg-surface'
+      className={`card rounded-lg border bg-surface ${compact ? 'p-5' : 'p-5 sm:p-6'} ${
+        featured ? 'border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]' : 'border-line'
       }`}
     >
+      {featured && (
+        <p className="mb-3 text-xs font-medium tracking-wide text-accent uppercase">{c.ui.featured}</p>
+      )}
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h3 className="font-medium text-fg">{text.title}</h3>
-        {text.status && <span className="text-xs text-muted">{text.status}</span>}
+        <h3 className={`font-medium text-fg ${featured ? 'text-lg' : ''}`}>{text.title}</h3>
+        {pill && (
+          <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2.5 py-0.5 text-xs font-medium text-accent">
+            {pill}
+          </span>
+        )}
       </div>
       <p className="mt-1 text-sm text-accent">{text.kind}</p>
       <p className="mt-4 text-sm leading-relaxed">{text.summary}</p>
 
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
-      {text.images && text.images.length > 0 && (
+      {/* Academic cards stay compact: photos open in the viewer instead of an inline gallery. */}
+      {compact && text.images && text.images.length > 0 && (
+        <button
+          type="button"
+          onClick={() => openLightbox(toLightbox(text.images), 0)}
+          className="mt-4 inline-flex items-center gap-1.5 text-sm text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
+        >
+          {c.ui.viewPhotos.replace('{n}', String(text.images.length))}
+        </button>
+      )}
+
+      {!compact && text.images && text.images.length > 0 && (
         // Swipeable strip on mobile, grid on desktop.
         <div
           className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${cols}`}
@@ -121,14 +143,26 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function Work() {
   const { c } = useLang()
+  const main = projects.filter((p) => p.tier !== 'secondary')
+  const academic = projects.filter((p) => p.tier === 'secondary')
 
   return (
     <Section id="work" title={c.sections.work}>
       <div className="space-y-4">
-        {projects.map((project) => (
+        {main.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
+      {academic.length > 0 && (
+        <>
+          <h3 className="mt-10 mb-4 text-sm font-medium text-muted">{c.ui.academic}</h3>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {academic.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </>
+      )}
     </Section>
   )
 }

@@ -2,9 +2,9 @@ import type { Content } from './types'
 
 export const es: Content = {
   meta: {
-    title: 'Eduardo M. Ramírez — Ingeniero de Datos',
+    title: 'Eduardo M. Ramírez — Data Engineer',
     description:
-      'Eduardo M. Ramírez — IT Lead & Data Engineer en una empresa de maquinaria industrial y estudiante de último año de Ingeniería en Sistemas de Información. Pipelines de datos, data warehouses y el software que los rodea.',
+      'Eduardo M. Ramírez — Data Engineer e IT Lead en una empresa de maquinaria industrial, y estudiante de último año de Ingeniería en Sistemas de Información en la UTN. Pipelines de datos, data warehouses y el software que los rodea.',
   },
   ui: {
     skip: 'Saltar al contenido',
@@ -18,9 +18,12 @@ export const es: Content = {
     howItsBuilt: 'Cómo está hecho',
     lightbox: { close: 'Cerrar', previous: 'Imagen anterior', next: 'Imagen siguiente' },
     showMore: 'Ver {n} más',
+    featured: 'Proyecto principal',
+    academic: 'Proyectos académicos · CESI Francia',
+    viewPhotos: 'Ver fotos ({n})',
   },
   hero: {
-    title: 'Ingeniero de Datos · Ingeniería en Sistemas',
+    title: 'Data Engineer · Ingeniería en Sistemas',
     tagline:
       'IT Lead & Data Engineer en una empresa de maquinaria industrial y estudiante de último año de Ingeniería en Sistemas de Información en la UTN. Construyo pipelines de datos, data warehouses y el software que los rodea.',
     viewWork: 'Ver proyectos',
@@ -41,8 +44,8 @@ export const es: Content = {
     contact: 'Contacto',
   },
   about: [
-    'En BIAMAQ lidero IT y Sistemas de punta a punta: infraestructura, datos y software para una empresa con 3 sucursales. Estoy en el último año de Ingeniería en Sistemas de Información en la UTN y cursé el primer semestre de 2026 en CESI École d’Ingénieurs, en Francia, con una beca ARFITEC.',
-    'Hoy estoy orientando mi carrera hacia Data Engineering. En mis proyectos pongo el foco en lo que hace confiables a los datos: cargas incrementales, controles de calidad, tests y documentar las decisiones detrás de cada capa.',
+    'Trabajo en la intersección entre datos y software. En BIAMAQ pasé de resolver necesidades operativas a construir los sistemas, integraciones y pipelines que forman parte del funcionamiento diario de la empresa.',
+    'Mi foco actual está en Data Engineering: pipelines reproducibles, datos confiables y plataformas que puedan mantenerse en el tiempo. En 2026 complementé esa experiencia con un semestre académico en CESI École d’Ingénieurs, en Francia.',
   ],
   projects: {
     lastfm: {
@@ -71,6 +74,7 @@ export const es: Content = {
     reports: {
       title: 'Reportes BIAMAQ',
       kind: 'Proyecto laboral · BIAMAQ · Business Intelligence',
+      badge: 'Sistema interno · Producción',
       summary:
         'Plataforma interna de reportes desde la que la dirección de BIAMAQ sigue ventas, compras, cobranzas, clientes y la actividad del taller de sus 3 sucursales. Funciona sobre los extractores y el data warehouse que construí a partir del ERP en SQL Server.',
       highlights: [
@@ -89,9 +93,9 @@ export const es: Content = {
     },
     rentos: {
       title: 'RENT-OS',
-      kind: 'Proyecto laboral · BIAMAQ · SaaS full-stack',
+      kind: 'Proyecto laboral · BIAMAQ · Plataforma full-stack',
       summary:
-        'Plataforma de alquiler de equipos desarrollada para la reingeniería del módulo de Alquiler de BIAMAQ, diseñada como SaaS multiempresa y multisucursal. Cubre el ciclo completo del alquiler: wizard de reserva, contrato firmado, entrega técnica, devolución, cierre con días facturables y taller.',
+        'Plataforma de alquiler de equipos desarrollada para la reingeniería del módulo de Alquiler de BIAMAQ, pensada como plataforma multiempresa y multisucursal. Cubre el ciclo completo del alquiler: wizard de reserva, contrato firmado, entrega técnica, devolución, cierre con días facturables y taller.',
       highlights: [
         'Backend en Django REST Framework con arquitectura hexagonal, sobre PostgreSQL o SQL Server.',
         'Contratos en PDF firmados en tableta Wacom y facturación electrónica ARCA multiempresa.',
@@ -136,7 +140,7 @@ export const es: Content = {
       title: 'Predicción de diabetes con Deep Learning',
       kind: 'Proyecto académico · CESI Francia · Equipo de 4',
       summary:
-        'Pipeline de machine learning de punta a punta para predecir diabetes a partir de datos clínicos tabulares, con un dataset muy desbalanceado. El modelo base tenía 84% de accuracy pero no detectaba a casi ningún paciente diabético, así que optimizamos para la seguridad clínica: muchos menos falsos negativos.',
+        'Pipeline de machine learning de punta a punta para predecir diabetes a partir de un dataset tabular de salud con fuerte desbalance de clases. El modelo base tenía 84% de accuracy pero no detectaba casi ningún caso positivo, así que nos enfocamos en reducir los falsos negativos en lugar de perseguir la accuracy.',
       highlights: [
         'EDA y preprocesamiento, modelos base en Keras y en NumPy desde cero, y un modelo en PyTorch ajustado.',
         'Oversampling y optimización del umbral de decisión para reducir falsos negativos.',

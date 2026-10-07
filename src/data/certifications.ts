@@ -1,8 +1,10 @@
-// Certifications, newest first. Titles are kept in their original language.
+// Certifications. Titles are kept in their original language.
+// `featured` ones (most relevant to the current profile) are shown first; the rest go behind "Show more".
 // `date` is 'YYYY-MM' and is formatted per language. Leave `url` empty when the credential isn't public.
-export const certifications: { title: string; issuer: string; date: string; url: string }[] = [
+export const certifications: { title: string; issuer: string; date: string; url: string; featured?: boolean }[] = [
   {
     title: 'Power BI: Desde cero para principiantes',
+    featured: true,
     issuer: 'Udemy',
     date: '2024-02',
     url: 'https://www.udemy.com/certificate/UC-fc3d5160-a68f-48a8-9b8e-c7cde2399f8f/',
@@ -27,6 +29,7 @@ export const certifications: { title: string; issuer: string; date: string; url:
   },
   {
     title: 'Introducción a Machine Learning',
+    featured: true,
     issuer: 'Informatorio Chaco',
     date: '2023-01',
     url: 'https://drive.google.com/file/d/1wd49i3LZfZdBGTgKmgDdHUlMv_Fmf9Ug/view',
@@ -39,6 +42,7 @@ export const certifications: { title: string; issuer: string; date: string; url:
   },
   {
     title: 'Python sin fronteras: HTML, CSS, Flask y MySQL',
+    featured: true,
     issuer: 'Udemy',
     date: '2022-09',
     url: 'https://www.udemy.com/certificate/UC-5b7e67b2-db58-44a7-8f52-8619d7f867e3/',

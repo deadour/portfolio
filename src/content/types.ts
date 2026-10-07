@@ -22,6 +22,8 @@ export type ProjectText = {
   highlights: string[]
   // Short label shown on cards that are not finished yet.
   status?: string
+  // Short factual tag shown as a pill, e.g. that a system runs in production.
+  badge?: string
   pipeline?: Pipeline
   images?: Figure[]
   // Short note under the images, e.g. that the data is fictional.
@@ -57,6 +59,10 @@ export type Content = {
     lightbox: { close: string; previous: string; next: string }
     // {n} is replaced by the number of hidden items.
     showMore: string
+    featured: string
+    academic: string
+    // {n} is replaced by the number of photos.
+    viewPhotos: string
   }
   hero: { title: string; tagline: string; viewWork: string; downloadCv: string }
   // What I'm working on right now. The month shown next to it is always the current one.

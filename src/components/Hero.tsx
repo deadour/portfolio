@@ -17,14 +17,14 @@ export default function Hero() {
   const currentMonth = month.charAt(0).toUpperCase() + month.slice(1).replace(' de ', ' ')
 
   return (
-    <section aria-labelledby="hero-title" className="pt-12 pb-20 sm:pt-20 sm:pb-28">
+    <section aria-labelledby="hero-title" className="pt-10 pb-16 sm:pt-16 sm:pb-20">
       <img
         src={site.portrait}
         alt={c.ui.portraitAlt}
-        width={96}
-        height={96}
+        width={128}
+        height={128}
         style={step(0)}
-        className="enter size-20 rounded-full object-cover ring-1 ring-line sm:size-24"
+        className="enter size-24 rounded-full object-cover ring-1 ring-line sm:size-32"
       />
       <h1
         id="hero-title"

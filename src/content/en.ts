@@ -4,7 +4,7 @@ export const en: Content = {
   meta: {
     title: 'Eduardo M. Ramírez — Data Engineer',
     description:
-      'Eduardo M. Ramírez — IT Lead & Data Engineer at an industrial machinery company and final-year Information Systems Engineering student. Data pipelines, warehouses and the software around them.',
+      'Eduardo M. Ramírez — Data Engineer and IT Lead at an industrial machinery company, and final-year Information Systems Engineering student at UTN. Data pipelines, warehouses and the software around them.',
   },
   ui: {
     skip: 'Skip to content',
@@ -18,9 +18,12 @@ export const en: Content = {
     howItsBuilt: 'How it’s built',
     lightbox: { close: 'Close', previous: 'Previous image', next: 'Next image' },
     showMore: 'Show {n} more',
+    featured: 'Featured project',
+    academic: 'Academic projects · CESI France',
+    viewPhotos: 'View photos ({n})',
   },
   hero: {
-    title: 'Data Engineer & Systems Engineer',
+    title: 'Data Engineer · Systems Engineering',
     tagline:
       'IT Lead & Data Engineer at an industrial machinery company, and final-year Information Systems Engineering student at UTN. I build data pipelines, warehouses and the software around them.',
     viewWork: 'View my work',
@@ -41,8 +44,8 @@ export const en: Content = {
     contact: 'Contact',
   },
   about: [
-    'At BIAMAQ I lead IT and Systems end to end: infrastructure, data and software for a company with 3 branches. I’m in the final year of Information Systems Engineering at UTN, and spent the spring 2026 semester at CESI École d’Ingénieurs in France on an ARFITEC scholarship.',
-    'I’m now focusing my career on Data Engineering. In my own projects I care most about what makes data reliable: incremental loads, data quality checks, tests, and documenting the decisions behind each layer.',
+    'I work at the intersection of data and software. At BIAMAQ, I moved from solving operational needs to building the systems, integrations and data pipelines the company relies on every day.',
+    'My current focus is Data Engineering: reproducible pipelines, reliable data and platforms that can be maintained over time. In 2026, I complemented that experience with an academic semester at CESI École d’Ingénieurs in France.',
   ],
   projects: {
     lastfm: {
@@ -71,6 +74,7 @@ export const en: Content = {
     reports: {
       title: 'BIAMAQ Reports',
       kind: 'Work project · BIAMAQ · Business Intelligence',
+      badge: 'Internal production system',
       summary:
         'Internal reporting platform where BIAMAQ’s management follows sales, purchases, receivables, customers and workshop activity across its 3 branches. It runs on top of the extractors and data warehouse I built from the company’s SQL Server ERP.',
       highlights: [
@@ -89,9 +93,9 @@ export const en: Content = {
     },
     rentos: {
       title: 'RENT-OS',
-      kind: 'Work project · BIAMAQ · Full-stack SaaS',
+      kind: 'Work project · BIAMAQ · Full-stack platform',
       summary:
-        'Equipment rental platform built for BIAMAQ’s re-engineering of its Rental module, designed as a multi-tenant, multi-branch SaaS. It covers the full rental cycle: booking wizard, signed contract, technical delivery, return, billable-days close and workshop.',
+        'Equipment rental platform built for BIAMAQ’s re-engineering of its Rental module, built as a multi-company, multi-branch platform. It covers the full rental cycle: booking wizard, signed contract, technical delivery, return, billable-days close and workshop.',
       highlights: [
         'Django REST Framework backend with a hexagonal architecture, on PostgreSQL or SQL Server.',
         'PDF contracts signed on a Wacom tablet, and multi-company electronic invoicing with ARCA (Argentina’s tax authority).',
@@ -136,7 +140,7 @@ export const en: Content = {
       title: 'Diabetes Prediction with Deep Learning',
       kind: 'Academic project · CESI France · Team of 4',
       summary:
-        'End-to-end machine learning pipeline to predict diabetes from tabular health data with a heavily imbalanced dataset. Our 84%-accurate baseline missed almost every diabetic patient, so we optimized for clinical safety instead: far fewer false negatives.',
+        'End-to-end machine learning pipeline to predict diabetes from a tabular health dataset with heavy class imbalance. The 84%-accurate baseline missed almost every positive case, so we focused on reducing false negatives instead of chasing accuracy.',
       highlights: [
         'EDA and preprocessing, Keras and custom NumPy baselines, and a tuned PyTorch model.',
         'Oversampling and decision-threshold optimization to reduce false negatives.',

@@ -6,11 +6,14 @@ export const projects: {
   // 'phone' (default): narrow screenshots in a row of 4. 'wide': desktop screenshots in a 2×2 grid.
   // 'photo': mixed-size photos cropped to the same 4:5 frame.
   gallery?: 'phone' | 'wide' | 'photo'
+  // 'featured': the main case study. 'secondary': compact cards in the academic subsection.
+  tier?: 'featured' | 'secondary'
   stack: string[]
   links: { kind: LinkKind; href: string }[]
 }[] = [
   {
     id: 'lastfm',
+    tier: 'featured',
     stack: ['Python', 'Parquet', 'Last.fm API', 'MusicBrainz', 'Streamlit', 'pytest'],
     links: [
       { kind: 'repository', href: 'https://github.com/deadour/lastfm-data-platform' },
@@ -35,6 +38,12 @@ export const projects: {
     links: [],
   },
   {
+    // TODO: add stack and a { kind: 'live', href } link once it's deployed.
+    id: 'ecommerce',
+    stack: [],
+    links: [],
+  },
+  {
     id: 'dynamo',
     stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
     links: [
@@ -48,6 +57,7 @@ export const projects: {
   },
   {
     id: 'cesiDl',
+    tier: 'secondary',
     gallery: 'wide',
     stack: ['Python', 'PyTorch', 'Keras', 'NumPy', 'SHAP', 'LIME', 'FastAPI'],
     links: [
@@ -59,6 +69,7 @@ export const projects: {
   },
   {
     id: 'cesiIot',
+    tier: 'secondary',
     gallery: 'photo',
     stack: ['ESP32', 'ESPHome', 'Home Assistant', 'InfluxDB', 'Grafana'],
     links: [
@@ -67,11 +78,5 @@ export const projects: {
         href: 'https://www.linkedin.com/posts/eduramirez645_iot-esp32-homeassistant-ugcPost-7435821903157719040-VhMi/',
       },
     ],
-  },
-  {
-    // TODO: add stack and a { kind: 'live', href } link once it's deployed.
-    id: 'ecommerce',
-    stack: [],
-    links: [],
   },
 ]
