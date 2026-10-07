@@ -24,10 +24,24 @@ import spinningTop from '../../assets/hero-sketches/spinning-top.webp'
 import sqlCode from '../../assets/hero-sketches/sql-code.webp'
 import vinyl from '../../assets/hero-sketches/vinyl.webp'
 import waves from '../../assets/hero-sketches/waves.webp'
+import books from '../../assets/hero-sketches/books.webp'
+import cathedral from '../../assets/hero-sketches/cathedral.webp'
+import cliffs from '../../assets/hero-sketches/cliffs.webp'
+import dataPipeline from '../../assets/hero-sketches/data-pipeline.webp'
+import david from '../../assets/hero-sketches/david.webp'
+import globe from '../../assets/hero-sketches/globe.webp'
+import montSaintMichel from '../../assets/hero-sketches/mont-saint-michel.webp'
+import obelisco from '../../assets/hero-sketches/obelisco.webp'
+import column from '../../assets/hero-sketches/column.webp'
+import temple from '../../assets/hero-sketches/temple.webp'
+import player from '../../assets/hero-sketches/player.webp'
+import sun from '../../assets/hero-sketches/sun.webp'
+import symbol from '../../assets/hero-sketches/symbol.webp'
+import wave from '../../assets/hero-sketches/wave.webp'
 
 // Each drawing was cut on its own from the master sheet. `w`/`h` are the file's pixel size,
 // `size` is the display width in rem before the random scale.
-type Asset = { src: string; w: number; h: number; size: number }
+type Asset = { src: string; w: number; h: number; size: number; dense?: boolean }
 
 const MAP: Asset = { src: argentina, w: 226, h: 245, size: 7 }
 
@@ -55,6 +69,21 @@ const POOL: Asset[] = [
   { src: pythonCode, w: 275, h: 199, size: 9 },
   { src: sqlCode, w: 345, h: 211, size: 10 },
   { src: sigmoid, w: 340, h: 209, size: 10 },
+  // Second sheet: denser hatching, so they're drawn a little fainter.
+  { src: books, w: 368, h: 235, size: 8, dense: true },
+  { src: cathedral, w: 330, h: 380, size: 7, dense: true },
+  { src: cliffs, w: 435, h: 245, size: 10, dense: true },
+  { src: dataPipeline, w: 494, h: 175, size: 11, dense: true },
+  { src: david, w: 302, h: 288, size: 7, dense: true },
+  { src: globe, w: 370, h: 325, size: 7.5, dense: true },
+  { src: montSaintMichel, w: 425, h: 278, size: 9.5, dense: true },
+  { src: obelisco, w: 269, h: 365, size: 6, dense: true },
+  { src: column, w: 156, h: 230, size: 4.5, dense: true },
+  { src: temple, w: 333, h: 230, size: 8, dense: true },
+  { src: player, w: 391, h: 355, size: 8, dense: true },
+  { src: sun, w: 280, h: 302, size: 6.5, dense: true },
+  { src: symbol, w: 262, h: 284, size: 5.5, dense: true },
+  { src: wave, w: 280, h: 240, size: 7, dense: true },
 ]
 
 const ANIMATIONS = ['float', 'drift-slow', 'rotate-slow']
@@ -108,7 +137,7 @@ function layout(W: number, H: number): Placed[] {
         y: r.y,
         w,
         // Behind the photo and text they stay fainter so the copy reads first.
-        opacity: inColumn(r) ? 0.05 + Math.random() * 0.03 : 0.09 + Math.random() * 0.06,
+        opacity: (inColumn(r) ? 0.05 + Math.random() * 0.03 : 0.09 + Math.random() * 0.06) * (asset.dense ? 0.8 : 1),
         animation: ANIMATIONS[Math.floor(Math.random() * ANIMATIONS.length)],
         duration: 9 + Math.random() * 9,
       })

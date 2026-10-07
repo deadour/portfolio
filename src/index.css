@@ -156,6 +156,41 @@
   filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
 }
 
+/* Sketches along the page: fade in the first time they scroll into view. */
+.page-sketch {
+  opacity: 0;
+}
+.page-sketch[data-visible] {
+  opacity: calc(var(--o) * var(--sketch-boost, 1));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .page-sketch {
+    transition: opacity 900ms ease;
+  }
+}
+
+/* Pinned header: a full-width, blurred backdrop that fades out downward, shown after scrolling. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: -1.25rem;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 92%, transparent) 55%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.site-header[data-scrolled]::before {
+  opacity: 1;
+}
+
 /* Optional mask for the whole sketch container so they fade out at the bottom */
 .hero-sketch-mask {
   mask-image: linear-gradient(to bottom, #000 65%, transparent);

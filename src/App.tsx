@@ -11,14 +11,16 @@ import { useLang } from './i18n'
 import LinkIcon from './components/LinkIcon'
 import HeroSketches from './components/hero/Sketches'
 import DustCanvas from './components/hero/DustCanvas'
+import PageSketches from './components/hero/PageSketches'
 
 export default function App() {
   const { c } = useLang()
 
   return (
-    <div className="relative isolate">
+    <div className="relative isolate overflow-x-clip">
       {/* Decorative backdrop behind the header and hero: accent glow + doodle canvas (see index.css). */}
       <DustCanvas />
+      <PageSketches />
       <div aria-hidden="true" className="hero-backdrop">
         <HeroSketches className="hero-canvas" />
       </div>
