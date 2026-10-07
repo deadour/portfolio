@@ -5,7 +5,10 @@ import { getSketchState, subscribeSketches } from './pageSlots'
 
 const ANIMATIONS = ['float', 'drift-slow', 'rotate-slow']
 
-type Placed = { src: string; x: number; y: number; w: number; opacity: number; animation: string; duration: number }
+type Placed = { src: string; x: number; y: number; w: number; opacity: number; animation: string; duration: number; home?: boolean }
+
+// Where Resistencia, Chaco sits on the map drawing, as a fraction of its width and height.
+const HOME = { x: 0.557, y: 0.237 }
 type Rect = { x: number; y: number; w: number; h: number }
 
 const GAP = 24
@@ -36,7 +39,7 @@ function layout(W: number, H: number, picks: Set<string>): Placed[] {
   const mapH = (mapW * MAP.h) / MAP.w
   const mapRect = { x: W - mapW - Math.max(16, W * 0.06), y: H * (mobile ? 0.08 : 0.16), w: mapW, h: mapH }
   const placed: Placed[] = [
-    { src: MAP.src, x: mapRect.x, y: mapRect.y, w: mapW, opacity: 0.13, animation: '', duration: 0 },
+    { src: MAP.src, x: mapRect.x, y: mapRect.y, w: mapW, opacity: 0.13, animation: '', duration: 0, home: true },
   ]
   const taken: Rect[] = [mapRect]
 
@@ -120,6 +123,12 @@ export default function HeroSketches({ className = '' }: { className?: string })
             style={{ left: s.x, top: s.y, width: s.w, '--d': `${s.duration}s` } as CSSProperties}
           >
             <img src={s.src} alt="" decoding="async" className="block w-full hero-sketch" style={{ opacity: `calc(${s.opacity.toFixed(3)} * var(--sketch-boost, 1))` }} />
+            {s.home && (
+              <span
+                className="hero-home absolute size-1.5 -translate-1/2 rounded-full bg-accent"
+                style={{ left: `${HOME.x * 100}%`, top: `${HOME.y * 100}%` }}
+              />
+            )}
           </div>
         ))}
       </div>

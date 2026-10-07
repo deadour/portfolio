@@ -6,6 +6,8 @@ export const site = {
   github: 'https://github.com/deadour',
   linkedin: 'https://www.linkedin.com/in/eduramirez645/',
   email: 'edu.ramirez645@gmail.com',
+  // Shown under the title in the hero and marked on the hero map. Same in both languages.
+  location: 'Resistencia, Chaco, Argentina',
   portrait: '/images/portrait.webp',
   // PDF paths under public/, e.g. 'cv/eduardo-ramirez-en.pdf'. The button is hidden while empty.
   cv: { en: '/cv/eduardo-ramirez-cv-en.pdf', es: '/cv/eduardo-ramirez-cv-es.pdf' },

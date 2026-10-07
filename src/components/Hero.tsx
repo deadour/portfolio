@@ -36,6 +36,22 @@ export default function Hero() {
       <p style={step(2)} className="enter mt-3 text-lg text-muted sm:text-xl">
         {c.hero.title}
       </p>
+      <p style={step(2)} className="enter mt-2 flex items-center gap-1.5 text-sm text-muted">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="size-4 shrink-0 text-accent"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z" />
+          <circle cx="12" cy="10" r="2.3" />
+        </svg>
+        {site.location}
+      </p>
       <p style={step(3)} className="enter mt-8 max-w-xl leading-relaxed">
         {c.hero.tagline}
       </p>
