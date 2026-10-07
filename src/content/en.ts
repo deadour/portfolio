@@ -13,7 +13,7 @@ export const en: Content = {
     themeToDark: 'Switch to dark theme',
     themeToLight: 'Switch to light theme',
     shuffle: 'Shuffle the background sketches',
-    links: { repository: 'Repository', walkthrough: 'Technical walkthrough', live: 'Live site', post: 'LinkedIn post' },
+    links: { repository: 'Repository', backend: 'Backend repository', frontend: 'Frontend repository', walkthrough: 'Technical walkthrough', live: 'Live site', post: 'LinkedIn post' },
     portraitAlt: 'Portrait of Eduardo M. Ramírez',
     credential: 'Credential',
     howItsBuilt: 'How it’s built',
@@ -138,6 +138,19 @@ export const en: Content = {
         { src: '/images/dynamo-progress.webp', alt: 'Progress screen with best weight, estimated 1RM and a per-session chart' },
         { src: '/images/dynamo-workout.webp', alt: 'Workout in progress with duration, sets, volume and exercise list' },
         { src: '/images/dynamo-profile.webp', alt: 'Profile with a yearly training heatmap and saved routines' },
+      ],
+    },
+    chedul: {
+      title: 'Chedul',
+      kind: 'Personal project · Full-stack web app',
+      summary:
+        'Web app for Information Systems Engineering students at UTN that keeps the whole degree in one place: academic status subject by subject, a prerequisites map showing what you can take next, a calendar with classes and exams, shared notes and professors’ emails. I rebuilt it from my original Django app.',
+      highlights: [
+        'Migrated the original Django app to a Go REST API (handlers, repositories and domain layers) and a new React + TypeScript SPA.',
+        'Modeled the full curriculum in PostgreSQL: 51 subjects, 109 prerequisites and 68 class groups with schedules, with versioned migrations.',
+        'JWT login in a cookie, accent-insensitive subject search, light and dark themes and a mobile-first design.',
+        'Integration tests with Testcontainers against a real Postgres, and CI on GitHub Actions.',
+        'API in Docker on Google Cloud Run, database on Neon and frontend on Vercel, redeployed automatically on every push to main.',
       ],
     },
     ecommerce: {
