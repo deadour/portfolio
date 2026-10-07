@@ -14,7 +14,7 @@ const INFO: Partial<Record<keyof typeof SKETCHES | keyof typeof PORTRAITS | 'map
     song: { title: 'Golden Brown (slowed)', artist: 'The Stranglers', url: yt('BTnM71u_v2I') },
   },
   astronaut: { en: 'Astronaut helmet (2001: A Space Odyssey)', es: 'Casco de astronauta (2001: Odisea del espacio)' },
-  spinningTop: { en: 'Spinning top (Inception)', es: 'Trompo (El origen)' },
+  spinningTop: { en: 'Spinning top (Inception)', es: 'Trompo (Inception)' },
   waves: { en: 'Unknown Pleasures (Joy Division)', es: 'Unknown Pleasures (Joy Division)' },
   esp32: { en: 'ESP32', es: 'ESP32' },
   sigmoid: { en: 'Sigmoid function', es: 'Función sigmoide' },
