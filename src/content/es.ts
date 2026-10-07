@@ -144,8 +144,9 @@ export const es: Content = {
       title: 'Chedul',
       kind: 'Proyecto en equipo · UTN · Equipo de 3 · Full-stack',
       summary:
-        'App web para estudiantes de Ingeniería en Sistemas de la UTN que organiza toda la carrera en un solo lugar: estado académico materia por materia, mapa de correlativas con lo que podés cursar, calendario con clases y parciales, apuntes compartidos y mails de profesores. Lo arrancamos en equipo con Lautaro Acosta y Tobías en la UTN. Yo hice la app original en Django y después lideré la migración a Go + React, el plan de estudios, el deploy y el diseño.',
+        'App web para estudiantes de Ingeniería en Sistemas de la UTN que organiza toda la carrera en un solo lugar: estado académico, mapa de correlativas, calendario con clases y parciales, apuntes compartidos y mails de profesores.',
       highlights: [
+        'Proyecto en equipo con Lautaro Acosta y Tobías Stegmayer. Hice la app original en Django y lideré la migración a Go + React, el deploy y el diseño.',
         'API REST en Go (capas de handlers, repositorios y dominio) y una SPA nueva en React + TypeScript, que reemplazan a la app original en Django.',
         'Plan de estudios completo en PostgreSQL: 51 materias, 109 correlativas y 68 comisiones con horarios, con migraciones versionadas.',
         'Login con JWT en cookie, buscador de materias que ignora tildes, tema claro y oscuro y diseño mobile-first.',
