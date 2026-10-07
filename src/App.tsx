@@ -8,11 +8,15 @@ import Tech from './components/Tech'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { useLang } from './i18n'
+import LinkIcon from './components/LinkIcon'
 
 export default function App() {
   const { c } = useLang()
 
   return (
+    <div className="relative isolate">
+      {/* Decorative backdrop behind the header and hero (see .hero-backdrop in index.css). */}
+      <div aria-hidden="true" className="hero-backdrop" />
     <div id="top" className="mx-auto max-w-[52rem] px-5 sm:px-8">
       <a
         href="#main"
@@ -29,11 +33,17 @@ export default function App() {
         <Timeline id="education" title={c.sections.education} entries={c.education}>
           <div className="mt-12">
             <h3 className="text-sm text-muted">{c.sections.languages}</h3>
-            <ul className="mt-3 space-y-1.5">
+            <ul className="mt-3 flex flex-wrap gap-2">
               {c.languages.map((item) => (
-                <li key={item.name}>
-                  <span className="text-fg">{item.name}</span>
-                  <span className="text-muted"> — {item.level}</span>
+                <li
+                  key={item.name}
+                  className="flex items-center gap-2.5 rounded-md border border-line bg-surface px-3 py-2 text-sm text-fg"
+                >
+                  <LinkIcon name="language" className="size-4 text-accent" />
+                  {item.name}
+                  <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2 py-0.5 text-xs font-medium text-accent">
+                    {item.level}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -44,6 +54,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+    </div>
     </div>
   )
 }

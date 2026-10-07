@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
 
-// Native <details> styled as a small text toggle with a rotating chevron.
+// Native <details> styled as a small outlined button with a rotating chevron.
 export default function Disclosure({ label, children }: { label: string; children: ReactNode }) {
   return (
     <details className="disclosure group/d mt-4">
-      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm text-muted select-none hover:text-fg [&::-webkit-details-marker]:hidden">
+      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md border border-line bg-bg px-3 py-1.5 text-sm font-medium text-accent transition-colors select-none hover:border-accent group-open/d:border-accent [&::-webkit-details-marker]:hidden">
         {label}
         <svg
           viewBox="0 0 16 16"

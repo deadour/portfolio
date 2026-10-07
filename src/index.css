@@ -40,10 +40,10 @@
 @layer base {
   html {
     background-color: var(--bg);
+    background-image: var(--grain);
   }
 
   body {
-    background-color: var(--bg);
     color: var(--body);
     -webkit-font-smoothing: antialiased;
   }
@@ -74,6 +74,38 @@
       scroll-behavior: smooth;
     }
   }
+}
+
+/* ---------- Backgrounds ---------- */
+
+/* Very light paper grain over the whole page so the background isn't a flat color.
+   It lives on <html>; <body> stays transparent so the grain shows through. */
+:root {
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root[data-theme='dark'] {
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Top of the page: a dot grid that fades out, plus a soft accent glow behind the hero. */
+.hero-backdrop {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 46rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38rem 26rem at 22% 18%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(30rem 22rem at 85% 5%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%);
+}
+.hero-backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--fg) 22%, transparent) 1px, transparent 0);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 75% 70% at 30% 0%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 30% 0%, #000 20%, transparent 75%);
 }
 
 /* ---------- Pipeline diagram ---------- */

@@ -165,6 +165,7 @@ export const es: Content = {
   experience: [
     {
       title: 'BIAMAQ',
+      href: 'https://biamaq.com.ar',
       meta: ['IT Lead & Data Engineer', 'Jornada completa · Remoto, Argentina'],
       period: 'Nov. 2023 — Actualidad',
       description:
@@ -179,18 +180,20 @@ export const es: Content = {
   education: [
     {
       title: 'Universidad Tecnológica Nacional — FRRe',
+      href: 'https://www.frre.utn.edu.ar',
       meta: ['Ingeniería en Sistemas de Información'],
       period: 'Último año en curso',
     },
     {
       title: 'CESI École d’Ingénieurs — Rouen, Francia',
+      href: 'https://rouen.cesi.fr',
       meta: ['Intercambio académico · Beca ARFITEC'],
       period: 'Primer semestre 2026',
       description:
         'Un semestre del Máster en Data Science, con cursada en data science, IA, IoT y desarrollo web, y proyectos de ingeniería en equipos multidisciplinarios.',
       images: [
         { src: '/images/cesi.webp', alt: 'Eduardo frente al cartel de CESI École d’Ingénieurs', caption: 'CESI Rouen, 2026' },
-        { src: '/images/cesi-presenting.webp', alt: 'Eduardo presentando un proyecto en equipo en un auditorio de CESI', caption: 'Presentando un proyecto en equipo' },
+        { src: '/images/cesi-presenting.webp', alt: 'Eduardo presentando un proyecto en equipo en un auditorio de CESI', caption: 'Presentando un proyecto' },
         { src: '/images/cesi-team.webp', alt: 'Eduardo trabajando con su equipo de proyecto alrededor de una mesa con notebooks', caption: 'Trabajando con mi equipo' },
       ],
     },

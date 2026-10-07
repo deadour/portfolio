@@ -1,9 +1,10 @@
 import type { CSSProperties } from 'react'
 import { site } from '../data/site'
 import { useLang } from '../i18n'
+import LinkIcon from './LinkIcon'
 
 const secondary =
-  'inline-flex items-center rounded-md border border-line px-4 py-2 text-sm font-medium text-fg hover:border-muted'
+  'inline-flex items-center gap-2 rounded-md border border-line bg-surface px-4 py-2 text-sm font-medium text-fg hover:border-muted'
 
 // Staggered entrance order for each block (see .enter in index.css).
 const step = (i: number) => ({ '--i': i }) as CSSProperties
@@ -56,15 +57,18 @@ export default function Hero() {
           </span>
         </a>
         <a href={site.github} target="_blank" rel="noreferrer" className={secondary}>
+          <LinkIcon name="github" />
           GitHub
         </a>
         {site.linkedin && (
           <a href={site.linkedin} target="_blank" rel="noreferrer" className={secondary}>
+            <LinkIcon name="linkedin" />
             LinkedIn
           </a>
         )}
         {cv && (
           <a href={cv} download className={secondary}>
+            <LinkIcon name="download" />
             {c.hero.downloadCv}
           </a>
         )}
