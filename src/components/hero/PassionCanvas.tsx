@@ -1,53 +1,72 @@
 import { useEffect, useRef } from 'react'
-import { ARGENTINA, ICONS, type Art } from './art'
+import rough from 'roughjs'
+import { SKETCHES, type Sketch } from './sketches'
+import { ARGENTINA } from './argentina'
 
 /*
- * "Lienzo de pasiones": line illustrations drifting slowly behind the hero, plus faint dust particles.
+ * "Lienzo de pasiones": hand-drawn sketches drifting slowly behind the hero, plus faint dust.
  *
- * Performance strategy:
- * - One <canvas>, no DOM nodes per element and no React re-renders while animating (all state lives in refs).
- * - Every illustration is rasterized once into an offscreen sprite; each frame only does drawImage + a few arcs.
- * - Device pixel ratio capped at 2, element counts scale with the hero area (fewer on phones).
- * - The loop pauses when the hero is off-screen (IntersectionObserver) or the tab is hidden.
- * - prefers-reduced-motion: the drift is so slow it keeps running, at half speed and without pointer effects.
+ * - Sketches are drawn once with rough.js (low roughness: hand-drawn but tidy) into offscreen sprites;
+ *   each frame only does drawImage + a few arcs. One <canvas>, no DOM nodes, no React re-renders.
+ * - Random positions on every visit; the sketches drift and gently bounce off each other
+ *   (and off the map) instead of overlapping. The map of Argentina stays fixed.
+ * - Device pixel ratio capped at 2; counts scale with the hero area (fewer on phones).
+ * - Pauses when the hero is off-screen or the tab is hidden.
+ * - prefers-reduced-motion: the drift is slow enough to keep, at half speed and without pointer effects.
  */
 
-type Sprite = { image: CanvasImageSource; w: number; h: number }
+type Sprite = { canvas: HTMLCanvasElement; w: number; h: number }
 type Item = {
   sprite: Sprite
   x: number
   y: number
-  vx: number // px per ms: a slow, steady drift across the hero
+  vx: number // px per ms
   vy: number
+  speed: number
+  r: number // collision radius
   rot: number
-  spin: number
-  depth: number // 0.35 (far) … 1 (near): drives alpha, speed and parallax
+  depth: number // 0.35 (far) … 1 (near): drives alpha and parallax
   alpha: number
   phase: number
 }
 type Particle = { x: number; y: number; r: number; depth: number; vx: number; vy: number; phase: number }
 
-// Small deterministic RNG so the layout is the same on every visit.
-function rng(seed: number) {
-  return () => {
-    seed |= 0
-    seed = (seed + 0x6d2b79f5) | 0
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
+const STROKE = 0.85 // CSS px: thin, so the drawings stay in the background
+
+function sketchSprite(sketch: Sketch, size: number, dpr: number, ink: string, seed: number): Sprite {
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = Math.ceil(size * dpr)
+  const ctx = canvas.getContext('2d')!
+  const k = (size * dpr) / 100
+  ctx.scale(k, k)
+  const rc = rough.canvas(canvas)
+  for (const d of sketch.d)
+    rc.path(d, {
+      stroke: ink,
+      strokeWidth: (STROKE * dpr) / k,
+      roughness: 0.7,
+      bowing: 0.6,
+      maxRandomnessOffset: 1.2,
+      disableMultiStroke: true,
+      seed,
+    })
+  return { canvas, w: size, h: size }
 }
 
-// Rasterizes an SVG illustration in the given color at the given CSS width.
-function makeSprite(art: Art, width: number, dpr: number, ink: string): Promise<Sprite> {
-  const height = (width * art.h) / art.w
-  const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${art.w} ${art.h}" ` +
-    `width="${Math.round(width * dpr)}" height="${Math.round(height * dpr)}" color="${ink}">${art.body}</svg>`
-  const image = new Image()
-  image.decoding = 'async'
-  image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg)
-  return image.decode().then(() => ({ image, w: width, h: height }))
+// The map is drawn with a plain, precise stroke so the borders stay accurate.
+function mapSprite(height: number, dpr: number, ink: string): Sprite {
+  const width = (height * ARGENTINA.w) / ARGENTINA.h
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.ceil(width * dpr)
+  canvas.height = Math.ceil(height * dpr)
+  const ctx = canvas.getContext('2d')!
+  const k = (height * dpr) / ARGENTINA.h
+  ctx.scale(k, k)
+  ctx.strokeStyle = ink
+  ctx.lineWidth = (0.75 * dpr) / k
+  ctx.lineJoin = 'round'
+  for (const d of ARGENTINA.d) ctx.stroke(new Path2D(d))
+  return { canvas, w: width, h: height }
 }
 
 export default function PassionCanvas({ className = '' }: { className?: string }) {
@@ -66,93 +85,72 @@ export default function PassionCanvas({ className = '' }: { className?: string }
     let W = 0
     let H = 0
     let items: Item[] = []
+    let map: { sprite: Sprite; x: number; y: number; r: number } | null = null
     let particles: Particle[] = []
     let raf = 0
     let visible = true
     let last = performance.now()
     let time = 0
-    let generation = 0 // ignores sprite batches from an outdated build
     // Drawings use the theme's text color, so they work on light and dark backgrounds.
     let ink = '#fff'
     const pointer = { x: -9999, y: -9999, inside: false }
     const parallax = { x: 0, y: 0, tx: 0, ty: 0 }
 
-    async function build() {
-      const gen = ++generation
+    function build() {
       const rect = canvas!.getBoundingClientRect()
       W = rect.width
       H = rect.height
       canvas!.width = Math.round(W * dpr)
       canvas!.height = Math.round(H * dpr)
       ink = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim() || '#fff'
+      const rand = Math.random
 
-      const rand = rng(2026)
-      const icons = [...ICONS].sort(() => rand() - 0.5)
-      const count = Math.min(icons.length, Math.max(10, Math.round((W * H) / 44000)))
-      const base = Math.max(40, Math.min(78, W / 17))
+      // Map of Argentina: fixed on the right, where there's no text.
+      const mapH = Math.min(H * 0.42, Math.max(150, W * 0.16))
+      const mapSpriteNow = mapSprite(mapH, dpr, ink)
+      map = {
+        sprite: mapSpriteNow,
+        x: W - Math.max(mapSpriteNow.w / 2 + 24, W * 0.12),
+        y: H * 0.42,
+        r: mapH * 0.42,
+      }
 
-      // Start positions on a jittered grid so nothing piles up; then everything drifts.
-      const cols = Math.max(3, Math.round(Math.sqrt((count * W) / H)))
-      const rows = Math.ceil(count / cols)
-      const cells = Array.from({ length: cols * rows }, (_, i) => i).sort(() => rand() - 0.5)
-      const cw = W / cols
-      const ch = H / rows
+      const pool = [...SKETCHES].sort(() => rand() - 0.5)
+      const count = Math.min(pool.length, Math.max(9, Math.round((W * H) / 48000)))
+      const base = Math.max(46, Math.min(80, W / 16))
 
-      const specs = icons.slice(0, count).map((art, i) => {
+      // Random start positions without overlaps (simple rejection sampling).
+      items = []
+      for (const sketch of pool.slice(0, count)) {
         const depth = 0.35 + rand() * 0.65
+        const size = base * (0.8 + depth * 0.4)
+        const r = size * 0.55
+        let x = 0
+        let y = 0
+        for (let tries = 0; tries < 40; tries++) {
+          x = r + rand() * (W - 2 * r)
+          y = r + rand() * (H - 2 * r)
+          const clear =
+            Math.hypot(x - map.x, y - map.y) > r + map.r &&
+            items.every((o) => Math.hypot(x - o.x, y - o.y) > r + o.r + 12)
+          if (clear) break
+        }
         const angle = rand() * Math.PI * 2
-        const speed = (0.004 + rand() * 0.006) * (0.5 + depth * 0.5) // ~4–10 px per second
-        const cell = cells[i]
-        return {
-          art,
-          size: base * (0.75 + depth * 0.5),
-          x: (cell % cols) * cw + cw / 2 + (rand() - 0.5) * cw * 0.6,
-          y: Math.floor(cell / cols) * ch + ch / 2 + (rand() - 0.5) * ch * 0.6,
+        const speed = 0.004 + rand() * 0.006 // ~4–10 px per second
+        items.push({
+          sprite: sketchSprite(sketch, size, dpr, ink, 1 + Math.floor(rand() * 1000)),
+          x,
+          y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          rot: (rand() - 0.5) * 0.4,
-          spin: (rand() - 0.5) * 0.00004,
+          speed,
+          r,
+          rot: (rand() - 0.5) * 0.35,
           depth,
-          alpha: 0.07 + depth * 0.07, // 7–14%
+          alpha: 0.06 + depth * 0.06, // 6–12%
           phase: rand() * Math.PI * 2,
-        }
-      })
-      // The map of Argentina: larger and almost still, on the right side where there's no text.
-      specs.push({
-        art: ARGENTINA,
-        size: Math.min(W * 0.22, base * (ARGENTINA.size ?? 3)),
-        x: W * (W < 640 ? 0.82 : 0.86),
-        y: H * 0.42,
-        vx: 0,
-        vy: 0,
-        rot: 0.04,
-        spin: 0,
-        depth: 0.9,
-        alpha: 0.13,
-        phase: 0,
-      })
-
-      const sprites = await Promise.all(specs.map((s) => makeSprite(s.art, s.size, dpr, ink).catch(() => null)))
-      if (gen !== generation) return // a newer build (resize / theme change) took over
-
-      items = specs.flatMap((s, i) => {
-        const sprite = sprites[i]
-        if (!sprite) return []
-        return [
-          {
-            sprite,
-            x: s.x,
-            y: s.y,
-            vx: s.vx,
-            vy: s.vy,
-            rot: s.rot,
-            spin: s.spin,
-            depth: s.depth,
-            alpha: s.alpha,
-            phase: s.phase,
-          },
-        ]
-      })
+        })
+      }
 
       const pCount = Math.max(28, Math.min(110, Math.round((W * H) / 13000)))
       particles = Array.from({ length: pCount }, () => ({
@@ -164,39 +162,92 @@ export default function PassionCanvas({ className = '' }: { className?: string }
         vy: -(0.003 + rand() * 0.008),
         phase: rand() * Math.PI * 2,
       }))
-      draw(0)
     }
 
-    // Items that drift off one edge come back from the opposite one.
-    function wrap(it: Item) {
-      const mx = it.sprite.w / 2 + 20
-      const my = it.sprite.h / 2 + 20
-      if (it.x < -mx) it.x = W + mx
-      else if (it.x > W + mx) it.x = -mx
-      if (it.y < -my) it.y = H + my
-      else if (it.y > H + my) it.y = -my
+    // Moves the sketches; they bounce off the edges, the map and each other instead of overlapping.
+    function step(dt: number) {
+      for (const it of items) {
+        it.x += it.vx * dt
+        it.y += it.vy * dt
+        if (it.x < it.r || it.x > W - it.r) {
+          it.vx = Math.abs(it.vx) * (it.x < it.r ? 1 : -1)
+          it.x = Math.min(Math.max(it.x, it.r), W - it.r)
+        }
+        if (it.y < it.r || it.y > H - it.r) {
+          it.vy = Math.abs(it.vy) * (it.y < it.r ? 1 : -1)
+          it.y = Math.min(Math.max(it.y, it.r), H - it.r)
+        }
+      }
+      const bodies = map ? [...items, { x: map.x, y: map.y, r: map.r, fixed: true }] : items
+      for (let i = 0; i < items.length; i++) {
+        const a = items[i]
+        for (let j = i + 1; j < bodies.length; j++) {
+          const b = bodies[j] as Item & { fixed?: boolean }
+          const dx = b.x - a.x
+          const dy = b.y - a.y
+          const dist = Math.hypot(dx, dy) || 0.001
+          const min = a.r + b.r
+          if (dist >= min) continue
+          const nx = dx / dist
+          const ny = dy / dist
+          const overlap = min - dist
+          if (b.fixed) {
+            a.x -= nx * overlap
+            a.y -= ny * overlap
+            const vn = a.vx * nx + a.vy * ny
+            if (vn > 0) {
+              a.vx -= 2 * vn * nx
+              a.vy -= 2 * vn * ny
+            }
+          } else {
+            a.x -= (nx * overlap) / 2
+            a.y -= (ny * overlap) / 2
+            b.x += (nx * overlap) / 2
+            b.y += (ny * overlap) / 2
+            // Swap the velocity components along the contact normal (equal masses).
+            const va = a.vx * nx + a.vy * ny
+            const vb = b.vx * nx + b.vy * ny
+            if (va - vb > 0) {
+              a.vx += (vb - va) * nx
+              a.vy += (vb - va) * ny
+              b.vx += (va - vb) * nx
+              b.vy += (va - vb) * ny
+            }
+          }
+        }
+      }
+      // Keep each sketch at its own calm speed after bounces.
+      for (const it of items) {
+        const v = Math.hypot(it.vx, it.vy) || 1
+        it.vx = (it.vx / v) * it.speed
+        it.vy = (it.vy / v) * it.speed
+      }
     }
 
     function draw(dt: number) {
       time += dt
+      step(dt)
       parallax.x += (parallax.tx - parallax.x) * Math.min(1, dt * 0.004)
       parallax.y += (parallax.ty - parallax.y) * Math.min(1, dt * 0.004)
 
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx!.clearRect(0, 0, W, H)
 
+      if (map) {
+        ctx!.globalAlpha = 0.12
+        const mx = map.x - parallax.x * 10
+        const my = map.y - parallax.y * 6
+        ctx!.drawImage(map.sprite.canvas, mx - map.sprite.w / 2, my - map.sprite.h / 2, map.sprite.w, map.sprite.h)
+      }
+
       for (const it of items) {
-        it.x += it.vx * dt
-        it.y += it.vy * dt
-        it.rot += it.spin * dt
-        wrap(it)
         const x = it.x - parallax.x * 22 * it.depth
-        const y = it.y - parallax.y * 14 * it.depth + Math.sin(time * 0.0004 + it.phase) * 3
+        const y = it.y - parallax.y * 14 * it.depth
         let alpha = it.alpha
         // A bit fainter while passing behind the text block.
         const dx = (x - W * 0.42) / (W * 0.3)
         const dy = (y - H * 0.5) / (H * 0.34)
-        if (dx * dx + dy * dy < 1) alpha *= 0.65
+        if (dx * dx + dy * dy < 1) alpha *= 0.6
         if (pointer.inside) {
           // A soft "flashlight": drawings near the cursor show up a little more.
           const d = Math.hypot(x - pointer.x, y - pointer.y)
@@ -205,8 +256,8 @@ export default function PassionCanvas({ className = '' }: { className?: string }
         ctx!.save()
         ctx!.globalAlpha = alpha
         ctx!.translate(x, y)
-        ctx!.rotate(it.rot)
-        ctx!.drawImage(it.sprite.image, -it.sprite.w / 2, -it.sprite.h / 2, it.sprite.w, it.sprite.h)
+        ctx!.rotate(it.rot + Math.sin(time * 0.0003 + it.phase) * 0.04)
+        ctx!.drawImage(it.sprite.canvas, -it.sprite.w / 2, -it.sprite.h / 2, it.sprite.w, it.sprite.h)
         ctx!.restore()
       }
 
@@ -282,6 +333,10 @@ export default function PassionCanvas({ className = '' }: { className?: string }
     }
     const onVisibility = () => (document.hidden ? stop() : start())
 
+    const rebuild = () => {
+      build()
+      draw(0)
+    }
     let resizeTimer = 0
     let lastWidth = Math.round(canvas.getBoundingClientRect().width)
     const resizeObserver = new ResizeObserver(([entry]) => {
@@ -290,7 +345,7 @@ export default function PassionCanvas({ className = '' }: { className?: string }
       if (width === lastWidth) return
       lastWidth = width
       window.clearTimeout(resizeTimer)
-      resizeTimer = window.setTimeout(build, 150)
+      resizeTimer = window.setTimeout(rebuild, 150)
     })
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting
@@ -298,9 +353,9 @@ export default function PassionCanvas({ className = '' }: { className?: string }
       else stop()
     })
     // Re-tint the sprites when the light/dark theme changes.
-    const themeObserver = new MutationObserver(() => build())
+    const themeObserver = new MutationObserver(rebuild)
 
-    build()
+    rebuild()
     resizeObserver.observe(canvas)
     io.observe(canvas)
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
@@ -312,7 +367,6 @@ export default function PassionCanvas({ className = '' }: { className?: string }
     start()
 
     return () => {
-      generation++
       stop()
       window.clearTimeout(resizeTimer)
       resizeObserver.disconnect()
