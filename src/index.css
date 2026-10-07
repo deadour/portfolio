@@ -99,6 +99,17 @@
   background: repeating-linear-gradient(180deg, var(--dash) 0 4px, transparent 4px 8px);
 }
 
+/* ---------- Tech logos ---------- */
+
+/* Brand color when requested; falls back to the text color where the brand hue lacks contrast. */
+.tech-icon[data-colored] {
+  color: var(--brand);
+}
+:root[data-theme='dark'] .tech-icon[data-colored][data-dark-unsafe],
+:root:not([data-theme='dark']) .tech-icon[data-colored][data-light-unsafe] {
+  color: var(--fg);
+}
+
 /* ---------- Now indicator ---------- */
 
 .now-dot {

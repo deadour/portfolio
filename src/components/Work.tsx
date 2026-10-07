@@ -1,6 +1,7 @@
 import Section from './Section'
 import Pipeline from './Pipeline'
 import Disclosure from './Disclosure'
+import TechIcon from './TechIcon'
 import { projects } from '../data/projects'
 import { useLang } from '../i18n'
 
@@ -79,9 +80,14 @@ function ProjectCard({ project }: { project: Project }) {
       )}
 
       {project.stack.length > 0 && (
-        <p className="mt-4 font-mono text-xs leading-relaxed text-muted">
-          {project.stack.join(' · ')}
-        </p>
+        <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted">
+          {project.stack.map((item) => (
+            <li key={item} className="flex items-center gap-1.5">
+              <TechIcon name={item} className="size-3.5" />
+              {item}
+            </li>
+          ))}
+        </ul>
       )}
 
       {project.links.length > 0 && (
