@@ -18,25 +18,38 @@ export default function Timeline({ id, title, entries, children }: Props) {
           const meta = entry.meta.filter(Boolean).join(' · ')
           return (
             <li key={entry.title}>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="font-medium text-fg">
-                  {entry.href ? (
-                    <a
-                      href={entry.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline decoration-line underline-offset-4 hover:decoration-accent"
-                    >
-                      {entry.title}
-                      <span aria-hidden="true" className="text-muted"> ↗</span>
-                    </a>
-                  ) : (
-                    entry.title
-                  )}
-                </h3>
-                {entry.period && <p className="text-sm text-muted">{entry.period}</p>}
+              <div className="flex items-start gap-3.5">
+                {entry.logo && (
+                  <img
+                    src={entry.logo}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="mt-0.5 size-10 shrink-0 rounded-lg border border-line object-cover"
+                  />
+                )}
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h3 className="font-medium text-fg">
+                      {entry.href ? (
+                        <a
+                          href={entry.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline decoration-line underline-offset-4 hover:decoration-accent"
+                        >
+                          {entry.title}
+                          <span aria-hidden="true" className="text-muted"> ↗</span>
+                        </a>
+                      ) : (
+                        entry.title
+                      )}
+                    </h3>
+                    {entry.period && <p className="text-sm text-muted">{entry.period}</p>}
+                  </div>
+                  {meta && <p className="mt-1 text-sm text-accent">{meta}</p>}
+                </div>
               </div>
-              {meta && <p className="mt-1 text-sm text-accent">{meta}</p>}
               {entry.description && (
                 <p className="mt-3 max-w-xl text-sm leading-relaxed">{entry.description}</p>
               )}

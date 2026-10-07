@@ -32,6 +32,8 @@ export type Entry = {
   title: string
   // Optional website for the title.
   href?: string
+  // Optional square logo shown next to the entry.
+  logo?: string
   // Role, institution, location… Each item is joined with " · ". Empty items are skipped.
   meta: string[]
   period: string

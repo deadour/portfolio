@@ -166,6 +166,7 @@ export const en: Content = {
     {
       title: 'BIAMAQ',
       href: 'https://biamaq.com.ar',
+      logo: '/images/logo-biamaq.webp',
       meta: ['IT Lead & Data Engineer', 'Full-time · Remote, Argentina'],
       period: 'Nov 2023 — Present',
       description:
@@ -181,12 +182,14 @@ export const en: Content = {
     {
       title: 'Universidad Tecnológica Nacional — FRRe',
       href: 'https://www.frre.utn.edu.ar',
+      logo: '/images/logo-utn.webp',
       meta: ['Information Systems Engineering'],
       period: 'Final year in progress',
     },
     {
       title: 'CESI École d’Ingénieurs — Rouen, France',
       href: 'https://rouen.cesi.fr',
+      logo: '/images/logo-cesi.webp',
       meta: ['Academic exchange · ARFITEC scholarship'],
       period: 'Spring semester 2026',
       description:
