@@ -11,7 +11,7 @@ const INFO: Partial<Record<keyof typeof SKETCHES | keyof typeof PORTRAITS | 'map
   eiffel: { en: 'Eiffel Tower, Paris', es: 'Torre Eiffel, París' },
   colosseum: { en: 'Colosseum, Rome', es: 'Coliseo, Roma' },
   helmet: {
-    song: { title: 'Golden Brown (slowed)', artist: 'The Stranglers', url: 'https://www.youtube.com/watch?v=lYZ4AvsX7-k&t=791s' },
+    song: { title: 'Golden Brown (slowed)', artist: 'The Stranglers', url: 'https://www.youtube.com/watch?v=lYZ4AvsX7-k' },
   },
   astronaut: { en: 'Astronaut helmet (2001: A Space Odyssey)', es: 'Casco de astronauta (2001: Odisea del espacio)' },
   spinningTop: { en: 'Spinning top (Inception)', es: 'Trompo (Inception)' },
