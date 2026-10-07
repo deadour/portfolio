@@ -139,9 +139,22 @@ export const es: Content = {
       title: 'Malaca',
       kind: 'Proyecto para cliente · E-commerce',
       summary:
-        'Plataforma de e-commerce desarrollada para un cliente real, actualmente en desarrollo. Voy a sumar el link y los detalles técnicos cuando esté publicada.',
-      highlights: [],
+        'Tienda online de una marca de blends de hierbas, desarrollada para un cliente real. Un catálogo mobile-first donde se compra o consulta por WhatsApp, más un panel de administración propio para gestionar la tienda.',
+      highlights: [
+        'Compra por WhatsApp: cada botón abre un mensaje armado con el producto, el precio y el enlace.',
+        'Panel de administración para productos, hasta 5 fotos por producto, precios, stock, destacados y categorías opcionales.',
+        'Productos, fotos y categorías se ordenan arrastrando.',
+        'Identidad botánica con ilustraciones SVG propias; diseño mobile-first.',
+        'API con Django REST Framework y PostgreSQL, imágenes en Cloudinary, deploy con Docker en Render.',
+      ],
       status: 'En desarrollo',
+      images: [
+        { src: '/images/malaca-home-thumb.webp', href: '/images/malaca-home.webp', alt: 'Inicio de Malaca con el hero de blends de hierbas' },
+        { src: '/images/malaca-catalog-thumb.webp', href: '/images/malaca-catalog.webp', alt: 'Catálogo de productos con filtro por categoría, búsqueda y orden' },
+        { src: '/images/malaca-product-thumb.webp', href: '/images/malaca-product.webp', alt: 'Detalle de producto con botones de compra y consulta por WhatsApp' },
+        { src: '/images/malaca-admin-thumb.webp', href: '/images/malaca-admin.webp', alt: 'Panel de administración con la lista de productos y manijas para reordenar' },
+      ],
+      imagesNote: 'Pantallas con datos de demostración. Clic para ampliar.',
     },
     cesiDl: {
       title: 'Predicción de diabetes con Deep Learning',

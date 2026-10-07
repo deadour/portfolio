@@ -25,6 +25,9 @@ import {
   siRedis,
   siStreamlit,
   siTailwindcss,
+  siVite,
+  siCloudinary,
+  siRender,
   siTypescript,
 } from 'simple-icons'
 
@@ -65,6 +68,9 @@ const BRAND: Record<string, Icon> = {
   InfluxDB: siInfluxdb,
   Grafana: siGrafana,
   'Tailwind CSS': siTailwindcss,
+  Vite: siVite,
+  Cloudinary: siCloudinary,
+  Render: siRender,
 }
 
 const GENERIC: Record<string, string> = {

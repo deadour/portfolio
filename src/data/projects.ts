@@ -41,7 +41,8 @@ export const projects: {
   {
     // TODO: add stack and a { kind: 'live', href } link once it's deployed.
     id: 'ecommerce',
-    stack: [],
+    gallery: 'wide',
+    stack: ['Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
     links: [],
   },
   {

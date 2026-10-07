@@ -139,9 +139,22 @@ export const en: Content = {
       title: 'Malaca',
       kind: 'Client project · E-commerce',
       summary:
-        'E-commerce platform built for a real client, currently in development. I’ll add the link and technical details once it’s live.',
-      highlights: [],
+        'Online store for a brand of herbal blends, built for a real client. A mobile-first catalog where customers buy or ask through WhatsApp, plus a custom admin panel to run the store.',
+      highlights: [
+        'WhatsApp checkout: each button opens a prefilled message with the product, price and link.',
+        'Admin panel for products, up to 5 photos per product, prices, stock, featured items and optional categories.',
+        'Products, photos and categories are reordered by drag and drop.',
+        'Botanical visual identity with custom SVG illustrations; mobile-first design.',
+        'Django REST Framework API with PostgreSQL, images on Cloudinary, deployed with Docker on Render.',
+      ],
       status: 'In development',
+      images: [
+        { src: '/images/malaca-home-thumb.webp', href: '/images/malaca-home.webp', alt: 'Malaca home page with the herbal blends hero' },
+        { src: '/images/malaca-catalog-thumb.webp', href: '/images/malaca-catalog.webp', alt: 'Product catalog with category filter, search and sorting' },
+        { src: '/images/malaca-product-thumb.webp', href: '/images/malaca-product.webp', alt: 'Product page with WhatsApp buy and inquiry buttons' },
+        { src: '/images/malaca-admin-thumb.webp', href: '/images/malaca-admin.webp', alt: 'Admin panel product list with drag handles to reorder' },
+      ],
+      imagesNote: 'Screens shown with demo data. Click to enlarge.',
     },
     cesiDl: {
       title: 'Diabetes Prediction with Deep Learning',
