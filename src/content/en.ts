@@ -89,11 +89,22 @@ export const en: Content = {
     },
     rentos: {
       title: 'RENT-OS',
-      kind: 'Work project · BIAMAQ',
+      kind: 'Work project · BIAMAQ · Full-stack SaaS',
       summary:
-        'Equipment rental platform for BIAMAQ, built as part of the re-engineering of the company’s Rental module. Django REST Framework API with a React frontend, deployed with Docker on Linux servers.',
-      highlights: [],
-      status: 'Screens coming soon',
+        'Equipment rental platform built for BIAMAQ’s re-engineering of its Rental module, designed as a multi-tenant, multi-branch SaaS. It covers the full rental cycle: booking wizard, signed contract, technical delivery, return, billable-days close and workshop.',
+      highlights: [
+        'Django REST Framework backend with a hexagonal architecture, on PostgreSQL or SQL Server.',
+        'PDF contracts signed on a Wacom tablet, and multi-company electronic invoicing with ARCA (Argentina’s tax authority).',
+        'Syncs with the company’s legacy SQL Server ERP, and also runs standalone without it.',
+        'React 19 frontend with Tailwind, Recharts and Framer Motion; Playwright end-to-end tests; Docker and CI with automatic deploys, migrations and smoke tests.',
+      ],
+      images: [
+        { src: '/images/rentos-login-thumb.webp', href: '/images/rentos-login.webp', alt: 'RENT-OS login screen' },
+        { src: '/images/rentos-inventory-thumb.webp', href: '/images/rentos-inventory.webp', alt: 'Inventory with stock by branch, daily price and availability' },
+        { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Five-step wizard to create a new rental' },
+        { src: '/images/rentos-workshop-thumb.webp', href: '/images/rentos-workshop.webp', alt: 'Workshop kanban board with incoming, in-repair and ready equipment' },
+      ],
+      imagesNote: 'Screens shown with sample data. Click to enlarge.',
     },
     dynamo: {
       title: 'Dynamo',

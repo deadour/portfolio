@@ -89,11 +89,22 @@ export const es: Content = {
     },
     rentos: {
       title: 'RENT-OS',
-      kind: 'Proyecto laboral · BIAMAQ',
+      kind: 'Proyecto laboral · BIAMAQ · SaaS full-stack',
       summary:
-        'Plataforma de alquiler de equipos para BIAMAQ, desarrollada como parte de la reingeniería del módulo de Alquiler de la empresa. API en Django REST Framework con frontend en React, desplegada con Docker en servidores Linux.',
-      highlights: [],
-      status: 'Pantallas próximamente',
+        'Plataforma de alquiler de equipos desarrollada para la reingeniería del módulo de Alquiler de BIAMAQ, diseñada como SaaS multiempresa y multisucursal. Cubre el ciclo completo del alquiler: wizard de reserva, contrato firmado, entrega técnica, devolución, cierre con días facturables y taller.',
+      highlights: [
+        'Backend en Django REST Framework con arquitectura hexagonal, sobre PostgreSQL o SQL Server.',
+        'Contratos en PDF firmados en tableta Wacom y facturación electrónica ARCA multiempresa.',
+        'Sincroniza con el ERP legacy de la empresa en SQL Server y también funciona de forma independiente.',
+        'Frontend en React 19 con Tailwind, Recharts y Framer Motion; tests end-to-end con Playwright; Docker y CI con deploy automático, migraciones y smoke tests.',
+      ],
+      images: [
+        { src: '/images/rentos-login-thumb.webp', href: '/images/rentos-login.webp', alt: 'Pantalla de inicio de sesión de RENT-OS' },
+        { src: '/images/rentos-inventory-thumb.webp', href: '/images/rentos-inventory.webp', alt: 'Inventario con stock por sucursal, precio diario y disponibilidad' },
+        { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Wizard de cinco pasos para crear un nuevo alquiler' },
+        { src: '/images/rentos-workshop-thumb.webp', href: '/images/rentos-workshop.webp', alt: 'Tablero kanban del taller con equipos ingresados, en reparación y listos' },
+      ],
+      imagesNote: 'Pantallas con datos de ejemplo. Clic para ampliar.',
     },
     dynamo: {
       title: 'Dynamo',

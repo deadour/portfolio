@@ -30,7 +30,8 @@ export const projects: {
   {
     // Internal system: screens must be mockups with sample data only.
     id: 'rentos',
-    stack: ['Django', 'Django REST Framework', 'React', 'Docker', 'Linux'],
+    gallery: 'wide',
+    stack: ['Django REST Framework', 'PostgreSQL', 'SQL Server', 'React', 'Tailwind CSS', 'Playwright', 'Docker'],
     links: [],
   },
   {
