@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Section from './Section'
 import type { Entry } from '../content/types'
+import { useLightbox, toLightbox } from './Lightbox'
 
 type Props = {
   id: string
@@ -11,6 +12,7 @@ type Props = {
 
 // Used for both Experience and Education.
 export default function Timeline({ id, title, entries, children }: Props) {
+  const openLightbox = useLightbox()
   return (
     <Section id={id} title={title}>
       <ol className="space-y-10">
@@ -68,12 +70,18 @@ export default function Timeline({ id, title, entries, children }: Props) {
               {entry.images && entry.images.length > 0 && (
                 // Same 4:5 frame for every photo; swipeable on mobile.
                 <div className="-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
-                  {entry.images.map((image) => (
+                  {entry.images.map((image, i) => (
                     <figure key={image.src} className="w-44 shrink-0 snap-start sm:w-auto">
                       <a
                         href={image.href ?? image.src}
                         target="_blank"
                         rel="noreferrer"
+                        onClick={(e) => {
+                          // Plain clicks open the in-page viewer; Ctrl/Cmd/middle-click still open a new tab.
+                          if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+                          e.preventDefault()
+                          openLightbox(toLightbox(entry.images), i)
+                        }}
                         className="block overflow-hidden rounded-lg border border-line"
                       >
                         <img

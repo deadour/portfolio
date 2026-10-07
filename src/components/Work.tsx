@@ -2,6 +2,7 @@ import Section from './Section'
 import Pipeline from './Pipeline'
 import Disclosure from './Disclosure'
 import TechIcon from './TechIcon'
+import { useLightbox, toLightbox } from './Lightbox'
 import { projects } from '../data/projects'
 import { useLang } from '../i18n'
 
@@ -13,6 +14,7 @@ const GRID_COLS = ['', 'sm:grid-cols-1', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm
 function ProjectCard({ project }: { project: Project }) {
   const { c } = useLang()
   const text = c.projects[project.id]
+  const openLightbox = useLightbox()
   const wide = project.gallery === 'wide'
   const count = text.images?.length ?? 0
   // Phone screens: up to 4 per row. Wide screens: up to 2. A single image takes the full width.
@@ -40,12 +42,18 @@ function ProjectCard({ project }: { project: Project }) {
         <div
           className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${cols}`}
         >
-          {text.images.map((image) => (
+          {text.images.map((image, i) => (
             <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${itemWidth}`}>
               <a
                 href={image.href ?? image.src}
                 target="_blank"
                 rel="noreferrer"
+                onClick={(e) => {
+                  // Plain clicks open the in-page viewer; Ctrl/Cmd/middle-click still open a new tab.
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+                  e.preventDefault()
+                  openLightbox(toLightbox(text.images), i)
+                }}
                 className="block overflow-hidden rounded-md border border-line"
               >
                 <img

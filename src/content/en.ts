@@ -16,6 +16,7 @@ export const en: Content = {
     portraitAlt: 'Portrait of Eduardo M. Ramírez',
     credential: 'Credential',
     howItsBuilt: 'How it’s built',
+    lightbox: { close: 'Close', previous: 'Previous image', next: 'Next image' },
     showMore: 'Show {n} more',
   },
   hero: {

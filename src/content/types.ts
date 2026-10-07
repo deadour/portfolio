@@ -54,6 +54,7 @@ export type Content = {
     portraitAlt: string
     credential: string
     howItsBuilt: string
+    lightbox: { close: string; previous: string; next: string }
     // {n} is replaced by the number of hidden items.
     showMore: string
   }
