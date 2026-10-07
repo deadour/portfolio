@@ -65,9 +65,9 @@ export const projects: {
     ],
   },
   {
-    // TODO: add screenshots (the demo needs a login).
     id: 'chedul',
     group: 'personal',
+    gallery: 'wide',
     stack: ['Go', 'React', 'TypeScript', 'Vite', 'PostgreSQL', 'Docker', 'Google Cloud Run', 'Vercel', 'GitHub Actions'],
     links: [
       { kind: 'live', href: 'https://chedul.vercel.app' },

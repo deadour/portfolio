@@ -152,6 +152,13 @@ export const es: Content = {
         'Tests de integración con Testcontainers contra un Postgres real y CI en GitHub Actions.',
         'API en Docker sobre Google Cloud Run, base de datos en Neon y frontend en Vercel, con redeploy automático en cada push a main.',
       ],
+      images: [
+        { src: '/images/chedul-home-thumb.webp', href: '/images/chedul-home.webp', alt: 'Inicio de Chedul con el avance de la carrera, el promedio, las próximas fechas y las materias que podés cursar' },
+        { src: '/images/chedul-prerequisites-thumb.webp', href: '/images/chedul-prerequisites.webp', alt: 'Mapa de correlativas en modo oscuro, que une cada materia con las que necesita' },
+        { src: '/images/chedul-status-thumb.webp', href: '/images/chedul-status.webp', alt: 'Estado académico por año, con cada materia marcada como pendiente, cursando, regular o aprobada' },
+        { src: '/images/chedul-calendar-thumb.webp', href: '/images/chedul-calendar.webp', alt: 'Calendario semanal con horarios y aulas de cursada' },
+      ],
+      imagesNote: 'Pantallas con datos de ejemplo. Clic para ampliar.',
     },
     ecommerce: {
       title: 'Malaca',
