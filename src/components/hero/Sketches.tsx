@@ -98,19 +98,23 @@ export default function HeroSketches({ className = '' }: { className?: string })
     <div className={`absolute inset-0 overflow-hidden pointer-events-none z-[-1] ${className}`} aria-hidden="true">
       <div className="absolute inset-0 hero-sketch-mask pointer-events-none">
         {sketches.map((s, i) => (
-          <img
+          <div
             key={i}
-            src={s.src}
-            alt=""
-            className={`absolute hero-sketch anim-${s.animation}`}
+            className={`absolute pointer-events-auto anim-${s.animation}`}
             style={{
               top: s.top,
               left: s.left,
               width: s.width,
-              opacity: s.opacity,
               animationDuration: s.animDuration,
             }}
-          />
+          >
+            <img
+              src={s.src}
+              alt=""
+              className="w-full h-full hero-sketch"
+              style={{ opacity: s.opacity }}
+            />
+          </div>
         ))}
       </div>
     </div>

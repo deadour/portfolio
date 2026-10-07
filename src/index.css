@@ -130,10 +130,27 @@
 .hero-sketch {
   /* Default is light mode: turn white lines to dark graphite (brightness 0) or inverted */
   filter: brightness(0);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  cursor: crosshair;
 }
 
 :root[data-theme='dark'] .hero-sketch {
   filter: none;
+}
+
+/* Hover effects */
+.hero-sketch:hover {
+  opacity: 0.65 !important;
+}
+
+/* Light mode hover glow */
+:root:not([data-theme='dark']) .hero-sketch:hover {
+  filter: brightness(0) drop-shadow(0 0 12px rgba(0, 0, 0, 0.15));
+}
+
+/* Dark mode hover glow */
+:root[data-theme='dark'] .hero-sketch:hover {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
 }
 
 /* Optional mask for the whole sketch container so they fade out at the bottom */
