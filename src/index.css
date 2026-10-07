@@ -426,3 +426,18 @@
     transform: translateY(2px);
   }
 }
+
+/* ---------- Selected projects carousel ---------- */
+
+/* Horizontal scroll stays inside the strip; snap points line up with the side padding on phones. */
+.carousel {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 1.25rem;
+}
+@media (min-width: 40rem) {
+  .carousel {
+    scroll-padding-inline: 0;
+  }
+}

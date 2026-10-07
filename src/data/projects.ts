@@ -6,17 +6,15 @@ export const projects: {
   // 'phone' (default): narrow screenshots in a row of 4. 'wide': desktop screenshots in a 2×2 grid.
   // 'photo': mixed-size photos cropped to the same 4:5 frame.
   gallery?: 'phone' | 'wide' | 'photo'
-  // 'featured': the main case study. 'secondary': compact cards in the academic subsection.
-  tier?: 'featured' | 'secondary'
-  // Which block of the Work section the card sits in.
-  group: 'featured' | 'professional' | 'personal'
+  // Block of the Work section: the main case study, the BIAMAQ products, the carousel
+  // of selected projects or the academic projects.
+  group: 'featured' | 'biamaq' | 'selected' | 'academic'
   stack: string[]
   links: { kind: LinkKind; href: string }[]
 }[] = [
   {
     id: 'lastfm',
     group: 'featured',
-    tier: 'featured',
     gallery: 'wide',
     stack: ['Python', 'Parquet', 'Last.fm API', 'MusicBrainz', 'Streamlit', 'pytest'],
     links: [
@@ -30,7 +28,7 @@ export const projects: {
   {
     // Internal system: screens must be mockups with sample data only.
     id: 'reports',
-    group: 'professional',
+    group: 'biamaq',
     gallery: 'wide',
     stack: ['Python', 'Pandas', 'SQL Server', 'Django REST Framework', 'Celery', 'Redis', 'React', 'Docker'],
     links: [],
@@ -38,22 +36,22 @@ export const projects: {
   {
     // Internal system: screens must be mockups with sample data only.
     id: 'rentos',
-    group: 'professional',
+    group: 'biamaq',
     gallery: 'wide',
-    stack: ['Django REST Framework', 'PostgreSQL', 'SQL Server', 'React', 'Tailwind CSS', 'Playwright', 'Docker'],
+    stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'SQL Server', 'React', 'Tailwind CSS', 'Playwright', 'Docker'],
     links: [],
   },
   {
     // TODO: add stack and a { kind: 'live', href } link once it's deployed.
     id: 'ecommerce',
-    group: 'professional',
+    group: 'selected',
     gallery: 'wide',
-    stack: ['Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
+    stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
     links: [],
   },
   {
     id: 'dynamo',
-    group: 'personal',
+    group: 'selected',
     stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
     links: [
       { kind: 'live', href: 'https://dynamo-1.onrender.com' },
@@ -66,7 +64,7 @@ export const projects: {
   },
   {
     id: 'chedul',
-    group: 'personal',
+    group: 'selected',
     gallery: 'wide',
     stack: ['Go', 'React', 'TypeScript', 'Vite', 'PostgreSQL', 'Docker', 'Google Cloud Run', 'Vercel', 'GitHub Actions'],
     links: [
@@ -77,8 +75,7 @@ export const projects: {
   },
   {
     id: 'cesiDl',
-    group: 'personal',
-    tier: 'secondary',
+    group: 'academic',
     gallery: 'wide',
     stack: ['Python', 'PyTorch', 'Keras', 'NumPy', 'SHAP', 'LIME', 'FastAPI'],
     links: [
@@ -90,8 +87,7 @@ export const projects: {
   },
   {
     id: 'cesiIot',
-    group: 'personal',
-    tier: 'secondary',
+    group: 'academic',
     gallery: 'photo',
     stack: ['ESP32', 'ESPHome', 'Home Assistant', 'InfluxDB', 'Grafana'],
     links: [

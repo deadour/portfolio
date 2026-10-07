@@ -19,10 +19,13 @@ export const es: Content = {
     howItsBuilt: 'Cómo está hecho',
     lightbox: { close: 'Cerrar', previous: 'Imagen anterior', next: 'Imagen siguiente' },
     showMore: 'Ver {n} más',
-    featured: 'Proyecto principal',
+    featured: 'Destacado · Data Engineering',
     academic: 'Proyectos académicos',
-    professional: 'Trabajo profesional',
-    personal: 'Personal y académico',
+    professional: 'Trabajo profesional · BIAMAQ',
+    selected: 'Proyectos seleccionados',
+    viewScreens: 'Ver pantallas ({n})',
+    carousel: { label: 'Proyectos seleccionados', previous: 'Proyecto anterior', next: 'Proyecto siguiente' },
+    biamaq: 'Plataformas internas de datos y software desarrolladas para una empresa de maquinaria industrial con 3 sucursales.',
     copyEmail: 'Copiar email',
     copied: 'Copiado',
     viewPhotos: 'Ver fotos ({n})',
@@ -85,10 +88,9 @@ export const es: Content = {
     },
     reports: {
       title: 'Reportes BIAMAQ',
-      kind: 'Proyecto laboral · BIAMAQ · Business Intelligence',
+      kind: 'Business Intelligence / Plataforma de datos',
       badge: 'Sistema interno · Producción',
-      summary:
-        'Plataforma interna de reportes desde la que la dirección de BIAMAQ sigue ventas, compras, cobranzas, clientes y la actividad del taller de sus 3 sucursales. Funciona sobre los extractores y el data warehouse que construí a partir del ERP en SQL Server.',
+      summary: 'Reporting interno para la dirección: ventas, compras, cobranzas, clientes y taller de las 3 sucursales, sobre los extractores y el data warehouse que armé desde el ERP en SQL Server.',
       highlights: [
         'API en Django REST Framework sobre SQL Server (ERP + data warehouse), con frontend en React.',
         'Extractores en Python y Pandas programados con Celery y Redis: cargas diarias, snapshots mensuales de cobranzas y clasificación de clientes.',
@@ -105,9 +107,8 @@ export const es: Content = {
     },
     rentos: {
       title: 'RENT-OS',
-      kind: 'Proyecto laboral · BIAMAQ · Plataforma full-stack',
-      summary:
-        'Plataforma de alquiler de equipos desarrollada para la reingeniería del módulo de Alquiler de BIAMAQ, pensada como plataforma multiempresa y multisucursal. Cubre el ciclo completo del alquiler: wizard de reserva, contrato firmado, entrega técnica, devolución, cierre con días facturables y taller.',
+      kind: 'Operaciones / Plataforma full-stack',
+      summary: 'Plataforma interna de alquileres multiempresa y multisucursal que cubre todo el ciclo: reserva, contrato, entrega técnica, devolución, cierre y taller.',
       highlights: [
         'Backend en Django REST Framework con arquitectura hexagonal, sobre PostgreSQL o SQL Server.',
         'Contratos en PDF firmados en tableta Wacom y facturación electrónica ARCA multiempresa.',
@@ -142,7 +143,7 @@ export const es: Content = {
     },
     chedul: {
       title: 'Chedul',
-      kind: 'Proyecto en equipo · UTN · Equipo de 3 · Full-stack',
+      kind: 'UTN · Equipo de 3 · Full-stack',
       summary:
         'App web para estudiantes de Ingeniería en Sistemas de la UTN que organiza toda la carrera en un solo lugar: estado académico, mapa de correlativas, calendario con clases y parciales, apuntes compartidos y mails de profesores.',
       highlights: [
@@ -164,8 +165,7 @@ export const es: Content = {
     ecommerce: {
       title: 'Malaca',
       kind: 'Proyecto para cliente · E-commerce',
-      summary:
-        'Tienda online de una marca de blends de hierbas, desarrollada para un cliente real. Un catálogo mobile-first donde se compra o consulta por WhatsApp, más un panel de administración propio para gestionar la tienda.',
+      summary: 'Tienda online mobile-first para una marca de blends de hierbas: catálogo, compra o consulta por WhatsApp y panel de administración propio.',
       highlights: [
         'Compra por WhatsApp: cada botón abre un mensaje armado con el producto, el precio y el enlace.',
         'Panel de administración para productos, hasta 5 fotos por producto, precios, stock, destacados y categorías opcionales.',

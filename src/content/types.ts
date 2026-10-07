@@ -64,7 +64,12 @@ export type Content = {
     featured: string
     academic: string
     professional: string
-    personal: string
+    selected: string
+    // {n} is replaced by the number of screenshots.
+    viewScreens: string
+    carousel: { label: string; previous: string; next: string }
+    // Intro of the BIAMAQ block in the Work section.
+    biamaq: string
     copyEmail: string
     copied: string
     // {n} is replaced by the number of photos.
