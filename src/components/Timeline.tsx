@@ -88,7 +88,7 @@ export default function Timeline({ id, title, entries, children }: Props) {
                           src={image.src}
                           alt={image.alt}
                           loading="lazy"
-                          className="aspect-[4/5] w-full object-cover transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                          className="aspect-[4/5] w-full object-cover transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100"
                         />
                       </a>
                       {image.caption && <figcaption className="mt-2 text-xs text-muted">{image.caption}</figcaption>}

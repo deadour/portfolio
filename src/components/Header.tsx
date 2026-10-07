@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { site } from '../data/site'
 import { languages } from '../content'
 import { useLang } from '../i18n'
@@ -50,9 +50,20 @@ export default function Header() {
     { label: c.ui.nav.experience, href: '#experience' },
     { label: c.ui.nav.contact, href: '#contact' },
   ]
+  // The header stays pinned; its soft backdrop only appears once the page has scrolled.
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="flex items-center justify-between gap-4 py-6">
+    <header
+      data-scrolled={scrolled || undefined}
+      className="site-header sticky top-0 z-40 flex items-center justify-between gap-4 py-5"
+    >
       <a href="#top" aria-label={site.domain} className="font-mono text-sm text-muted hover:text-fg">
         <Wordmark value={site.domain} />
       </a>

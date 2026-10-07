@@ -22,6 +22,8 @@ function ProjectCard({ project }: { project: Project }) {
   const cols = GRID_COLS[Math.min(count, wide ? 2 : 4)]
   const itemWidth = count === 1 ? 'w-full' : wide ? 'w-64' : project.gallery === 'photo' ? 'w-44' : 'w-32'
   const crop = project.gallery === 'photo' ? 'aspect-[4/5] object-cover' : ''
+  // Intrinsic size of the thumbnails, so the page doesn't jump while they load.
+  const size = wide ? { width: 960, height: 600 } : project.gallery === 'photo' ? {} : { width: 480, height: 860 }
 
   const featured = project.tier === 'featured'
   const compact = project.tier === 'secondary'
@@ -124,8 +126,9 @@ function ProjectCard({ project }: { project: Project }) {
                 <img
                   src={image.src}
                   alt={image.alt}
+                  {...size}
                   loading="lazy"
-                  className={`w-full ${crop} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
+                  className={`h-auto w-full ${crop} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
                 />
               </a>
               {image.caption && (
