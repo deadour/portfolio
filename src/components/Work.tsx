@@ -69,8 +69,30 @@ function ProjectCard({ project }: { project: Project }) {
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
       {/* Academic cards show one real image during normal scroll; the lightbox keeps the full set available. */}
+      {/* On phones, compact cards with several photos get the same swipeable strip as the main cards. */}
+      {compact && text.images && text.images.length > 1 && (
+        <div className="-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:hidden">
+          {text.images.map((image, i) => (
+            <a
+              key={image.src}
+              href={image.href ?? image.src}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => {
+                if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+                e.preventDefault()
+                openLightbox(toLightbox(text.images), i)
+              }}
+              className="block w-44 shrink-0 snap-start overflow-hidden rounded-md border border-line"
+            >
+              <img src={image.src} alt={image.alt} loading="lazy" className="aspect-[4/5] w-full object-cover" />
+            </a>
+          ))}
+        </div>
+      )}
+
       {compact && text.images && text.images.length > 0 && (
-        <figure className="mt-5">
+        <figure className={`mt-5 ${text.images.length > 1 ? 'hidden sm:block' : ''}`}>
           <a
             href={text.images[0].href ?? text.images[0].src}
             target="_blank"
