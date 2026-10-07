@@ -40,14 +40,17 @@ function layout(W: number, H: number, picks: Set<string>): Placed[] {
   ]
   const taken: Rect[] = [mapRect]
 
-  const target = mobile ? 5 : W < 1100 ? 8 : 11
-  for (const asset of shuffle(pool)) {
-    if (placed.length > target) break
+  const place = (asset: Asset, region: { x0: number; x1: number; y0: number; y1: number }, clear = false) => {
     const w = asset.size * rem * scale * (0.85 + Math.random() * 0.3)
     const h = (w * asset.h) / asset.w
-    if (w > W - 32) continue
+    if (w > region.x1 - region.x0 || h > region.y1 - region.y0) return false
     for (let attempt = 0; attempt < 60; attempt++) {
-      const r = { x: Math.random() * (W - w), y: Math.random() * (H * 0.7 - h), w, h }
+      const r = {
+        x: region.x0 + Math.random() * (region.x1 - region.x0 - w),
+        y: region.y0 + Math.random() * (region.y1 - region.y0 - h),
+        w,
+        h,
+      }
       if (taken.some((t) => overlaps(r, t))) continue
       taken.push(r)
       placed.push({
@@ -55,13 +58,28 @@ function layout(W: number, H: number, picks: Set<string>): Placed[] {
         x: r.x,
         y: r.y,
         w,
-        // Behind the photo and text they stay fainter so the copy reads first.
-        opacity: (inColumn(r) ? 0.05 + Math.random() * 0.03 : 0.09 + Math.random() * 0.06) * (asset.dense ? 0.8 : 1),
+        // Behind the photo and text they stay fainter so the copy reads first; `clear` spots cover no text.
+        opacity: (inColumn(r) && !clear ? 0.05 + Math.random() * 0.03 : 0.09 + Math.random() * 0.06) * (asset.dense ? 0.8 : 1),
         animation: ANIMATIONS[Math.floor(Math.random() * ANIMATIONS.length)],
         duration: 9 + Math.random() * 9,
       })
-      break
+      return true
     }
+    return false
+  }
+
+  const target = mobile ? 6 : W < 1100 ? 8 : 11
+  const queue = shuffle(pool)
+  // On phones the gap between the portrait and the map, above the name, always gets one drawing.
+  if (mobile) {
+    const gap = { x0: Math.min(W * 0.38, 9 * rem), x1: mapRect.x, y0: 4.5 * rem, y1: 15 * rem }
+    const index = queue.findIndex((asset) => place(asset, gap, true))
+    if (index >= 0) queue.splice(index, 1)
+  }
+  const everywhere = { x0: 0, x1: W, y0: 0, y1: H * 0.7 }
+  for (const asset of queue) {
+    if (placed.length > target) break
+    place(asset, everywhere)
   }
   return placed
 }
