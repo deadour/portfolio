@@ -1,90 +1,10 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
-import airplane from '../../assets/hero-sketches/airplane.webp'
-import argentina from '../../assets/hero-sketches/argentina.webp'
-import astronaut from '../../assets/hero-sketches/astronaut.webp'
-import clapperboard from '../../assets/hero-sketches/clapperboard.webp'
-import colosseum from '../../assets/hero-sketches/colosseum.webp'
-import compass from '../../assets/hero-sketches/compass.webp'
-import database from '../../assets/hero-sketches/database.webp'
-import eiffel from '../../assets/hero-sketches/eiffel.webp'
-import esp32 from '../../assets/hero-sketches/esp32.webp'
-import football from '../../assets/hero-sketches/football.webp'
-import forest from '../../assets/hero-sketches/forest.webp'
-import gameBlock from '../../assets/hero-sketches/game-block.webp'
-import guitar from '../../assets/hero-sketches/guitar.webp'
-import helmet from '../../assets/hero-sketches/helmet.webp'
-import mate from '../../assets/hero-sketches/mate.webp'
-import mountains from '../../assets/hero-sketches/mountains.webp'
-import neuralNetwork from '../../assets/hero-sketches/neural-network.webp'
-import pythonCode from '../../assets/hero-sketches/python-code.webp'
-import sigmoid from '../../assets/hero-sketches/sigmoid.webp'
-import solarSystem from '../../assets/hero-sketches/solar-system.webp'
-import spinningTop from '../../assets/hero-sketches/spinning-top.webp'
-import sqlCode from '../../assets/hero-sketches/sql-code.webp'
-import vinyl from '../../assets/hero-sketches/vinyl.webp'
-import waves from '../../assets/hero-sketches/waves.webp'
-import books from '../../assets/hero-sketches/books.webp'
-import cathedral from '../../assets/hero-sketches/cathedral.webp'
-import cliffs from '../../assets/hero-sketches/cliffs.webp'
-import dataPipeline from '../../assets/hero-sketches/data-pipeline.webp'
-import david from '../../assets/hero-sketches/david.webp'
-import globe from '../../assets/hero-sketches/globe.webp'
-import montSaintMichel from '../../assets/hero-sketches/mont-saint-michel.webp'
-import obelisco from '../../assets/hero-sketches/obelisco.webp'
-import column from '../../assets/hero-sketches/column.webp'
-import temple from '../../assets/hero-sketches/temple.webp'
-import player from '../../assets/hero-sketches/player.webp'
-import sun from '../../assets/hero-sketches/sun.webp'
-import symbol from '../../assets/hero-sketches/symbol.webp'
-import wave from '../../assets/hero-sketches/wave.webp'
+import { MAP, SKETCHES, type Asset } from './sketchAssets'
+import { PAGE_PICKS } from './pageSlots'
 
-// Each drawing was cut on its own from the master sheet. `w`/`h` are the file's pixel size,
-// `size` is the display width in rem before the random scale.
-type Asset = { src: string; w: number; h: number; size: number; dense?: boolean }
-
-const MAP: Asset = { src: argentina, w: 226, h: 245, size: 7 }
-
-const POOL: Asset[] = [
-  { src: eiffel, w: 200, h: 282, size: 6 },
-  { src: colosseum, w: 267, h: 245, size: 8 },
-  { src: helmet, w: 209, h: 247, size: 5.5 },
-  { src: airplane, w: 245, h: 242, size: 6.5 },
-  { src: compass, w: 232, h: 258, size: 6 },
-  { src: mate, w: 169, h: 204, size: 5 },
-  { src: football, w: 186, h: 192, size: 4.5 },
-  { src: gameBlock, w: 177, h: 195, size: 4.5 },
-  { src: solarSystem, w: 395, h: 195, size: 12 },
-  { src: database, w: 185, h: 194, size: 4.5 },
-  { src: mountains, w: 262, h: 204, size: 8 },
-  { src: astronaut, w: 193, h: 214, size: 5.5 },
-  { src: spinningTop, w: 185, h: 189, size: 4.5 },
-  { src: clapperboard, w: 189, h: 194, size: 5 },
-  { src: guitar, w: 168, h: 240, size: 5 },
-  { src: waves, w: 206, h: 210, size: 6 },
-  { src: vinyl, w: 190, h: 188, size: 5 },
-  { src: forest, w: 246, h: 210, size: 8 },
-  { src: neuralNetwork, w: 196, h: 213, size: 5 },
-  { src: esp32, w: 181, h: 228, size: 5 },
-  { src: pythonCode, w: 275, h: 199, size: 9 },
-  { src: sqlCode, w: 345, h: 211, size: 10 },
-  { src: sigmoid, w: 340, h: 209, size: 10 },
-  // Second sheet: denser hatching, so they're drawn a little fainter.
-  { src: books, w: 368, h: 235, size: 8, dense: true },
-  { src: cathedral, w: 330, h: 380, size: 7, dense: true },
-  { src: cliffs, w: 435, h: 245, size: 10, dense: true },
-  { src: dataPipeline, w: 494, h: 175, size: 11, dense: true },
-  { src: david, w: 302, h: 288, size: 7, dense: true },
-  { src: globe, w: 370, h: 325, size: 7.5, dense: true },
-  { src: montSaintMichel, w: 425, h: 278, size: 9.5, dense: true },
-  { src: obelisco, w: 269, h: 365, size: 6, dense: true },
-  { src: column, w: 156, h: 230, size: 4.5, dense: true },
-  { src: temple, w: 333, h: 230, size: 8, dense: true },
-  { src: player, w: 391, h: 355, size: 8, dense: true },
-  { src: sun, w: 280, h: 302, size: 6.5, dense: true },
-  { src: symbol, w: 262, h: 284, size: 5.5, dense: true },
-  { src: wave, w: 280, h: 240, size: 7, dense: true },
-]
+// The hero draws from every sketch except the ones already placed further down the page on this visit.
+const POOL: Asset[] = Object.values(SKETCHES).filter((asset) => !PAGE_PICKS.has(asset.src))
 
 const ANIMATIONS = ['float', 'drift-slow', 'rotate-slow']
 
