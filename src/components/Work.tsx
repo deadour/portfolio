@@ -69,8 +69,8 @@ function ProjectCard({ project }: { project: Project }) {
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
       {/* Academic cards show one real image during normal scroll; the lightbox keeps the full set available. */}
-      {/* On phones, compact cards with several photos get the same swipeable strip as the main cards. */}
-      {compact && text.images && text.images.length > 1 && (
+      {/* Photo cards (the noise monitor): on phones, a swipeable strip instead of one image + button. */}
+      {compact && project.gallery === 'photo' && text.images && text.images.length > 1 && (
         <div className="-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:hidden">
           {text.images.map((image, i) => (
             <a
@@ -92,7 +92,7 @@ function ProjectCard({ project }: { project: Project }) {
       )}
 
       {compact && text.images && text.images.length > 0 && (
-        <figure className={`mt-5 ${text.images.length > 1 ? 'hidden sm:block' : ''}`}>
+        <figure className={`mt-5 ${project.gallery === 'photo' && text.images.length > 1 ? 'hidden sm:block' : ''}`}>
           <a
             href={text.images[0].href ?? text.images[0].src}
             target="_blank"
@@ -250,7 +250,7 @@ export default function Work() {
       {academic.length > 0 && (
         <>
           <h4 className="mt-8 mb-4 text-sm font-medium text-muted">{c.ui.academic}</h4>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {academic.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
