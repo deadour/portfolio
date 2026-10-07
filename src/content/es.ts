@@ -142,12 +142,12 @@ export const es: Content = {
     },
     chedul: {
       title: 'Chedul',
-      kind: 'Proyecto personal · App web full-stack',
+      kind: 'Proyecto en equipo · UTN · Equipo de 3 · Full-stack',
       summary:
-        'App web para estudiantes de Ingeniería en Sistemas de la UTN que organiza toda la carrera en un solo lugar: estado académico materia por materia, mapa de correlativas con lo que podés cursar, calendario con clases y parciales, apuntes compartidos y mails de profesores. La rehice a partir de mi app original en Django.',
+        'App web para estudiantes de Ingeniería en Sistemas de la UTN que organiza toda la carrera en un solo lugar: estado académico materia por materia, mapa de correlativas con lo que podés cursar, calendario con clases y parciales, apuntes compartidos y mails de profesores. Lo arrancamos en equipo con Lautaro Acosta y Tobías en la UTN. Yo hice la app original en Django y después lideré la migración a Go + React, el plan de estudios, el deploy y el diseño.',
       highlights: [
-        'Migré la app original en Django a una API REST en Go (capas de handlers, repositorios y dominio) y una SPA nueva en React + TypeScript.',
-        'Modelé el plan de estudios completo en PostgreSQL: 51 materias, 109 correlativas y 68 comisiones con horarios, con migraciones versionadas.',
+        'API REST en Go (capas de handlers, repositorios y dominio) y una SPA nueva en React + TypeScript, que reemplazan a la app original en Django.',
+        'Plan de estudios completo en PostgreSQL: 51 materias, 109 correlativas y 68 comisiones con horarios, con migraciones versionadas.',
         'Login con JWT en cookie, buscador de materias que ignora tildes, tema claro y oscuro y diseño mobile-first.',
         'Tests de integración con Testcontainers contra un Postgres real y CI en GitHub Actions.',
         'API en Docker sobre Google Cloud Run, base de datos en Neon y frontend en Vercel, con redeploy automático en cada push a main.',
