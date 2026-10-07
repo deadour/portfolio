@@ -19,7 +19,7 @@ export const es: Content = {
     lightbox: { close: 'Cerrar', previous: 'Imagen anterior', next: 'Imagen siguiente' },
     showMore: 'Ver {n} más',
     featured: 'Proyecto principal',
-    academic: 'Proyectos académicos · CESI Francia',
+    academic: 'Proyectos académicos',
     viewPhotos: 'Ver fotos ({n})',
   },
   hero: {
@@ -44,8 +44,8 @@ export const es: Content = {
     contact: 'Contacto',
   },
   about: [
-    'Trabajo en la intersección entre datos y software. En BIAMAQ pasé de resolver necesidades operativas a construir los sistemas, integraciones y pipelines que forman parte del funcionamiento diario de la empresa.',
-    'Mi foco actual está en Data Engineering: pipelines reproducibles, datos confiables y plataformas que puedan mantenerse en el tiempo. En 2026 complementé esa experiencia con un semestre académico en CESI École d’Ingénieurs, en Francia.',
+    'En BIAMAQ lidero IT y Sistemas de punta a punta: infraestructura, datos y software para una empresa con 3 sucursales. En 2026 cursé un semestre en CESI École d’Ingénieurs, Francia, mediante una beca ARFITEC, mientras avanzo en el último año de Ingeniería en Sistemas de Información en la UTN.',
+    'Hoy estoy orientando mi carrera hacia Data Engineering. Me interesa especialmente lo que hace confiable a una plataforma de datos: cargas incrementales, controles de calidad, tests, trazabilidad y documentar las decisiones detrás de cada capa.',
   ],
   projects: {
     lastfm: {

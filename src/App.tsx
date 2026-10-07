@@ -32,6 +32,7 @@ export default function App() {
       <Header />
       <main id="main">
         <Hero />
+        <About />
         <Work />
         <Timeline id="experience" title={c.sections.experience} entries={c.experience} />
         <Timeline id="education" title={c.sections.education} entries={c.education}>
@@ -53,7 +54,6 @@ export default function App() {
             </ul>
           </div>
         </Timeline>
-        <About />
         <Tech />
         <Certifications />
         <Contact />

@@ -104,6 +104,29 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
+.wordmark {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.wordmark-reserve { visibility: hidden; }
+.wordmark-typed { position: absolute; inset: 0 auto auto 0; }
+.wordmark-typed::after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 0.9em;
+  margin-left: 1px;
+  vertical-align: -0.08em;
+  background: currentColor;
+  opacity: 0.55;
+  animation: wordmark-cursor 680ms steps(1, end) 2;
+}
+@keyframes wordmark-cursor { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .wordmark-typed::after { display: none; }
+}
+
 /* Parametric blueprint layer: every visible mark is a precise SVG primitive. */
 .blueprint-scene {
   overflow: visible;

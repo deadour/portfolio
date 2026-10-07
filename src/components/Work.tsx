@@ -5,6 +5,7 @@ import TechIcon from './TechIcon'
 import { useLightbox, toLightbox } from './Lightbox'
 import { projects } from '../data/projects'
 import { useLang } from '../i18n'
+import { siLastdotfm } from 'simple-icons'
 
 type Project = (typeof projects)[number]
 
@@ -26,6 +27,18 @@ function ProjectCard({ project }: { project: Project }) {
   const compact = project.tier === 'secondary'
   const pill = text.badge ?? text.status
 
+  const identity = project.id === 'lastfm' ? (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5 shrink-0 text-accent" fill="currentColor">
+      <path d={siLastdotfm.path} />
+    </svg>
+  ) : project.id === 'reports' ? (
+    <img src="/images/logo-biamaq.webp" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-cover" />
+  ) : project.id === 'rentos' ? (
+    <img src="/images/logo-rentos.png" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-contain" />
+  ) : project.id === 'dynamo' ? (
+    <img src="/images/logo-dynamo.png" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-cover" />
+  ) : null
+
   return (
     <article
       className={`card rounded-lg border bg-surface ${compact ? 'p-5' : 'p-5 sm:p-6'} ${
@@ -36,7 +49,10 @@ function ProjectCard({ project }: { project: Project }) {
         <p className="mb-3 text-xs font-medium tracking-wide text-accent uppercase">{c.ui.featured}</p>
       )}
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h3 className={`font-medium text-fg ${featured ? 'text-lg' : ''}`}>{text.title}</h3>
+        <h3 className={`flex min-w-0 items-center gap-2 font-medium text-fg ${featured ? 'text-lg' : ''}`}>
+          {identity}
+          <span>{text.title}</span>
+        </h3>
         {pill && (
           <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2.5 py-0.5 text-xs font-medium text-accent">
             {pill}
@@ -48,15 +64,40 @@ function ProjectCard({ project }: { project: Project }) {
 
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
-      {/* Academic cards stay compact: photos open in the viewer instead of an inline gallery. */}
+      {/* Academic cards show one real image during normal scroll; the lightbox keeps the full set available. */}
       {compact && text.images && text.images.length > 0 && (
-        <button
-          type="button"
-          onClick={() => openLightbox(toLightbox(text.images), 0)}
-          className="mt-4 inline-flex items-center gap-1.5 text-sm text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
-        >
-          {c.ui.viewPhotos.replace('{n}', String(text.images.length))}
-        </button>
+        <figure className="mt-5">
+          <a
+            href={text.images[0].href ?? text.images[0].src}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => {
+              if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+              e.preventDefault()
+              openLightbox(toLightbox(text.images), 0)
+            }}
+            className="block overflow-hidden rounded-md border border-line"
+          >
+            <img
+              src={text.images[0].src}
+              alt={text.images[0].alt}
+              width={960}
+              height={540}
+              loading="lazy"
+              className="aspect-[16/9] w-full object-cover transition-transform duration-300 hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            />
+          </a>
+          {text.images[0].caption && <figcaption className="mt-2 text-xs text-muted">{text.images[0].caption}</figcaption>}
+          {text.images.length > 1 && (
+            <button
+              type="button"
+              onClick={() => openLightbox(toLightbox(text.images), 0)}
+              className="mt-3 inline-flex items-center gap-1.5 text-sm text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
+            >
+              {c.ui.viewPhotos.replace('{n}', String(text.images.length))}
+            </button>
+          )}
+        </figure>
       )}
 
       {!compact && text.images && text.images.length > 0 && (

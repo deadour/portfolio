@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { site } from '../data/site'
 import { languages } from '../content'
 import { useLang } from '../i18n'
+import Wordmark from './Wordmark'
 
 function ThemeToggle() {
   const { c } = useLang()
@@ -52,8 +53,8 @@ export default function Header() {
 
   return (
     <header className="flex items-center justify-between gap-4 py-6">
-      <a href="#top" className="font-mono text-sm text-muted hover:text-fg">
-        {site.domain}
+      <a href="#top" aria-label={site.domain} className="font-mono text-sm text-muted hover:text-fg">
+        <Wordmark value={site.domain} />
       </a>
       <div className="flex items-center gap-4 sm:gap-6">
         <nav aria-label="Main" className="hidden sm:block">
