@@ -12,6 +12,9 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 export default function Hero() {
   const { lang, c } = useLang()
   const cv = site.cv[lang]
+  // Current month and year, e.g. "October 2026" / "Octubre 2026".
+  const month = new Intl.DateTimeFormat(lang, { month: 'long', year: 'numeric' }).format(new Date())
+  const currentMonth = month.charAt(0).toUpperCase() + month.slice(1).replace(' de ', ' ')
 
   return (
     <section aria-labelledby="hero-title" className="pt-12 pb-20 sm:pt-20 sm:pb-28">
@@ -41,7 +44,7 @@ export default function Hero() {
         <span className="now-dot mt-1.5 shrink-0" aria-hidden="true" />
         <span>
           <span className="font-medium text-fg">{c.now.label}</span>
-          <span className="text-muted"> · {c.now.updated} — </span>
+          <span className="text-muted"> · {currentMonth} — </span>
           {c.now.text}
         </span>
       </p>

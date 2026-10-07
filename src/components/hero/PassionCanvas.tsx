@@ -1,35 +1,31 @@
 import { useEffect, useRef } from 'react'
-import { DOODLES, type Doodle } from './doodles'
+import { ARGENTINA, ICONS, type Art } from './art'
 
 /*
- * "Lienzo de pasiones": hand-drawn doodles floating behind the hero, plus faint dust particles.
+ * "Lienzo de pasiones": line illustrations drifting slowly behind the hero, plus faint dust particles.
  *
  * Performance strategy:
  * - One <canvas>, no DOM nodes per element and no React re-renders while animating (all state lives in refs).
- * - Every doodle is rasterized once into an offscreen sprite; each frame only does drawImage + a few arcs.
+ * - Every illustration is rasterized once into an offscreen sprite; each frame only does drawImage + a few arcs.
  * - Device pixel ratio capped at 2, element counts scale with the hero area (fewer on phones).
  * - The loop pauses when the hero is off-screen (IntersectionObserver) or the tab is hidden.
- * - prefers-reduced-motion: a single static frame, no loop and no pointer tracking.
+ * - prefers-reduced-motion: the drift is so slow it keeps running, at half speed and without pointer effects.
  */
 
-type Sprite = { canvas: HTMLCanvasElement; w: number; h: number }
+type Sprite = { image: CanvasImageSource; w: number; h: number }
 type Item = {
   sprite: Sprite
   x: number
   y: number
+  vx: number // px per ms: a slow, steady drift across the hero
+  vy: number
   rot: number
-  depth: number // 0.35 (far) … 1 (near): drives alpha, parallax and drift
+  spin: number
+  depth: number // 0.35 (far) … 1 (near): drives alpha, speed and parallax
   alpha: number
-  amp: number
-  speed: number
   phase: number
 }
 type Particle = { x: number; y: number; r: number; depth: number; vx: number; vy: number; phase: number }
-
-const FONTS = {
-  mono: 'ui-monospace, "SFMono-Regular", Consolas, monospace',
-  serif: 'Georgia, "Times New Roman", serif',
-}
 
 // Small deterministic RNG so the layout is the same on every visit.
 function rng(seed: number) {
@@ -42,49 +38,16 @@ function rng(seed: number) {
   }
 }
 
-function makeSprite(doodle: Doodle, size: number, dpr: number, ink: string): Sprite {
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')!
-
-  if (doodle.type === 'text') {
-    const fontSize = doodle.size * (size / 90)
-    const font = `${fontSize}px ${FONTS[doodle.font]}`
-    ctx.font = font
-    const w = Math.ceil(ctx.measureText(doodle.text).width + 8)
-    const h = Math.ceil(fontSize * 1.5)
-    canvas.width = w * dpr
-    canvas.height = h * dpr
-    ctx.scale(dpr, dpr)
-    ctx.font = font
-    ctx.fillStyle = ink
-    ctx.textBaseline = 'middle'
-    ctx.fillText(doodle.text, 4, h / 2)
-    return { canvas, w, h }
-  }
-
-  canvas.width = canvas.height = Math.ceil(size * dpr)
-  const k = (size * dpr) / 100
-  ctx.scale(k, k)
-  ctx.strokeStyle = ink
-  ctx.fillStyle = ink
-  ctx.lineCap = 'round'
-  ctx.lineJoin = 'round'
-  const lineWidth = 1.3 * (100 / size) // ~1.3 CSS px whatever the sprite size
-
-  // Two slightly offset passes give the strokes a sketched, hand-drawn feel.
-  const pass = (offset: number, alpha: number) => {
-    ctx.save()
-    ctx.globalAlpha = alpha
-    ctx.translate(offset, offset * 0.6)
-    ctx.rotate(offset * 0.004)
-    ctx.lineWidth = lineWidth
-    if (doodle.type === 'path') doodle.d.forEach((d) => ctx.stroke(new Path2D(d)))
-    else doodle.draw(ctx)
-    ctx.restore()
-  }
-  pass(0, 1)
-  pass(1.1 * (100 / size), 0.45)
-  return { canvas, w: size, h: size }
+// Rasterizes an SVG illustration in the given color at the given CSS width.
+function makeSprite(art: Art, width: number, dpr: number, ink: string): Promise<Sprite> {
+  const height = (width * art.h) / art.w
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${art.w} ${art.h}" ` +
+    `width="${Math.round(width * dpr)}" height="${Math.round(height * dpr)}" color="${ink}">${art.body}</svg>`
+  const image = new Image()
+  image.decoding = 'async'
+  image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg)
+  return image.decode().then(() => ({ image, w: width, h: height }))
 }
 
 export default function PassionCanvas({ className = '' }: { className?: string }) {
@@ -97,6 +60,7 @@ export default function PassionCanvas({ className = '' }: { className?: string }
     if (!ctx) return
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const speedFactor = reduced ? 0.5 : 1
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
 
     let W = 0
@@ -107,57 +71,87 @@ export default function PassionCanvas({ className = '' }: { className?: string }
     let visible = true
     let last = performance.now()
     let time = 0
-    // Pointer in hero coordinates; parallax uses a smoothed, normalized copy.
+    let generation = 0 // ignores sprite batches from an outdated build
+    // Drawings use the theme's text color, so they work on light and dark backgrounds.
+    let ink = '#fff'
     const pointer = { x: -9999, y: -9999, inside: false }
     const parallax = { x: 0, y: 0, tx: 0, ty: 0 }
 
-    // Drawings use the theme's text color, so they work on light and dark backgrounds.
-    let ink = '#fff'
-
-    function build() {
-      ink = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim() || '#fff'
+    async function build() {
+      const gen = ++generation
       const rect = canvas!.getBoundingClientRect()
       W = rect.width
       H = rect.height
       canvas!.width = Math.round(W * dpr)
       canvas!.height = Math.round(H * dpr)
+      ink = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim() || '#fff'
 
       const rand = rng(2026)
-      const order = DOODLES.map((_, i) => i).sort(() => rand() - 0.5)
-      const count = Math.min(DOODLES.length, Math.max(14, Math.round((W * H) / 30000)))
-      const base = Math.max(46, Math.min(104, W / 13))
+      const icons = [...ICONS].sort(() => rand() - 0.5)
+      const count = Math.min(icons.length, Math.max(10, Math.round((W * H) / 44000)))
+      const base = Math.max(40, Math.min(78, W / 17))
 
-      // Jittered grid so the doodles spread evenly without piling up.
+      // Start positions on a jittered grid so nothing piles up; then everything drifts.
       const cols = Math.max(3, Math.round(Math.sqrt((count * W) / H)))
       const rows = Math.ceil(count / cols)
       const cells = Array.from({ length: cols * rows }, (_, i) => i).sort(() => rand() - 0.5)
       const cw = W / cols
       const ch = H / rows
 
-      items = order.slice(0, count).map((d, i) => {
-        const cell = cells[i]
+      const specs = icons.slice(0, count).map((art, i) => {
         const depth = 0.35 + rand() * 0.65
-        const size = base * (0.7 + depth * 0.5)
-        const x = (cell % cols) * cw + cw / 2 + (rand() - 0.5) * cw * 0.6
-        const y = Math.floor(cell / cols) * ch + ch / 2 + (rand() - 0.5) * ch * 0.6
-        // 5–10% opacity, a bit lower right behind the centered text.
-        const dx = (x - W / 2) / (W * 0.3)
-        const dy = (y - H / 2) / (H * 0.32)
-        const behindText = dx * dx + dy * dy < 1
-        const sprite = makeSprite(DOODLES[d], size, dpr, ink)
-        // Keep wide sprites (code snippets) fully on screen.
-        const half = Math.min(sprite.w / 2 + 6, W / 2)
+        const angle = rand() * Math.PI * 2
+        const speed = (0.004 + rand() * 0.006) * (0.5 + depth * 0.5) // ~4–10 px per second
+        const cell = cells[i]
         return {
-          sprite,
-          x: Math.min(Math.max(x, half), W - half),
-          y,
-          rot: (rand() - 0.5) * 0.5,
+          art,
+          size: base * (0.75 + depth * 0.5),
+          x: (cell % cols) * cw + cw / 2 + (rand() - 0.5) * cw * 0.6,
+          y: Math.floor(cell / cols) * ch + ch / 2 + (rand() - 0.5) * ch * 0.6,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          rot: (rand() - 0.5) * 0.4,
+          spin: (rand() - 0.5) * 0.00004,
           depth,
-          alpha: (0.05 + depth * 0.05) * (behindText ? 0.6 : 1),
-          amp: 5 + rand() * 9,
-          speed: 0.00012 + rand() * 0.00018,
+          alpha: 0.07 + depth * 0.07, // 7–14%
           phase: rand() * Math.PI * 2,
         }
+      })
+      // The map of Argentina: larger and almost still, on the right side where there's no text.
+      specs.push({
+        art: ARGENTINA,
+        size: Math.min(W * 0.22, base * (ARGENTINA.size ?? 3)),
+        x: W * (W < 640 ? 0.82 : 0.86),
+        y: H * 0.42,
+        vx: 0,
+        vy: 0,
+        rot: 0.04,
+        spin: 0,
+        depth: 0.9,
+        alpha: 0.13,
+        phase: 0,
+      })
+
+      const sprites = await Promise.all(specs.map((s) => makeSprite(s.art, s.size, dpr, ink).catch(() => null)))
+      if (gen !== generation) return // a newer build (resize / theme change) took over
+
+      items = specs.flatMap((s, i) => {
+        const sprite = sprites[i]
+        if (!sprite) return []
+        return [
+          {
+            sprite,
+            x: s.x,
+            y: s.y,
+            vx: s.vx,
+            vy: s.vy,
+            rot: s.rot,
+            spin: s.spin,
+            depth: s.depth,
+            alpha: s.alpha,
+            phase: s.phase,
+          },
+        ]
       })
 
       const pCount = Math.max(28, Math.min(110, Math.round((W * H) / 13000)))
@@ -170,6 +164,17 @@ export default function PassionCanvas({ className = '' }: { className?: string }
         vy: -(0.003 + rand() * 0.008),
         phase: rand() * Math.PI * 2,
       }))
+      draw(0)
+    }
+
+    // Items that drift off one edge come back from the opposite one.
+    function wrap(it: Item) {
+      const mx = it.sprite.w / 2 + 20
+      const my = it.sprite.h / 2 + 20
+      if (it.x < -mx) it.x = W + mx
+      else if (it.x > W + mx) it.x = -mx
+      if (it.y < -my) it.y = H + my
+      else if (it.y > H + my) it.y = -my
     }
 
     function draw(dt: number) {
@@ -180,22 +185,28 @@ export default function PassionCanvas({ className = '' }: { className?: string }
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx!.clearRect(0, 0, W, H)
 
-      // Doodles
       for (const it of items) {
-        const t = time * it.speed + it.phase
-        const x = it.x + Math.sin(t) * it.amp - parallax.x * 18 * it.depth
-        const y = it.y + Math.cos(t * 0.8) * it.amp - parallax.y * 12 * it.depth
+        it.x += it.vx * dt
+        it.y += it.vy * dt
+        it.rot += it.spin * dt
+        wrap(it)
+        const x = it.x - parallax.x * 22 * it.depth
+        const y = it.y - parallax.y * 14 * it.depth + Math.sin(time * 0.0004 + it.phase) * 3
         let alpha = it.alpha
+        // A bit fainter while passing behind the text block.
+        const dx = (x - W * 0.42) / (W * 0.3)
+        const dy = (y - H * 0.5) / (H * 0.34)
+        if (dx * dx + dy * dy < 1) alpha *= 0.65
         if (pointer.inside) {
-          // A soft "flashlight": doodles near the cursor show up a little more.
+          // A soft "flashlight": drawings near the cursor show up a little more.
           const d = Math.hypot(x - pointer.x, y - pointer.y)
-          if (d < 180) alpha += (1 - d / 180) * 0.06
+          if (d < 200) alpha += (1 - d / 200) * 0.08
         }
         ctx!.save()
         ctx!.globalAlpha = alpha
         ctx!.translate(x, y)
-        ctx!.rotate(it.rot + Math.sin(t * 0.6) * 0.03)
-        ctx!.drawImage(it.sprite.canvas, -it.sprite.w / 2, -it.sprite.h / 2, it.sprite.w, it.sprite.h)
+        ctx!.rotate(it.rot)
+        ctx!.drawImage(it.sprite.image, -it.sprite.w / 2, -it.sprite.h / 2, it.sprite.w, it.sprite.h)
         ctx!.restore()
       }
 
@@ -237,13 +248,13 @@ export default function PassionCanvas({ className = '' }: { className?: string }
     }
 
     function loop(now: number) {
-      const dt = Math.min(64, now - last)
+      const dt = Math.min(64, now - last) * speedFactor
       last = now
       draw(dt)
       raf = requestAnimationFrame(loop)
     }
     function start() {
-      if (reduced || raf || !visible || document.hidden) return
+      if (raf || !visible || document.hidden) return
       last = performance.now()
       raf = requestAnimationFrame(loop)
     }
@@ -272,44 +283,41 @@ export default function PassionCanvas({ className = '' }: { className?: string }
     const onVisibility = () => (document.hidden ? stop() : start())
 
     let resizeTimer = 0
-    const resizeObserver = new ResizeObserver(() => {
+    let lastWidth = Math.round(canvas.getBoundingClientRect().width)
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      // Mobile browsers change the viewport height while scrolling; only rebuild on real width changes.
+      const width = Math.round(entry.contentRect.width)
+      if (width === lastWidth) return
+      lastWidth = width
       window.clearTimeout(resizeTimer)
-      resizeTimer = window.setTimeout(() => {
-        build()
-        draw(0)
-      }, 150)
+      resizeTimer = window.setTimeout(build, 150)
     })
-
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting
       if (visible) start()
       else stop()
     })
-
-    // Rebuild the sprites when the light/dark theme changes.
-    const themeObserver = new MutationObserver(() => {
-      build()
-      draw(0)
-    })
+    // Re-tint the sprites when the light/dark theme changes.
+    const themeObserver = new MutationObserver(() => build())
 
     build()
-    draw(0)
     resizeObserver.observe(canvas)
     io.observe(canvas)
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
     if (!reduced) {
       window.addEventListener('pointermove', onPointerMove, { passive: true })
       document.documentElement.addEventListener('pointerleave', onPointerLeave)
-      document.addEventListener('visibilitychange', onVisibility)
-      start()
     }
+    document.addEventListener('visibilitychange', onVisibility)
+    start()
 
     return () => {
+      generation++
       stop()
-      themeObserver.disconnect()
       window.clearTimeout(resizeTimer)
       resizeObserver.disconnect()
       io.disconnect()
+      themeObserver.disconnect()
       window.removeEventListener('pointermove', onPointerMove)
       document.documentElement.removeEventListener('pointerleave', onPointerLeave)
       document.removeEventListener('visibilitychange', onVisibility)

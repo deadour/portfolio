@@ -28,7 +28,6 @@ export const es: Content = {
   now: {
     label: 'Ahora',
     text: 'Trabajando en Last.fm Data Platform y en Malaca, una plataforma de e-commerce para un cliente.',
-    updated: 'Octubre 2026',
   },
   sections: {
     about: 'Sobre mí',

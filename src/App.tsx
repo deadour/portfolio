@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import { useLang } from './i18n'
 import LinkIcon from './components/LinkIcon'
 import PassionCanvas from './components/hero/PassionCanvas'
+import DustCanvas from './components/hero/DustCanvas'
 
 export default function App() {
   const { c } = useLang()
@@ -17,6 +18,7 @@ export default function App() {
   return (
     <div className="relative isolate">
       {/* Decorative backdrop behind the header and hero: accent glow + doodle canvas (see index.css). */}
+      <DustCanvas />
       <div aria-hidden="true" className="hero-backdrop">
         <PassionCanvas className="hero-canvas absolute inset-0 size-full" />
       </div>

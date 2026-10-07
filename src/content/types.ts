@@ -58,8 +58,8 @@ export type Content = {
     showMore: string
   }
   hero: { title: string; tagline: string; viewWork: string; downloadCv: string }
-  // What I'm working on right now. Update the date when the text changes.
-  now: { label: string; text: string; updated: string }
+  // What I'm working on right now. The month shown next to it is always the current one.
+  now: { label: string; text: string }
   sections: {
     about: string
     work: string
