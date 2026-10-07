@@ -127,46 +127,40 @@
   .wordmark-typed::after { display: none; }
 }
 
-/* Parametric blueprint layer: every visible mark is a precise SVG primitive. */
-.blueprint-scene {
-  overflow: visible;
-  color: var(--fg);
-  opacity: 0.82;
+.hero-sketch {
+  /* Default is light mode: turn white lines to dark graphite (brightness 0) or inverted */
+  filter: brightness(0);
 }
-.blueprint-item {
-  opacity: 0.12;
-  animation: blueprint-fade var(--duration) ease-in-out var(--delay) infinite alternate;
+
+:root[data-theme='dark'] .hero-sketch {
+  filter: none;
 }
-.blueprint-item > .blueprint-icon { display: block; width: 100%; height: 100%; }
-.blueprint-map {
-  opacity: 0.12;
-  animation: blueprint-map-pulse 16s ease-in-out infinite alternate;
-  transform-origin: center;
+
+/* Optional mask for the whole sketch container so they fade out at the bottom */
+.hero-sketch-mask {
+  mask-image: linear-gradient(to bottom, #000 65%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent);
 }
-.blueprint-icon {
-  overflow: visible;
-  color: var(--fg);
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -12px, 0); }
 }
-.blueprint-icon line,
-.blueprint-icon path,
-.blueprint-icon circle,
-.blueprint-icon ellipse,
-.blueprint-icon rect,
-.blueprint-icon polygon,
-.blueprint-icon polyline {
-  vector-effect: non-scaling-stroke;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+
+@keyframes drift-slow {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(8px, -10px, 0) rotate(1.5deg); }
 }
-.blueprint-icon text { opacity: 0.9; }
-@keyframes blueprint-fade { from { opacity: 0.08; } to { opacity: 0.14; } }
-@keyframes blueprint-map-pulse {
-  from { opacity: 0.08; }
-  to { opacity: 0.14; }
+
+@keyframes rotate-slow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .blueprint-item,
-  .blueprint-map { animation: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-float { animation: float 18s ease-in-out infinite; }
+  .anim-drift-slow { animation: drift-slow 24s ease-in-out infinite; }
+  .anim-rotate-slow { animation: rotate-slow 30s ease-in-out infinite; }
 }
 
 /* ---------- Pipeline diagram ---------- */

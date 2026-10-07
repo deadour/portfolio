@@ -9,7 +9,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { useLang } from './i18n'
 import LinkIcon from './components/LinkIcon'
-import PassionCanvas from './components/hero/PassionCanvas'
+import HeroSketches from './components/hero/Sketches'
 import DustCanvas from './components/hero/DustCanvas'
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
       {/* Decorative backdrop behind the header and hero: accent glow + doodle canvas (see index.css). */}
       <DustCanvas />
       <div aria-hidden="true" className="hero-backdrop">
-        <PassionCanvas className="hero-canvas absolute inset-0 size-full" />
+        <HeroSketches className="hero-canvas" />
       </div>
     <div id="top" className="mx-auto max-w-[52rem] px-5 sm:px-8">
       <a
