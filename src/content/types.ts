@@ -19,6 +19,7 @@ export type ProjectText = {
   title: string
   kind: string
   summary: string
+  // Each item may contain [text](https://…) links.
   highlights: string[]
   // Short label shown on cards that are not finished yet.
   status?: string

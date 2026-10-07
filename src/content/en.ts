@@ -146,7 +146,7 @@ export const en: Content = {
       summary:
         'Web app for Information Systems Engineering students at UTN that keeps the whole degree in one place: academic status, a prerequisites map, a calendar with classes and exams, shared notes and professors’ emails.',
       highlights: [
-        'Team project with Lautaro Acosta and Tobías Stegmayer. I built the original Django app and led the migration to Go + React, the deployment and the design.',
+        'Team project with [Lautaro Acosta](https://www.linkedin.com/in/lautaro-acosta-quintana/) and [Tobías Stegmayer](https://www.linkedin.com/in/tobias-stegmayer-612551218/). I built the original Django app and led the migration to Go + React, the deployment and the design.',
         'Go REST API (handlers, repositories and domain layers) and a new React + TypeScript SPA, replacing the original Django app.',
         'Full curriculum in PostgreSQL: 51 subjects, 109 prerequisites and 68 class groups with schedules, with versioned migrations.',
         'JWT login in a cookie, accent-insensitive subject search, light and dark themes and a mobile-first design.',

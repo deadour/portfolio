@@ -9,6 +9,25 @@ import { siLastdotfm } from 'simple-icons'
 
 type Project = (typeof projects)[number]
 
+// Turns [text](https://…) inside a highlight into an external link; everything else stays plain text.
+function withLinks(text: string) {
+  return text.split(/(\[[^\]]+\]\(https:\/\/[^)]+\))/).map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\((https:\/\/[^)]+)\)$/)
+    if (!m) return part
+    return (
+      <a
+        key={i}
+        href={m[2]}
+        target="_blank"
+        rel="noreferrer"
+        className="text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
+      >
+        {m[1]}
+      </a>
+    )
+  })
+}
+
 // Static class names so Tailwind can see them.
 const GRID_COLS = ['', 'sm:grid-cols-1', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-4']
 
@@ -180,7 +199,7 @@ function ProjectCard({ project }: { project: Project }) {
                 <span aria-hidden="true" className="absolute left-0 text-muted">
                   –
                 </span>
-                {item}
+                {withLinks(item)}
               </li>
             ))}
           </ul>
