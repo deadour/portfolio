@@ -35,9 +35,10 @@ function layout(W: number, H: number, picks: Set<string>): Placed[] {
   const colHalf = Math.min(W, 52 * rem) / 2
   const inColumn = (r: Rect) => r.x + r.w > W / 2 - colHalf && r.x < W / 2 + colHalf
 
-  const mapW = MAP.size * rem * scale
+  // On phones the map shrinks a bit more so the gap beside the portrait still fits a drawing.
+  const mapW = MAP.size * rem * (mobile ? 0.6 : 1)
   const mapH = (mapW * MAP.h) / MAP.w
-  const mapRect = { x: W - mapW - Math.max(16, W * 0.06), y: H * (mobile ? 0.08 : 0.16), w: mapW, h: mapH }
+  const mapRect = { x: W - mapW - Math.max(16, W * 0.06), y: mobile ? 5 * rem : H * 0.16, w: mapW, h: mapH }
   const placed: Placed[] = [
     { src: MAP.src, x: mapRect.x, y: mapRect.y, w: mapW, opacity: 0.13, animation: '', duration: 0, home: true },
   ]
@@ -75,7 +76,7 @@ function layout(W: number, H: number, picks: Set<string>): Placed[] {
   const queue = shuffle(pool)
   // On phones the gap between the portrait and the map, above the name, always gets one drawing.
   if (mobile) {
-    const gap = { x0: Math.min(W * 0.38, 9 * rem), x1: mapRect.x, y0: 4.5 * rem, y1: 15 * rem }
+    const gap = { x0: Math.min(W * 0.33, 7.5 * rem), x1: mapRect.x, y0: 4.5 * rem, y1: 15 * rem }
     const index = queue.findIndex((asset) => place(asset, gap, true))
     if (index >= 0) queue.splice(index, 1)
   }
@@ -124,13 +125,13 @@ export default function HeroSketches({ className = '' }: { className?: string })
           >
             <img src={s.src} alt="" decoding="async" className="block w-full hero-sketch" style={{ opacity: `calc(${s.opacity.toFixed(3)} * var(--sketch-boost, 1))` }} />
             {s.home && (
-              // Accent dot on Resistencia plus a small blueprint-style label pointing at it.
-              <span className="absolute" style={{ left: `${HOME.x * 100}%`, top: `${HOME.y * 100}%` }}>
-                <span className="hero-home absolute size-2 -translate-1/2 rounded-full bg-accent" />
-                <span className="hero-home-label absolute right-2 bottom-2 flex items-center gap-1 font-mono text-[10px] whitespace-nowrap text-accent">
-                  Resistencia
-                  <span aria-hidden="true" className="block h-px w-4 rotate-[30deg] bg-current" />
-                </span>
+              // Accent dot on Resistencia; the name shows as a tooltip on hover (larger invisible hit area).
+              <span
+                title="Resistencia, Chaco"
+                className="absolute grid size-6 -translate-1/2 place-items-center"
+                style={{ left: `${HOME.x * 100}%`, top: `${HOME.y * 100}%` }}
+              >
+                <span className="hero-home size-2 rounded-full bg-accent" />
               </span>
             )}
           </div>

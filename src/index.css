@@ -196,9 +196,6 @@
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
   opacity: 0.9;
 }
-.hero-home-label {
-  opacity: 0.75;
-}
 
 /* Shuffle button: the sketch layers fade out, swap and fade back in. */
 [data-shuffling] .sketch-layer {
