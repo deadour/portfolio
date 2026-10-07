@@ -80,7 +80,7 @@ export default function Timeline({ id, title, entries, children }: Props) {
                           // Plain clicks open the in-page viewer; Ctrl/Cmd/middle-click still open a new tab.
                           if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
                           e.preventDefault()
-                          openLightbox(toLightbox(entry.images), i)
+                          openLightbox(toLightbox(entry.images, false), i)
                         }}
                         className="block overflow-hidden rounded-lg border border-line"
                       >

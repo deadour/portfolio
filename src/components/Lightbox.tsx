@@ -11,8 +11,12 @@ const LightboxContext = createContext<(images: LightboxImage[], index: number) =
 export const useLightbox = () => useContext(LightboxContext)
 
 // Gallery figures → viewer images, using the large version when there is one.
-export const toLightbox = (figures: { src: string; href?: string; alt: string; caption?: string }[] = []) =>
-  figures.map((f) => ({ src: f.href ?? f.src, alt: f.alt, caption: f.caption }))
+// Without a caption the viewer shows the alt text, which suits screenshots. `describe: false`
+// leaves it out, for photos where the description would only state the obvious.
+export const toLightbox = (
+  figures: { src: string; href?: string; alt: string; caption?: string }[] = [],
+  describe = true,
+) => figures.map((f) => ({ src: f.href ?? f.src, alt: f.alt, caption: f.caption ?? (describe ? undefined : '') }))
 
 export function LightboxProvider({ children }: { children: ReactNode }) {
   const { c } = useLang()
