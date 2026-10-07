@@ -59,6 +59,13 @@ export const en: Content = {
         'Gold marts for activity, artists, discovery, streaks and diversity, plus artist enrichment from MusicBrainz and Last.fm tags with a local cache.',
         'Streamlit dashboard over ~117k listening events. Tests run with pytest against mocked HTTP responses.',
       ],
+      images: [
+        { src: '/images/lastfm-overview-thumb.webp', href: '/images/lastfm-overview.webp', alt: 'Dashboard overview: 116,871 scrobbles, 4,956 artists, scrobbles per year and top artists' },
+        { src: '/images/lastfm-taste-thumb.webp', href: '/images/lastfm-taste.webp', alt: 'Taste evolution: genre share over time and artist evolution by year' },
+        { src: '/images/lastfm-discovery-thumb.webp', href: '/images/lastfm-discovery.webp', alt: 'Discovery and loyalty: new artists and tracks per year, concentration and diversity' },
+        { src: '/images/lastfm-patterns-thumb.webp', href: '/images/lastfm-patterns.webp', alt: 'Listening heatmap by weekday and local hour, plus listening by location and artist country' },
+      ],
+      imagesNote: 'Streamlit dashboard built on the Gold layer. Click to enlarge.',
       pipeline: {
         steps: [
           { name: 'Last.fm API', detail: 'source' },

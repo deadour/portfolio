@@ -14,6 +14,7 @@ export const projects: {
   {
     id: 'lastfm',
     tier: 'featured',
+    gallery: 'wide',
     stack: ['Python', 'Parquet', 'Last.fm API', 'MusicBrainz', 'Streamlit', 'pytest'],
     links: [
       { kind: 'repository', href: 'https://github.com/deadour/lastfm-data-platform' },

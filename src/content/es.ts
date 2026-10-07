@@ -59,6 +59,13 @@ export const es: Content = {
         'Marts Gold de actividad, artistas, descubrimiento, rachas y diversidad, más enriquecimiento de artistas con MusicBrainz y tags de Last.fm usando caché local.',
         'Dashboard en Streamlit sobre ~117 mil eventos de escucha. Tests con pytest sobre respuestas HTTP simuladas.',
       ],
+      images: [
+        { src: '/images/lastfm-overview-thumb.webp', href: '/images/lastfm-overview.webp', alt: 'Resumen del dashboard: 116.871 scrobbles, 4.956 artistas, scrobbles por año y artistas más escuchados' },
+        { src: '/images/lastfm-taste-thumb.webp', href: '/images/lastfm-taste.webp', alt: 'Evolución del gusto: participación de géneros en el tiempo y evolución de artistas por año' },
+        { src: '/images/lastfm-discovery-thumb.webp', href: '/images/lastfm-discovery.webp', alt: 'Descubrimiento y fidelidad: artistas y temas nuevos por año, concentración y diversidad' },
+        { src: '/images/lastfm-patterns-thumb.webp', href: '/images/lastfm-patterns.webp', alt: 'Mapa de calor de escucha por día y hora local, y escuchas por ubicación y país del artista' },
+      ],
+      imagesNote: 'Dashboard en Streamlit construido sobre la capa Gold. Clic para ampliar.',
       pipeline: {
         steps: [
           { name: 'Last.fm API', detail: 'origen' },
