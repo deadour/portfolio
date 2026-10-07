@@ -224,9 +224,9 @@ export const en: Content = {
       description:
         'A semester of the Data Science master’s programme, with coursework in data science, AI, IoT and web development, and engineering projects in multidisciplinary teams.',
       images: [
-        { src: '/images/cesi-thumb.webp', href: '/images/cesi.webp', alt: 'Eduardo in front of the CESI École d’Ingénieurs sign' },
         { src: '/images/cesi-presenting.webp', alt: 'Eduardo presenting a team project in a CESI lecture hall' },
         { src: '/images/cesi-team.webp', alt: 'Eduardo working with his project team around a table with laptops' },
+        { src: '/images/cesi-thumb.webp', href: '/images/cesi.webp', alt: 'Eduardo in front of the CESI École d’Ingénieurs sign' },
       ],
     },
   ],
