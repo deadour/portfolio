@@ -188,11 +188,11 @@ export const en: Content = {
       period: 'Spring semester 2026',
       description:
         'A semester of the Data Science master’s programme, with coursework in data science, AI, IoT and web development, and engineering projects in multidisciplinary teams.',
-      image: {
-        src: '/images/cesi.webp',
-        alt: 'Eduardo in front of the CESI École d’Ingénieurs sign',
-        caption: 'CESI Rouen, 2026',
-      },
+      images: [
+        { src: '/images/cesi.webp', alt: 'Eduardo in front of the CESI École d’Ingénieurs sign', caption: 'CESI Rouen, 2026' },
+        { src: '/images/cesi-presenting.webp', alt: 'Eduardo presenting a team project in a CESI lecture hall', caption: 'Presenting a team project' },
+        { src: '/images/cesi-team.webp', alt: 'Eduardo working with his project team around a table with laptops', caption: 'Working with my team' },
+      ],
     },
   ],
   languages: [

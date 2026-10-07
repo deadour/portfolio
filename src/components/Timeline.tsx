@@ -38,20 +38,28 @@ export default function Timeline({ id, title, entries, children }: Props) {
                   ))}
                 </ul>
               )}
-              {entry.image && (
-                <figure className="mt-5 max-w-sm">
-                  <img
-                    src={entry.image.src}
-                    alt={entry.image.alt}
-                    width={720}
-                    height={540}
-                    loading="lazy"
-                    className="aspect-[4/3] w-full rounded-lg border border-line object-cover"
-                  />
-                  {entry.image.caption && (
-                    <figcaption className="mt-2 text-xs text-muted">{entry.image.caption}</figcaption>
-                  )}
-                </figure>
+              {entry.images && entry.images.length > 0 && (
+                // Same 4:5 frame for every photo; swipeable on mobile.
+                <div className="-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
+                  {entry.images.map((image) => (
+                    <figure key={image.src} className="w-44 shrink-0 snap-start sm:w-auto">
+                      <a
+                        href={image.href ?? image.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block overflow-hidden rounded-lg border border-line"
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          loading="lazy"
+                          className="aspect-[4/5] w-full object-cover transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                        />
+                      </a>
+                      {image.caption && <figcaption className="mt-2 text-xs text-muted">{image.caption}</figcaption>}
+                    </figure>
+                  ))}
+                </div>
               )}
             </li>
           )

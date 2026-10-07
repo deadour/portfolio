@@ -35,7 +35,7 @@ export type Entry = {
   period: string
   description?: string
   highlights?: string[]
-  image?: Figure
+  images?: Figure[]
 }
 
 export type Content = {
