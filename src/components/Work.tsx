@@ -86,7 +86,7 @@ function ProjectCard({ project }: { project: Project }) {
               width={960}
               height={540}
               loading="lazy"
-              className="aspect-[16/9] w-full object-cover transition-transform duration-300 hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100"
+              className="aspect-[16/9] w-full object-cover transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100"
             />
           </a>
           {text.images[0].caption && <figcaption className="mt-2 text-xs text-muted">{text.images[0].caption}</figcaption>}
@@ -125,7 +125,7 @@ function ProjectCard({ project }: { project: Project }) {
                   src={image.src}
                   alt={image.alt}
                   loading="lazy"
-                  className={`w-full ${crop} transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100`}
+                  className={`w-full ${crop} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
                 />
               </a>
               {image.caption && (
@@ -184,21 +184,47 @@ function ProjectCard({ project }: { project: Project }) {
   )
 }
 
+// Small label that opens a block of the Work section.
+function GroupLabel({ children }: { children: string }) {
+  return (
+    <h3 className="mt-12 mb-4 flex items-center gap-3 text-xs font-medium tracking-wide text-muted uppercase sm:mt-14">
+      {children}
+      <span aria-hidden="true" className="h-px flex-1 bg-line" />
+    </h3>
+  )
+}
+
 export default function Work() {
   const { c } = useLang()
-  const main = projects.filter((p) => p.tier !== 'secondary')
+  const featured = projects.filter((p) => p.group === 'featured')
+  const professional = projects.filter((p) => p.group === 'professional')
+  const personal = projects.filter((p) => p.group === 'personal' && p.tier !== 'secondary')
   const academic = projects.filter((p) => p.tier === 'secondary')
 
   return (
     <Section id="work" title={c.sections.work}>
       <div className="space-y-4">
-        {main.map((project) => (
+        {featured.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+
+      <GroupLabel>{c.ui.professional}</GroupLabel>
+      <div className="space-y-4">
+        {professional.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+
+      <GroupLabel>{c.ui.personal}</GroupLabel>
+      <div className="space-y-4">
+        {personal.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
       {academic.length > 0 && (
         <>
-          <h3 className="mt-10 mb-4 text-sm font-medium text-muted">{c.ui.academic}</h3>
+          <h4 className="mt-8 mb-4 text-sm font-medium text-muted">{c.ui.academic}</h4>
           <div className="grid gap-4 sm:grid-cols-2">
             {academic.map((project) => (
               <ProjectCard key={project.id} project={project} />

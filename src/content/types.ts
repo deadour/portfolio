@@ -61,6 +61,10 @@ export type Content = {
     showMore: string
     featured: string
     academic: string
+    professional: string
+    personal: string
+    copyEmail: string
+    copied: string
     // {n} is replaced by the number of photos.
     viewPhotos: string
   }
@@ -83,5 +87,5 @@ export type Content = {
   education: Entry[]
   languages: { name: string; level: string }[]
   tech: { data: string; software: string }
-  contact: { intro: string }
+  contact: { title: string; intro: string }
 }

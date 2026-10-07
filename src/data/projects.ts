@@ -8,11 +8,14 @@ export const projects: {
   gallery?: 'phone' | 'wide' | 'photo'
   // 'featured': the main case study. 'secondary': compact cards in the academic subsection.
   tier?: 'featured' | 'secondary'
+  // Which block of the Work section the card sits in.
+  group: 'featured' | 'professional' | 'personal'
   stack: string[]
   links: { kind: LinkKind; href: string }[]
 }[] = [
   {
     id: 'lastfm',
+    group: 'featured',
     tier: 'featured',
     gallery: 'wide',
     stack: ['Python', 'Parquet', 'Last.fm API', 'MusicBrainz', 'Streamlit', 'pytest'],
@@ -27,6 +30,7 @@ export const projects: {
   {
     // Internal system: screens must be mockups with sample data only.
     id: 'reports',
+    group: 'professional',
     gallery: 'wide',
     stack: ['Python', 'Pandas', 'SQL Server', 'Django REST Framework', 'Celery', 'Redis', 'React', 'Docker'],
     links: [],
@@ -34,6 +38,7 @@ export const projects: {
   {
     // Internal system: screens must be mockups with sample data only.
     id: 'rentos',
+    group: 'professional',
     gallery: 'wide',
     stack: ['Django REST Framework', 'PostgreSQL', 'SQL Server', 'React', 'Tailwind CSS', 'Playwright', 'Docker'],
     links: [],
@@ -41,12 +46,14 @@ export const projects: {
   {
     // TODO: add stack and a { kind: 'live', href } link once it's deployed.
     id: 'ecommerce',
+    group: 'professional',
     gallery: 'wide',
     stack: ['Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
     links: [],
   },
   {
     id: 'dynamo',
+    group: 'personal',
     stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
     links: [
       { kind: 'live', href: 'https://dynamo-1.onrender.com' },
@@ -59,6 +66,7 @@ export const projects: {
   },
   {
     id: 'cesiDl',
+    group: 'personal',
     tier: 'secondary',
     gallery: 'wide',
     stack: ['Python', 'PyTorch', 'Keras', 'NumPy', 'SHAP', 'LIME', 'FastAPI'],
@@ -71,6 +79,7 @@ export const projects: {
   },
   {
     id: 'cesiIot',
+    group: 'personal',
     tier: 'secondary',
     gallery: 'photo',
     stack: ['ESP32', 'ESPHome', 'Home Assistant', 'InfluxDB', 'Grafana'],

@@ -20,6 +20,10 @@ export const en: Content = {
     showMore: 'Show {n} more',
     featured: 'Featured project',
     academic: 'Academic projects',
+    professional: 'Professional work',
+    personal: 'Personal & academic',
+    copyEmail: 'Copy email',
+    copied: 'Copied',
     viewPhotos: 'View photos ({n})',
   },
   hero: {
@@ -232,6 +236,7 @@ export const en: Content = {
   ],
   tech: { data: 'Data', software: 'Software & infrastructure' },
   contact: {
-    intro: 'The quickest way to reach me is by email. I’m also on LinkedIn and GitHub.',
+    title: 'Let’s talk.',
+    intro: 'I’m open to Data Engineering opportunities and conversations around data and software projects.',
   },
 }

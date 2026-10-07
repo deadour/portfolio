@@ -20,6 +20,10 @@ export const es: Content = {
     showMore: 'Ver {n} más',
     featured: 'Proyecto principal',
     academic: 'Proyectos académicos',
+    professional: 'Trabajo profesional',
+    personal: 'Personal y académico',
+    copyEmail: 'Copiar email',
+    copied: 'Copiado',
     viewPhotos: 'Ver fotos ({n})',
   },
   hero: {
@@ -232,6 +236,7 @@ export const es: Content = {
   ],
   tech: { data: 'Datos', software: 'Software e infraestructura' },
   contact: {
-    intro: 'La forma más rápida de contactarme es por email. También estoy en LinkedIn y GitHub.',
+    title: 'Hablemos.',
+    intro: 'Estoy abierto a oportunidades en Data Engineering y a conversar sobre proyectos de datos y software.',
   },
 }
