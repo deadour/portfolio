@@ -191,6 +191,16 @@
   opacity: 1;
 }
 
+/* Shuffle button: the sketch layers fade out, swap and fade back in. */
+[data-shuffling] .sketch-layer {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sketch-layer {
+    transition: opacity 250ms ease;
+  }
+}
+
 /* Optional mask for the whole sketch container so they fade out at the bottom */
 .hero-sketch-mask {
   mask-image: linear-gradient(to bottom, #000 65%, transparent);

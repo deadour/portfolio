@@ -50,17 +50,52 @@ const SLOTS: Slot[] = [
 
 const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]
 
-// This visit's layout: one drawing per spot, the y point nudged a little and, half the
-// time, every side mirrored, so the page doesn't look the same on each visit.
-const mirror = Math.random() < 0.5
-export const PAGE_SPOTS = SLOTS.map((slot) => ({
-  ...slot,
-  asset: pick(slot.options),
-  y: Math.min(1, Math.max(0, slot.y + (Math.random() - 0.5) * 2 * (slot.jitter ?? 0.12))),
-  side: mirror ? (slot.side === 'left' ? 'right' : 'left') : slot.side,
-  // Where it sits across the free margin (0 = inner edge, 1 = outer edge) and a size nudge.
-  spread: Math.random(),
-  scale: 0.85 + Math.random() * 0.25,
-}))
+// One layout: a drawing per spot, the y point nudged a little and, half the time, every
+// side mirrored, so the page doesn't look the same on each visit.
+function makeSpots() {
+  const mirror = Math.random() < 0.5
+  return SLOTS.map((slot) => ({
+    ...slot,
+    asset: pick(slot.options),
+    y: Math.min(1, Math.max(0, slot.y + (Math.random() - 0.5) * 2 * (slot.jitter ?? 0.12))),
+    side: mirror ? (slot.side === 'left' ? 'right' : 'left') : slot.side,
+    // Where it sits across the free margin (0 = inner edge, 1 = outer edge) and a size nudge.
+    spread: Math.random(),
+    scale: 0.85 + Math.random() * 0.25,
+  }))
+}
 
-export const PAGE_PICKS = new Set(PAGE_SPOTS.map((spot) => spot.asset.src))
+export type PageSpot = ReturnType<typeof makeSpots>[number]
+// `picks` lets the hero skip the drawings already used further down. `shuffled` is
+// set once the visitor reshuffles, so the page shows the new drawings right away.
+export type SketchState = { spots: PageSpot[]; picks: Set<string>; shuffled: boolean }
+
+function makeState(shuffled: boolean): SketchState {
+  const spots = makeSpots()
+  return { spots, picks: new Set(spots.map((spot) => spot.asset.src)), shuffled }
+}
+
+// Tiny shared store so the hero, the page layer and the shuffle button stay in sync.
+let state = makeState(false)
+const listeners = new Set<() => void>()
+
+export const getSketchState = () => state
+export function subscribeSketches(listener: () => void) {
+  listeners.add(listener)
+  return () => listeners.delete(listener)
+}
+
+// New drawings and positions for the hero and the page. The layers fade out, swap and
+// fade back in (see [data-shuffling] in index.css); with reduced motion it's instant.
+export function shuffleSketches() {
+  const root = document.documentElement
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const swap = () => {
+    state = makeState(true)
+    listeners.forEach((listener) => listener())
+    requestAnimationFrame(() => requestAnimationFrame(() => delete root.dataset.shuffling))
+  }
+  if (reduced) return swap()
+  root.dataset.shuffling = 'true'
+  window.setTimeout(swap, 250)
+}

@@ -3,6 +3,7 @@ import { site } from '../data/site'
 import { languages } from '../content'
 import { useLang } from '../i18n'
 import Wordmark from './Wordmark'
+import { shuffleSketches } from './hero/pageSlots'
 
 function ThemeToggle() {
   const { c } = useLang()
@@ -38,6 +39,24 @@ function ThemeToggle() {
         ) : (
           <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
         )}
+      </svg>
+    </button>
+  )
+}
+
+// Small easter egg: picks a new set of background sketches and positions.
+function ShuffleButton() {
+  const { c } = useLang()
+  return (
+    <button
+      type="button"
+      onClick={shuffleSketches}
+      aria-label={c.ui.shuffle}
+      title={c.ui.shuffle}
+      className="grid size-8 place-items-center rounded-md text-muted hover:text-fg"
+    >
+      <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
       </svg>
     </button>
   )
@@ -102,6 +121,7 @@ export default function Header() {
               </span>
             ))}
           </div>
+          <ShuffleButton />
           <ThemeToggle />
         </div>
       </div>

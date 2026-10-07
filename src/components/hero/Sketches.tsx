@@ -1,10 +1,7 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react'
 
 import { MAP, SKETCHES, type Asset } from './sketchAssets'
-import { PAGE_PICKS } from './pageSlots'
-
-// The hero draws from every sketch except the ones already placed further down the page on this visit.
-const POOL: Asset[] = Object.values(SKETCHES).filter((asset) => !PAGE_PICKS.has(asset.src))
+import { getSketchState, subscribeSketches } from './pageSlots'
 
 const ANIMATIONS = ['float', 'drift-slow', 'rotate-slow']
 
@@ -25,7 +22,9 @@ function shuffle<T>(list: T[]) {
 }
 
 // Random layout for this visit: no two drawings touch, the Argentina map stays fixed on the right.
-function layout(W: number, H: number): Placed[] {
+function layout(W: number, H: number, picks: Set<string>): Placed[] {
+  // Every sketch except the ones already placed further down the page.
+  const pool: Asset[] = Object.values(SKETCHES).filter((asset) => !picks.has(asset.src))
   const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
   const mobile = W < 640
   const scale = mobile ? 0.75 : 1
@@ -42,7 +41,7 @@ function layout(W: number, H: number): Placed[] {
   const taken: Rect[] = [mapRect]
 
   const target = mobile ? 5 : W < 1100 ? 8 : 11
-  for (const asset of shuffle(POOL)) {
+  for (const asset of shuffle(pool)) {
     if (placed.length > target) break
     const w = asset.size * rem * scale * (0.85 + Math.random() * 0.3)
     const h = (w * asset.h) / asset.w
@@ -70,24 +69,31 @@ function layout(W: number, H: number): Placed[] {
 export default function HeroSketches({ className = '' }: { className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const [sketches, setSketches] = useState<Placed[]>([])
+  const { picks } = useSyncExternalStore(subscribeSketches, getSketchState)
+  const size = useRef({ W: 0, H: 0 })
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    let width = 0
     // Re-layout only when the width changes (mobile toolbars change the height while scrolling).
     const ro = new ResizeObserver(([entry]) => {
       const { width: W, height: H } = entry.contentRect
-      if (Math.abs(W - width) < 1) return
-      width = W
-      setSketches(layout(W, H))
+      if (Math.abs(W - size.current.W) < 1) return
+      size.current = { W, H }
+      setSketches(layout(W, H, getSketchState().picks))
     })
     ro.observe(el)
     return () => ro.disconnect()
   }, [])
 
+  // A shuffle brings a new set of picks: lay the hero out again.
+  useEffect(() => {
+    const { W, H } = size.current
+    if (W) setSketches(layout(W, H, picks))
+  }, [picks])
+
   return (
-    <div ref={ref} className={`absolute inset-0 overflow-hidden pointer-events-none z-[-1] ${className}`} aria-hidden="true">
+    <div ref={ref} className={`sketch-layer absolute inset-0 overflow-hidden pointer-events-none z-[-1] ${className}`} aria-hidden="true">
       <div className="absolute inset-0 hero-sketch-mask pointer-events-none">
         {sketches.map((s, i) => (
           <div

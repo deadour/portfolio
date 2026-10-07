@@ -52,6 +52,7 @@ export type Content = {
     language: string
     themeToDark: string
     themeToLight: string
+    shuffle: string
     links: Record<LinkKind, string>
     portraitAlt: string
     credential: string

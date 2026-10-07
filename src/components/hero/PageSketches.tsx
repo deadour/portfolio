@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react'
 
-import { PAGE_SPOTS } from './pageSlots'
+import { getSketchState, subscribeSketches, type PageSpot } from './pageSlots'
 
 type Placed = { src: string; x: number; y: number; w: number; opacity: number; anim: string; duration: number }
 
@@ -8,7 +8,7 @@ const ANIMATIONS = ['float', 'drift-slow', 'rotate-slow']
 
 // Wide screens: somewhere in the empty side margin. Narrow screens (no margin to spare):
 // the drawing peeks in from the edge of the screen, fainter, so it never sits under the text.
-function layout(layer: HTMLElement): Placed[] {
+function layout(layer: HTMLElement, spots: PageSpot[]): Placed[] {
   const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
   const content = document.getElementById('top')
   if (!content) return []
@@ -17,7 +17,7 @@ function layout(layer: HTMLElement): Placed[] {
   const gutter = content.getBoundingClientRect().left - layer.getBoundingClientRect().left
   const out: Placed[] = []
 
-  PAGE_SPOTS.forEach((spot, i) => {
+  spots.forEach((spot, i) => {
     const el = document.querySelectorAll<HTMLElement>(spot.at)[spot.index ?? 0]
     if (!el) return
     const box = el.getBoundingClientRect()
@@ -53,6 +53,7 @@ function layout(layer: HTMLElement): Placed[] {
 export default function PageSketches() {
   const ref = useRef<HTMLDivElement>(null)
   const [placed, setPlaced] = useState<Placed[]>([])
+  const { spots, shuffled } = useSyncExternalStore(subscribeSketches, getSketchState)
 
   useEffect(() => {
     const layer = ref.current
@@ -61,7 +62,7 @@ export default function PageSketches() {
     let frame = 0
     const update = () => {
       cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(() => setPlaced(layout(layer)))
+      frame = requestAnimationFrame(() => setPlaced(layout(layer, getSketchState().spots)))
     }
     // Sections change height when images load or a disclosure opens, so follow them.
     const ro = new ResizeObserver(update)
@@ -72,6 +73,11 @@ export default function PageSketches() {
       ro.disconnect()
     }
   }, [])
+
+  // A shuffle brings new drawings and positions.
+  useEffect(() => {
+    if (ref.current) setPlaced(layout(ref.current, spots))
+  }, [spots])
 
   // Each drawing fades in the first time it scrolls into view.
   useEffect(() => {
@@ -96,11 +102,13 @@ export default function PageSketches() {
   }, [placed])
 
   return (
-    <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    <div ref={ref} aria-hidden="true" className="sketch-layer pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       {placed.map((s) => (
         <div
           key={s.src}
           className="page-sketch absolute"
+          // After a shuffle the visitor is mid-page: show the new drawings at once.
+          data-visible={shuffled || undefined}
           style={{ left: s.x, top: s.y, width: s.w, '--o': s.opacity } as CSSProperties}
         >
           <div className={`anim-${s.anim}`} style={{ '--d': `${s.duration}s` } as CSSProperties}>

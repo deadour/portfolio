@@ -12,6 +12,7 @@ export const es: Content = {
     language: 'Idioma',
     themeToDark: 'Cambiar a tema oscuro',
     themeToLight: 'Cambiar a tema claro',
+    shuffle: 'Mezclar los dibujos del fondo',
     links: { repository: 'Repositorio', walkthrough: 'Recorrido técnico', live: 'Ver sitio', post: 'Post en LinkedIn' },
     portraitAlt: 'Retrato de Eduardo M. Ramírez',
     credential: 'Credencial',
