@@ -35,6 +35,8 @@ function ProjectCard({ project }: { project: Project }) {
     <img src="/images/logo-biamaq.webp" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-cover" />
   ) : project.id === 'rentos' ? (
     <img src="/images/logo-rentos.png" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-contain" />
+  ) : project.id === 'ecommerce' ? (
+    <img src="/images/logo-malaca.webp" alt="" width={24} height={24} className="size-6 shrink-0 rounded-full object-contain" />
   ) : project.id === 'dynamo' ? (
     <img src="/images/logo-dynamo.png" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-cover" />
   ) : null
