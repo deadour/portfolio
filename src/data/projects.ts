@@ -65,11 +65,12 @@ export const projects: {
     ],
   },
   {
-    // TODO: add a { kind: 'live', href } link and screenshots once the demo URL is confirmed.
+    // TODO: add screenshots (the demo needs a login).
     id: 'chedul',
     group: 'personal',
     stack: ['Go', 'React', 'TypeScript', 'Vite', 'PostgreSQL', 'Docker', 'Google Cloud Run', 'Vercel', 'GitHub Actions'],
     links: [
+      { kind: 'live', href: 'https://chedul.vercel.app' },
       { kind: 'backend', href: 'https://github.com/ProjectUTN/chedul-core' },
       { kind: 'frontend', href: 'https://github.com/ProjectUTN/chedul-frontend' },
     ],
