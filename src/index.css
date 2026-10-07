@@ -104,6 +104,48 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
+/* Parametric blueprint layer: every visible mark is a precise SVG primitive. */
+.blueprint-scene {
+  overflow: visible;
+  color: var(--fg);
+  opacity: 0.82;
+}
+.blueprint-item {
+  opacity: 0.12;
+  animation: blueprint-fade var(--duration) ease-in-out var(--delay) infinite alternate;
+}
+.blueprint-item > .blueprint-icon { display: block; width: 100%; height: 100%; }
+.blueprint-map {
+  opacity: 0.12;
+  animation: blueprint-map-pulse 16s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.blueprint-icon {
+  overflow: visible;
+  color: var(--fg);
+}
+.blueprint-icon line,
+.blueprint-icon path,
+.blueprint-icon circle,
+.blueprint-icon ellipse,
+.blueprint-icon rect,
+.blueprint-icon polygon,
+.blueprint-icon polyline {
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.blueprint-icon text { opacity: 0.9; }
+@keyframes blueprint-fade { from { opacity: 0.08; } to { opacity: 0.14; } }
+@keyframes blueprint-map-pulse {
+  from { opacity: 0.08; }
+  to { opacity: 0.14; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .blueprint-item,
+  .blueprint-map { animation: none; }
+}
+
 /* ---------- Pipeline diagram ---------- */
 
 @media (min-width: 40rem) {
