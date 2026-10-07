@@ -40,6 +40,24 @@ import player from '../../assets/hero-sketches/player.webp'
 import sun from '../../assets/hero-sketches/sun.webp'
 import symbol from '../../assets/hero-sketches/symbol.webp'
 import wave from '../../assets/hero-sketches/wave.webp'
+import utn from '../../assets/hero-sketches/utn.webp'
+import uml from '../../assets/hero-sketches/uml.webp'
+import thermos from '../../assets/hero-sketches/thermos.webp'
+import dumbbell from '../../assets/hero-sketches/dumbbell.webp'
+import crane from '../../assets/hero-sketches/crane.webp'
+import hardHat from '../../assets/hero-sketches/hard-hat.webp'
+import drill from '../../assets/hero-sketches/drill.webp'
+import leaf from '../../assets/hero-sketches/leaf.webp'
+import dataMonitor from '../../assets/hero-sketches/data-monitor.webp'
+import dataPie from '../../assets/hero-sketches/data-pie.webp'
+import dataServers from '../../assets/hero-sketches/data-servers.webp'
+import dataDb from '../../assets/hero-sketches/data-db.webp'
+import dataLine from '../../assets/hero-sketches/data-line.webp'
+import dataClock from '../../assets/hero-sketches/data-clock.webp'
+import abbeyRoad from '../../assets/hero-sketches/abbey-road.webp'
+import prism from '../../assets/hero-sketches/prism.webp'
+import sumo from '../../assets/hero-sketches/sumo.webp'
+import calamaro from '../../assets/hero-sketches/calamaro.webp'
 
 export type Asset = { src: string; w: number; h: number; size: number; dense?: boolean }
 
@@ -83,4 +101,27 @@ export const SKETCHES = {
   sun: { src: sun, w: 280, h: 302, size: 6.5, dense: true },
   symbol: { src: symbol, w: 262, h: 284, size: 5.5, dense: true },
   wave: { src: wave, w: 280, h: 240, size: 7, dense: true },
+  // Third sheet.
+  utn: { src: utn, w: 386, h: 322, size: 6, dense: true },
+  uml: { src: uml, w: 332, h: 322, size: 6, dense: true },
+  thermos: { src: thermos, w: 186, h: 348, size: 4.5 },
+  dumbbell: { src: dumbbell, w: 477, h: 290, size: 8, dense: true },
+  crane: { src: crane, w: 398, h: 294, size: 8 },
+  hardHat: { src: hardHat, w: 269, h: 214, size: 5.5 },
+  drill: { src: drill, w: 313, h: 240, size: 6 },
+  leaf: { src: leaf, w: 145, h: 305, size: 4 },
+  dataMonitor: { src: dataMonitor, w: 93, h: 83, size: 3 },
+  dataPie: { src: dataPie, w: 79, h: 81, size: 3 },
+  dataServers: { src: dataServers, w: 100, h: 100, size: 3 },
+  dataDb: { src: dataDb, w: 93, h: 82, size: 3 },
+  dataLine: { src: dataLine, w: 96, h: 81, size: 3 },
+  dataClock: { src: dataClock, w: 97, h: 88, size: 3 },
+  abbeyRoad: { src: abbeyRoad, w: 414, h: 160, size: 9 },
+  prism: { src: prism, w: 413, h: 167, size: 9 },
+} satisfies Record<string, Asset>
+
+// Portraits share a single spot on the page, so at most one shows per visit, and never in the hero.
+export const PORTRAITS = {
+  sumo: { src: sumo, w: 208, h: 261, size: 5.5, dense: true },
+  calamaro: { src: calamaro, w: 146, h: 236, size: 4.5, dense: true },
 } satisfies Record<string, Asset>
