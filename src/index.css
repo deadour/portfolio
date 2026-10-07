@@ -138,7 +138,8 @@
   filter: none;
 }
 /* Light lines on a dark page read fainter than dark lines on paper. */
-:root[data-theme='dark'] { --sketch-boost: 1.45; }
+:root { --sketch-boost: 1.25; }
+:root[data-theme='dark'] { --sketch-boost: 1.6; }
 
 /* Hover effects */
 .hero-sketch:hover {
@@ -162,18 +163,18 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -12px, 0); }
+  0% { transform: translate3d(0, 10px, 0); }
+  100% { transform: translate3d(0, -22px, 0); }
 }
 
 @keyframes drift-slow {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50% { transform: translate3d(8px, -10px, 0) rotate(1.5deg); }
+  0% { transform: translate3d(-14px, 8px, 0) rotate(-2deg); }
+  100% { transform: translate3d(16px, -16px, 0) rotate(2.5deg); }
 }
 
 @keyframes rotate-slow {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(3deg); }
+  0% { transform: translate3d(8px, 0, 0) rotate(-5deg); }
+  100% { transform: translate3d(-8px, -12px, 0) rotate(5deg); }
 }
 
 /* The drift is tiny and slow, so it stays on with reduced motion, just at half speed. */

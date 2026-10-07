@@ -92,16 +92,14 @@ function layout(W: number, H: number): Placed[] {
   ]
   const taken: Rect[] = [mapRect]
 
-  const target = mobile ? 5 : W < 1100 ? 8 : 11
+  const target = mobile ? 7 : W < 1100 ? 12 : 16
   for (const asset of shuffle(POOL)) {
     if (placed.length > target) break
     const w = asset.size * rem * scale * (0.85 + Math.random() * 0.3)
     const h = (w * asset.h) / asset.w
     if (w > W - 32) continue
-    // Try the side gutters first, then anywhere.
     for (let attempt = 0; attempt < 60; attempt++) {
       const r = { x: Math.random() * (W - w), y: Math.random() * (H * 0.85 - h), w, h }
-      if (attempt < 40 && inColumn(r) && W > 52 * rem + 2 * w) continue
       if (taken.some((t) => overlaps(r, t))) continue
       taken.push(r)
       placed.push({
@@ -109,9 +107,10 @@ function layout(W: number, H: number): Placed[] {
         x: r.x,
         y: r.y,
         w,
-        opacity: (0.07 + Math.random() * 0.06) * (inColumn(r) ? 0.65 : 1),
+        // Behind the photo and text they stay fainter so the copy reads first.
+        opacity: inColumn(r) ? 0.05 + Math.random() * 0.03 : 0.09 + Math.random() * 0.06,
         animation: ANIMATIONS[Math.floor(Math.random() * ANIMATIONS.length)],
-        duration: 15 + Math.random() * 25,
+        duration: 9 + Math.random() * 9,
       })
       break
     }
