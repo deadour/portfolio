@@ -121,13 +121,34 @@ export const en: Content = {
       highlights: [],
       status: 'In development',
     },
-    cesi: {
-      title: 'Data Science & IoT Projects — CESI France',
-      kind: 'Academic · Exchange semester',
+    cesiDl: {
+      title: 'Diabetes Prediction with Deep Learning',
+      kind: 'Academic project · CESI France · Team of 4',
       summary:
-        'Group engineering projects from my semester at CESI École d’Ingénieurs, covering data science, AI, IoT and web development. Project write-ups coming soon.',
-      highlights: [],
-      status: 'Write-up in progress',
+        'End-to-end machine learning pipeline to predict diabetes from tabular health data with a heavily imbalanced dataset. Our 84%-accurate baseline missed almost every diabetic patient, so we optimized for clinical safety instead: far fewer false negatives.',
+      highlights: [
+        'EDA and preprocessing, Keras and custom NumPy baselines, and a tuned PyTorch model.',
+        'Oversampling and decision-threshold optimization to reduce false negatives.',
+        'Explainability with SHAP and LIME, and energy tracking with CodeCarbon.',
+        'Prototype deployment as a FastAPI service.',
+      ],
+      images: [{ src: '/images/cesi-dl-team.webp', alt: 'The team presenting the Diabetes Prediction with Deep Learning project at CESI' }],
+    },
+    cesiIot: {
+      title: 'Classroom Noise Monitor',
+      kind: 'Academic project · CESI France · IoT · Team of 4',
+      summary:
+        'Real-time device that measures noise levels in classrooms to improve the campus environment, connecting low-level hardware all the way to analytics dashboards. Privacy by design: it only measures decibels and never records audio.',
+      highlights: [
+        'ESP32-S3 with an INMP441 24-bit digital microphone for precise noise readings.',
+        'Data sent over WiFi through the ESPHome Native API instead of an MQTT broker.',
+        'Home Assistant ingests the readings, stores them in InfluxDB, and Grafana shows them in real time.',
+      ],
+      images: [
+        { src: '/images/cesi-iot-device.webp', alt: 'The noise monitor: a small 3D-printed case with an OLED screen showing the decibel level' },
+        { src: '/images/cesi-iot-grafana.webp', alt: 'Grafana dashboard with real-time noise level, state and a decibel gauge' },
+        { src: '/images/cesi-iot-architecture.webp', alt: 'Whiteboard sketch of the system architecture' },
+      ],
     },
   },
   experience: [

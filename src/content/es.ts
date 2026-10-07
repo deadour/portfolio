@@ -121,13 +121,34 @@ export const es: Content = {
       highlights: [],
       status: 'En desarrollo',
     },
-    cesi: {
-      title: 'Proyectos de Data Science e IoT — CESI Francia',
-      kind: 'Académico · Semestre de intercambio',
+    cesiDl: {
+      title: 'Predicción de diabetes con Deep Learning',
+      kind: 'Proyecto académico · CESI Francia · Equipo de 4',
       summary:
-        'Proyectos de ingeniería en equipo del semestre en CESI École d’Ingénieurs, en data science, IA, IoT y desarrollo web. Pronto voy a sumar el detalle de cada uno.',
-      highlights: [],
-      status: 'Descripción en preparación',
+        'Pipeline de machine learning de punta a punta para predecir diabetes a partir de datos clínicos tabulares, con un dataset muy desbalanceado. El modelo base tenía 84% de accuracy pero no detectaba a casi ningún paciente diabético, así que optimizamos para la seguridad clínica: muchos menos falsos negativos.',
+      highlights: [
+        'EDA y preprocesamiento, modelos base en Keras y en NumPy desde cero, y un modelo en PyTorch ajustado.',
+        'Oversampling y optimización del umbral de decisión para reducir falsos negativos.',
+        'Explicabilidad con SHAP y LIME, y medición de consumo energético con CodeCarbon.',
+        'Prototipo de despliegue como servicio en FastAPI.',
+      ],
+      images: [{ src: '/images/cesi-dl-team.webp', alt: 'El equipo presentando el proyecto de predicción de diabetes con Deep Learning en CESI' }],
+    },
+    cesiIot: {
+      title: 'Monitor de ruido en aulas',
+      kind: 'Proyecto académico · CESI Francia · IoT · Equipo de 4',
+      summary:
+        'Dispositivo en tiempo real que mide el nivel de ruido en las aulas para mejorar el ambiente del campus, conectando hardware de bajo nivel con dashboards de análisis. Privacidad desde el diseño: sólo mide decibeles y nunca graba audio.',
+      highlights: [
+        'ESP32-S3 con un micrófono digital INMP441 de 24 bits para lecturas precisas.',
+        'Envío de datos por WiFi mediante la API nativa de ESPHome, sin broker MQTT.',
+        'Home Assistant recibe las lecturas, las guarda en InfluxDB y Grafana las muestra en tiempo real.',
+      ],
+      images: [
+        { src: '/images/cesi-iot-device.webp', alt: 'El monitor de ruido: una caja impresa en 3D con pantalla OLED que muestra los decibeles' },
+        { src: '/images/cesi-iot-grafana.webp', alt: 'Dashboard de Grafana con el ruido en tiempo real, el estado y un medidor de decibeles' },
+        { src: '/images/cesi-iot-architecture.webp', alt: 'Boceto en pizarra de la arquitectura del sistema' },
+      ],
     },
   },
   experience: [

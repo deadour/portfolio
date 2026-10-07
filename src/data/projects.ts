@@ -4,7 +4,8 @@ import type { LinkKind, ProjectId } from '../content/types'
 export const projects: {
   id: ProjectId
   // 'phone' (default): narrow screenshots in a row of 4. 'wide': desktop screenshots in a 2×2 grid.
-  gallery?: 'phone' | 'wide'
+  // 'photo': mixed-size photos cropped to the same 4:5 frame.
+  gallery?: 'phone' | 'wide' | 'photo'
   stack: string[]
   links: { kind: LinkKind; href: string }[]
 }[] = [
@@ -45,14 +46,30 @@ export const projects: {
     ],
   },
   {
-    // TODO: add stack and a { kind: 'live', href } link once it's deployed.
-    id: 'ecommerce',
-    stack: [],
-    links: [],
+    id: 'cesiDl',
+    gallery: 'wide',
+    stack: ['Python', 'PyTorch', 'Keras', 'NumPy', 'SHAP', 'LIME', 'FastAPI'],
+    links: [
+      {
+        kind: 'post',
+        href: 'https://www.linkedin.com/posts/eduramirez645_deeplearning-pytorch-keras-ugcPost-7450863599469735936-QqvC/',
+      },
+    ],
   },
   {
-    // TODO: replace with the actual projects from the exchange semester.
-    id: 'cesi',
+    id: 'cesiIot',
+    gallery: 'photo',
+    stack: ['ESP32', 'ESPHome', 'Home Assistant', 'InfluxDB', 'Grafana'],
+    links: [
+      {
+        kind: 'post',
+        href: 'https://www.linkedin.com/posts/eduramirez645_iot-esp32-homeassistant-ugcPost-7435821903157719040-VhMi/',
+      },
+    ],
+  },
+  {
+    // TODO: add stack and a { kind: 'live', href } link once it's deployed.
+    id: 'ecommerce',
     stack: [],
     links: [],
   },

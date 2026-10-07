@@ -6,10 +6,18 @@ import { useLang } from '../i18n'
 
 type Project = (typeof projects)[number]
 
+// Static class names so Tailwind can see them.
+const GRID_COLS = ['', 'sm:grid-cols-1', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-4']
+
 function ProjectCard({ project }: { project: Project }) {
   const { c } = useLang()
   const text = c.projects[project.id]
   const wide = project.gallery === 'wide'
+  const count = text.images?.length ?? 0
+  // Phone screens: up to 4 per row. Wide screens: up to 2. A single image takes the full width.
+  const cols = GRID_COLS[Math.min(count, wide ? 2 : 4)]
+  const itemWidth = count === 1 ? 'w-full' : wide ? 'w-64' : project.gallery === 'photo' ? 'w-44' : 'w-32'
+  const crop = project.gallery === 'photo' ? 'aspect-[4/5] object-cover' : ''
 
   return (
     <article
@@ -27,14 +35,12 @@ function ProjectCard({ project }: { project: Project }) {
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
       {text.images && text.images.length > 0 && (
-        // Swipeable strip on mobile; a grid on desktop (4 columns for phone screens, 2 for wide ones).
+        // Swipeable strip on mobile, grid on desktop.
         <div
-          className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${
-            wide ? 'sm:grid-cols-2' : 'sm:grid-cols-4'
-          }`}
+          className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${cols}`}
         >
           {text.images.map((image) => (
-            <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${wide ? 'w-64' : 'w-32'}`}>
+            <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${itemWidth}`}>
               <a
                 href={image.href ?? image.src}
                 target="_blank"
@@ -45,7 +51,7 @@ function ProjectCard({ project }: { project: Project }) {
                   src={image.src}
                   alt={image.alt}
                   loading="lazy"
-                  className="w-full transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                  className={`w-full ${crop} transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100`}
                 />
               </a>
               {image.caption && (
