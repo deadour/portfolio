@@ -137,6 +137,8 @@
 :root[data-theme='dark'] .hero-sketch {
   filter: none;
 }
+/* Light lines on a dark page read fainter than dark lines on paper. */
+:root[data-theme='dark'] { --sketch-boost: 1.45; }
 
 /* Hover effects */
 .hero-sketch:hover {
@@ -174,10 +176,12 @@
   50% { transform: rotate(3deg); }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .anim-float { animation: float ease-in-out infinite alternate; }
-  .anim-drift-slow { animation: drift-slow ease-in-out infinite alternate; }
-  .anim-rotate-slow { animation: rotate-slow ease-in-out infinite alternate; }
+/* The drift is tiny and slow, so it stays on with reduced motion, just at half speed. */
+.anim-float { animation: float var(--d, 24s) ease-in-out infinite alternate; }
+.anim-drift-slow { animation: drift-slow var(--d, 24s) ease-in-out infinite alternate; }
+.anim-rotate-slow { animation: rotate-slow var(--d, 24s) ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) {
+  .anim-float, .anim-drift-slow, .anim-rotate-slow { animation-duration: calc(var(--d, 24s) * 2); }
 }
 
 /* ---------- Pipeline diagram ---------- */
