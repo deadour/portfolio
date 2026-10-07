@@ -19,13 +19,10 @@ export const en: Content = {
     howItsBuilt: 'How it’s built',
     lightbox: { close: 'Close', previous: 'Previous image', next: 'Next image' },
     showMore: 'Show {n} more',
-    featured: 'Featured · Data Engineering',
+    featured: 'Featured project',
     academic: 'Academic projects',
-    professional: 'Professional work · BIAMAQ',
-    selected: 'Selected projects',
-    viewScreens: 'View screens ({n})',
-    carousel: { label: 'Selected projects', previous: 'Previous project', next: 'Next project' },
-    biamaq: 'Internal data and software platforms built for an industrial machinery company with 3 branches.',
+    professional: 'Professional work',
+    personal: 'Personal & academic',
     copyEmail: 'Copy email',
     copied: 'Copied',
     viewPhotos: 'View photos ({n})',
@@ -88,9 +85,10 @@ export const en: Content = {
     },
     reports: {
       title: 'BIAMAQ Reports',
-      kind: 'Business Intelligence / Data Platform',
+      kind: 'Work project · BIAMAQ · Business Intelligence',
       badge: 'Internal production system',
-      summary: 'Internal reporting for management: sales, purchases, receivables, customers and workshop across 3 branches, built on the extractors and data warehouse I built from the company’s SQL Server ERP.',
+      summary:
+        'Internal reporting platform where BIAMAQ’s management follows sales, purchases, receivables, customers and workshop activity across its 3 branches. It runs on top of the extractors and data warehouse I built from the company’s SQL Server ERP.',
       highlights: [
         'Django REST Framework API over SQL Server (ERP + data warehouse), with a React frontend.',
         'Python and Pandas extractors, scheduled with Celery and Redis: daily loads, monthly receivables snapshots and customer classification.',
@@ -107,8 +105,9 @@ export const en: Content = {
     },
     rentos: {
       title: 'RENT-OS',
-      kind: 'Operations / Full-stack platform',
-      summary: 'Internal multi-company, multi-branch rental platform covering the full cycle: booking, contract, technical delivery, return, close and workshop.',
+      kind: 'Work project · BIAMAQ · Full-stack platform',
+      summary:
+        'Equipment rental platform built for BIAMAQ’s re-engineering of its Rental module, built as a multi-company, multi-branch platform. It covers the full rental cycle: booking wizard, signed contract, technical delivery, return, billable-days close and workshop.',
       highlights: [
         'Django REST Framework backend with a hexagonal architecture, on PostgreSQL or SQL Server.',
         'PDF contracts signed on a Wacom tablet, and multi-company electronic invoicing with ARCA (Argentina’s tax authority).',
@@ -143,7 +142,7 @@ export const en: Content = {
     },
     chedul: {
       title: 'Chedul',
-      kind: 'UTN · Team of 3 · Full-stack',
+      kind: 'Team project · UTN · Team of 3 · Full-stack',
       summary:
         'Web app for Information Systems Engineering students at UTN that keeps the whole degree in one place: academic status, a prerequisites map, a calendar with classes and exams, shared notes and professors’ emails.',
       highlights: [
@@ -165,7 +164,8 @@ export const en: Content = {
     ecommerce: {
       title: 'Malaca',
       kind: 'Client project · E-commerce',
-      summary: 'Mobile-first online store for a brand of herbal blends: catalog, buying or asking through WhatsApp, and a custom admin panel.',
+      summary:
+        'Online store for a brand of herbal blends, built for a real client. A mobile-first catalog where customers buy or ask through WhatsApp, plus a custom admin panel to run the store.',
       highlights: [
         'WhatsApp checkout: each button opens a prefilled message with the product, price and link.',
         'Admin panel for products, up to 5 photos per product, prices, stock, featured items and optional categories.',
