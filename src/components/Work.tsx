@@ -69,8 +69,9 @@ function ProjectCard({ project }: { project: Project }) {
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
       {/* Academic cards show one real image during normal scroll; the lightbox keeps the full set available. */}
-      {/* Photo cards (the noise monitor): on phones, a swipeable strip instead of one image + button. */}
-      {compact && project.gallery === 'photo' && text.images && text.images.length > 1 && (
+      {/* On phones, compact cards with several images get a swipeable strip instead of one image + button.
+          Photos share a 4:5 frame; slides keep their own shape at a common height. */}
+      {compact && text.images && text.images.length > 1 && (
         <div className="-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:hidden">
           {text.images.map((image, i) => (
             <a
@@ -83,16 +84,23 @@ function ProjectCard({ project }: { project: Project }) {
                 e.preventDefault()
                 openLightbox(toLightbox(text.images), i)
               }}
-              className="block w-44 shrink-0 snap-start overflow-hidden rounded-md border border-line"
+              className={`block shrink-0 snap-start overflow-hidden rounded-md border border-line ${
+                project.gallery === 'photo' ? 'w-44' : ''
+              }`}
             >
-              <img src={image.src} alt={image.alt} loading="lazy" className="aspect-[4/5] w-full object-cover" />
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                className={project.gallery === 'photo' ? 'aspect-[4/5] w-full object-cover' : 'h-36 w-auto max-w-none'}
+              />
             </a>
           ))}
         </div>
       )}
 
       {compact && text.images && text.images.length > 0 && (
-        <figure className={`mt-5 ${project.gallery === 'photo' && text.images.length > 1 ? 'hidden sm:block' : ''}`}>
+        <figure className={`mt-5 ${text.images.length > 1 ? 'hidden sm:block' : ''}`}>
           <a
             href={text.images[0].href ?? text.images[0].src}
             target="_blank"
