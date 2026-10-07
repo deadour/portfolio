@@ -5,6 +5,7 @@ import compass from '../../assets/hero-sketches/sketch_r0_c4.webp'
 import argentina from '../../assets/hero-sketches/sketch_r0_c5.webp'
 import mate from '../../assets/hero-sketches/sketch_r1_c0.webp'
 import database from '../../assets/hero-sketches/sketch_r1_c4.webp'
+import pythonCode from '../../assets/hero-sketches/sketch_python_joined.webp'
 import astronaut from '../../assets/hero-sketches/sketch_r2_c0.webp'
 import guitar from '../../assets/hero-sketches/sketch_r2_c3.webp'
 import waves from '../../assets/hero-sketches/sketch_r2_c4.webp'
@@ -37,6 +38,7 @@ const sketches: SketchConfig[] = [
   { src: compass, alt: 'Compass', right: '8%', bottom: '45%', width: '9rem', opacity: 0.15, animation: 'rotate-slow' },
   { src: astronaut, alt: 'Astronaut', left: '5%', top: '55%', width: '11rem', opacity: 0.12, animation: 'float', hideOnMobile: true },
   { src: database, alt: 'Database', left: '55%', bottom: '25%', width: '10rem', opacity: 0.12 },
+  { src: pythonCode, alt: 'Python snippet', right: '5%', top: '65%', width: '18rem', opacity: 0.08, hideOnMobile: true },
 ]
 
 export default function HeroSketches({ className = '' }: { className?: string }) {
