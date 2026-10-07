@@ -11,6 +11,8 @@ export type Slot = {
   index?: number
   y: number
   side: 'left' | 'right'
+  // How far `y` may wander on each visit (fraction of the element). Small icons stay close.
+  jitter?: number
 }
 
 const SLOTS: Slot[] = [
@@ -19,7 +21,7 @@ const SLOTS: Slot[] = [
   { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#work article', index: 0, y: 0.15, side: 'left' },
   { options: [S.waves, S.vinyl, S.prism], at: '#work article', index: 0, y: 0.6, side: 'right' },
   { options: [S.dataPipeline, S.pythonCode, S.uml], at: '#work h3.uppercase', index: 0, y: 0, side: 'left' },
-  { options: [S.database, S.sqlCode], at: '#work article', index: 1, y: 0.5, side: 'right' },
+  { options: [S.database, S.sqlCode], at: '#work article', index: 1, y: 0.6, side: 'right', jitter: 0.08 },
   { options: [S.crane, S.drill], at: '#work article', index: 2, y: 0.3, side: 'right' },
   { options: [S.hardHat], at: '#work article', index: 2, y: 0.75, side: 'left' },
   { options: [S.mate, S.thermos], at: '#work article', index: 3, y: 0.2, side: 'right' },
@@ -37,13 +39,13 @@ const SLOTS: Slot[] = [
   { options: [S.solarSystem, S.spinningTop], at: '#tech', y: 0.8, side: 'left' },
   { options: [S.books, S.clapperboard], at: '#certifications', y: 0.4, side: 'right' },
   { options: [S.sun, S.mountains, S.forest], at: '#contact', y: 0.35, side: 'left' },
-  // The small data icons, one per spot, scattered across the page in the gaps left above.
-  { options: [S.dataPie], at: '#work article', index: 0, y: 0.85, side: 'left' },
-  { options: [S.dataMonitor], at: '#work article', index: 1, y: 0.2, side: 'left' },
-  { options: [S.dataServers], at: '#work article', index: 4, y: 0.25, side: 'right' },
-  { options: [S.dataLine], at: '#experience', y: 0.45, side: 'right' },
-  { options: [S.dataDb], at: '#tech', y: 0.55, side: 'right' },
-  { options: [S.dataClock], at: '#certifications', y: 0.75, side: 'left' },
+  // The small data icons: most of them around the BIAMAQ reports, a couple further away.
+  { options: [S.dataMonitor], at: '#work article', index: 1, y: 0.12, side: 'left', jitter: 0.08 },
+  { options: [S.dataServers], at: '#work article', index: 1, y: 0.2, side: 'right', jitter: 0.08 },
+  { options: [S.dataDb], at: '#work article', index: 1, y: 0.42, side: 'left', jitter: 0.08 },
+  { options: [S.dataLine], at: '#work article', index: 1, y: 0.75, side: 'left', jitter: 0.08 },
+  { options: [S.dataPie], at: '#work article', index: 0, y: 0.85, side: 'left', jitter: 0.08 },
+  { options: [S.dataClock], at: '#certifications', y: 0.75, side: 'left', jitter: 0.08 },
 ]
 
 const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]
@@ -54,7 +56,7 @@ const mirror = Math.random() < 0.5
 export const PAGE_SPOTS = SLOTS.map((slot) => ({
   ...slot,
   asset: pick(slot.options),
-  y: Math.min(1, Math.max(0, slot.y + (Math.random() - 0.5) * 0.24)),
+  y: Math.min(1, Math.max(0, slot.y + (Math.random() - 0.5) * 2 * (slot.jitter ?? 0.12))),
   side: mirror ? (slot.side === 'left' ? 'right' : 'left') : slot.side,
   // Where it sits across the free margin (0 = inner edge, 1 = outer edge) and a size nudge.
   spread: Math.random(),
