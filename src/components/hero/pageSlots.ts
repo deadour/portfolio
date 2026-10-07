@@ -19,9 +19,7 @@ const SLOTS: Slot[] = [
   { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#work article', index: 0, y: 0.15, side: 'left' },
   { options: [S.waves, S.vinyl, S.prism], at: '#work article', index: 0, y: 0.6, side: 'right' },
   { options: [S.dataPipeline, S.pythonCode, S.uml], at: '#work h3.uppercase', index: 0, y: 0, side: 'left' },
-  { options: [S.dataMonitor, S.dataLine], at: '#work article', index: 1, y: 0.2, side: 'left' },
-  { options: [S.database, S.sqlCode, S.dataServers, S.dataDb], at: '#work article', index: 1, y: 0.5, side: 'right' },
-  { options: [S.dataPie, S.dataClock], at: '#work article', index: 1, y: 0.8, side: 'left' },
+  { options: [S.database, S.sqlCode], at: '#work article', index: 1, y: 0.5, side: 'right' },
   { options: [S.crane, S.drill], at: '#work article', index: 2, y: 0.3, side: 'right' },
   { options: [S.hardHat], at: '#work article', index: 2, y: 0.75, side: 'left' },
   { options: [S.mate, S.thermos], at: '#work article', index: 3, y: 0.2, side: 'right' },
@@ -39,6 +37,13 @@ const SLOTS: Slot[] = [
   { options: [S.solarSystem, S.spinningTop], at: '#tech', y: 0.8, side: 'left' },
   { options: [S.books, S.clapperboard], at: '#certifications', y: 0.4, side: 'right' },
   { options: [S.sun, S.mountains, S.forest], at: '#contact', y: 0.35, side: 'left' },
+  // The small data icons, one per spot, scattered across the page in the gaps left above.
+  { options: [S.dataPie], at: '#work article', index: 0, y: 0.85, side: 'left' },
+  { options: [S.dataMonitor], at: '#work article', index: 1, y: 0.2, side: 'left' },
+  { options: [S.dataServers], at: '#work article', index: 4, y: 0.25, side: 'right' },
+  { options: [S.dataLine], at: '#experience', y: 0.45, side: 'right' },
+  { options: [S.dataDb], at: '#tech', y: 0.55, side: 'right' },
+  { options: [S.dataClock], at: '#certifications', y: 0.75, side: 'left' },
 ]
 
 const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]

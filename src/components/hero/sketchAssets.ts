@@ -122,6 +122,6 @@ export const SKETCHES = {
 
 // Portraits share a single spot on the page, so at most one shows per visit, and never in the hero.
 export const PORTRAITS = {
-  sumo: { src: sumo, w: 208, h: 261, size: 5.5, dense: true },
-  calamaro: { src: calamaro, w: 146, h: 236, size: 4.5, dense: true },
+  sumo: { src: sumo, w: 275, h: 345, size: 6, dense: true },
+  calamaro: { src: calamaro, w: 228, h: 293, size: 5.5, dense: true },
 } satisfies Record<string, Asset>
