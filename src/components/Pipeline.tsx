@@ -1,7 +1,7 @@
 import { Fragment, type CSSProperties } from 'react'
 import type { Pipeline as PipelineData } from '../content/types'
 
-// Flow diagram. Desktop: boxes with animated arrows (see .flow in index.css).
+// Flow diagram. Desktop: boxes and arrows revealed left to right once, on first view (see .flow in index.css).
 // Mobile: a compact line of chips that wraps, so it doesn't eat the screen.
 export default function Pipeline({ data }: { data: PipelineData }) {
   const { steps, branch, caption } = data
@@ -45,7 +45,7 @@ export default function Pipeline({ data }: { data: PipelineData }) {
                 <span className="mt-0.5 block text-[11px] leading-tight text-muted">{step.detail}</span>
               </li>
               {i < steps.length - 1 && (
-                <li aria-hidden="true" className="flex items-center">
+                <li aria-hidden="true" className="flex items-center" style={{ '--i': i } as CSSProperties}>
                   <span className="flow flow-h" />
                 </li>
               )}
@@ -57,7 +57,7 @@ export default function Pipeline({ data }: { data: PipelineData }) {
           <div className="pipeline grid" style={{ '--pipeline-cols': columns } as CSSProperties}>
             <div
               className="flex flex-col items-center"
-              style={{ gridColumn: `${Math.max(branch.target * 2, 1)} / span 3` }}
+              style={{ gridColumn: `${Math.max(branch.target * 2, 1)} / span 3`, '--i': branch.target } as CSSProperties}
             >
               <span aria-hidden="true" className="flex h-5 justify-center">
                 <span className="flow flow-v flow-up" />
