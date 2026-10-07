@@ -87,7 +87,7 @@
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Top of the page: a dot grid that fades out, plus a soft accent glow behind the hero. */
+/* Top of the page: soft accent glow plus the doodle canvas behind the hero. */
 .hero-backdrop {
   position: absolute;
   inset: 0 0 auto 0;
@@ -98,14 +98,10 @@
     radial-gradient(38rem 26rem at 22% 18%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
     radial-gradient(30rem 22rem at 85% 5%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%);
 }
-.hero-backdrop::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--fg) 22%, transparent) 1px, transparent 0);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse 75% 70% at 30% 0%, #000 20%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 30% 0%, #000 20%, transparent 75%);
+.hero-canvas {
+  /* Fade the doodles out toward the bottom so the backdrop blends into the page. */
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
 /* ---------- Pipeline diagram ---------- */

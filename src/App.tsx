@@ -9,14 +9,17 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { useLang } from './i18n'
 import LinkIcon from './components/LinkIcon'
+import PassionCanvas from './components/hero/PassionCanvas'
 
 export default function App() {
   const { c } = useLang()
 
   return (
     <div className="relative isolate">
-      {/* Decorative backdrop behind the header and hero (see .hero-backdrop in index.css). */}
-      <div aria-hidden="true" className="hero-backdrop" />
+      {/* Decorative backdrop behind the header and hero: accent glow + doodle canvas (see index.css). */}
+      <div aria-hidden="true" className="hero-backdrop">
+        <PassionCanvas className="hero-canvas absolute inset-0 size-full" />
+      </div>
     <div id="top" className="mx-auto max-w-[52rem] px-5 sm:px-8">
       <a
         href="#main"
