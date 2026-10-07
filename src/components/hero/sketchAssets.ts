@@ -61,7 +61,7 @@ import calamaro from '../../assets/hero-sketches/calamaro.webp'
 
 export type Asset = { src: string; w: number; h: number; size: number; dense?: boolean }
 
-export const MAP: Asset = { src: argentina, w: 226, h: 245, size: 7 }
+export const MAP: Asset = { src: argentina, w: 226, h: 245, size: 11 }
 
 export const SKETCHES = {
   eiffel: { src: eiffel, w: 200, h: 282, size: 6 },

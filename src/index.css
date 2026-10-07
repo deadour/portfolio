@@ -193,8 +193,11 @@
 
 /* Home marker on the hero map: a small accent dot with a soft halo, no animation. */
 .hero-home {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
-  opacity: 0.85;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+  opacity: 0.9;
+}
+.hero-home-label {
+  opacity: 0.75;
 }
 
 /* Shuffle button: the sketch layers fade out, swap and fade back in. */

@@ -124,10 +124,14 @@ export default function HeroSketches({ className = '' }: { className?: string })
           >
             <img src={s.src} alt="" decoding="async" className="block w-full hero-sketch" style={{ opacity: `calc(${s.opacity.toFixed(3)} * var(--sketch-boost, 1))` }} />
             {s.home && (
-              <span
-                className="hero-home absolute size-1.5 -translate-1/2 rounded-full bg-accent"
-                style={{ left: `${HOME.x * 100}%`, top: `${HOME.y * 100}%` }}
-              />
+              // Accent dot on Resistencia plus a small blueprint-style label pointing at it.
+              <span className="absolute" style={{ left: `${HOME.x * 100}%`, top: `${HOME.y * 100}%` }}>
+                <span className="hero-home absolute size-2 -translate-1/2 rounded-full bg-accent" />
+                <span className="hero-home-label absolute right-2 bottom-2 flex items-center gap-1 font-mono text-[10px] whitespace-nowrap text-accent">
+                  Resistencia
+                  <span aria-hidden="true" className="block h-px w-4 rotate-[30deg] bg-current" />
+                </span>
+              </span>
             )}
           </div>
         ))}
