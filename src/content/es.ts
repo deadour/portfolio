@@ -144,13 +144,12 @@ export const es: Content = {
       title: 'Chedul',
       kind: 'Proyecto en equipo · UTN · Equipo de 3 · Full-stack',
       summary:
-        'App web gratis y sin publicidad para estudiantes de Ingeniería en Sistemas de la UTN FRRe que organiza toda la carrera en un solo lugar: estado académico, materias que podés cursar, mapa de correlativas, horarios, calendario de parciales, apuntes compartidos y comunidades de alumnos.',
+        'App web para estudiantes de Ingeniería en Sistemas de la UTN que organiza toda la carrera en un solo lugar: estado académico, mapa de correlativas, calendario con clases y parciales, apuntes compartidos y mails de profesores.',
       highlights: [
-        'Proyecto en equipo con [Lautaro Acosta Quintana](https://www.linkedin.com/in/lautaro-acosta-quintana/) (backend e infraestructura) y [Tobías Stegmayer](https://www.linkedin.com/in/tobias-stegmayer-612551218/) (frontend y UI). Yo aporté la idea, coordiné el equipo y trabajé en todo el stack.',
-        'API REST en Go (capas de handlers, repositorios y dominio) y una SPA en React + TypeScript, que reemplazan a la app original en Django.',
-        'Plan de estudios completo en PostgreSQL: 51 materias, 109 correlativas y 68 comisiones con horarios, con migraciones versionadas. Al marcar una materia como cursando se carga sola su comisión.',
-        'Exportación del calendario a Google Calendar, Apple u Outlook con un link .ics privado que se mantiene actualizado. Los parciales los confirma la comisión: si 3 o más compañeros cargan la misma fecha, se les sugiere al resto.',
-        'Login con Google, tema claro y oscuro y diseño mobile-first.',
+        'Proyecto en equipo con [Lautaro Acosta](https://www.linkedin.com/in/lautaro-acosta-quintana/) y [Tobías Stegmayer](https://www.linkedin.com/in/tobias-stegmayer-612551218/). Hice la app original en Django y lideré la migración a Go + React, el deploy y el diseño.',
+        'API REST en Go (capas de handlers, repositorios y dominio) y una SPA nueva en React + TypeScript, que reemplazan a la app original en Django.',
+        'Plan de estudios completo en PostgreSQL: 51 materias, 109 correlativas y 68 comisiones con horarios, con migraciones versionadas.',
+        'Login con JWT en cookie, buscador de materias que ignora tildes, tema claro y oscuro y diseño mobile-first.',
         'Tests de integración con Testcontainers contra un Postgres real y CI en GitHub Actions.',
         'API en Docker sobre Google Cloud Run, base de datos en Neon y frontend en Vercel, con redeploy automático en cada push a main.',
       ],

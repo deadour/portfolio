@@ -144,13 +144,12 @@ export const en: Content = {
       title: 'Chedul',
       kind: 'Team project · UTN · Team of 3 · Full-stack',
       summary:
-        'Free, ad-free web app for Information Systems Engineering students at UTN FRRe that keeps the whole degree in one place: academic status, the subjects you can take next, a prerequisites map, weekly schedules, an exam calendar, shared notes and student communities.',
+        'Web app for Information Systems Engineering students at UTN that keeps the whole degree in one place: academic status, a prerequisites map, a calendar with classes and exams, shared notes and professors’ emails.',
       highlights: [
-        'Team project with [Lautaro Acosta Quintana](https://www.linkedin.com/in/lautaro-acosta-quintana/) (backend and infrastructure) and [Tobías Stegmayer](https://www.linkedin.com/in/tobias-stegmayer-612551218/) (frontend and UI). I came up with the idea, coordinated the team and worked full-stack.',
-        'Go REST API (handlers, repositories and domain layers) and a React + TypeScript SPA, replacing the original Django app.',
-        'Full curriculum in PostgreSQL: 51 subjects, 109 prerequisites and 68 class groups with schedules, with versioned migrations. Marking a subject as in progress loads its class group schedule automatically.',
-        'Calendar export to Google Calendar, Apple or Outlook through a private .ics link that stays up to date. Exam dates are confirmed by the class: when 3 or more classmates add the same date, it is suggested to the rest.',
-        'Google sign-in, light and dark themes and a mobile-first design.',
+        'Team project with [Lautaro Acosta](https://www.linkedin.com/in/lautaro-acosta-quintana/) and [Tobías Stegmayer](https://www.linkedin.com/in/tobias-stegmayer-612551218/). I built the original Django app and led the migration to Go + React, the deployment and the design.',
+        'Go REST API (handlers, repositories and domain layers) and a new React + TypeScript SPA, replacing the original Django app.',
+        'Full curriculum in PostgreSQL: 51 subjects, 109 prerequisites and 68 class groups with schedules, with versioned migrations.',
+        'JWT login in a cookie, accent-insensitive subject search, light and dark themes and a mobile-first design.',
         'Integration tests with Testcontainers against a real Postgres, and CI on GitHub Actions.',
         'API in Docker on Google Cloud Run, database on Neon and frontend on Vercel, redeployed automatically on every push to main.',
       ],
