@@ -41,7 +41,7 @@ export const projects: {
     group: 'professional',
     gallery: 'wide',
     stack: ['Django REST Framework', 'PostgreSQL', 'SQL Server', 'React', 'Tailwind CSS', 'Playwright', 'Docker'],
-    links: [],
+    links: [{ kind: 'live', href: 'https://alquileres.biamaq.com.ar/landing/' }],
   },
   {
     // TODO: add stack and a { kind: 'live', href } link once it's deployed.
