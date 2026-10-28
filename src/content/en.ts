@@ -2,16 +2,9 @@ import type { Content } from './types'
 
 export const en: Content = {
   meta: {
-    home: {
-      title: 'Eduardo M. Ramírez — Software & Data Engineer',
-      description:
-        'Software & Data Engineer in Argentina. I build backend systems, ERP integrations, data pipelines and internal business software used in real operations.',
-    },
-    services: {
-      title: 'Services for companies — Eduardo M. Ramírez',
-      description:
-        'ERP integration and process automation, data engineering and applied AI, and custom business software. Working remotely from Argentina.',
-    },
+    title: 'Eduardo M. Ramírez — Software & Data Engineer',
+    description:
+      'Software & Data Engineer in Argentina. I build backend systems, ERP integrations, data pipelines and internal business software used in real operations.',
   },
   ui: {
     skip: 'Skip to content',
@@ -357,8 +350,6 @@ export const en: Content = {
     ],
   },
   services: {
-    title: 'Services for companies',
-    lead: 'I’m an independent engineer working remotely from Resistencia, Argentina. I first learn how your company works, then propose the simplest solution that solves the problem.',
     process: {
       title: 'How I work',
       steps: [

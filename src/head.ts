@@ -15,7 +15,7 @@ const NOSCRIPT: Record<Lang, string> = {
 const attr = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-const url = (route: Route) => ORIGIN + pathFor(route.lang, route.page)
+const url = (route: Route) => ORIGIN + pathFor(route.lang)
 
 function person() {
   const data = {
@@ -35,8 +35,8 @@ function person() {
 }
 
 function head(route: Route) {
-  const meta = content[route.lang].meta[route.page]
-  const alternates = routes.filter((r) => r.page === route.page)
+  const meta = content[route.lang].meta
+  const alternates = routes
   const other = alternates.find((r) => r.lang !== route.lang)
   const image = `${ORIGIN}/og.png`
   const tags = [
@@ -44,7 +44,7 @@ function head(route: Route) {
     `<meta name="description" content="${attr(meta.description)}" />`,
     `<link rel="canonical" href="${url(route)}" />`,
     ...alternates.map((r) => `<link rel="alternate" hreflang="${r.lang}" href="${url(r)}" />`),
-    `<link rel="alternate" hreflang="x-default" href="${url({ lang: 'en', page: route.page })}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${url({ lang: 'en' })}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${attr(site.name)}" />`,
     `<meta property="og:url" content="${url(route)}" />`,
@@ -60,7 +60,7 @@ function head(route: Route) {
     `<meta name="twitter:title" content="${attr(meta.title)}" />`,
     `<meta name="twitter:description" content="${attr(meta.description)}" />`,
     `<meta name="twitter:image" content="${image}" />`,
-    ...(route.page === 'home' ? [person()] : []),
+    person(),
   ]
   return tags.join('\n    ')
 }

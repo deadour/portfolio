@@ -4,15 +4,15 @@ import tailwindcss from '@tailwindcss/vite'
 import { renderPage } from './src/head'
 import { fileFor, parseRoute, routes } from './src/route'
 
-// One HTML file per route (/, /es/, /services, /es/servicios), each with its own language and meta tags.
-// The app itself is the same bundle; it reads the route from the URL.
+// One HTML file per language (/ and /es/), each with its own lang attribute and meta tags.
+// The app itself is the same bundle; it reads the language from the URL.
 function routePages(): Plugin {
   return {
     name: 'route-pages',
     enforce: 'post',
     transformIndexHtml: {
       order: 'post',
-      // Dev server: the requested URL picks the route. Build: this is the English home.
+      // Dev server: the requested URL picks the language. Build: this is the English page.
       handler: (html, ctx) => renderPage(html, parseRoute(ctx.originalUrl?.split(/[?#]/)[0] ?? '/')),
     },
     generateBundle(_, bundle) {

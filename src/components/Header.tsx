@@ -3,7 +3,6 @@ import { site } from '../data/site'
 import { languages } from '../content'
 import { useLang } from '../i18n'
 import { pathFor } from '../route'
-import Link from './Link'
 import Wordmark from './Wordmark'
 import { shuffleSketches } from './hero/pageSlots'
 
@@ -68,12 +67,11 @@ function ShuffleButton() {
 }
 
 export default function Header() {
-  const { lang, page, setLang, c } = useLang()
-  const home = pathFor(lang, 'home')
+  const { lang, setLang, c } = useLang()
   const nav = [
-    { label: c.ui.nav.work, href: `${home}#work` },
-    { label: c.ui.nav.services, href: pathFor(lang, 'services'), current: page === 'services' },
-    { label: c.ui.nav.experience, href: `${home}#experience` },
+    { label: c.ui.nav.services, href: '#solutions' },
+    { label: c.ui.nav.work, href: '#work' },
+    { label: c.ui.nav.experience, href: '#experience' },
     { label: c.ui.nav.contact, href: '#contact' },
   ]
   // The header stays pinned; its soft backdrop only appears once the page has scrolled.
@@ -90,21 +88,17 @@ export default function Header() {
       data-scrolled={scrolled || undefined}
       className="site-header sticky top-0 z-40 flex flex-wrap items-center justify-between gap-x-4 pt-4 pb-2 sm:flex-nowrap sm:py-5"
     >
-      <Link href={`${home}#top`} aria-label={site.domain} className="font-mono text-sm text-muted hover:text-fg">
+      <a href="#top" aria-label={site.domain} className="font-mono text-sm text-muted hover:text-fg">
         <Wordmark value={site.domain} />
-      </Link>
+      </a>
       {/* On phones the links take a full row under the logo and controls. */}
       <nav aria-label="Main" className="order-last -mx-1 w-full sm:order-none sm:mx-0 sm:ml-auto sm:w-auto">
         <ul className="flex gap-1 overflow-x-auto text-sm text-muted sm:gap-6">
           {nav.map((item) => (
             <li key={item.href} className="shrink-0">
-              <Link
-                href={item.href}
-                aria-current={item.current ? 'page' : undefined}
-                className={`block rounded-md px-1 py-2 hover:text-fg sm:p-0 ${item.current ? 'text-fg' : ''}`}
-              >
+              <a href={item.href} className="block rounded-md px-1 py-2 hover:text-fg sm:p-0">
                 {item.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
@@ -119,7 +113,7 @@ export default function Header() {
                 </span>
               )}
               <a
-                href={pathFor(code, page)}
+                href={pathFor(code)}
                 hrefLang={code}
                 lang={code}
                 aria-current={lang === code ? 'true' : undefined}

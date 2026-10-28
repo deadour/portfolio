@@ -2,16 +2,9 @@ import type { Content } from './types'
 
 export const es: Content = {
   meta: {
-    home: {
-      title: 'Eduardo M. Ramírez — Software & Data Engineer',
-      description:
-        'Desarrollo software a medida, integro sistemas empresariales como ERP y SQL Server, y automatizo procesos con datos. Resistencia, Chaco · trabajo remoto.',
-    },
-    services: {
-      title: 'Servicios para empresas — Eduardo M. Ramírez',
-      description:
-        'Integración con ERP y automatización de procesos, datos e IA aplicada, y software empresarial a medida. Trabajo remoto desde Resistencia, Chaco.',
-    },
+    title: 'Eduardo M. Ramírez — Software & Data Engineer',
+    description:
+      'Desarrollo software a medida, integro sistemas empresariales como ERP y SQL Server, y automatizo procesos con datos. Resistencia, Chaco · trabajo remoto.',
   },
   ui: {
     skip: 'Saltar al contenido',
@@ -357,8 +350,6 @@ export const es: Content = {
     ],
   },
   services: {
-    title: 'Servicios para empresas',
-    lead: 'Soy desarrollador independiente y trabajo de forma remota desde Resistencia, Chaco. Primero entiendo cómo trabaja tu empresa y después propongo la solución más simple que resuelva el problema.',
     process: {
       title: 'Cómo trabajo',
       steps: [

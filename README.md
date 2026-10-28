@@ -4,12 +4,7 @@ Personal portfolio of Eduardo M. Ramírez — a static site in English and Spani
 
 ## Pages
 
-| Page | English | Spanish |
-|---|---|---|
-| Home (portfolio) | `/` | `/es/` |
-| Services for companies | `/services` | `/es/servicios` |
-
-The URL decides the language, so a Spanish link can be shared directly. The build writes one HTML file per route with its own `lang`, title, description, canonical, `hreflang` and Open Graph tags (`src/head.ts`, `vite.config.ts`); the app reads the route from the URL (`src/route.ts`).
+One page in two languages: `/` (English) and `/es/` (Spanish). The URL decides the language, so a Spanish link can be shared directly. The build writes one HTML file per language with its own `lang`, title, description, canonical, `hreflang` and Open Graph tags (`src/head.ts`, `vite.config.ts`). The old `/services` and `/es/servicios` URLs redirect to the solutions section (`public/_redirects`).
 
 ## Stack
 
@@ -28,7 +23,7 @@ Non-translatable data lives in `src/data/`:
 - `projects.ts` — order, stack and links of the project cards
 - `tech.ts` — tech list
 
-Images are in `public/images/`. `public/og.png` is the link preview image; `public/sitemap.xml` lists the four routes.
+Images are in `public/images/`. `public/og.png` is the link preview image; `public/sitemap.xml` lists both languages.
 
 ## Local development
 

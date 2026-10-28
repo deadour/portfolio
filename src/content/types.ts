@@ -84,7 +84,7 @@ export type Solution = {
 }
 
 export type Content = {
-  meta: Record<'home' | 'services', { title: string; description: string }>
+  meta: { title: string; description: string }
   ui: {
     skip: string
     nav: { work: string; services: string; experience: string; contact: string }
@@ -130,10 +130,8 @@ export type Content = {
     labels: { before: string; after: string; proof: string; seeProject: string }
     items: Solution[]
   }
-  // Services page: a short intro on top of the solutions, then how I work.
+  // How I work, plus the business inquiry button in Contact.
   services: {
-    title: string
-    lead: string
     process: { title: string; steps: { title: string; text: string }[] }
     cta: string
     // Subject line of the email the CTA opens.

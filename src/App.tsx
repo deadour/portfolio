@@ -12,11 +12,11 @@ import LinkIcon from './components/LinkIcon'
 import HeroSketches from './components/hero/Sketches'
 import DustCanvas from './components/hero/DustCanvas'
 import PageSketches from './components/hero/PageSketches'
-import { Process, ServicesPage } from './components/Services'
+import { Process } from './components/Services'
 import Solutions from './components/Solutions'
 
 export default function App() {
-  const { page, c } = useLang()
+  const { c } = useLang()
 
   return (
     <div className="relative isolate overflow-x-clip">
@@ -34,41 +34,34 @@ export default function App() {
         {c.ui.skip}
       </a>
       <Header />
-      {/* The same <main> stays mounted across pages, so the background sketches follow its size. */}
       <main id="main">
-        {page === 'services' ? (
-          <ServicesPage />
-        ) : (
-          <>
-            <Hero />
-            <Solutions />
-            <Work />
-            <Process />
-            <About />
-            <Timeline id="experience" title={c.sections.experience} entries={c.experience} />
-            <Timeline id="education" title={c.sections.education} entries={c.education}>
-              <div className="mt-12">
-                <h3 className="text-sm text-muted">{c.sections.languages}</h3>
-                <ul className="mt-3 flex flex-wrap gap-2">
-                  {c.languages.map((item) => (
-                    <li
-                      key={item.name}
-                      className="flex items-center gap-2.5 rounded-md border border-line bg-surface px-3 py-2 text-sm text-fg"
-                    >
-                      <LinkIcon name="language" className="size-4 text-accent" />
-                      {item.name}
-                      <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2 py-0.5 text-xs font-medium text-accent">
-                        {item.level}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Timeline>
-            <Tech />
-            <Certifications />
-          </>
-        )}
+        <Hero />
+        <Solutions />
+        <Work />
+        <Process />
+        <About />
+        <Timeline id="experience" title={c.sections.experience} entries={c.experience} />
+        <Timeline id="education" title={c.sections.education} entries={c.education}>
+          <div className="mt-12">
+            <h3 className="text-sm text-muted">{c.sections.languages}</h3>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {c.languages.map((item) => (
+                <li
+                  key={item.name}
+                  className="flex items-center gap-2.5 rounded-md border border-line bg-surface px-3 py-2 text-sm text-fg"
+                >
+                  <LinkIcon name="language" className="size-4 text-accent" />
+                  {item.name}
+                  <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2 py-0.5 text-xs font-medium text-accent">
+                    {item.level}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Timeline>
+        <Tech />
+        <Certifications />
         <Contact />
       </main>
       <Footer />

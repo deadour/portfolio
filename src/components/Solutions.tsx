@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-import Link from './Link'
 import Pipeline from './Pipeline'
 import { useLightbox, toLightbox } from './Lightbox'
 import { useLang } from '../i18n'
-import { pathFor } from '../route'
 import { useReveal } from '../useReveal'
 import type { Solution } from '../content/types'
 
@@ -73,7 +71,7 @@ export default function Solutions() {
 }
 
 function Chapter({ item, index }: { item: Solution; index: number }) {
-  const { lang, c } = useLang()
+  const { c } = useLang()
   const s = c.solutions
   const ref = useReveal<HTMLElement>()
   const openLightbox = useLightbox()
@@ -170,13 +168,13 @@ function Chapter({ item, index }: { item: Solution; index: number }) {
               {item.proof.status}
             </span>
           )}
-          <Link
-            href={`${pathFor(lang, 'home')}#project-${item.proof.project}`}
+          <a
+            href={`#project-${item.proof.project}`}
             className="whitespace-nowrap text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
           >
             {s.labels.seeProject}
             <span aria-hidden="true"> →</span>
-          </Link>
+          </a>
         </span>
       </p>
     </article>

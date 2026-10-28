@@ -12,16 +12,4 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://eduramirez.dev/es/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eduramirez.dev/" />
   </url>
-  <url>
-    <loc>https://eduramirez.dev/services</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eduramirez.dev/services" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://eduramirez.dev/es/servicios" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eduramirez.dev/services" />
-  </url>
-  <url>
-    <loc>https://eduramirez.dev/es/servicios</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eduramirez.dev/services" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://eduramirez.dev/es/servicios" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eduramirez.dev/services" />
-  </url>
 </urlset>

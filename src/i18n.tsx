@@ -1,49 +1,43 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { flushSync } from 'react-dom'
 import { content, type Lang } from './content'
-import { parseRoute, pathFor, type Route } from './route'
+import { isLegacyServicesPath, parseRoute, pathFor, type Route } from './route'
 
-type RouteContext = Route & { go: (href: string, scroll?: boolean) => void }
+const Context = createContext<Route & { setLang: (lang: Lang) => void }>({ ...parseRoute('/'), setLang: () => {} })
 
-const Context = createContext<RouteContext>({ ...parseRoute('/'), go: () => {} })
-
-// Language and page come from the URL. Internal links change it without a reload (see Link.tsx).
+// The language comes from the URL. Switching it changes the URL without a reload or losing the scroll position.
 export function LangProvider({ children }: { children: ReactNode }) {
   const [route, setRoute] = useState<Route>(() => parseRoute(window.location.pathname))
 
   useEffect(() => {
+    // Old links to the former services page land on the solutions section of the same page.
+    if (isLegacyServicesPath(window.location.pathname)) {
+      window.history.replaceState(null, '', `${pathFor(route.lang)}#solutions`)
+      requestAnimationFrame(() => document.getElementById('solutions')?.scrollIntoView())
+    }
     const onPop = () => setRoute(parseRoute(window.location.pathname))
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
   useEffect(() => {
-    const meta = content[route.lang].meta[route.page]
+    const { meta } = content[route.lang]
     document.documentElement.lang = route.lang
     document.title = meta.title
     document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description)
-  }, [route.lang, route.page])
+  }, [route.lang])
 
-  // Moves to another route. With `scroll`, lands on the #hash target or the top of the page;
-  // without it (language switch), the visitor stays where they were.
-  const go = (href: string, scroll = true) => {
-    const url = new URL(href, window.location.href)
-    const next = url.pathname + url.hash
+  const setLang = (lang: Lang) => {
+    const next = pathFor(lang) + window.location.hash
     if (next !== window.location.pathname + window.location.hash) window.history.pushState(null, '', next)
-    // Render the new route before scrolling, so the target exists.
-    flushSync(() => setRoute(parseRoute(url.pathname)))
-    if (!scroll) return
-    const target = url.hash && document.getElementById(decodeURIComponent(url.hash.slice(1)))
-    if (target) target.scrollIntoView()
-    else window.scrollTo({ top: 0, behavior: 'instant' })
+    flushSync(() => setRoute({ lang }))
   }
 
-  return <Context.Provider value={{ ...route, go }}>{children}</Context.Provider>
+  return <Context.Provider value={{ ...route, setLang }}>{children}</Context.Provider>
 }
 
-// Returns the current language, page and content, plus helpers to move between routes.
+// Returns the current language and its content, plus the setter.
 export function useLang() {
-  const { lang, page, go } = useContext(Context)
-  const setLang = (next: Lang) => go(pathFor(next, page) + window.location.hash, false)
-  return { lang, page, go, setLang, c: content[lang] }
+  const { lang, setLang } = useContext(Context)
+  return { lang, setLang, c: content[lang] }
 }
