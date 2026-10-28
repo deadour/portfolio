@@ -2,8 +2,13 @@ import { useEffect, useState } from 'react'
 import { site } from '../data/site'
 import { languages } from '../content'
 import { useLang } from '../i18n'
+import { pathFor } from '../route'
+import Link from './Link'
 import Wordmark from './Wordmark'
 import { shuffleSketches } from './hero/pageSlots'
+
+// Icon buttons and language links share a 36px hit area, comfortable on touch screens.
+const iconButton = 'grid size-9 place-items-center rounded-md text-muted hover:text-fg'
 
 function ThemeToggle() {
   const { c } = useLang()
@@ -28,7 +33,7 @@ function ThemeToggle() {
       onClick={toggle}
       aria-label={label}
       title={label}
-      className="grid size-8 place-items-center rounded-md text-muted hover:text-fg"
+      className={iconButton}
     >
       <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {dark ? (
@@ -53,7 +58,7 @@ function ShuffleButton() {
       onClick={shuffleSketches}
       aria-label={c.ui.shuffle}
       title={c.ui.shuffle}
-      className="grid size-8 place-items-center rounded-md text-muted hover:text-fg"
+      className={iconButton}
     >
       <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
@@ -63,10 +68,12 @@ function ShuffleButton() {
 }
 
 export default function Header() {
-  const { lang, setLang, c } = useLang()
+  const { lang, page, setLang, c } = useLang()
+  const home = pathFor(lang, 'home')
   const nav = [
-    { label: c.ui.nav.work, href: '#work' },
-    { label: c.ui.nav.experience, href: '#experience' },
+    { label: c.ui.nav.work, href: `${home}#work` },
+    { label: c.ui.nav.services, href: pathFor(lang, 'services'), current: page === 'services' },
+    { label: c.ui.nav.experience, href: `${home}#experience` },
     { label: c.ui.nav.contact, href: '#contact' },
   ]
   // The header stays pinned; its soft backdrop only appears once the page has scrolled.
@@ -81,49 +88,57 @@ export default function Header() {
   return (
     <header
       data-scrolled={scrolled || undefined}
-      className="site-header sticky top-0 z-40 flex items-center justify-between gap-4 py-5"
+      className="site-header sticky top-0 z-40 flex flex-wrap items-center justify-between gap-x-4 pt-4 pb-2 sm:flex-nowrap sm:py-5"
     >
-      <a href="#top" aria-label={site.domain} className="font-mono text-sm text-muted hover:text-fg">
+      <Link href={`${home}#top`} aria-label={site.domain} className="font-mono text-sm text-muted hover:text-fg">
         <Wordmark value={site.domain} />
-      </a>
-      <div className="flex items-center gap-4 sm:gap-6">
-        <nav aria-label="Main" className="hidden sm:block">
-          <ul className="flex gap-6 text-sm text-muted">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <a href={item.href} className="hover:text-fg">
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="flex items-center gap-1">
-          <div role="group" aria-label={c.ui.language} className="flex items-center text-xs font-medium">
-            {languages.map((code, i) => (
-              <span key={code} className="flex items-center">
-                {i > 0 && (
-                  <span aria-hidden="true" className="text-line">
-                    |
-                  </span>
-                )}
-                <button
-                  type="button"
-                  lang={code}
-                  onClick={() => setLang(code)}
-                  aria-pressed={lang === code}
-                  className={`rounded-md px-2 py-1.5 uppercase ${
-                    lang === code ? 'text-fg' : 'text-muted hover:text-fg'
-                  }`}
-                >
-                  {code}
-                </button>
-              </span>
-            ))}
-          </div>
-          <ShuffleButton />
-          <ThemeToggle />
+      </Link>
+      {/* On phones the links take a full row under the logo and controls. */}
+      <nav aria-label="Main" className="order-last -mx-1 w-full sm:order-none sm:mx-0 sm:ml-auto sm:w-auto">
+        <ul className="flex gap-1 overflow-x-auto text-sm text-muted sm:gap-6">
+          {nav.map((item) => (
+            <li key={item.href} className="shrink-0">
+              <Link
+                href={item.href}
+                aria-current={item.current ? 'page' : undefined}
+                className={`block rounded-md px-1 py-2 hover:text-fg sm:p-0 ${item.current ? 'text-fg' : ''}`}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="flex items-center gap-1 sm:ml-2">
+        <div role="group" aria-label={c.ui.language} className="flex items-center text-xs font-medium">
+          {languages.map((code, i) => (
+            <span key={code} className="flex items-center">
+              {i > 0 && (
+                <span aria-hidden="true" className="text-line">
+                  |
+                </span>
+              )}
+              <a
+                href={pathFor(code, page)}
+                hrefLang={code}
+                lang={code}
+                aria-current={lang === code ? 'true' : undefined}
+                onClick={(e) => {
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+                  e.preventDefault()
+                  setLang(code)
+                }}
+                className={`grid h-9 min-w-9 place-items-center rounded-md px-2 uppercase ${
+                  lang === code ? 'text-fg' : 'text-muted hover:text-fg'
+                }`}
+              >
+                {code}
+              </a>
+            </span>
+          ))}
         </div>
+        <ShuffleButton />
+        <ThemeToggle />
       </div>
     </header>
   )

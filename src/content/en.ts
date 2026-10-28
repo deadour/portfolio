@@ -2,13 +2,20 @@ import type { Content } from './types'
 
 export const en: Content = {
   meta: {
-    title: 'Eduardo M. Ramírez — Data Engineer',
-    description:
-      'Eduardo M. Ramírez — Data Engineer and IT Lead at an industrial machinery company, and final-year Information Systems Engineering student at UTN. Data pipelines, warehouses and the software around them.',
+    home: {
+      title: 'Eduardo M. Ramírez — Software & Data Engineer',
+      description:
+        'Software & Data Engineer in Argentina. I build backend systems, ERP integrations, data pipelines and internal business software used in real operations.',
+    },
+    services: {
+      title: 'Services for companies — Eduardo M. Ramírez',
+      description:
+        'ERP integration and process automation, data engineering and applied AI, and custom business software. Working remotely from Argentina.',
+    },
   },
   ui: {
     skip: 'Skip to content',
-    nav: { work: 'Work', experience: 'Experience', contact: 'Contact' },
+    nav: { work: 'Work', services: 'Services', experience: 'Experience', contact: 'Contact' },
     language: 'Language',
     themeToDark: 'Switch to dark theme',
     themeToLight: 'Switch to light theme',
@@ -17,9 +24,10 @@ export const en: Content = {
     portraitAlt: 'Portrait of Eduardo M. Ramírez',
     credential: 'Credential',
     howItsBuilt: 'How it’s built',
+    caseStudy: { problem: 'Problem', role: 'My role', solution: 'Solution', outcome: 'Today' },
     lightbox: { close: 'Close', previous: 'Previous image', next: 'Next image' },
     showMore: 'Show {n} more',
-    featured: 'Featured project',
+    featured: 'Featured technical project',
     academic: 'Academic projects',
     professional: 'Professional work',
     personal: 'Personal & academic',
@@ -28,19 +36,22 @@ export const en: Content = {
     viewPhotos: 'View photos ({n})',
   },
   hero: {
-    title: 'Data Engineer · Systems Engineering',
+    title: 'Software & Data Engineer',
     tagline:
-      'IT Lead & Data Engineer at an industrial machinery company, and final-year Information Systems Engineering student at UTN. I build data pipelines, warehouses and the software around them.',
-    viewWork: 'View my work',
+      'I build backend systems, data pipelines and internal tools around real business operations. Since 2023 I’ve built and maintained the systems BIAMAQ, an industrial machinery company, uses every day: ERP integrations, ETL pipelines, management reporting and RentalIA, its rental platform.',
+    viewWork: 'View projects',
+    services: 'Services for companies',
     downloadCv: 'Download CV',
   },
   now: {
     label: 'Now',
-    text: 'Working on the Last.fm Data Platform and on Malaca, an e-commerce platform for a client.',
+    date: 'October 2026',
+    text: 'Building BIAMAQ Intelligence, a commercial intelligence platform on top of ERP data, and Malaca, an e-commerce site for a client.',
   },
   sections: {
     about: 'About',
     work: 'Selected work',
+    services: 'Services',
     experience: 'Experience',
     education: 'Education',
     languages: 'Languages',
@@ -49,8 +60,8 @@ export const en: Content = {
     contact: 'Contact',
   },
   about: [
-    'At BIAMAQ, I lead IT and Systems end to end: infrastructure, data and software for a company with 3 branches. In 2026, I spent a semester at CESI École d’Ingénieurs in France through an ARFITEC scholarship while completing the final year of Information Systems Engineering at UTN.',
-    'I am now shaping my career around Data Engineering. I am especially interested in what makes a data platform trustworthy: incremental loads, quality checks, tests, traceability and documenting the decisions behind each layer.',
+    'At BIAMAQ, an industrial machinery company with 3 branches, I build and maintain the systems it runs on: ERP integrations, ETL pipelines and BI tools over sales, purchases, stock, receivables, service and rentals, plus RentalIA, its rental platform. I also handle infrastructure, automation and deployments.',
+    'I like to understand how a business works before writing code: what gets entered twice, which report is built by hand, which decision is made without data. I’m finishing Information Systems Engineering at UTN, and in 2026 I spent a semester of CESI’s Data Science master’s programme in France on an ARFITEC scholarship, working on machine learning and IoT projects.',
   ],
   projects: {
     lastfm: {
@@ -89,6 +100,14 @@ export const en: Content = {
       badge: 'Internal production system',
       summary:
         'Internal reporting platform where BIAMAQ’s management follows sales, purchases, receivables, customers and workshop activity across its 3 branches. It runs on top of the extractors and data warehouse I built from the company’s SQL Server ERP.',
+      caseStudy: {
+        problem:
+          'Management needed one place to follow sales, purchases, receivables, customers and workshop activity across 3 branches. The data lived in the company’s SQL Server ERP.',
+        role: 'I designed and built it end to end (extractors, data warehouse, API, frontend and deployment) and I maintain it.',
+        solution:
+          'Scheduled Python extractors load the ERP into a data warehouse. A Django REST API and a React frontend serve the analyses: sales dashboard, purchases vs sales, 80/20 customers, receivables aging and workshop stock.',
+        outcome: 'Used by management in day-to-day operations.',
+      },
       highlights: [
         'Django REST Framework API over SQL Server (ERP + data warehouse), with a React frontend.',
         'Python and Pandas extractors, scheduled with Celery and Redis: daily loads, monthly receivables snapshots and customer classification.',
@@ -103,17 +122,26 @@ export const en: Content = {
       ],
       imagesNote: 'Screens shown with sample data. Click to enlarge.',
     },
-    rentos: {
-      title: 'RENT-OS',
+    rentalia: {
+      title: 'RentalIA',
       kind: 'Work project · BIAMAQ · Full-stack platform',
+      badge: 'In production at BIAMAQ',
       summary:
-        'Equipment rental platform that started as the re-engineering of BIAMAQ’s Rental module and is now a product for any equipment rental company. Multi-company and multi-branch, it covers the full rental cycle: booking wizard, signed contract, technical delivery, return, billable-days close and workshop.',
+        'Rental management platform developed at BIAMAQ. It started as the re-engineering of the company’s Rental module and covers the full cycle: booking, signed contract, delivery, return, billable days, workshop and invoicing.',
+      caseStudy: {
+        problem:
+          'BIAMAQ’s equipment rentals ran on a module of its legacy ERP. The goal was one system for the whole cycle: booking, contract, delivery, return, billable days, workshop and invoicing.',
+        role: 'I led its re-engineering and development: architecture, backend, frontend, ERP integration and deployment.',
+        solution:
+          'Multi-company, multi-branch platform with a booking wizard, PDF contracts signed on a tablet, technical delivery and return, billable-days close, workshop and electronic invoicing. It syncs with the ERP or runs standalone.',
+        outcome:
+          'In use in BIAMAQ’s rental operations. The standalone mode lets rental businesses of other products and equipment use it without BIAMAQ’s ERP.',
+      },
       highlights: [
         'Django REST Framework backend with a hexagonal architecture, on PostgreSQL or SQL Server.',
         'PDF contracts signed on a Wacom tablet, and multi-company electronic invoicing with ARCA (Argentina’s tax authority).',
         'Syncs with the company’s legacy SQL Server ERP, and also runs standalone without it.',
         'React 19 frontend with Tailwind, Recharts and Framer Motion; Playwright end-to-end tests; Docker and CI with automatic deploys, migrations and smoke tests.',
-        'Sales landing page with features, a guided tour and three plans (Essential, Professional and Enterprise, the last one with ERP integration).',
       ],
       images: [
         { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Rental wizard, step 2: equipment catalog with the price per day' },
@@ -122,6 +150,37 @@ export const en: Content = {
         { src: '/images/rentos-returns-thumb.webp', href: '/images/rentos-returns.webp', alt: 'Returning a rental, with a summary of the amount to charge' },
       ],
       imagesNote: 'Screens shown with sample data. Click to enlarge.',
+    },
+    intelligence: {
+      title: 'BIAMAQ Intelligence',
+      kind: 'Work project · BIAMAQ · Data & applied AI',
+      status: 'In development',
+      summary:
+        'Commercial intelligence platform I’m building on top of BIAMAQ’s ERP data. The goal is to enrich the catalog automatically and recommend related products and alternatives, for a target catalog of around 20,000 products and spare parts.',
+      highlightsLabel: 'Planned scope',
+      highlights: [
+        'ETL and normalization of ERP data.',
+        'Product classification and enrichment, including extraction of technical attributes.',
+        'Local LLMs and semantic similarity.',
+        'Recommendations of related products and alternatives.',
+        'Integration with the company’s sales applications.',
+      ],
+    },
+    casaPalma: {
+      title: 'Casa Palma',
+      kind: 'Client project · Business management',
+      status: 'In development',
+      summary:
+        'Management system for a collaborative store that sells products from different local makers. It replaces the spreadsheets the store used for daily sales, expenses and payouts to each maker.',
+      highlightsLabel: 'Built so far',
+      highlights: [
+        'Sales register where one ticket holds several products and mixed payments, with stock updated in the same transaction.',
+        'Stock per product and maker, with a movement history.',
+        'Expenses and per-period payouts to each maker.',
+        'Product import from Excel and Tiendanube with a preview, and a monthly PDF report for the accountant.',
+        'Four roles (admin, maker, seller, accountant) with permissions checked on the server.',
+        'Business rules covered by tests on an in-memory Postgres. It runs in test mode until the owners confirm the commercial rules.',
+      ],
     },
     dynamo: {
       title: 'Dynamo',
@@ -218,19 +277,88 @@ export const en: Content = {
       ],
     },
   },
+  services: {
+    intro:
+      'I also work with companies that already have systems and data, but still run key processes on spreadsheets, manual data entry or numbers that don’t add up.',
+    more: 'Services in detail',
+    title: 'Services for companies',
+    lead: 'I work with companies that already have systems and data, but processes that still depend on spreadsheets, manual data entry or numbers that don’t add up. No packages: I first understand the problem, then propose the simplest solution that solves it. I work remotely from Resistencia, Argentina.',
+    labels: { problems: 'Common problems', solution: 'What I do', example: 'Real example', seeProject: 'See project' },
+    items: [
+      {
+        id: 'integration',
+        title: 'Integration & automation',
+        summary: 'ERP integrations, APIs, data sync between systems and automated recurring tasks.',
+        problems: [
+          'The same data is entered into two systems.',
+          'The ERP doesn’t talk to the other tools the company uses.',
+          'A weekly report is put together by hand in Excel.',
+        ],
+        solution:
+          'Integrations with ERPs and APIs, sync between SQL Server, PostgreSQL and Excel, scheduled processes and automatic exports, so information is entered once and reaches where it’s needed.',
+        example: {
+          text: 'At BIAMAQ, scheduled Python extractors load the ERP’s SQL Server data into a data warehouse that feeds management reporting.',
+          project: 'reports',
+        },
+      },
+      {
+        id: 'data',
+        title: 'Data engineering & applied AI',
+        summary: 'Data pipelines, warehouses and dashboards, catalog cleanup and enrichment, and recommendations.',
+        problems: [
+          'The data exists, but every department has its own number.',
+          'A catalog of thousands of products with incomplete or inconsistent descriptions.',
+          'Commercial decisions are made without looking at the history.',
+        ],
+        solution:
+          'Pipelines and data warehouses, management dashboards (Power BI or web), catalog cleanup and enrichment, product classification and recommendations built on the company’s own data.',
+        example: {
+          text: 'BIAMAQ Reports runs in production on top of the ERP. BIAMAQ Intelligence, in development, aims to enrich a target catalog of ~20,000 products and recommend alternatives.',
+          project: 'intelligence',
+        },
+      },
+      {
+        id: 'software',
+        title: 'Custom business software',
+        summary: 'Internal applications for sales, inventory, rentals and day-to-day operations.',
+        problems: [
+          'A key process lives in spreadsheets and depends on one person.',
+          'The current system doesn’t fit how the company actually works.',
+        ],
+        solution:
+          'Internal applications for sales management, inventory, rentals and operational tools, from understanding the process to deployment and maintenance.',
+        example: {
+          text: 'RentalIA covers the whole rental cycle at BIAMAQ, from booking and a signed contract to return and electronic invoicing.',
+          project: 'rentalia',
+        },
+      },
+    ],
+    process: {
+      title: 'How I work',
+      steps: [
+        { title: 'First conversation', text: 'You tell me about the process, the systems you use and what you want to solve.' },
+        { title: 'Review', text: 'I look at the data and systems involved and propose a concrete scope.' },
+        { title: 'Build in stages', text: 'Short deliveries you can try with real data.' },
+        { title: 'Launch and support', text: 'Deployment, documentation and maintenance.' },
+      ],
+    },
+    cta: 'Tell me about your project',
+    emailSubject: 'Project inquiry — eduramirez.dev',
+  },
   experience: [
     {
       title: 'BIAMAQ',
       href: 'https://biamaq.com.ar',
       logo: '/images/logo-biamaq.webp',
-      meta: ['IT Lead & Data Engineer', 'Full-time · Remote, Argentina'],
+      meta: ['Software & Data Engineer · IT Lead', 'Full-time · Remote, Argentina'],
       period: 'Nov 2023 — Present',
       description:
-        'IT and Systems for an industrial machinery company: infrastructure, development, automation and business intelligence.',
+        'Systems for an industrial machinery company with 3 branches: software that runs daily operations, ERP integrations, data, automation and infrastructure.',
       highlights: [
-        'Built ETL pipelines with Python and Pandas that load SQL Server data into a data warehouse, unifying sales, stock, service and equipment rental across 3 branches.',
-        'Design and maintain executive Power BI dashboards (DAX) and automate recurring reports with Python.',
-        'Led the re-engineering of the Rental and Technical Service modules with Django REST Framework and React, deployed with Docker on Linux servers.',
+        'Built ETL pipelines with Python and Pandas that load the SQL Server ERP into a data warehouse, covering sales, purchases, stock, receivables, service and rentals.',
+        'Built BIAMAQ Reports, the internal reporting platform used by management, and maintain Power BI dashboards and automated reports.',
+        'Led the re-engineering of the Rental and Technical Service modules with Django REST Framework and React; the rental module became RentalIA.',
+        'Handle infrastructure, automation and deployments: Docker on Linux servers and CI/CD with GitHub Actions.',
       ],
     },
   ],
@@ -265,6 +393,15 @@ export const en: Content = {
   tech: { data: 'Data', software: 'Software & infrastructure' },
   contact: {
     title: 'Let’s talk.',
-    intro: 'I’m open to Data Engineering opportunities and conversations around data and software projects.',
+    paragraphs: [
+      {
+        lead: 'Recruiters:',
+        text: 'I’m open to remote full-time or contractor roles in Backend, Data or Software Engineering, and to relocation opportunities.',
+      },
+      {
+        lead: 'Companies:',
+        text: 'if a process still depends on spreadsheets or your data doesn’t add up, email me which systems you use and what you want to solve. If I’m not the right person for it, I’ll tell you.',
+      },
+    ],
   },
 }

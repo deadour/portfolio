@@ -3,6 +3,7 @@ import Section from './Section'
 import { site } from '../data/site'
 import { useLang } from '../i18n'
 import LinkIcon, { type LinkIconName } from './LinkIcon'
+import { inquiryHref } from './Services'
 
 // Entries with an empty href (not configured yet) are skipped.
 const links = [
@@ -11,7 +12,8 @@ const links = [
 ].filter((link) => link.href) as { label: string; icon: LinkIconName; href: string }[]
 
 export default function Contact() {
-  const { c } = useLang()
+  const { lang, c } = useLang()
+  const cv = site.cv[lang]
   const [copied, setCopied] = useState(false)
   const timer = useRef<number>(undefined)
 
@@ -42,7 +44,13 @@ export default function Contact() {
     <Section id="contact" title={c.sections.contact}>
       <div className="pt-2 pb-8 sm:pb-12">
         <p className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">{c.contact.title}</p>
-        <p className="mt-4 max-w-xl leading-relaxed">{c.contact.intro}</p>
+        <div className="mt-4 max-w-xl space-y-3 leading-relaxed">
+          {c.contact.paragraphs.map((paragraph) => (
+            <p key={paragraph.lead}>
+              <span className="font-medium text-fg">{paragraph.lead}</span> {paragraph.text}
+            </p>
+          ))}
+        </div>
 
         {site.email && (
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -78,6 +86,13 @@ export default function Contact() {
               </svg>
               <span aria-live="polite">{copied ? c.ui.copied : c.ui.copyEmail}</span>
             </button>
+            <a
+              href={inquiryHref(c.services.emailSubject)}
+              className="inline-flex items-center gap-1.5 rounded-md border border-line px-3 py-1.5 text-sm text-fg hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]"
+            >
+              <LinkIcon name="email" className="size-4 text-muted" />
+              {c.services.cta}
+            </a>
           </div>
         )}
 
@@ -98,6 +113,18 @@ export default function Contact() {
               </a>
             </li>
           ))}
+          {cv && (
+            <li>
+              <a
+                href={cv}
+                download
+                className="inline-flex items-center gap-2 text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
+              >
+                <LinkIcon name="download" />
+                {c.hero.downloadCv}
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </Section>

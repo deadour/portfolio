@@ -3,7 +3,7 @@ import { PORTRAITS as P, SKETCHES as S, type Asset } from './sketchAssets'
 // Spots along the page, each tied to the section it relates to. Every visit, each spot shows
 // one drawing picked from its own theme, so over several visits the whole set shows up.
 // No drawing belongs to two spots, and spots of the same theme sit a few sections apart.
-// `at` is a CSS selector (+ index when it matches several elements) and `y` the point inside
+// `at` is a CSS selector (project cards have #project-<id>) (+ index when it matches several elements) and `y` the point inside
 // that element, from 0 (top) to 1 (bottom). Sides alternate down the page.
 export type Slot = {
   options: Asset[]
@@ -18,19 +18,19 @@ export type Slot = {
 const SLOTS: Slot[] = [
   { options: [S.obelisco, S.colosseum], at: '#about', y: 0.4, side: 'left', jitter: 0.08 },
   { options: [S.david, S.helmet], at: '#about', y: 0.9, side: 'right' },
-  { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#work article', index: 0, y: 0.15, side: 'left' },
-  { options: [S.waves, S.vinyl, S.prism], at: '#work article', index: 0, y: 0.6, side: 'right' },
+  { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#project-lastfm', y: 0.15, side: 'left' },
+  { options: [S.waves, S.vinyl, S.prism], at: '#project-lastfm', y: 0.6, side: 'right' },
   { options: [S.dataPipeline, S.pythonCode, S.uml], at: '#work h3.uppercase', index: 0, y: 0, side: 'left' },
-  { options: [S.database, S.sqlCode], at: '#work article', index: 1, y: 0.6, side: 'right', jitter: 0.08 },
-  { options: [S.crane, S.drill], at: '#work article', index: 2, y: 0.3, side: 'right' },
-  { options: [S.hardHat], at: '#work article', index: 2, y: 0.75, side: 'left' },
-  { options: [S.mate], at: '#work article', index: 3, y: 0.2, side: 'right' },
-  { options: [S.thermos, S.leaf], at: '#work article', index: 3, y: 0.7, side: 'left' },
+  { options: [S.database, S.sqlCode], at: '#project-reports', y: 0.6, side: 'right', jitter: 0.08 },
+  { options: [S.crane, S.drill], at: '#project-rentalia', y: 0.3, side: 'right' },
+  { options: [S.hardHat], at: '#project-rentalia', y: 0.75, side: 'left' },
+  { options: [S.mate], at: '#project-ecommerce', y: 0.2, side: 'right' },
+  { options: [S.thermos, S.leaf], at: '#project-ecommerce', y: 0.7, side: 'left' },
   { options: [S.player, S.football], at: '#work h3.uppercase', index: 1, y: 0, side: 'right' },
-  { options: [S.dumbbell], at: '#work article', index: 4, y: 0.6, side: 'left' },
-  { options: [S.utn], at: '#work article', index: 5, y: 0.35, side: 'right' },
-  { options: [S.neuralNetwork, S.sigmoid], at: '#work article', index: 6, y: 0.2, side: 'left' },
-  { options: [S.esp32, S.gameBlock], at: '#work article', index: 7, y: 0.5, side: 'right' },
+  { options: [S.dumbbell], at: '#project-dynamo', y: 0.6, side: 'left' },
+  { options: [S.utn], at: '#project-chedul', y: 0.35, side: 'right' },
+  { options: [S.neuralNetwork, S.sigmoid], at: '#project-cesiDl', y: 0.2, side: 'left' },
+  { options: [S.esp32, S.gameBlock], at: '#project-cesiIot', y: 0.5, side: 'right' },
   { options: [S.montSaintMichel, S.eiffel], at: '#experience', y: 0.15, side: 'left' },
   { options: [S.temple, S.airplane], at: '#experience', y: 0.75, side: 'right' },
   { options: [S.cathedral], at: '#education', y: 0.05, side: 'left' },
@@ -41,12 +41,20 @@ const SLOTS: Slot[] = [
   { options: [S.books, S.clapperboard], at: '#certifications', y: 0.4, side: 'right' },
   { options: [S.sun, S.mountains, S.forest], at: '#contact', y: 0.35, side: 'left' },
   // The small data icons: most of them around the BIAMAQ reports, a couple further away.
-  { options: [S.dataMonitor], at: '#work article', index: 1, y: 0.12, side: 'left', jitter: 0.08 },
-  { options: [S.dataServers], at: '#work article', index: 1, y: 0.2, side: 'right', jitter: 0.08 },
-  { options: [S.dataDb], at: '#work article', index: 1, y: 0.42, side: 'left', jitter: 0.08 },
-  { options: [S.dataLine], at: '#work article', index: 1, y: 0.75, side: 'left', jitter: 0.08 },
-  { options: [S.dataPie], at: '#work article', index: 0, y: 0.85, side: 'left', jitter: 0.08 },
+  { options: [S.dataMonitor], at: '#project-reports', y: 0.12, side: 'left', jitter: 0.08 },
+  { options: [S.dataServers], at: '#project-reports', y: 0.2, side: 'right', jitter: 0.08 },
+  { options: [S.dataDb], at: '#project-reports', y: 0.42, side: 'left', jitter: 0.08 },
+  { options: [S.dataLine], at: '#project-reports', y: 0.75, side: 'left', jitter: 0.08 },
+  { options: [S.dataPie], at: '#project-lastfm', y: 0.85, side: 'left', jitter: 0.08 },
   { options: [S.dataClock], at: '#certifications', y: 0.75, side: 'left', jitter: 0.08 },
+  // Services page. Only one page shows at a time, so these may reuse drawings from the home page.
+  { options: [S.dataPipeline, S.sqlCode], at: '#integration', y: 0.25, side: 'left' },
+  { options: [S.compass, S.globe], at: '#integration', y: 0.85, side: 'right' },
+  { options: [S.database, S.neuralNetwork], at: '#data', y: 0.3, side: 'right' },
+  { options: [S.sigmoid, S.dataPie], at: '#data', y: 0.85, side: 'left', jitter: 0.08 },
+  { options: [S.crane, S.hardHat], at: '#software', y: 0.3, side: 'left' },
+  { options: [S.drill, S.mate], at: '#software', y: 0.85, side: 'right' },
+  { options: [S.uml, S.books], at: '#process', y: 0.4, side: 'right' },
 ]
 
 const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]

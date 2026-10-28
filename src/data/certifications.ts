@@ -23,6 +23,7 @@ export const certifications: { title: string; issuer: string; date: string; url:
   },
   {
     title: 'Inglés Técnico para Desarrolladores de Software — Nivel 6',
+    featured: true,
     issuer: 'Centro Universitario de Idiomas (CUI)',
     date: '2023-02',
     url: 'https://drive.google.com/file/d/1sl3oqMVPHEo4PFhgAjh2esQeuwStqhD0/view',
@@ -42,7 +43,6 @@ export const certifications: { title: string; issuer: string; date: string; url:
   },
   {
     title: 'Python sin fronteras: HTML, CSS, Flask y MySQL',
-    featured: true,
     issuer: 'Udemy',
     date: '2022-09',
     url: 'https://www.udemy.com/certificate/UC-5b7e67b2-db58-44a7-8f52-8619d7f867e3/',

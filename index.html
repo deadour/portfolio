@@ -3,39 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eduardo M. Ramírez — Data Engineer</title>
-    <meta
-      name="description"
-      content="Eduardo M. Ramírez — IT Lead & Data Engineer at an industrial machinery company and final-year Information Systems Engineering student. Data pipelines, warehouses and the software around them."
-    />
+    <!--head--><!--/head-->
     <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#17171a" media="(prefers-color-scheme: dark)" />
     <script>
-      // Apply the saved theme (or the system one) and language before the first paint.
+      // Apply the saved theme (or the system one) before the first paint. The language comes from the URL.
       ;(function () {
-        var theme, lang
+        var theme
         try {
           theme = localStorage.getItem('theme')
-          lang = localStorage.getItem('lang')
         } catch (e) {}
         if (theme !== 'light' && theme !== 'dark') {
           theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
         document.documentElement.dataset.theme = theme
-        if (lang === 'es') document.documentElement.lang = 'es'
       })()
     </script>
-    <link rel="canonical" href="https://eduramirez.dev/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://eduramirez.dev/" />
-    <meta property="og:title" content="Eduardo M. Ramírez — Data Engineer" />
-    <meta
-      property="og:description"
-      content="Data Engineering and software projects by Eduardo M. Ramírez."
-    />
-    <meta name="twitter:card" content="summary" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -47,10 +31,7 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <p style="padding: 2rem; font-family: sans-serif">
-        Eduardo M. Ramírez — Data Engineer. This site needs JavaScript. Find my work at
-        <a href="https://github.com/deadour">github.com/deadour</a>.
-      </p>
+      <p style="padding: 2rem; font-family: sans-serif"><!--noscript--><!--/noscript--></p>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>

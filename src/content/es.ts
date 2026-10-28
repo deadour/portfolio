@@ -2,13 +2,20 @@ import type { Content } from './types'
 
 export const es: Content = {
   meta: {
-    title: 'Eduardo M. Ramírez — Data Engineer',
-    description:
-      'Eduardo M. Ramírez — Data Engineer e IT Lead en una empresa de maquinaria industrial, y estudiante de último año de Ingeniería en Sistemas de Información en la UTN. Pipelines de datos, data warehouses y el software que los rodea.',
+    home: {
+      title: 'Eduardo M. Ramírez — Software & Data Engineer',
+      description:
+        'Desarrollo software a medida, integro sistemas empresariales como ERP y SQL Server, y automatizo procesos con datos. Resistencia, Chaco · trabajo remoto.',
+    },
+    services: {
+      title: 'Servicios para empresas — Eduardo M. Ramírez',
+      description:
+        'Integración con ERP y automatización de procesos, datos e IA aplicada, y software empresarial a medida. Trabajo remoto desde Resistencia, Chaco.',
+    },
   },
   ui: {
     skip: 'Saltar al contenido',
-    nav: { work: 'Proyectos', experience: 'Experiencia', contact: 'Contacto' },
+    nav: { work: 'Proyectos', services: 'Servicios', experience: 'Experiencia', contact: 'Contacto' },
     language: 'Idioma',
     themeToDark: 'Cambiar a tema oscuro',
     themeToLight: 'Cambiar a tema claro',
@@ -17,9 +24,10 @@ export const es: Content = {
     portraitAlt: 'Retrato de Eduardo M. Ramírez',
     credential: 'Credencial',
     howItsBuilt: 'Cómo está hecho',
+    caseStudy: { problem: 'Problema', role: 'Mi rol', solution: 'Solución', outcome: 'Hoy' },
     lightbox: { close: 'Cerrar', previous: 'Imagen anterior', next: 'Imagen siguiente' },
     showMore: 'Ver {n} más',
-    featured: 'Proyecto principal',
+    featured: 'Proyecto técnico destacado',
     academic: 'Proyectos académicos',
     professional: 'Trabajo profesional',
     personal: 'Personal y académico',
@@ -28,19 +36,22 @@ export const es: Content = {
     viewPhotos: 'Ver fotos ({n})',
   },
   hero: {
-    title: 'Data Engineer · Ingeniería en Sistemas',
+    title: 'Software & Data Engineer',
     tagline:
-      'IT Lead & Data Engineer en una empresa de maquinaria industrial y estudiante de último año de Ingeniería en Sistemas de Información en la UTN. Construyo pipelines de datos, data warehouses y el software que los rodea.',
+      'Desarrollo software, integro sistemas empresariales y automatizo procesos para que las empresas aprovechen mejor sus datos. Desde 2023 construyo y mantengo sistemas que BIAMAQ, una empresa de maquinaria industrial, usa en su operación diaria: integraciones con el ERP, pipelines ETL, reportes de gestión y RentalIA, su plataforma de alquileres.',
     viewWork: 'Ver proyectos',
+    services: 'Servicios para empresas',
     downloadCv: 'Descargar CV',
   },
   now: {
     label: 'Ahora',
-    text: 'Trabajando en Last.fm Data Platform y en Malaca, una plataforma de e-commerce para un cliente.',
+    date: 'Octubre 2026',
+    text: 'Desarrollando BIAMAQ Intelligence, una plataforma de inteligencia comercial sobre datos del ERP, y Malaca, un e-commerce para un cliente.',
   },
   sections: {
     about: 'Sobre mí',
     work: 'Proyectos destacados',
+    services: 'Servicios',
     experience: 'Experiencia',
     education: 'Formación',
     languages: 'Idiomas',
@@ -49,8 +60,8 @@ export const es: Content = {
     contact: 'Contacto',
   },
   about: [
-    'En BIAMAQ lidero IT y Sistemas de punta a punta: infraestructura, datos y software para una empresa con 3 sucursales. En 2026 cursé un semestre en CESI École d’Ingénieurs, Francia, mediante una beca ARFITEC, mientras avanzo en el último año de Ingeniería en Sistemas de Información en la UTN.',
-    'Hoy estoy orientando mi carrera hacia Data Engineering. Me interesa especialmente lo que hace confiable a una plataforma de datos: cargas incrementales, controles de calidad, tests, trazabilidad y documentar las decisiones detrás de cada capa.',
+    'En BIAMAQ, una empresa de maquinaria industrial con 3 sucursales, desarrollo y mantengo los sistemas con los que opera: integraciones con el ERP, pipelines ETL y herramientas de BI sobre ventas, compras, stock, cobranzas, service y alquileres, además de RentalIA, su plataforma de alquileres. También me ocupo de la infraestructura, la automatización y los despliegues.',
+    'Me interesa entender cómo funciona un negocio antes de escribir código: qué se carga dos veces, qué reporte se arma a mano, qué decisión se toma sin datos. Estoy terminando Ingeniería en Sistemas de Información en la UTN y en 2026 cursé un semestre del Máster en Data Science de CESI, en Francia, con beca ARFITEC, donde trabajé en proyectos de machine learning e IoT.',
   ],
   projects: {
     lastfm: {
@@ -89,6 +100,14 @@ export const es: Content = {
       badge: 'Sistema interno · Producción',
       summary:
         'Plataforma interna de reportes desde la que la dirección de BIAMAQ sigue ventas, compras, cobranzas, clientes y la actividad del taller de sus 3 sucursales. Funciona sobre los extractores y el data warehouse que construí a partir del ERP en SQL Server.',
+      caseStudy: {
+        problem:
+          'La dirección necesitaba un solo lugar para seguir ventas, compras, cobranzas, clientes y la actividad del taller de las 3 sucursales. Los datos estaban en el ERP de la empresa, en SQL Server.',
+        role: 'Lo diseñé y desarrollé de punta a punta (extractores, data warehouse, API, frontend y despliegue) y lo mantengo.',
+        solution:
+          'Extractores en Python programados cargan el ERP en un data warehouse. Una API en Django REST Framework y un frontend en React sirven los análisis: tablero de ventas, compras vs ventas, clientes 80/20, antigüedad de deuda y stock del taller.',
+        outcome: 'La dirección lo usa en la operación diaria.',
+      },
       highlights: [
         'API en Django REST Framework sobre SQL Server (ERP + data warehouse), con frontend en React.',
         'Extractores en Python y Pandas programados con Celery y Redis: cargas diarias, snapshots mensuales de cobranzas y clasificación de clientes.',
@@ -103,17 +122,26 @@ export const es: Content = {
       ],
       imagesNote: 'Pantallas con datos de ejemplo. Clic para ampliar.',
     },
-    rentos: {
-      title: 'RENT-OS',
+    rentalia: {
+      title: 'RentalIA',
       kind: 'Proyecto laboral · BIAMAQ · Plataforma full-stack',
+      badge: 'En producción en BIAMAQ',
       summary:
-        'Plataforma de alquiler de equipos que nació como la reingeniería del módulo de Alquiler de BIAMAQ y hoy es un producto para cualquier empresa de alquiler de equipos. Multiempresa y multisucursal, cubre el ciclo completo del alquiler: wizard de reserva, contrato firmado, entrega técnica, devolución, cierre con días facturables y taller.',
+        'Plataforma de gestión de alquileres desarrollada en BIAMAQ. Nació como la reingeniería del módulo de Alquiler de la empresa y cubre el ciclo completo: reserva, contrato firmado, entrega, devolución, días facturables, taller y facturación.',
+      caseStudy: {
+        problem:
+          'Los alquileres de equipos de BIAMAQ funcionaban en un módulo de su ERP legacy. El objetivo era un solo sistema para todo el ciclo: reserva, contrato, entrega, devolución, días facturables, taller y facturación.',
+        role: 'Lideré su reingeniería y desarrollo: arquitectura, backend, frontend, integración con el ERP y despliegue.',
+        solution:
+          'Plataforma multiempresa y multisucursal con asistente de reserva, contratos en PDF firmados en tableta, entrega técnica y devolución, cierre por días facturables, taller y facturación electrónica. Sincroniza con el ERP o funciona de forma independiente.',
+        outcome:
+          'En uso en la operación de alquileres de BIAMAQ. El modo independiente permite que negocios de alquiler de otros productos y equipos lo usen sin el ERP de BIAMAQ.',
+      },
       highlights: [
         'Backend en Django REST Framework con arquitectura hexagonal, sobre PostgreSQL o SQL Server.',
         'Contratos en PDF firmados en tableta Wacom y facturación electrónica ARCA multiempresa.',
         'Sincroniza con el ERP legacy de la empresa en SQL Server y también funciona de forma independiente.',
         'Frontend en React 19 con Tailwind, Recharts y Framer Motion; tests end-to-end con Playwright; Docker y CI con deploy automático, migraciones y smoke tests.',
-        'Landing de venta con funciones, recorrido guiado y tres planes (Esencial, Profesional y Empresa, este último con integración al ERP).',
       ],
       images: [
         { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Asistente de alquiler, paso 2: catálogo de equipos con precio por día' },
@@ -122,6 +150,37 @@ export const es: Content = {
         { src: '/images/rentos-returns-thumb.webp', href: '/images/rentos-returns.webp', alt: 'Devolución de un alquiler con el resumen del cobro' },
       ],
       imagesNote: 'Pantallas con datos de ejemplo. Clic para ampliar.',
+    },
+    intelligence: {
+      title: 'BIAMAQ Intelligence',
+      kind: 'Proyecto laboral · BIAMAQ · Datos e IA aplicada',
+      status: 'En desarrollo',
+      summary:
+        'Plataforma de inteligencia comercial que estoy desarrollando sobre los datos del ERP de BIAMAQ. El objetivo es enriquecer el catálogo automáticamente y recomendar productos relacionados y alternativos, con una escala objetivo de unos 20.000 artículos entre productos y repuestos.',
+      highlightsLabel: 'Alcance previsto',
+      highlights: [
+        'ETL y normalización de los datos del ERP.',
+        'Clasificación y enriquecimiento de productos, incluida la extracción de información técnica.',
+        'LLMs locales y similitud semántica.',
+        'Recomendaciones de productos relacionados y alternativos.',
+        'Integración con las aplicaciones comerciales de la empresa.',
+      ],
+    },
+    casaPalma: {
+      title: 'Casa Palma',
+      kind: 'Proyecto para cliente · Gestión comercial',
+      status: 'En desarrollo',
+      summary:
+        'Sistema de gestión para una tienda colaborativa que vende productos de distintas emprendedoras. Reemplaza las planillas que la tienda usaba para las ventas diarias, los gastos y las liquidaciones a cada emprendedora.',
+      highlightsLabel: 'Implementado hasta ahora',
+      highlights: [
+        'Caja donde una venta agrupa varios productos y pagos mixtos, y descuenta el stock en la misma transacción.',
+        'Stock por producto y emprendedora, con historial de movimientos.',
+        'Gastos y liquidaciones por período a cada emprendedora.',
+        'Importación de productos desde Excel y Tienda Nube con vista previa, y reporte mensual en PDF para la contadora.',
+        'Cuatro roles (administración, emprendedora, vendedora y contadora) con permisos verificados en el servidor.',
+        'Reglas de negocio cubiertas por tests sobre un Postgres en memoria. Funciona en modo prueba hasta que las dueñas confirmen las reglas comerciales.',
+      ],
     },
     dynamo: {
       title: 'Dynamo',
@@ -218,19 +277,88 @@ export const es: Content = {
       ],
     },
   },
+  services: {
+    intro:
+      'También trabajo con empresas que ya tienen sistemas y datos, pero procesos clave que siguen dependiendo de planillas, cargas manuales o números que no cierran.',
+    more: 'Ver servicios en detalle',
+    title: 'Servicios para empresas',
+    lead: 'Trabajo con empresas que ya tienen sistemas y datos, pero procesos que dependen de planillas, cargas manuales o información que no cierra. No vendo paquetes: primero entiendo el problema y después propongo la solución más simple que lo resuelva. Trabajo de forma remota desde Resistencia, Chaco.',
+    labels: { problems: 'Problemas habituales', solution: 'Qué hago', example: 'Ejemplo real', seeProject: 'Ver proyecto' },
+    items: [
+      {
+        id: 'integration',
+        title: 'Integración y automatización',
+        summary: 'Integraciones con ERP y APIs, sincronización entre sistemas y tareas repetitivas automatizadas.',
+        problems: [
+          'La misma información se carga en dos sistemas.',
+          'El ERP no se comunica con las otras herramientas de la empresa.',
+          'Un reporte semanal se arma a mano en Excel.',
+        ],
+        solution:
+          'Integraciones con ERP y APIs, sincronización entre SQL Server, PostgreSQL y Excel, procesos programados y exportaciones automáticas, para que la información se cargue una sola vez y llegue a donde hace falta.',
+        example: {
+          text: 'En BIAMAQ, extractores en Python programados cargan los datos del ERP en SQL Server a un data warehouse que alimenta los reportes de gestión.',
+          project: 'reports',
+        },
+      },
+      {
+        id: 'data',
+        title: 'Datos e IA aplicada',
+        summary: 'Pipelines, data warehouses y tableros, limpieza y enriquecimiento de catálogos, y recomendaciones.',
+        problems: [
+          'Los datos existen, pero cada área tiene su propio número.',
+          'Un catálogo de miles de productos con descripciones incompletas o inconsistentes.',
+          'Las decisiones comerciales se toman sin mirar el historial.',
+        ],
+        solution:
+          'Pipelines y data warehouses, tableros de gestión (Power BI o web), limpieza y enriquecimiento de catálogos, clasificación de productos y recomendaciones construidas con los datos propios de la empresa.',
+        example: {
+          text: 'Reportes BIAMAQ funciona en producción sobre el ERP. BIAMAQ Intelligence, en desarrollo, apunta a enriquecer un catálogo objetivo de ~20.000 artículos y recomendar alternativas.',
+          project: 'intelligence',
+        },
+      },
+      {
+        id: 'software',
+        title: 'Software empresarial a medida',
+        summary: 'Aplicaciones internas de gestión comercial, inventario, alquileres y operación diaria.',
+        problems: [
+          'Un proceso clave vive en planillas y depende de una persona.',
+          'El sistema actual no se adapta a cómo trabaja realmente la empresa.',
+        ],
+        solution:
+          'Aplicaciones internas de gestión comercial, inventario, alquileres y herramientas operativas, desde entender el proceso hasta el despliegue y el mantenimiento.',
+        example: {
+          text: 'RentalIA cubre el ciclo completo del alquiler en BIAMAQ, desde la reserva y el contrato firmado hasta la devolución y la facturación electrónica.',
+          project: 'rentalia',
+        },
+      },
+    ],
+    process: {
+      title: 'Cómo trabajo',
+      steps: [
+        { title: 'Primera conversación', text: 'Me contás el proceso, qué sistemas usan y qué querés resolver.' },
+        { title: 'Relevamiento', text: 'Reviso los datos y sistemas involucrados y propongo un alcance concreto.' },
+        { title: 'Desarrollo por etapas', text: 'Entregas cortas que se pueden probar con datos reales.' },
+        { title: 'Puesta en marcha y soporte', text: 'Despliegue, documentación y mantenimiento.' },
+      ],
+    },
+    cta: 'Contame tu proyecto',
+    emailSubject: 'Consulta desde eduramirez.dev',
+  },
   experience: [
     {
       title: 'BIAMAQ',
       href: 'https://biamaq.com.ar',
       logo: '/images/logo-biamaq.webp',
-      meta: ['IT Lead & Data Engineer', 'Jornada completa · Remoto, Argentina'],
+      meta: ['Software & Data Engineer · IT Lead', 'Jornada completa · Remoto, Argentina'],
       period: 'Nov. 2023 — Actualidad',
       description:
-        'IT y Sistemas de una empresa de maquinaria industrial: infraestructura, desarrollo, automatización e inteligencia de negocios.',
+        'Sistemas de una empresa de maquinaria industrial con 3 sucursales: software para la operación diaria, integraciones con el ERP, datos, automatización e infraestructura.',
       highlights: [
-        'Desarrollé pipelines ETL con Python y Pandas que cargan datos de SQL Server en un data warehouse, unificando ventas, stock, service y alquiler de equipos de las 3 sucursales.',
-        'Diseño y mantengo tableros ejecutivos en Power BI (DAX) y automatizo reportes recurrentes con Python.',
-        'Lideré la reingeniería de los módulos de Alquiler y Servicio Técnico con Django REST Framework y React, desplegados con Docker en servidores Linux.',
+        'Desarrollé pipelines ETL con Python y Pandas que cargan el ERP en SQL Server a un data warehouse, con ventas, compras, stock, cobranzas, service y alquileres.',
+        'Desarrollé Reportes BIAMAQ, la plataforma interna de reportes que usa la dirección, y mantengo tableros en Power BI y reportes automatizados.',
+        'Lideré la reingeniería de los módulos de Alquiler y Servicio Técnico con Django REST Framework y React; el módulo de alquileres se convirtió en RentalIA.',
+        'Me ocupo de la infraestructura, la automatización y los despliegues: Docker en servidores Linux y CI/CD con GitHub Actions.',
       ],
     },
   ],
@@ -265,6 +393,15 @@ export const es: Content = {
   tech: { data: 'Datos', software: 'Software e infraestructura' },
   contact: {
     title: 'Hablemos.',
-    intro: 'Estoy abierto a oportunidades en Data Engineering y a conversar sobre proyectos de datos y software.',
+    paragraphs: [
+      {
+        lead: 'Empresas:',
+        text: 'si un proceso sigue dependiendo de planillas o los datos no cierran, escribime contando qué sistemas usan y qué querés resolver. Si no soy la persona indicada, te lo digo.',
+      },
+      {
+        lead: 'Reclutadores:',
+        text: 'estoy abierto a posiciones remotas, full-time o como contractor, en Backend, Data o Software Engineering, y a oportunidades de relocalización.',
+      },
+    ],
   },
 }

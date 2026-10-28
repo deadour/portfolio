@@ -254,3 +254,25 @@ No hay suite de tests en el repo; la verificación será `npm run build` (incluy
 6. Verificación: build + Playwright (escritorio/móvil, ES/EN, claro/oscuro) con capturas antes/después.
 
 Sin deploy hasta tu autorización (cada push a `main` despliega en Cloudflare Pages; trabajo en una rama aparte).
+
+---
+
+## 11. Estado de la implementación (fase 2)
+
+Hecho en la rama `claude/charming-allen-uustwk` (sin deploy):
+
+- Hero con título "Software & Data Engineer", propuesta de valor, CTA a servicios, CV y GitHub/LinkedIn como íconos. "Ahora" con mes escrito a mano.
+- Rutas por idioma: `/`, `/es/`, `/services`, `/es/servicios`, cada una con su HTML, título, descripción, canonical, `hreflang`, Open Graph (`og.png` 1200×630) y JSON-LD `Person` en el inicio. `robots.txt` y `sitemap.xml`.
+- Trabajo profesional primero (Reportes BIAMAQ, RentalIA, Malaca + BIAMAQ Intelligence y Casa Palma en desarrollo); Last.fm encabeza el bloque personal como proyecto técnico destacado.
+- Casos de estudio (Problema / Mi rol / Solución / Hoy) en Reportes BIAMAQ y RentalIA.
+- Sección de servicios en el inicio + página de servicios; contacto para empresas y reclutadores, con CTA por email con asunto.
+- Navegación móvil, objetivos táctiles de 36 px, headings corregidos, anclas por proyecto (`#project-<id>`).
+- Se conservan los bocetos, el mapa, el grano, las animaciones y el tema claro/oscuro. La página de servicios tiene sus propios bocetos en los márgenes.
+
+Pendiente / a confirmar:
+
+- Las capturas de RentalIA todavía muestran el nombre "RentOS" en la interfaz: conviene reemplazarlas por capturas nuevas con datos de ejemplo.
+- Se quitó el enlace a la landing `alquileres.biamaq.com.ar/landing/` porque muestra planes comerciales; volver a agregarlo cuando BIAMAQ lo confirme.
+- Casa Palma: la descripción se basa en el código del repositorio privado (módulos de ventas, stock, gastos, liquidaciones, importación, permisos y reporte PDF). Validar con el cliente antes de mostrar capturas o el estado de cada módulo.
+- `scratch_*.py` siguen en la raíz (no se tocaron).
+- No hay suite de tests en el repo; la verificación fue `npm run build` (incluye `tsc`) y Playwright en escritorio y móvil, ES/EN.

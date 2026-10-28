@@ -32,6 +32,9 @@ import {
   siCloudinary,
   siRender,
   siTypescript,
+  siNextdotjs,
+  siDrizzle,
+  siVitest,
 } from 'simple-icons'
 
 type Icon = { path: string; hex: string }
@@ -77,6 +80,9 @@ const BRAND: Record<string, Icon> = {
   Vite: siVite,
   Cloudinary: siCloudinary,
   Render: siRender,
+  'Next.js': siNextdotjs,
+  'Drizzle ORM': siDrizzle,
+  Vitest: siVitest,
 }
 
 const GENERIC: Record<string, string> = {

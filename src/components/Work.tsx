@@ -28,6 +28,10 @@ function withLinks(text: string) {
   })
 }
 
+const LOGO_SHAPE = { rounded: 'rounded-md', circle: 'rounded-full', plain: '' }
+
+const CASE_STUDY = ['problem', 'role', 'solution', 'outcome'] as const
+
 // Static class names so Tailwind can see them.
 const GRID_COLS = ['', 'sm:grid-cols-1', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-4']
 
@@ -48,25 +52,26 @@ function ProjectCard({ project }: { project: Project }) {
   const compact = project.tier === 'secondary'
   const pill = text.badge ?? text.status
 
-  const identity = project.id === 'lastfm' ? (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5 shrink-0 text-accent" fill="currentColor">
-      <path d={siLastdotfm.path} />
-    </svg>
-  ) : project.id === 'reports' ? (
-    <img src="/images/logo-biamaq.webp" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-cover" />
-  ) : project.id === 'rentos' ? (
-    <img src="/images/logo-rentos.png" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-contain" />
-  ) : project.id === 'ecommerce' ? (
-    <img src="/images/logo-malaca.webp" alt="" width={24} height={24} className="size-6 shrink-0 rounded-full object-contain" />
-  ) : project.id === 'chedul' ? (
-    <img src="/images/logo-chedul.svg" alt="" width={24} height={24} className="size-6 shrink-0 object-contain" />
-  ) : project.id === 'dynamo' ? (
-    <img src="/images/logo-dynamo.png" alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-cover" />
-  ) : null
+  const logo = project.logo
+  const identity =
+    project.id === 'lastfm' ? (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5 shrink-0 text-accent" fill="currentColor">
+        <path d={siLastdotfm.path} />
+      </svg>
+    ) : logo ? (
+      <img
+        src={logo.src}
+        alt=""
+        width={24}
+        height={24}
+        className={`size-6 shrink-0 ${LOGO_SHAPE[logo.shape ?? 'rounded']} ${logo.fit === 'contain' ? 'object-contain' : 'object-cover'}`}
+      />
+    ) : null
 
   return (
     <article
-      className={`card rounded-lg border bg-surface ${compact ? 'p-5' : 'p-5 sm:p-6'} ${
+      id={`project-${project.id}`}
+      className={`card scroll-mt-28 rounded-lg border bg-surface ${compact ? 'p-5' : 'p-5 sm:p-6'} ${
         featured ? 'border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]' : 'border-line'
       }`}
     >
@@ -74,10 +79,10 @@ function ProjectCard({ project }: { project: Project }) {
         <p className="mb-3 text-xs font-medium tracking-wide text-accent uppercase">{c.ui.featured}</p>
       )}
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h3 className={`flex min-w-0 items-center gap-2 font-medium text-fg ${featured ? 'text-lg' : ''}`}>
+        <h4 className={`flex min-w-0 items-center gap-2 font-medium text-fg ${featured ? 'text-lg' : ''}`}>
           {identity}
           <span>{text.title}</span>
-        </h3>
+        </h4>
         {pill && (
           <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2.5 py-0.5 text-xs font-medium text-accent">
             {pill}
@@ -85,7 +90,19 @@ function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
       <p className="mt-1 text-sm text-accent">{text.kind}</p>
-      <p className="mt-4 text-sm leading-relaxed">{text.summary}</p>
+      {text.caseStudy ? (
+        // Professional projects read as a short case study instead of a plain summary.
+        <dl className="mt-4 grid gap-y-1 text-sm leading-relaxed sm:grid-cols-[6.5rem_1fr] sm:gap-x-5 sm:gap-y-2.5">
+          {CASE_STUDY.map((key) => (
+            <div key={key} className="contents">
+              <dt className="text-xs font-medium tracking-wide text-muted uppercase sm:pt-[0.2rem]">{c.ui.caseStudy[key]}</dt>
+              <dd className="mb-2.5 sm:mb-0">{text.caseStudy![key]}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <p className="mt-4 text-sm leading-relaxed">{text.summary}</p>
+      )}
 
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
@@ -192,7 +209,7 @@ function ProjectCard({ project }: { project: Project }) {
       {text.imagesNote && <p className="mt-2 text-xs text-muted">{text.imagesNote}</p>}
 
       {text.highlights.length > 0 && (
-        <Disclosure label={c.ui.howItsBuilt}>
+        <Disclosure label={text.highlightsLabel ?? c.ui.howItsBuilt}>
           <ul className="mt-3 space-y-2 text-sm leading-relaxed">
             {text.highlights.map((item, i) => (
               <li key={i} className="relative pl-4">
@@ -241,51 +258,51 @@ function ProjectCard({ project }: { project: Project }) {
 // Small label that opens a block of the Work section.
 function GroupLabel({ children }: { children: string }) {
   return (
-    <h3 className="mt-12 mb-4 flex items-center gap-3 text-xs font-medium tracking-wide text-muted uppercase sm:mt-14">
+    <h3 className="mt-12 mb-4 flex items-center gap-3 text-xs font-medium tracking-wide text-muted uppercase first:mt-0 sm:mt-14 sm:first:mt-0">
       {children}
       <span aria-hidden="true" className="h-px flex-1 bg-line" />
     </h3>
   )
 }
 
-export default function Work() {
-  const { c } = useLang()
-  const featured = projects.filter((p) => p.group === 'featured')
-  const professional = projects.filter((p) => p.group === 'professional')
-  const personal = projects.filter((p) => p.group === 'personal' && p.tier !== 'secondary')
-  const academic = projects.filter((p) => p.tier === 'secondary')
-
+// One block: full cards first, then the compact ones in two columns.
+function Group({ group, label, compactLabel }: { group: Project['group']; label: string; compactLabel?: string }) {
+  const items = projects.filter((p) => p.group === group)
+  const full = items.filter((p) => p.tier !== 'secondary')
+  const compact = items.filter((p) => p.tier === 'secondary')
   return (
-    <Section id="work" title={c.sections.work}>
+    <>
+      <GroupLabel>{label}</GroupLabel>
       <div className="space-y-4">
-        {featured.map((project) => (
+        {full.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-
-      <GroupLabel>{c.ui.professional}</GroupLabel>
-      <div className="space-y-4">
-        {professional.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
-
-      <GroupLabel>{c.ui.personal}</GroupLabel>
-      <div className="space-y-4">
-        {personal.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
-      {academic.length > 0 && (
+      {compact.length > 0 && (
         <>
-          <h4 className="mt-8 mb-4 text-sm font-medium text-muted">{c.ui.academic}</h4>
+          {compactLabel ? (
+            <p className="mt-8 mb-4 text-sm font-medium text-muted">{compactLabel}</p>
+          ) : (
+            <div className="mt-4" />
+          )}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {academic.map((project) => (
+            {compact.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
         </>
       )}
+    </>
+  )
+}
+
+export default function Work() {
+  const { c } = useLang()
+
+  return (
+    <Section id="work" title={c.sections.work}>
+      <Group group="professional" label={c.ui.professional} />
+      <Group group="personal" label={c.ui.personal} compactLabel={c.ui.academic} />
     </Section>
   )
 }

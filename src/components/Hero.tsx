@@ -1,10 +1,14 @@
 import type { CSSProperties } from 'react'
 import { site } from '../data/site'
 import { useLang } from '../i18n'
+import { pathFor } from '../route'
+import Link from './Link'
 import LinkIcon from './LinkIcon'
 
 const secondary =
   'inline-flex items-center gap-2 rounded-md border border-line bg-surface px-4 py-2 text-sm font-medium text-fg hover:border-muted'
+// Same look, square: GitHub and LinkedIn are recognisable by their icon alone.
+const iconLink = 'grid size-[38px] place-items-center rounded-md border border-line bg-surface text-fg hover:border-muted'
 
 // Staggered entrance order for each block (see .enter in index.css).
 const step = (i: number) => ({ '--i': i }) as CSSProperties
@@ -12,9 +16,6 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 export default function Hero() {
   const { lang, c } = useLang()
   const cv = site.cv[lang]
-  // Current month and year, e.g. "October 2026" / "Octubre 2026".
-  const month = new Intl.DateTimeFormat(lang, { month: 'long', year: 'numeric' }).format(new Date())
-  const currentMonth = month.charAt(0).toUpperCase() + month.slice(1).replace(' de ', ' ')
 
   return (
     <section aria-labelledby="hero-title" className="pt-10 pb-16 sm:pt-16 sm:pb-20">
@@ -60,7 +61,7 @@ export default function Hero() {
         <span className="now-dot mt-1.5 shrink-0" aria-hidden="true" />
         <span>
           <span className="font-medium text-fg">{c.now.label}</span>
-          <span className="text-muted"> · {currentMonth} — </span>
+          <span className="text-muted"> · {c.now.date} — </span>
           {c.now.text}
         </span>
       </p>
@@ -75,20 +76,24 @@ export default function Hero() {
             ↓
           </span>
         </a>
-        <a href={site.github} target="_blank" rel="noreferrer" className={secondary}>
-          <LinkIcon name="github" />
-          GitHub
-        </a>
-        {site.linkedin && (
-          <a href={site.linkedin} target="_blank" rel="noreferrer" className={secondary}>
-            <LinkIcon name="linkedin" />
-            LinkedIn
-          </a>
-        )}
+        <Link href={pathFor(lang, 'services')} className={`group ${secondary}`}>
+          {c.hero.services}
+          <span aria-hidden="true" className="text-muted transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">
+            →
+          </span>
+        </Link>
         {cv && (
           <a href={cv} download className={secondary}>
             <LinkIcon name="download" />
             {c.hero.downloadCv}
+          </a>
+        )}
+        <a href={site.github} target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub" className={iconLink}>
+          <LinkIcon name="github" />
+        </a>
+        {site.linkedin && (
+          <a href={site.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn" className={iconLink}>
+            <LinkIcon name="linkedin" />
           </a>
         )}
       </div>

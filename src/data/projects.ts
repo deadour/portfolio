@@ -1,21 +1,69 @@
 import type { LinkKind, ProjectId } from '../content/types'
 
 // Order, stack and links of the project cards. Texts are in src/content/.
+// Professional work comes first; Last.fm leads the personal block as the featured technical project.
 export const projects: {
   id: ProjectId
+  // Small square logo next to the title.
+  logo?: { src: string; shape?: 'rounded' | 'circle' | 'plain'; fit?: 'cover' | 'contain' }
   // 'phone' (default): narrow screenshots in a row of 4. 'wide': desktop screenshots in a 2×2 grid.
   // 'photo': mixed-size photos cropped to the same 4:5 frame.
   gallery?: 'phone' | 'wide' | 'photo'
-  // 'featured': the main case study. 'secondary': compact cards in the academic subsection.
+  // 'featured': highlighted case study. 'secondary': compact cards in a two-column grid at the end of the block.
   tier?: 'featured' | 'secondary'
   // Which block of the Work section the card sits in.
-  group: 'featured' | 'professional' | 'personal'
+  group: 'professional' | 'personal'
   stack: string[]
   links: { kind: LinkKind; href: string }[]
 }[] = [
   {
+    // Internal system: screens must be mockups with sample data only.
+    id: 'reports',
+    logo: { src: '/images/logo-biamaq.webp' },
+    group: 'professional',
+    gallery: 'wide',
+    stack: ['Python', 'Pandas', 'SQL Server', 'Django REST Framework', 'Celery', 'Redis', 'React', 'Docker'],
+    links: [],
+  },
+  {
+    // Internal system: screens must be mockups with sample data only.
+    // No link to the commercial landing until its plans and terms are confirmed with BIAMAQ.
+    id: 'rentalia',
+    logo: { src: '/images/logo-rentos.png', fit: 'contain' },
+    group: 'professional',
+    gallery: 'wide',
+    stack: ['Django REST Framework', 'PostgreSQL', 'SQL Server', 'React', 'Tailwind CSS', 'Playwright', 'Docker'],
+    links: [],
+  },
+  {
+    // TODO: add a { kind: 'live', href } link once it's launched.
+    id: 'ecommerce',
+    logo: { src: '/images/logo-malaca.webp', shape: 'circle', fit: 'contain' },
+    group: 'professional',
+    gallery: 'wide',
+    stack: ['Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
+    links: [],
+  },
+  {
+    // In development: no screenshots, results or stack until they're approved for publication.
+    id: 'intelligence',
+    logo: { src: '/images/logo-biamaq.webp' },
+    group: 'professional',
+    tier: 'secondary',
+    stack: [],
+    links: [],
+  },
+  {
+    // Private repository. Highlights only list what is implemented in the code.
+    id: 'casaPalma',
+    group: 'professional',
+    tier: 'secondary',
+    stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Drizzle ORM', 'Vitest'],
+    links: [],
+  },
+  {
     id: 'lastfm',
-    group: 'featured',
+    group: 'personal',
     tier: 'featured',
     gallery: 'wide',
     stack: ['Python', 'Parquet', 'Last.fm API', 'MusicBrainz', 'Streamlit', 'pytest'],
@@ -28,31 +76,8 @@ export const projects: {
     ],
   },
   {
-    // Internal system: screens must be mockups with sample data only.
-    id: 'reports',
-    group: 'professional',
-    gallery: 'wide',
-    stack: ['Python', 'Pandas', 'SQL Server', 'Django REST Framework', 'Celery', 'Redis', 'React', 'Docker'],
-    links: [],
-  },
-  {
-    // Internal system: screens must be mockups with sample data only.
-    id: 'rentos',
-    group: 'professional',
-    gallery: 'wide',
-    stack: ['Django REST Framework', 'PostgreSQL', 'SQL Server', 'React', 'Tailwind CSS', 'Playwright', 'Docker'],
-    links: [{ kind: 'live', href: 'https://alquileres.biamaq.com.ar/landing/' }],
-  },
-  {
-    // TODO: add stack and a { kind: 'live', href } link once it's deployed.
-    id: 'ecommerce',
-    group: 'professional',
-    gallery: 'wide',
-    stack: ['Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
-    links: [],
-  },
-  {
     id: 'dynamo',
+    logo: { src: '/images/logo-dynamo.png' },
     group: 'personal',
     stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
     links: [
@@ -66,6 +91,7 @@ export const projects: {
   },
   {
     id: 'chedul',
+    logo: { src: '/images/logo-chedul.svg', shape: 'plain', fit: 'contain' },
     group: 'personal',
     gallery: 'wide',
     stack: ['Go', 'React', 'TypeScript', 'Vite', 'PostgreSQL', 'Docker', 'Google Cloud Run', 'Vercel', 'GitHub Actions'],

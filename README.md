@@ -1,6 +1,15 @@
 # eduramirez.dev
 
-Personal portfolio of Eduardo M. Ramírez — a single static page in English and Spanish, with light and dark themes.
+Personal portfolio of Eduardo M. Ramírez — a static site in English and Spanish, with light and dark themes.
+
+## Pages
+
+| Page | English | Spanish |
+|---|---|---|
+| Home (portfolio) | `/` | `/es/` |
+| Services for companies | `/services` | `/es/servicios` |
+
+The URL decides the language, so a Spanish link can be shared directly. The build writes one HTML file per route with its own `lang`, title, description, canonical, `hreflang` and Open Graph tags (`src/head.ts`, `vite.config.ts`); the app reads the route from the URL (`src/route.ts`).
 
 ## Stack
 
@@ -11,7 +20,7 @@ React, TypeScript, Vite and Tailwind CSS. No backend; the build output is plain 
 Translatable text lives in `src/content/`:
 
 - `en.ts` / `es.ts` — every visible text, one file per language. Both implement the `Content` type in `types.ts`, so a missing translation fails the build.
-- `index.ts` — available languages and the default one (English).
+- `index.ts` — available languages and the default one (English, used for unknown URLs).
 
 Non-translatable data lives in `src/data/`:
 
@@ -19,7 +28,7 @@ Non-translatable data lives in `src/data/`:
 - `projects.ts` — order, stack and links of the project cards
 - `tech.ts` — tech list
 
-Images are in `public/images/`.
+Images are in `public/images/`. `public/og.png` is the link preview image; `public/sitemap.xml` lists the four routes.
 
 ## Local development
 
