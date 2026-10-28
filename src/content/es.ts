@@ -38,9 +38,9 @@ export const es: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'Desarrollo software, integro sistemas empresariales y automatizo procesos para que las empresas aprovechen mejor sus datos. Desde 2023 construyo y mantengo sistemas que BIAMAQ, una empresa de maquinaria industrial, usa en su operación diaria: integraciones con el ERP, pipelines ETL, reportes de gestión y RentalIA, su plataforma de alquileres.',
+      'Ayudo a empresas a conectar sus sistemas, ordenar sus datos y dejar de depender de planillas. Desde 2023 desarrollo y mantengo los sistemas que BIAMAQ, una empresa de maquinaria industrial, usa todos los días.',
+    solutions: 'Qué puedo resolver',
     viewWork: 'Ver proyectos',
-    services: 'Servicios para empresas',
     downloadCv: 'Descargar CV',
   },
   now: {
@@ -51,7 +51,6 @@ export const es: Content = {
   sections: {
     about: 'Sobre mí',
     work: 'Proyectos destacados',
-    services: 'Servicios',
     experience: 'Experiencia',
     education: 'Formación',
     languages: 'Idiomas',
@@ -99,7 +98,7 @@ export const es: Content = {
       kind: 'Proyecto laboral · BIAMAQ · Business Intelligence',
       badge: 'Sistema interno · Producción',
       summary:
-        'Plataforma interna de reportes desde la que la dirección de BIAMAQ sigue ventas, compras, cobranzas, clientes y la actividad del taller de sus 3 sucursales. Funciona sobre los extractores y el data warehouse que construí a partir del ERP en SQL Server.',
+        'Plataforma interna donde la dirección de BIAMAQ sigue ventas, compras, cobranzas, clientes y el taller de sus 3 sucursales, con datos que se actualizan solos desde el ERP todos los días.',
       caseStudy: {
         problem:
           'La dirección necesitaba un solo lugar para seguir ventas, compras, cobranzas, clientes y la actividad del taller de las 3 sucursales. Los datos estaban en el ERP de la empresa, en SQL Server.',
@@ -127,7 +126,7 @@ export const es: Content = {
       kind: 'Proyecto laboral · BIAMAQ · Plataforma full-stack',
       badge: 'En producción en BIAMAQ',
       summary:
-        'Plataforma de gestión de alquileres desarrollada en BIAMAQ. Nació como la reingeniería del módulo de Alquiler de la empresa y cubre el ciclo completo: reserva, contrato firmado, entrega, devolución, días facturables, taller y facturación.',
+        'Sistema de gestión de alquileres desarrollado en BIAMAQ: reserva, contrato firmado, entrega, devolución, taller y facturación en un solo lugar. Funciona conectado al ERP o de forma independiente.',
       caseStudy: {
         problem:
           'Los alquileres de equipos de BIAMAQ funcionaban en un módulo de su ERP legacy. El objetivo era un solo sistema para todo el ciclo: reserva, contrato, entrega, devolución, días facturables, taller y facturación.',
@@ -277,62 +276,89 @@ export const es: Content = {
       ],
     },
   },
-  services: {
+  solutions: {
+    title: 'Qué puedo resolver',
     intro:
-      'También trabajo con empresas que ya tienen sistemas y datos, pero procesos clave que siguen dependiendo de planillas, cargas manuales o números que no cierran.',
-    more: 'Ver servicios en detalle',
-    title: 'Servicios para empresas',
-    lead: 'Trabajo con empresas que ya tienen sistemas y datos, pero procesos que dependen de planillas, cargas manuales o información que no cierra. No vendo paquetes: primero entiendo el problema y después propongo la solución más simple que lo resuelva. Trabajo de forma remota desde Resistencia, Chaco.',
-    labels: { problems: 'Problemas habituales', solution: 'Qué hago', example: 'Ejemplo real', seeProject: 'Ver proyecto' },
+      'Muchas empresas ya tienen un ERP y muchos datos, pero la información no funciona junta. Estos son los problemas que sé resolver, con ejemplos de dónde ya lo hice.',
+    labels: { before: 'Antes', after: 'Después', proof: 'Ya lo hice', seeProject: 'Ver proyecto' },
     items: [
       {
         id: 'integration',
-        title: 'Integración y automatización',
-        summary: 'Integraciones con ERP y APIs, sincronización entre sistemas y tareas repetitivas automatizadas.',
-        problems: [
-          'La misma información se carga en dos sistemas.',
-          'El ERP no se comunica con las otras herramientas de la empresa.',
-          'Un reporte semanal se arma a mano en Excel.',
-        ],
-        solution:
-          'Integraciones con ERP y APIs, sincronización entre SQL Server, PostgreSQL y Excel, procesos programados y exportaciones automáticas, para que la información se cargue una sola vez y llegue a donde hace falta.',
-        example: {
-          text: 'En BIAMAQ, extractores en Python programados cargan los datos del ERP en SQL Server a un data warehouse que alimenta los reportes de gestión.',
-          project: 'reports',
+        tag: 'Integración',
+        title: 'Que tus sistemas se hablen entre sí.',
+        text: 'Conecto el ERP con las demás herramientas de la empresa para que la información se cargue una sola vez y llegue sola a donde hace falta.',
+        before: 'Cargar lo mismo en el ERP y en una planilla.',
+        after: 'Se carga una vez y está disponible en todos lados.',
+        visual: {
+          kind: 'flow',
+          flow: {
+            steps: [
+              { name: 'ERP', detail: 'ventas, stock' },
+              { name: 'Sincronización', detail: 'automática' },
+              { name: 'Tus herramientas', detail: 'reportes, apps' },
+            ],
+            caption: 'Esquema simplificado.',
+          },
         },
+        proof: { text: 'En BIAMAQ, el ERP alimenta todos los días los reportes de gestión.', project: 'reports' },
       },
       {
-        id: 'data',
-        title: 'Datos e IA aplicada',
-        summary: 'Pipelines, data warehouses y tableros, limpieza y enriquecimiento de catálogos, y recomendaciones.',
-        problems: [
-          'Los datos existen, pero cada área tiene su propio número.',
-          'Un catálogo de miles de productos con descripciones incompletas o inconsistentes.',
-          'Las decisiones comerciales se toman sin mirar el historial.',
-        ],
-        solution:
-          'Pipelines y data warehouses, tableros de gestión (Power BI o web), limpieza y enriquecimiento de catálogos, clasificación de productos y recomendaciones construidas con los datos propios de la empresa.',
-        example: {
-          text: 'Reportes BIAMAQ funciona en producción sobre el ERP. BIAMAQ Intelligence, en desarrollo, apunta a enriquecer un catálogo objetivo de ~20.000 artículos y recomendar alternativas.',
-          project: 'intelligence',
+        id: 'reporting',
+        tag: 'Reportes y datos',
+        title: 'Números claros, sin armar planillas a mano.',
+        text: 'Tableros que se actualizan solos con los datos reales de la empresa (ventas, compras, cobranzas, stock), para que todos miren el mismo número.',
+        before: 'Un reporte semanal que alguien arma a mano en Excel.',
+        after: 'Un tablero que se actualiza solo todos los días.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Tablero gerencial de ventas con KPIs y gráfico de objetivo vs facturado diario' },
+          note: 'Datos de ejemplo. Clic para ampliar.',
         },
+        proof: { text: 'La dirección de BIAMAQ sigue sus 3 sucursales con Reportes BIAMAQ.', project: 'reports' },
       },
       {
         id: 'software',
-        title: 'Software empresarial a medida',
-        summary: 'Aplicaciones internas de gestión comercial, inventario, alquileres y operación diaria.',
-        problems: [
-          'Un proceso clave vive en planillas y depende de una persona.',
-          'El sistema actual no se adapta a cómo trabaja realmente la empresa.',
-        ],
-        solution:
-          'Aplicaciones internas de gestión comercial, inventario, alquileres y herramientas operativas, desde entender el proceso hasta el despliegue y el mantenimiento.',
-        example: {
-          text: 'RentalIA cubre el ciclo completo del alquiler en BIAMAQ, desde la reserva y el contrato firmado hasta la devolución y la facturación electrónica.',
-          project: 'rentalia',
+        tag: 'Software a medida',
+        title: 'Un sistema que se adapta a cómo trabajás.',
+        text: 'Cuando un proceso clave vive en planillas o depende de una persona, lo convierto en una aplicación simple, con permisos y con historial.',
+        before: 'El proceso depende de planillas y de que alguien se acuerde.',
+        after: 'Un solo sistema, con historial, permisos y todo en un lugar.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Asistente de alquiler: catálogo de equipos con precio por día' },
+          note: 'Datos de ejemplo. Clic para ampliar.',
+        },
+        proof: { text: 'RentalIA maneja los alquileres de BIAMAQ, del contrato a la facturación.', project: 'rentalia' },
+      },
+      {
+        id: 'ai',
+        tag: 'IA aplicada',
+        title: 'Un catálogo ordenado que sugiere alternativas.',
+        text: 'Con miles de productos, completar descripciones a mano no escala. Uso IA para clasificar productos, completar datos técnicos y sugerir productos relacionados o alternativos.',
+        before: 'Descripciones incompletas y productos difíciles de encontrar.',
+        after: 'Fichas completas y alternativas sugeridas.',
+        visual: {
+          kind: 'example',
+          label: 'Ejemplo ilustrativo',
+          input: 'FILTRO ACEITE P/MOTOR 4T X UN',
+          output: [
+            { name: 'Tipo', value: 'Filtro de aceite' },
+            { name: 'Motor', value: '4 tiempos' },
+            { name: 'Venta', value: 'Por unidad' },
+            { name: 'Sugeridos', value: 'Filtro de aire compatible, aceite de motor' },
+          ],
+        },
+        proof: {
+          text: 'Lo estoy desarrollando en BIAMAQ Intelligence, para un catálogo de unos 20.000 artículos.',
+          project: 'intelligence',
+          status: 'En desarrollo',
         },
       },
     ],
+  },
+  services: {
+    title: 'Servicios para empresas',
+    lead: 'Soy desarrollador independiente y trabajo de forma remota desde Resistencia, Chaco. Primero entiendo cómo trabaja tu empresa y después propongo la solución más simple que resuelva el problema.',
     process: {
       title: 'Cómo trabajo',
       steps: [

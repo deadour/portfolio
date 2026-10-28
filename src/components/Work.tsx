@@ -90,19 +90,7 @@ function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
       <p className="mt-1 text-sm text-accent">{text.kind}</p>
-      {text.caseStudy ? (
-        // Professional projects read as a short case study instead of a plain summary.
-        <dl className="mt-4 grid gap-y-1 text-sm leading-relaxed sm:grid-cols-[6.5rem_1fr] sm:gap-x-5 sm:gap-y-2.5">
-          {CASE_STUDY.map((key) => (
-            <div key={key} className="contents">
-              <dt className="text-xs font-medium tracking-wide text-muted uppercase sm:pt-[0.2rem]">{c.ui.caseStudy[key]}</dt>
-              <dd className="mb-2.5 sm:mb-0">{text.caseStudy![key]}</dd>
-            </div>
-          ))}
-        </dl>
-      ) : (
-        <p className="mt-4 text-sm leading-relaxed">{text.summary}</p>
-      )}
+      <p className="mt-4 text-sm leading-relaxed">{text.summary}</p>
 
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
@@ -156,7 +144,7 @@ function ProjectCard({ project }: { project: Project }) {
               width={960}
               height={540}
               loading="lazy"
-              className="aspect-[16/9] w-full object-cover transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100"
+              className={`aspect-[16/9] w-full object-cover ${project.gallery === 'wide' || project.gallery === 'photo' ? '' : 'object-top'} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
             />
           </a>
           {text.images[0].caption && <figcaption className="mt-2 text-xs text-muted">{text.images[0].caption}</figcaption>}
@@ -208,30 +196,42 @@ function ProjectCard({ project }: { project: Project }) {
       )}
       {text.imagesNote && <p className="mt-2 text-xs text-muted">{text.imagesNote}</p>}
 
-      {text.highlights.length > 0 && (
+      {/* Everything technical lives behind this button, so the card reads in plain words first. */}
+      {(text.caseStudy || text.highlights.length > 0 || project.stack.length > 0) && (
         <Disclosure label={text.highlightsLabel ?? c.ui.howItsBuilt}>
-          <ul className="mt-3 space-y-2 text-sm leading-relaxed">
-            {text.highlights.map((item, i) => (
-              <li key={i} className="relative pl-4">
-                <span aria-hidden="true" className="absolute left-0 text-muted">
-                  –
-                </span>
-                {withLinks(item)}
-              </li>
-            ))}
-          </ul>
+          {text.caseStudy && (
+            <dl className="mt-4 grid gap-y-1 text-sm leading-relaxed sm:grid-cols-[6.5rem_1fr] sm:gap-x-5 sm:gap-y-2.5">
+              {CASE_STUDY.map((key) => (
+                <div key={key} className="contents">
+                  <dt className="text-xs font-medium tracking-wide text-muted uppercase sm:pt-[0.2rem]">{c.ui.caseStudy[key]}</dt>
+                  <dd className="mb-2.5 sm:mb-0">{text.caseStudy![key]}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          {text.highlights.length > 0 && (
+            <ul className="mt-4 space-y-2 text-sm leading-relaxed">
+              {text.highlights.map((item, i) => (
+                <li key={i} className="relative pl-4">
+                  <span aria-hidden="true" className="absolute left-0 text-muted">
+                    –
+                  </span>
+                  {withLinks(item)}
+                </li>
+              ))}
+            </ul>
+          )}
+          {project.stack.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted">
+              {project.stack.map((item) => (
+                <li key={item} className="flex items-center gap-1.5">
+                  <TechIcon name={item} className="size-3.5" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
         </Disclosure>
-      )}
-
-      {project.stack.length > 0 && (
-        <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted">
-          {project.stack.map((item) => (
-            <li key={item} className="flex items-center gap-1.5">
-              <TechIcon name={item} className="size-3.5" />
-              {item}
-            </li>
-          ))}
-        </ul>
       )}
 
       {project.links.length > 0 && (

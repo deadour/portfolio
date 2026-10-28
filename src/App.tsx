@@ -12,7 +12,8 @@ import LinkIcon from './components/LinkIcon'
 import HeroSketches from './components/hero/Sketches'
 import DustCanvas from './components/hero/DustCanvas'
 import PageSketches from './components/hero/PageSketches'
-import { ServicesPage, ServicesSummary } from './components/Services'
+import { Process, ServicesPage } from './components/Services'
+import Solutions from './components/Solutions'
 
 export default function App() {
   const { page, c } = useLang()
@@ -40,9 +41,10 @@ export default function App() {
         ) : (
           <>
             <Hero />
-            <About />
+            <Solutions />
             <Work />
-            <ServicesSummary />
+            <Process />
+            <About />
             <Timeline id="experience" title={c.sections.experience} entries={c.experience} />
             <Timeline id="education" title={c.sections.education} entries={c.education}>
               <div className="mt-12">

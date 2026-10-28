@@ -1,8 +1,6 @@
 import type { CSSProperties } from 'react'
 import { site } from '../data/site'
 import { useLang } from '../i18n'
-import { pathFor } from '../route'
-import Link from './Link'
 import LinkIcon from './LinkIcon'
 
 const secondary =
@@ -68,20 +66,17 @@ export default function Hero() {
 
       <div style={step(5)} className="enter mt-10 flex flex-wrap gap-3">
         <a
-          href="#work"
+          href="#solutions"
           className="group inline-flex items-center gap-1.5 rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
         >
-          {c.hero.viewWork}
+          {c.hero.solutions}
           <span aria-hidden="true" className="nudge-down">
             ↓
           </span>
         </a>
-        <Link href={pathFor(lang, 'services')} className={`group ${secondary}`}>
-          {c.hero.services}
-          <span aria-hidden="true" className="text-muted transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">
-            →
-          </span>
-        </Link>
+        <a href="#work" className={secondary}>
+          {c.hero.viewWork}
+        </a>
         {cv && (
           <a href={cv} download className={secondary}>
             <LinkIcon name="download" />

@@ -38,9 +38,9 @@ export const en: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'I build backend systems, data pipelines and internal tools around real business operations. Since 2023 I’ve built and maintained the systems BIAMAQ, an industrial machinery company, uses every day: ERP integrations, ETL pipelines, management reporting and RentalIA, its rental platform.',
+      'I help companies connect their systems, make sense of their data and stop depending on spreadsheets. Since 2023 I’ve built and run the systems BIAMAQ, an industrial machinery company, uses every day.',
+    solutions: 'What I can solve',
     viewWork: 'View projects',
-    services: 'Services for companies',
     downloadCv: 'Download CV',
   },
   now: {
@@ -51,7 +51,6 @@ export const en: Content = {
   sections: {
     about: 'About',
     work: 'Selected work',
-    services: 'Services',
     experience: 'Experience',
     education: 'Education',
     languages: 'Languages',
@@ -99,7 +98,7 @@ export const en: Content = {
       kind: 'Work project · BIAMAQ · Business Intelligence',
       badge: 'Internal production system',
       summary:
-        'Internal reporting platform where BIAMAQ’s management follows sales, purchases, receivables, customers and workshop activity across its 3 branches. It runs on top of the extractors and data warehouse I built from the company’s SQL Server ERP.',
+        'Internal platform where BIAMAQ’s management follows sales, purchases, receivables, customers and the workshop across its 3 branches, with data that updates itself from the ERP every day.',
       caseStudy: {
         problem:
           'Management needed one place to follow sales, purchases, receivables, customers and workshop activity across 3 branches. The data lived in the company’s SQL Server ERP.',
@@ -127,7 +126,7 @@ export const en: Content = {
       kind: 'Work project · BIAMAQ · Full-stack platform',
       badge: 'In production at BIAMAQ',
       summary:
-        'Rental management platform developed at BIAMAQ. It started as the re-engineering of the company’s Rental module and covers the full cycle: booking, signed contract, delivery, return, billable days, workshop and invoicing.',
+        'Rental management system developed at BIAMAQ: booking, signed contract, delivery, return, workshop and invoicing in one place. It works connected to the ERP or on its own.',
       caseStudy: {
         problem:
           'BIAMAQ’s equipment rentals ran on a module of its legacy ERP. The goal was one system for the whole cycle: booking, contract, delivery, return, billable days, workshop and invoicing.',
@@ -277,62 +276,89 @@ export const en: Content = {
       ],
     },
   },
-  services: {
+  solutions: {
+    title: 'What I can solve',
     intro:
-      'I also work with companies that already have systems and data, but still run key processes on spreadsheets, manual data entry or numbers that don’t add up.',
-    more: 'Services in detail',
-    title: 'Services for companies',
-    lead: 'I work with companies that already have systems and data, but processes that still depend on spreadsheets, manual data entry or numbers that don’t add up. No packages: I first understand the problem, then propose the simplest solution that solves it. I work remotely from Resistencia, Argentina.',
-    labels: { problems: 'Common problems', solution: 'What I do', example: 'Real example', seeProject: 'See project' },
+      'Many companies already have an ERP and plenty of data, but the information doesn’t work together. These are the problems I know how to solve, with examples of where I’ve already done it.',
+    labels: { before: 'Before', after: 'After', proof: 'Already done', seeProject: 'See project' },
     items: [
       {
         id: 'integration',
-        title: 'Integration & automation',
-        summary: 'ERP integrations, APIs, data sync between systems and automated recurring tasks.',
-        problems: [
-          'The same data is entered into two systems.',
-          'The ERP doesn’t talk to the other tools the company uses.',
-          'A weekly report is put together by hand in Excel.',
-        ],
-        solution:
-          'Integrations with ERPs and APIs, sync between SQL Server, PostgreSQL and Excel, scheduled processes and automatic exports, so information is entered once and reaches where it’s needed.',
-        example: {
-          text: 'At BIAMAQ, scheduled Python extractors load the ERP’s SQL Server data into a data warehouse that feeds management reporting.',
-          project: 'reports',
+        tag: 'Integration',
+        title: 'Systems that talk to each other.',
+        text: 'I connect the ERP with the rest of the company’s tools, so information is entered once and reaches where it’s needed on its own.',
+        before: 'Entering the same data in the ERP and in a spreadsheet.',
+        after: 'Entered once, available everywhere.',
+        visual: {
+          kind: 'flow',
+          flow: {
+            steps: [
+              { name: 'ERP', detail: 'sales, stock' },
+              { name: 'Automatic sync', detail: 'every day' },
+              { name: 'Your tools', detail: 'reports, apps' },
+            ],
+            caption: 'Simplified diagram.',
+          },
         },
+        proof: { text: 'At BIAMAQ, the ERP feeds management reporting every day.', project: 'reports' },
       },
       {
-        id: 'data',
-        title: 'Data engineering & applied AI',
-        summary: 'Data pipelines, warehouses and dashboards, catalog cleanup and enrichment, and recommendations.',
-        problems: [
-          'The data exists, but every department has its own number.',
-          'A catalog of thousands of products with incomplete or inconsistent descriptions.',
-          'Commercial decisions are made without looking at the history.',
-        ],
-        solution:
-          'Pipelines and data warehouses, management dashboards (Power BI or web), catalog cleanup and enrichment, product classification and recommendations built on the company’s own data.',
-        example: {
-          text: 'BIAMAQ Reports runs in production on top of the ERP. BIAMAQ Intelligence, in development, aims to enrich a target catalog of ~20,000 products and recommend alternatives.',
-          project: 'intelligence',
+        id: 'reporting',
+        tag: 'Reporting & data',
+        title: 'Clear numbers, no spreadsheets built by hand.',
+        text: 'Dashboards that update themselves with the company’s real data (sales, purchases, receivables, stock), so everyone looks at the same number.',
+        before: 'A weekly report someone builds by hand in Excel.',
+        after: 'A dashboard that updates itself every day.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Management sales dashboard with KPIs and daily target vs invoiced chart' },
+          note: 'Sample data. Click to enlarge.',
         },
+        proof: { text: 'BIAMAQ’s management follows its 3 branches with BIAMAQ Reports.', project: 'reports' },
       },
       {
         id: 'software',
-        title: 'Custom business software',
-        summary: 'Internal applications for sales, inventory, rentals and day-to-day operations.',
-        problems: [
-          'A key process lives in spreadsheets and depends on one person.',
-          'The current system doesn’t fit how the company actually works.',
-        ],
-        solution:
-          'Internal applications for sales management, inventory, rentals and operational tools, from understanding the process to deployment and maintenance.',
-        example: {
-          text: 'RentalIA covers the whole rental cycle at BIAMAQ, from booking and a signed contract to return and electronic invoicing.',
-          project: 'rentalia',
+        tag: 'Custom software',
+        title: 'A system that fits how you work.',
+        text: 'When a key process lives in spreadsheets or depends on one person, I turn it into a simple application, with permissions and a history.',
+        before: 'The process depends on spreadsheets and on someone remembering.',
+        after: 'One system, with history, permissions and everything in one place.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Rental wizard: equipment catalog with the price per day' },
+          note: 'Sample data. Click to enlarge.',
+        },
+        proof: { text: 'RentalIA runs BIAMAQ’s rentals, from contract to invoicing.', project: 'rentalia' },
+      },
+      {
+        id: 'ai',
+        tag: 'Applied AI',
+        title: 'An organized catalog that suggests alternatives.',
+        text: 'With thousands of products, completing descriptions by hand doesn’t scale. I use AI to classify products, fill in technical details and suggest related products or alternatives.',
+        before: 'Incomplete descriptions and products that are hard to find.',
+        after: 'Complete product data and suggested alternatives.',
+        visual: {
+          kind: 'example',
+          label: 'Illustrative example',
+          input: 'OIL FILT. 4T ENGINE X UNIT',
+          output: [
+            { name: 'Type', value: 'Oil filter' },
+            { name: 'Engine', value: '4-stroke' },
+            { name: 'Sold by', value: 'Unit' },
+            { name: 'Suggested', value: 'Compatible air filter, engine oil' },
+          ],
+        },
+        proof: {
+          text: 'I’m building it in BIAMAQ Intelligence, for a catalog of around 20,000 items.',
+          project: 'intelligence',
+          status: 'In development',
         },
       },
     ],
+  },
+  services: {
+    title: 'Services for companies',
+    lead: 'I’m an independent engineer working remotely from Resistencia, Argentina. I first learn how your company works, then propose the simplest solution that solves the problem.',
     process: {
       title: 'How I work',
       steps: [

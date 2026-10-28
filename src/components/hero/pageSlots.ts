@@ -16,6 +16,14 @@ export type Slot = {
 }
 
 const SLOTS: Slot[] = [
+  // Solutions (home and services page) and How I work go first, so both pages get their drawings;
+  // later spots skip whatever is already taken.
+  { options: [S.dataPipeline, S.sqlCode, S.uml], at: '#solution-integration', y: 0.3, side: 'left' },
+  { options: [S.compass, S.globe, S.prism], at: '#solution-integration', y: 0.8, side: 'right' },
+  { options: [S.database, S.pythonCode], at: '#solution-reporting', y: 0.35, side: 'right' },
+  { options: [S.crane, S.drill], at: '#solution-software', y: 0.4, side: 'left' },
+  { options: [S.neuralNetwork, S.sigmoid], at: '#solution-ai', y: 0.4, side: 'right' },
+  { options: [S.books, S.thermos, S.leaf], at: '#process', y: 0.4, side: 'left' },
   { options: [S.obelisco, S.colosseum], at: '#about', y: 0.4, side: 'left', jitter: 0.08 },
   { options: [S.david, S.helmet], at: '#about', y: 0.9, side: 'right' },
   { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#project-lastfm', y: 0.15, side: 'left' },
@@ -47,14 +55,6 @@ const SLOTS: Slot[] = [
   { options: [S.dataLine], at: '#project-reports', y: 0.75, side: 'left', jitter: 0.08 },
   { options: [S.dataPie], at: '#project-lastfm', y: 0.85, side: 'left', jitter: 0.08 },
   { options: [S.dataClock], at: '#certifications', y: 0.75, side: 'left', jitter: 0.08 },
-  // Services page. Only one page shows at a time, so these may reuse drawings from the home page.
-  { options: [S.dataPipeline, S.sqlCode], at: '#integration', y: 0.25, side: 'left' },
-  { options: [S.compass, S.globe], at: '#integration', y: 0.85, side: 'right' },
-  { options: [S.database, S.neuralNetwork], at: '#data', y: 0.3, side: 'right' },
-  { options: [S.sigmoid, S.dataPie], at: '#data', y: 0.85, side: 'left', jitter: 0.08 },
-  { options: [S.crane, S.hardHat], at: '#software', y: 0.3, side: 'left' },
-  { options: [S.drill, S.mate], at: '#software', y: 0.85, side: 'right' },
-  { options: [S.uml, S.books], at: '#process', y: 0.4, side: 'right' },
 ]
 
 const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]
@@ -63,9 +63,15 @@ const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]
 // side mirrored, so the page doesn't look the same on each visit.
 function makeSpots() {
   const mirror = Math.random() < 0.5
-  return SLOTS.map((slot) => ({
+  const used = new Set<string>()
+  return SLOTS.flatMap((slot) => {
+    const options = slot.options.filter((asset) => !used.has(asset.src))
+    if (options.length === 0) return []
+    const asset = pick(options)
+    used.add(asset.src)
+    return [{ ...slot, asset }]
+  }).map((slot) => ({
     ...slot,
-    asset: pick(slot.options),
     y: Math.min(1, Math.max(0, slot.y + (Math.random() - 0.5) * 2 * (slot.jitter ?? 0.12))),
     side: mirror ? (slot.side === 'left' ? 'right' : 'left') : slot.side,
     // Where it sits across the free margin (0 = inner edge, 1 = outer edge) and a size nudge.

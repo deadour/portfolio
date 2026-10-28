@@ -79,6 +79,7 @@ export const projects: {
     id: 'dynamo',
     logo: { src: '/images/logo-dynamo.png' },
     group: 'personal',
+    tier: 'secondary',
     stack: ['Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'GitHub Actions'],
     links: [
       { kind: 'live', href: 'https://dynamo-1.onrender.com' },
@@ -93,6 +94,7 @@ export const projects: {
     id: 'chedul',
     logo: { src: '/images/logo-chedul.svg', shape: 'plain', fit: 'contain' },
     group: 'personal',
+    tier: 'secondary',
     gallery: 'wide',
     stack: ['Go', 'React', 'TypeScript', 'Vite', 'PostgreSQL', 'Docker', 'Google Cloud Run', 'Vercel', 'GitHub Actions'],
     links: [

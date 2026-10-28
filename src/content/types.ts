@@ -62,16 +62,25 @@ export type Entry = {
   images?: Figure[]
 }
 
-export type Service = {
-  // Anchor on the services page, e.g. #integration. Same in every language, so switching keeps it.
+// One "chapter" of the What I can solve section: a problem in plain words, before/after,
+// something to look at and where I've already done it. Technical detail stays in the project cards.
+export type SolutionVisual =
+  | { kind: 'flow'; flow: Pipeline }
+  | { kind: 'image'; image: Figure; note: string }
+  // A made-up example, always labelled as such: raw product text in, structured data out.
+  | { kind: 'example'; label: string; input: string; output: { name: string; value: string }[] }
+
+export type Solution = {
+  // Anchor (#solution-<id>). Same in every language, so switching keeps it.
   id: string
+  tag: string
   title: string
-  // One line, shown on the home page.
-  summary: string
-  problems: string[]
-  solution: string
-  // A real example; `project` links it to its card on the home page.
-  example: { text: string; project?: ProjectId }
+  text: string
+  before: string
+  after: string
+  visual: SolutionVisual
+  // `status` marks proof that is still in development.
+  proof: { text: string; project: ProjectId; status?: string }
 }
 
 export type Content = {
@@ -100,13 +109,12 @@ export type Content = {
     // {n} is replaced by the number of photos.
     viewPhotos: string
   }
-  hero: { title: string; tagline: string; viewWork: string; services: string; downloadCv: string }
+  hero: { title: string; tagline: string; solutions: string; viewWork: string; downloadCv: string }
   // What I'm working on right now. `date` is written by hand, so it never claims to be newer than the text.
   now: { label: string; date: string; text: string }
   sections: {
     about: string
     work: string
-    services: string
     experience: string
     education: string
     languages: string
@@ -116,15 +124,16 @@ export type Content = {
   }
   about: string[]
   projects: Record<ProjectId, ProjectText>
-  services: {
-    // Home page section.
+  solutions: {
+    title: string
     intro: string
-    more: string
-    // Services page.
+    labels: { before: string; after: string; proof: string; seeProject: string }
+    items: Solution[]
+  }
+  // Services page: a short intro on top of the solutions, then how I work.
+  services: {
     title: string
     lead: string
-    labels: { problems: string; solution: string; example: string; seeProject: string }
-    items: Service[]
     process: { title: string; steps: { title: string; text: string }[] }
     cta: string
     // Subject line of the email the CTA opens.
