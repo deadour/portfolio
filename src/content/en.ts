@@ -31,9 +31,8 @@ export const en: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'I connect systems, organize data and build software for companies. Right now I build the systems BIAMAQ runs on every day.',
-    solutions: 'How I can help',
-    viewWork: 'View projects',
+      'I build software and data systems for companies: ERP integrations, automated reporting, custom business software and applied AI. In charge of BIAMAQ’s systems since 2023.',
+    cta: 'See what I can solve',
     downloadCv: 'Download CV',
   },
   now: {
@@ -272,8 +271,9 @@ export const en: Content = {
   solutions: {
     title: 'How I can help',
     intro: 'What I’ve already built in real projects, applied to your company.',
-    projectsLabel: 'Done in',
-    details: 'See details',
+    caseLabel: 'Real case',
+    alsoLabel: 'Also in',
+    details: 'See the case',
     cta: 'I want this for my company',
     items: [
       {
@@ -281,84 +281,54 @@ export const en: Content = {
         tag: 'Integration',
         title: 'Connect your ERP to everything else',
         text: 'Enter data once and see it wherever you need it.',
-        visual: {
-          kind: 'flow',
-          flow: {
-            steps: [
-              { name: 'ERP', detail: 'sales, stock' },
-              { name: 'Sync', detail: 'automatic' },
-              { name: 'Your tools', detail: 'reports, apps' },
-            ],
-            caption: 'Simplified diagram.',
-          },
+        case: { project: 'reports', text: 'At BIAMAQ, ERP data loads into management reporting on its own every day.' },
+        also: ['rentalia'],
+        flow: {
+          steps: [
+            { name: 'ERP', detail: 'sales, stock' },
+            { name: 'Sync', detail: 'automatic' },
+            { name: 'Your tools', detail: 'reports, apps' },
+          ],
+          caption: 'Simplified diagram.',
         },
-        projects: ['reports', 'rentalia'],
       },
       {
         id: 'reporting',
         tag: 'Reporting & data',
         title: 'Reports that build themselves',
         text: 'Sales, purchases, stock and receivables up to date, no hours in Excel.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Management sales dashboard with KPIs and daily target vs invoiced chart' },
-          note: 'Sample data.',
-        },
-        projects: ['reports', 'lastfm'],
+        case: { project: 'reports', text: 'BIAMAQ’s management follows sales, purchases and receivables for its 3 branches on one dashboard.' },
+        also: ['lastfm'],
       },
       {
         id: 'software',
         tag: 'Custom software',
         title: 'Software built around your process',
         text: 'If a process lives in spreadsheets, I turn it into a simple system.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Rental wizard: equipment catalog with the price per day' },
-          note: 'Sample data.',
-        },
-        projects: ['rentalia', 'casaPalma', 'chedul', 'dynamo'],
+        case: { project: 'rentalia', text: 'RentalIA runs BIAMAQ’s rentals in one system, from the signed contract to the invoice.' },
+        also: ['casaPalma', 'chedul', 'dynamo'],
       },
       {
         id: 'ecommerce',
         tag: 'Online stores',
         title: 'An online store that’s easy to run',
         text: 'Catalog, an admin panel for products and orders through WhatsApp.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/malaca-home-thumb.webp', href: '/images/malaca-home.webp', alt: 'Malaca online store home page' },
-          note: 'Demo data.',
-        },
-        projects: ['ecommerce'],
+        case: { project: 'ecommerce', text: 'I’m building Malaca’s store: catalog, its own admin panel and orders through WhatsApp.' },
       },
       {
         id: 'ai',
         tag: 'Applied AI',
-        title: 'AI to organize your catalog',
-        text: 'Fills in product details and suggests alternatives.',
-        visual: {
-          kind: 'example',
-          label: 'Illustrative example',
-          input: 'OIL FILT. 4T ENGINE X UNIT',
-          output: [
-            { name: 'Type', value: 'Oil filter' },
-            { name: 'Engine', value: '4-stroke' },
-            { name: 'Sold by', value: 'Unit' },
-            { name: 'Suggested', value: 'Air filter, engine oil' },
-          ],
-        },
-        projects: ['intelligence', 'cesiDl'],
+        title: 'AI applied to your data',
+        text: 'Models that classify, fill in information and detect cases.',
+        case: { project: 'cesiDl', text: 'At CESI, we trained a model that cut missed diabetes cases from 6,704 to 2,035.' },
+        also: ['intelligence'],
       },
       {
         id: 'iot',
         tag: 'Sensors & IoT',
         title: 'Measure in real time',
         text: 'A sensor that measures and a dashboard that shows it instantly.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/cesi-iot-grafana.webp', alt: 'Grafana dashboard with the noise level in real time' },
-          note: 'Academic project at CESI, France.',
-        },
-        projects: ['cesiIot'],
+        case: { project: 'cesiIot', text: 'At CESI, we built a classroom noise meter that shows decibels live and never records audio.' },
       },
     ],
   },
@@ -420,12 +390,9 @@ export const en: Content = {
     { name: 'English', level: 'B1' },
     { name: 'French', level: 'A2' },
   ],
-  tech: { data: 'Data', software: 'Software & infrastructure' },
+  tech: { backend: 'Backend', data: 'Data', ai: 'AI & machine learning', frontend: 'Frontend', infra: 'Infrastructure & testing' },
   contact: {
     title: 'Let’s talk.',
-    paragraphs: [
-      { lead: 'Recruiters:', text: 'I’m looking for remote or contractor roles in Backend, Data or Software Engineering, and I’m open to relocating.' },
-      { lead: 'Companies:', text: 'tell me what you want to solve and which systems you use.' },
-    ],
+    intro: 'Tell me what you want to solve, or get in touch if you’re building a team.',
   },
 }

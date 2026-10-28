@@ -31,9 +31,8 @@ export const es: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'Conecto sistemas, ordeno datos y hago software para empresas. Hoy desarrollo los sistemas que BIAMAQ usa todos los días.',
-    solutions: 'En qué te puedo ayudar',
-    viewWork: 'Ver proyectos',
+      'Desarrollo software y sistemas de datos para empresas: integraciones con ERP, reportes automáticos, sistemas a medida e IA aplicada. Desde 2023, a cargo de los sistemas de BIAMAQ.',
+    cta: 'Ver qué puedo resolver',
     downloadCv: 'Descargar CV',
   },
   now: {
@@ -272,8 +271,9 @@ export const es: Content = {
   solutions: {
     title: 'En qué te puedo ayudar',
     intro: 'Lo que ya hice en proyectos reales, aplicado a tu empresa.',
-    projectsLabel: 'Hecho en',
-    details: 'Ver detalles',
+    caseLabel: 'Caso real',
+    alsoLabel: 'También en',
+    details: 'Ver el caso',
     cta: 'Quiero esto para mi empresa',
     items: [
       {
@@ -281,84 +281,54 @@ export const es: Content = {
         tag: 'Integración',
         title: 'Conectar el ERP con todo lo demás',
         text: 'Cargás los datos una vez y aparecen donde los necesitás.',
-        visual: {
-          kind: 'flow',
-          flow: {
-            steps: [
-              { name: 'ERP', detail: 'ventas, stock' },
-              { name: 'Sincronización', detail: 'automática' },
-              { name: 'Tus herramientas', detail: 'reportes, apps' },
-            ],
-            caption: 'Esquema simplificado.',
-          },
+        case: { project: 'reports', text: 'En BIAMAQ, los datos del ERP se cargan solos todos los días en los reportes de gestión.' },
+        also: ['rentalia'],
+        flow: {
+          steps: [
+            { name: 'ERP', detail: 'ventas, stock' },
+            { name: 'Sincronización', detail: 'automática' },
+            { name: 'Tus herramientas', detail: 'reportes, apps' },
+          ],
+          caption: 'Esquema simplificado.',
         },
-        projects: ['reports', 'rentalia'],
       },
       {
         id: 'reporting',
         tag: 'Reportes y datos',
         title: 'Reportes que se arman solos',
         text: 'Ventas, compras, stock y cobranzas al día, sin pasar horas en Excel.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Tablero gerencial de ventas con KPIs y gráfico de objetivo vs facturado diario' },
-          note: 'Datos de ejemplo.',
-        },
-        projects: ['reports', 'lastfm'],
+        case: { project: 'reports', text: 'La dirección de BIAMAQ sigue ventas, compras y cobranzas de sus 3 sucursales en un solo tablero.' },
+        also: ['lastfm'],
       },
       {
         id: 'software',
         tag: 'Software a medida',
         title: 'Sistemas hechos a tu medida',
         text: 'Si un proceso vive en planillas, lo paso a un sistema simple.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Asistente de alquiler: catálogo de equipos con precio por día' },
-          note: 'Datos de ejemplo.',
-        },
-        projects: ['rentalia', 'casaPalma', 'chedul', 'dynamo'],
+        case: { project: 'rentalia', text: 'RentalIA maneja los alquileres de BIAMAQ, del contrato firmado a la factura, en un solo sistema.' },
+        also: ['casaPalma', 'chedul', 'dynamo'],
       },
       {
         id: 'ecommerce',
         tag: 'Tiendas online',
         title: 'Tu tienda online, fácil de manejar',
         text: 'Catálogo, panel para cargar productos y pedidos por WhatsApp.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/malaca-home-thumb.webp', href: '/images/malaca-home.webp', alt: 'Inicio de la tienda online de Malaca' },
-          note: 'Datos de demostración.',
-        },
-        projects: ['ecommerce'],
+        case: { project: 'ecommerce', text: 'Estoy armando la tienda de Malaca: catálogo, panel propio para cargar productos y pedidos por WhatsApp.' },
       },
       {
         id: 'ai',
         tag: 'IA aplicada',
-        title: 'IA para ordenar tu catálogo',
-        text: 'Completa fichas de productos y sugiere alternativas.',
-        visual: {
-          kind: 'example',
-          label: 'Ejemplo ilustrativo',
-          input: 'FILTRO ACEITE P/MOTOR 4T X UN',
-          output: [
-            { name: 'Tipo', value: 'Filtro de aceite' },
-            { name: 'Motor', value: '4 tiempos' },
-            { name: 'Venta', value: 'Por unidad' },
-            { name: 'Sugeridos', value: 'Filtro de aire, aceite de motor' },
-          ],
-        },
-        projects: ['intelligence', 'cesiDl'],
+        title: 'IA aplicada a tus datos',
+        text: 'Modelos que clasifican, completan información y detectan casos.',
+        case: { project: 'cesiDl', text: 'En CESI entrenamos un modelo que bajó los casos de diabetes no detectados de 6.704 a 2.035.' },
+        also: ['intelligence'],
       },
       {
         id: 'iot',
         tag: 'Sensores e IoT',
         title: 'Medir en tiempo real',
         text: 'Un sensor que mide y un tablero que lo muestra al instante.',
-        visual: {
-          kind: 'image',
-          image: { src: '/images/cesi-iot-grafana.webp', alt: 'Tablero de Grafana con el nivel de ruido en tiempo real' },
-          note: 'Proyecto académico en CESI, Francia.',
-        },
-        projects: ['cesiIot'],
+        case: { project: 'cesiIot', text: 'En CESI armamos un medidor de ruido para aulas que muestra los decibeles en vivo, sin grabar audio.' },
       },
     ],
   },
@@ -420,12 +390,9 @@ export const es: Content = {
     { name: 'Inglés', level: 'B1' },
     { name: 'Francés', level: 'A2' },
   ],
-  tech: { data: 'Datos', software: 'Software e infraestructura' },
+  tech: { backend: 'Backend', data: 'Datos', ai: 'IA y machine learning', frontend: 'Frontend', infra: 'Infraestructura y testing' },
   contact: {
     title: 'Hablemos.',
-    paragraphs: [
-      { lead: 'Empresas:', text: 'contame qué querés resolver y qué sistemas usan.' },
-      { lead: 'Reclutadores:', text: 'busco puestos remotos o como contractor en Backend, Data o Software Engineering, y estoy abierto a relocalizarme.' },
-    ],
+    intro: 'Contame qué querés resolver, o escribime si estás armando un equipo.',
   },
 }

@@ -44,13 +44,7 @@ export default function Contact() {
     <Section id="contact" title={c.sections.contact}>
       <div className="pt-2 pb-8 sm:pb-12">
         <p className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">{c.contact.title}</p>
-        <div className="mt-4 max-w-xl space-y-3 leading-relaxed">
-          {c.contact.paragraphs.map((paragraph) => (
-            <p key={paragraph.lead}>
-              <span className="font-medium text-fg">{paragraph.lead}</span> {paragraph.text}
-            </p>
-          ))}
-        </div>
+        <p className="mt-4 max-w-xl leading-relaxed">{c.contact.intro}</p>
 
         {site.email && (
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">

@@ -69,13 +69,10 @@ export default function Hero() {
           href="#solutions"
           className="group inline-flex items-center gap-1.5 rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
         >
-          {c.hero.solutions}
+          {c.hero.cta}
           <span aria-hidden="true" className="nudge-down">
             ↓
           </span>
-        </a>
-        <a href="#work" className={secondary}>
-          {c.hero.viewWork}
         </a>
         {cv && (
           <a href={cv} download className={secondary}>

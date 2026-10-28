@@ -5,10 +5,7 @@ import { useLang } from '../i18n'
 
 export default function Tech() {
   const { c } = useLang()
-  const groups = [
-    { title: c.tech.data, items: tech.data },
-    { title: c.tech.software, items: tech.software },
-  ]
+  const groups = (Object.keys(tech) as (keyof typeof tech)[]).map((key) => ({ title: c.tech[key], items: tech[key] }))
 
   return (
     <Section id="tech" title={c.sections.tech}>

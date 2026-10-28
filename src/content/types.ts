@@ -62,22 +62,18 @@ export type Entry = {
   images?: Figure[]
 }
 
-// One block of the solutions section: a short title, one line, something to look at,
-// and the projects where it's already done (they open in a dialog, so the reader keeps their place).
-export type SolutionVisual =
-  | { kind: 'flow'; flow: Pipeline }
-  | { kind: 'image'; image: Figure; note: string }
-  // A made-up example, always labelled as such: raw product text in, structured data out.
-  | { kind: 'example'; label: string; input: string; output: { name: string; value: string }[] }
-
+// One block of the solutions section: what I can do, in a title and one line, and one real case
+// told in a sentence. The case's screens are shown as a swipeable gallery; `flow` replaces them with a diagram.
 export type Solution = {
   // Anchor (#solution-<id>). Same in every language, so switching keeps it.
   id: string
   tag: string
   title: string
   text: string
-  visual: SolutionVisual
-  projects: ProjectId[]
+  case: { project: ProjectId; text: string }
+  // Other projects where it's done too, shown as small buttons.
+  also?: ProjectId[]
+  flow?: Pipeline
 }
 
 export type Content = {
@@ -106,7 +102,7 @@ export type Content = {
     // {n} is replaced by the number of photos.
     viewPhotos: string
   }
-  hero: { title: string; tagline: string; solutions: string; viewWork: string; downloadCv: string }
+  hero: { title: string; tagline: string; cta: string; downloadCv: string }
   // What I'm working on right now. `date` is written by hand, so it never claims to be newer than the text.
   now: { label: string; date: string; text: string }
   sections: {
@@ -124,9 +120,9 @@ export type Content = {
   solutions: {
     title: string
     intro: string
-    // Label before the project buttons, e.g. "Done in".
-    projectsLabel: string
-    // Shown over the slideshow: tapping it opens the project.
+    caseLabel: string
+    alsoLabel: string
+    // Button that opens the case in the project dialog.
     details: string
     // Button to the contact section.
     cta: string
@@ -142,7 +138,6 @@ export type Content = {
   experience: Entry[]
   education: Entry[]
   languages: { name: string; level: string }[]
-  tech: { data: string; software: string }
-  // Each paragraph opens with a short bold lead, e.g. "Companies:".
-  contact: { title: string; paragraphs: { lead: string; text: string }[] }
+  tech: Record<'backend' | 'data' | 'ai' | 'frontend' | 'infra', string>
+  contact: { title: string; intro: string }
 }
