@@ -31,15 +31,15 @@ export const en: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'I help companies connect their systems, make sense of their data and stop depending on spreadsheets. Since 2023 I’ve built and run the systems BIAMAQ, an industrial machinery company, uses every day.',
-    solutions: 'What I can solve',
+      'I connect systems, organize data and build software for companies. Right now I build the systems BIAMAQ runs on every day.',
+    solutions: 'How I can help',
     viewWork: 'View projects',
     downloadCv: 'Download CV',
   },
   now: {
     label: 'Now',
     date: 'October 2026',
-    text: 'Building BIAMAQ Intelligence, a commercial intelligence platform on top of ERP data, and Malaca, an e-commerce site for a client.',
+    text: 'Building BIAMAQ Intelligence and Malaca’s online store.',
   },
   sections: {
     about: 'About',
@@ -52,8 +52,8 @@ export const en: Content = {
     contact: 'Contact',
   },
   about: [
-    'At BIAMAQ, an industrial machinery company with 3 branches, I build and maintain the systems it runs on: ERP integrations, ETL pipelines and BI tools over sales, purchases, stock, receivables, service and rentals, plus RentalIA, its rental platform. I also handle infrastructure, automation and deployments.',
-    'I like to understand how a business works before writing code: what gets entered twice, which report is built by hand, which decision is made without data. I’m finishing Information Systems Engineering at UTN, and in 2026 I spent a semester of CESI’s Data Science master’s programme in France on an ARFITEC scholarship, working on machine learning and IoT projects.',
+    'I work at BIAMAQ, an industrial machinery company with 3 branches. I build its systems: the ERP connection, reporting, the rental platform and the infrastructure.',
+    'I’m finishing Information Systems Engineering at UTN. In 2026 I spent a semester of CESI’s Data Science master’s in France on an ARFITEC scholarship.',
   ],
   projects: {
     lastfm: {
@@ -270,66 +270,71 @@ export const en: Content = {
     },
   },
   solutions: {
-    title: 'What I can solve',
-    intro:
-      'Many companies already have an ERP and plenty of data, but the information doesn’t work together. These are the problems I know how to solve, with examples of where I’ve already done it.',
-    labels: { before: 'Before', after: 'After', proof: 'Already done', seeProject: 'See project' },
+    title: 'How I can help',
+    intro: 'What I’ve already built in real projects, applied to your company.',
+    projectsLabel: 'Done in',
+    details: 'See details',
+    cta: 'I want this for my company',
     items: [
       {
         id: 'integration',
         tag: 'Integration',
-        title: 'Systems that talk to each other.',
-        text: 'I connect the ERP with the rest of the company’s tools, so information is entered once and reaches where it’s needed on its own.',
-        before: 'Entering the same data in the ERP and in a spreadsheet.',
-        after: 'Entered once, available everywhere.',
+        title: 'Connect your ERP to everything else',
+        text: 'Enter data once and see it wherever you need it.',
         visual: {
           kind: 'flow',
           flow: {
             steps: [
               { name: 'ERP', detail: 'sales, stock' },
-              { name: 'Automatic sync', detail: 'every day' },
+              { name: 'Sync', detail: 'automatic' },
               { name: 'Your tools', detail: 'reports, apps' },
             ],
             caption: 'Simplified diagram.',
           },
         },
-        proof: { text: 'At BIAMAQ, the ERP feeds management reporting every day.', project: 'reports' },
+        projects: ['reports', 'rentalia'],
       },
       {
         id: 'reporting',
         tag: 'Reporting & data',
-        title: 'Clear numbers, no spreadsheets built by hand.',
-        text: 'Dashboards that update themselves with the company’s real data (sales, purchases, receivables, stock), so everyone looks at the same number.',
-        before: 'A weekly report someone builds by hand in Excel.',
-        after: 'A dashboard that updates itself every day.',
+        title: 'Reports that build themselves',
+        text: 'Sales, purchases, stock and receivables up to date, no hours in Excel.',
         visual: {
           kind: 'image',
           image: { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Management sales dashboard with KPIs and daily target vs invoiced chart' },
-          note: 'Sample data. Click to enlarge.',
+          note: 'Sample data.',
         },
-        proof: { text: 'BIAMAQ’s management follows its 3 branches with BIAMAQ Reports.', project: 'reports' },
+        projects: ['reports', 'lastfm'],
       },
       {
         id: 'software',
         tag: 'Custom software',
-        title: 'A system that fits how you work.',
-        text: 'When a key process lives in spreadsheets or depends on one person, I turn it into a simple application, with permissions and a history.',
-        before: 'The process depends on spreadsheets and on someone remembering.',
-        after: 'One system, with history, permissions and everything in one place.',
+        title: 'Software built around your process',
+        text: 'If a process lives in spreadsheets, I turn it into a simple system.',
         visual: {
           kind: 'image',
           image: { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Rental wizard: equipment catalog with the price per day' },
-          note: 'Sample data. Click to enlarge.',
+          note: 'Sample data.',
         },
-        proof: { text: 'RentalIA runs BIAMAQ’s rentals, from contract to invoicing.', project: 'rentalia' },
+        projects: ['rentalia', 'casaPalma', 'chedul', 'dynamo'],
+      },
+      {
+        id: 'ecommerce',
+        tag: 'Online stores',
+        title: 'An online store that’s easy to run',
+        text: 'Catalog, an admin panel for products and orders through WhatsApp.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/malaca-home-thumb.webp', href: '/images/malaca-home.webp', alt: 'Malaca online store home page' },
+          note: 'Demo data.',
+        },
+        projects: ['ecommerce'],
       },
       {
         id: 'ai',
         tag: 'Applied AI',
-        title: 'An organized catalog that suggests alternatives.',
-        text: 'With thousands of products, completing descriptions by hand doesn’t scale. I use AI to classify products, fill in technical details and suggest related products or alternatives.',
-        before: 'Incomplete descriptions and products that are hard to find.',
-        after: 'Complete product data and suggested alternatives.',
+        title: 'AI to organize your catalog',
+        text: 'Fills in product details and suggests alternatives.',
         visual: {
           kind: 'example',
           label: 'Illustrative example',
@@ -338,14 +343,22 @@ export const en: Content = {
             { name: 'Type', value: 'Oil filter' },
             { name: 'Engine', value: '4-stroke' },
             { name: 'Sold by', value: 'Unit' },
-            { name: 'Suggested', value: 'Compatible air filter, engine oil' },
+            { name: 'Suggested', value: 'Air filter, engine oil' },
           ],
         },
-        proof: {
-          text: 'I’m building it in BIAMAQ Intelligence, for a catalog of around 20,000 items.',
-          project: 'intelligence',
-          status: 'In development',
+        projects: ['intelligence', 'cesiDl'],
+      },
+      {
+        id: 'iot',
+        tag: 'Sensors & IoT',
+        title: 'Measure in real time',
+        text: 'A sensor that measures and a dashboard that shows it instantly.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/cesi-iot-grafana.webp', alt: 'Grafana dashboard with the noise level in real time' },
+          note: 'Academic project at CESI, France.',
         },
+        projects: ['cesiIot'],
       },
     ],
   },
@@ -353,10 +366,10 @@ export const en: Content = {
     process: {
       title: 'How I work',
       steps: [
-        { title: 'First conversation', text: 'You tell me about the process, the systems you use and what you want to solve.' },
-        { title: 'Review', text: 'I look at the data and systems involved and propose a concrete scope.' },
-        { title: 'Build in stages', text: 'Short deliveries you can try with real data.' },
-        { title: 'Launch and support', text: 'Deployment, documentation and maintenance.' },
+        { title: 'We talk', text: 'Tell me what you want to solve.' },
+        { title: 'Proposal', text: 'I tell you what I’d build and how long it takes.' },
+        { title: 'Build', text: 'Short deliveries you can try as we go.' },
+        { title: 'Support', text: 'I launch it and keep it running.' },
       ],
     },
     cta: 'Tell me about your project',
@@ -411,14 +424,8 @@ export const en: Content = {
   contact: {
     title: 'Let’s talk.',
     paragraphs: [
-      {
-        lead: 'Recruiters:',
-        text: 'I’m open to remote full-time or contractor roles in Backend, Data or Software Engineering, and to relocation opportunities.',
-      },
-      {
-        lead: 'Companies:',
-        text: 'if a process still depends on spreadsheets or your data doesn’t add up, email me which systems you use and what you want to solve. If I’m not the right person for it, I’ll tell you.',
-      },
+      { lead: 'Recruiters:', text: 'I’m looking for remote or contractor roles in Backend, Data or Software Engineering, and I’m open to relocating.' },
+      { lead: 'Companies:', text: 'tell me what you want to solve and which systems you use.' },
     ],
   },
 }

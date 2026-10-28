@@ -35,7 +35,9 @@ const CASE_STUDY = ['problem', 'role', 'solution', 'outcome'] as const
 // Static class names so Tailwind can see them.
 const GRID_COLS = ['', 'sm:grid-cols-1', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-4']
 
-function ProjectCard({ project }: { project: Project }) {
+// `detailed`: the version shown in the project dialog. Business first (summary and case study, always open),
+// then the technical part under its own heading. It also drops the #project-<id> anchor, so the page keeps a single one.
+export function ProjectCard({ project, detailed = false }: { project: Project; detailed?: boolean }) {
   const { c } = useLang()
   const text = c.projects[project.id]
   const openLightbox = useLightbox()
@@ -68,9 +70,46 @@ function ProjectCard({ project }: { project: Project }) {
       />
     ) : null
 
+  const caseStudy = text.caseStudy && (
+    <dl className="mt-4 grid gap-y-1 text-sm leading-relaxed sm:grid-cols-[6.5rem_1fr] sm:gap-x-5 sm:gap-y-2.5">
+      {CASE_STUDY.map((key) => (
+        <div key={key} className="contents">
+          <dt className="text-xs font-medium tracking-wide text-muted uppercase sm:pt-[0.2rem]">{c.ui.caseStudy[key]}</dt>
+          <dd className="mb-2.5 sm:mb-0">{text.caseStudy![key]}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+  const technical = (text.highlights.length > 0 || project.stack.length > 0) && (
+    <>
+      {text.highlights.length > 0 && (
+        <ul className="mt-4 space-y-2 text-sm leading-relaxed">
+          {text.highlights.map((item, i) => (
+            <li key={i} className="relative pl-4">
+              <span aria-hidden="true" className="absolute left-0 text-muted">
+                –
+              </span>
+              {withLinks(item)}
+            </li>
+          ))}
+        </ul>
+      )}
+      {project.stack.length > 0 && (
+        <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted">
+          {project.stack.map((item) => (
+            <li key={item} className="flex items-center gap-1.5">
+              <TechIcon name={item} className="size-3.5" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  )
+
   return (
     <article
-      id={`project-${project.id}`}
+      id={detailed ? undefined : `project-${project.id}`}
       className={`card scroll-mt-28 rounded-lg border bg-surface ${compact ? 'p-5' : 'p-5 sm:p-6'} ${
         featured ? 'border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]' : 'border-line'
       }`}
@@ -78,7 +117,7 @@ function ProjectCard({ project }: { project: Project }) {
       {featured && (
         <p className="mb-3 text-xs font-medium tracking-wide text-accent uppercase">{c.ui.featured}</p>
       )}
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <div className={`flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 ${detailed ? 'pr-11' : ''}`}>
         <h4 className={`flex min-w-0 items-center gap-2 font-medium text-fg ${featured ? 'text-lg' : ''}`}>
           {identity}
           <span>{text.title}</span>
@@ -90,7 +129,8 @@ function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
       <p className="mt-1 text-sm text-accent">{text.kind}</p>
-      <p className="mt-4 text-sm leading-relaxed">{text.summary}</p>
+      <p className={`mt-4 leading-relaxed ${detailed ? '' : 'text-sm'}`}>{text.summary}</p>
+      {detailed && caseStudy}
 
       {text.pipeline && <Pipeline data={text.pipeline} />}
 
@@ -196,42 +236,22 @@ function ProjectCard({ project }: { project: Project }) {
       )}
       {text.imagesNote && <p className="mt-2 text-xs text-muted">{text.imagesNote}</p>}
 
-      {/* Everything technical lives behind this button, so the card reads in plain words first. */}
-      {(text.caseStudy || text.highlights.length > 0 || project.stack.length > 0) && (
-        <Disclosure label={text.highlightsLabel ?? c.ui.howItsBuilt}>
-          {text.caseStudy && (
-            <dl className="mt-4 grid gap-y-1 text-sm leading-relaxed sm:grid-cols-[6.5rem_1fr] sm:gap-x-5 sm:gap-y-2.5">
-              {CASE_STUDY.map((key) => (
-                <div key={key} className="contents">
-                  <dt className="text-xs font-medium tracking-wide text-muted uppercase sm:pt-[0.2rem]">{c.ui.caseStudy[key]}</dt>
-                  <dd className="mb-2.5 sm:mb-0">{text.caseStudy![key]}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
-          {text.highlights.length > 0 && (
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed">
-              {text.highlights.map((item, i) => (
-                <li key={i} className="relative pl-4">
-                  <span aria-hidden="true" className="absolute left-0 text-muted">
-                    –
-                  </span>
-                  {withLinks(item)}
-                </li>
-              ))}
-            </ul>
-          )}
-          {project.stack.length > 0 && (
-            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted">
-              {project.stack.map((item) => (
-                <li key={item} className="flex items-center gap-1.5">
-                  <TechIcon name={item} className="size-3.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
-        </Disclosure>
+      {/* Everything technical lives behind this button, so the card reads in plain words first.
+          In the dialog the case study comes right after the summary and the technical part is open. */}
+      {detailed ? (
+        technical && (
+          <section className="mt-6 border-t border-line pt-5">
+            <h5 className="text-xs font-medium tracking-wide text-muted uppercase">{text.highlightsLabel ?? c.ui.howItsBuilt}</h5>
+            {technical}
+          </section>
+        )
+      ) : (
+        (caseStudy || technical) && (
+          <Disclosure label={text.highlightsLabel ?? c.ui.howItsBuilt}>
+            {caseStudy}
+            {technical}
+          </Disclosure>
+        )
       )}
 
       {project.links.length > 0 && (

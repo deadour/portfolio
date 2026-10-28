@@ -31,15 +31,15 @@ export const es: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'Ayudo a empresas a conectar sus sistemas, ordenar sus datos y dejar de depender de planillas. Desde 2023 desarrollo y mantengo los sistemas que BIAMAQ, una empresa de maquinaria industrial, usa todos los días.',
-    solutions: 'Qué puedo resolver',
+      'Conecto sistemas, ordeno datos y hago software para empresas. Hoy desarrollo los sistemas que BIAMAQ usa todos los días.',
+    solutions: 'En qué te puedo ayudar',
     viewWork: 'Ver proyectos',
     downloadCv: 'Descargar CV',
   },
   now: {
     label: 'Ahora',
     date: 'Octubre 2026',
-    text: 'Desarrollando BIAMAQ Intelligence, una plataforma de inteligencia comercial sobre datos del ERP, y Malaca, un e-commerce para un cliente.',
+    text: 'Desarrollando BIAMAQ Intelligence y la tienda online de Malaca.',
   },
   sections: {
     about: 'Sobre mí',
@@ -52,8 +52,8 @@ export const es: Content = {
     contact: 'Contacto',
   },
   about: [
-    'En BIAMAQ, una empresa de maquinaria industrial con 3 sucursales, desarrollo y mantengo los sistemas con los que opera: integraciones con el ERP, pipelines ETL y herramientas de BI sobre ventas, compras, stock, cobranzas, service y alquileres, además de RentalIA, su plataforma de alquileres. También me ocupo de la infraestructura, la automatización y los despliegues.',
-    'Me interesa entender cómo funciona un negocio antes de escribir código: qué se carga dos veces, qué reporte se arma a mano, qué decisión se toma sin datos. Estoy terminando Ingeniería en Sistemas de Información en la UTN y en 2026 cursé un semestre del Máster en Data Science de CESI, en Francia, con beca ARFITEC, donde trabajé en proyectos de machine learning e IoT.',
+    'Trabajo en BIAMAQ, una empresa de maquinaria industrial con 3 sucursales. Hago sus sistemas: la conexión con el ERP, los reportes, la plataforma de alquileres y la infraestructura.',
+    'Estoy terminando Ingeniería en Sistemas en la UTN. En 2026 hice un semestre del máster en Data Science de CESI, en Francia, con beca ARFITEC.',
   ],
   projects: {
     lastfm: {
@@ -270,18 +270,17 @@ export const es: Content = {
     },
   },
   solutions: {
-    title: 'Qué puedo resolver',
-    intro:
-      'Muchas empresas ya tienen un ERP y muchos datos, pero la información no funciona junta. Estos son los problemas que sé resolver, con ejemplos de dónde ya lo hice.',
-    labels: { before: 'Antes', after: 'Después', proof: 'Ya lo hice', seeProject: 'Ver proyecto' },
+    title: 'En qué te puedo ayudar',
+    intro: 'Lo que ya hice en proyectos reales, aplicado a tu empresa.',
+    projectsLabel: 'Hecho en',
+    details: 'Ver detalles',
+    cta: 'Quiero esto para mi empresa',
     items: [
       {
         id: 'integration',
         tag: 'Integración',
-        title: 'Que tus sistemas se hablen entre sí.',
-        text: 'Conecto el ERP con las demás herramientas de la empresa para que la información se cargue una sola vez y llegue sola a donde hace falta.',
-        before: 'Cargar lo mismo en el ERP y en una planilla.',
-        after: 'Se carga una vez y está disponible en todos lados.',
+        title: 'Conectar el ERP con todo lo demás',
+        text: 'Cargás los datos una vez y aparecen donde los necesitás.',
         visual: {
           kind: 'flow',
           flow: {
@@ -293,43 +292,49 @@ export const es: Content = {
             caption: 'Esquema simplificado.',
           },
         },
-        proof: { text: 'En BIAMAQ, el ERP alimenta todos los días los reportes de gestión.', project: 'reports' },
+        projects: ['reports', 'rentalia'],
       },
       {
         id: 'reporting',
         tag: 'Reportes y datos',
-        title: 'Números claros, sin armar planillas a mano.',
-        text: 'Tableros que se actualizan solos con los datos reales de la empresa (ventas, compras, cobranzas, stock), para que todos miren el mismo número.',
-        before: 'Un reporte semanal que alguien arma a mano en Excel.',
-        after: 'Un tablero que se actualiza solo todos los días.',
+        title: 'Reportes que se arman solos',
+        text: 'Ventas, compras, stock y cobranzas al día, sin pasar horas en Excel.',
         visual: {
           kind: 'image',
           image: { src: '/images/reports-sales-thumb.webp', href: '/images/reports-sales.webp', alt: 'Tablero gerencial de ventas con KPIs y gráfico de objetivo vs facturado diario' },
-          note: 'Datos de ejemplo. Clic para ampliar.',
+          note: 'Datos de ejemplo.',
         },
-        proof: { text: 'La dirección de BIAMAQ sigue sus 3 sucursales con Reportes BIAMAQ.', project: 'reports' },
+        projects: ['reports', 'lastfm'],
       },
       {
         id: 'software',
         tag: 'Software a medida',
-        title: 'Un sistema que se adapta a cómo trabajás.',
-        text: 'Cuando un proceso clave vive en planillas o depende de una persona, lo convierto en una aplicación simple, con permisos y con historial.',
-        before: 'El proceso depende de planillas y de que alguien se acuerde.',
-        after: 'Un solo sistema, con historial, permisos y todo en un lugar.',
+        title: 'Sistemas hechos a tu medida',
+        text: 'Si un proceso vive en planillas, lo paso a un sistema simple.',
         visual: {
           kind: 'image',
           image: { src: '/images/rentos-new-rental-thumb.webp', href: '/images/rentos-new-rental.webp', alt: 'Asistente de alquiler: catálogo de equipos con precio por día' },
-          note: 'Datos de ejemplo. Clic para ampliar.',
+          note: 'Datos de ejemplo.',
         },
-        proof: { text: 'RentalIA maneja los alquileres de BIAMAQ, del contrato a la facturación.', project: 'rentalia' },
+        projects: ['rentalia', 'casaPalma', 'chedul', 'dynamo'],
+      },
+      {
+        id: 'ecommerce',
+        tag: 'Tiendas online',
+        title: 'Tu tienda online, fácil de manejar',
+        text: 'Catálogo, panel para cargar productos y pedidos por WhatsApp.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/malaca-home-thumb.webp', href: '/images/malaca-home.webp', alt: 'Inicio de la tienda online de Malaca' },
+          note: 'Datos de demostración.',
+        },
+        projects: ['ecommerce'],
       },
       {
         id: 'ai',
         tag: 'IA aplicada',
-        title: 'Un catálogo ordenado que sugiere alternativas.',
-        text: 'Con miles de productos, completar descripciones a mano no escala. Uso IA para clasificar productos, completar datos técnicos y sugerir productos relacionados o alternativos.',
-        before: 'Descripciones incompletas y productos difíciles de encontrar.',
-        after: 'Fichas completas y alternativas sugeridas.',
+        title: 'IA para ordenar tu catálogo',
+        text: 'Completa fichas de productos y sugiere alternativas.',
         visual: {
           kind: 'example',
           label: 'Ejemplo ilustrativo',
@@ -338,14 +343,22 @@ export const es: Content = {
             { name: 'Tipo', value: 'Filtro de aceite' },
             { name: 'Motor', value: '4 tiempos' },
             { name: 'Venta', value: 'Por unidad' },
-            { name: 'Sugeridos', value: 'Filtro de aire compatible, aceite de motor' },
+            { name: 'Sugeridos', value: 'Filtro de aire, aceite de motor' },
           ],
         },
-        proof: {
-          text: 'Lo estoy desarrollando en BIAMAQ Intelligence, para un catálogo de unos 20.000 artículos.',
-          project: 'intelligence',
-          status: 'En desarrollo',
+        projects: ['intelligence', 'cesiDl'],
+      },
+      {
+        id: 'iot',
+        tag: 'Sensores e IoT',
+        title: 'Medir en tiempo real',
+        text: 'Un sensor que mide y un tablero que lo muestra al instante.',
+        visual: {
+          kind: 'image',
+          image: { src: '/images/cesi-iot-grafana.webp', alt: 'Tablero de Grafana con el nivel de ruido en tiempo real' },
+          note: 'Proyecto académico en CESI, Francia.',
         },
+        projects: ['cesiIot'],
       },
     ],
   },
@@ -353,10 +366,10 @@ export const es: Content = {
     process: {
       title: 'Cómo trabajo',
       steps: [
-        { title: 'Primera conversación', text: 'Me contás el proceso, qué sistemas usan y qué querés resolver.' },
-        { title: 'Relevamiento', text: 'Reviso los datos y sistemas involucrados y propongo un alcance concreto.' },
-        { title: 'Desarrollo por etapas', text: 'Entregas cortas que se pueden probar con datos reales.' },
-        { title: 'Puesta en marcha y soporte', text: 'Despliegue, documentación y mantenimiento.' },
+        { title: 'Charlamos', text: 'Me contás qué querés resolver.' },
+        { title: 'Propuesta', text: 'Te digo qué haría y cuánto lleva.' },
+        { title: 'Desarrollo', text: 'Entregas cortas que vas probando.' },
+        { title: 'Soporte', text: 'Lo pongo en marcha y lo mantengo.' },
       ],
     },
     cta: 'Contame tu proyecto',
@@ -411,14 +424,8 @@ export const es: Content = {
   contact: {
     title: 'Hablemos.',
     paragraphs: [
-      {
-        lead: 'Empresas:',
-        text: 'si un proceso sigue dependiendo de planillas o los datos no cierran, escribime contando qué sistemas usan y qué querés resolver. Si no soy la persona indicada, te lo digo.',
-      },
-      {
-        lead: 'Reclutadores:',
-        text: 'estoy abierto a posiciones remotas, full-time o como contractor, en Backend, Data o Software Engineering, y a oportunidades de relocalización.',
-      },
+      { lead: 'Empresas:', text: 'contame qué querés resolver y qué sistemas usan.' },
+      { lead: 'Reclutadores:', text: 'busco puestos remotos o como contractor en Backend, Data o Software Engineering, y estoy abierto a relocalizarme.' },
     ],
   },
 }

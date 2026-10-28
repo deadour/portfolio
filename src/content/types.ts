@@ -62,8 +62,8 @@ export type Entry = {
   images?: Figure[]
 }
 
-// One "chapter" of the What I can solve section: a problem in plain words, before/after,
-// something to look at and where I've already done it. Technical detail stays in the project cards.
+// One block of the solutions section: a short title, one line, something to look at,
+// and the projects where it's already done (they open in a dialog, so the reader keeps their place).
 export type SolutionVisual =
   | { kind: 'flow'; flow: Pipeline }
   | { kind: 'image'; image: Figure; note: string }
@@ -76,11 +76,8 @@ export type Solution = {
   tag: string
   title: string
   text: string
-  before: string
-  after: string
   visual: SolutionVisual
-  // `status` marks proof that is still in development.
-  proof: { text: string; project: ProjectId; status?: string }
+  projects: ProjectId[]
 }
 
 export type Content = {
@@ -127,7 +124,12 @@ export type Content = {
   solutions: {
     title: string
     intro: string
-    labels: { before: string; after: string; proof: string; seeProject: string }
+    // Label before the project buttons, e.g. "Done in".
+    projectsLabel: string
+    // Shown over the slideshow: tapping it opens the project.
+    details: string
+    // Button to the contact section.
+    cta: string
     items: Solution[]
   }
   // How I work, plus the business inquiry button in Contact.
