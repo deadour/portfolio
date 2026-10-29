@@ -21,7 +21,7 @@ export default function Solutions() {
       <p className="mt-3 text-lg text-muted">{s.intro}</p>
 
       {/* Everything at a glance; each tile jumps to its block. */}
-      <ol className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <ol className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {s.items.map((item, i) => (
           <li key={item.id}>
             <a
@@ -44,69 +44,72 @@ export default function Solutions() {
   )
 }
 
+// One block, read top to bottom: what I can solve, then the real case with its screens,
+// how I solved it in one sentence and a button to the full details.
 function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen: (id: ProjectId) => void }) {
   const { c } = useLang()
   const ref = useReveal<HTMLElement>()
   const caseText = c.projects[item.case.project]
 
   return (
-    <article
-      ref={ref}
-      id={`solution-${item.id}`}
-      className="reveal mt-16 grid scroll-mt-28 items-center gap-6 sm:mt-24 sm:scroll-mt-24 sm:grid-cols-2 sm:gap-10"
-    >
-      {/* Text and visual swap sides every other block. */}
-      <div className={index % 2 ? 'sm:order-2' : ''}>
-        <p className="font-mono text-sm text-accent">
-          {String(index + 1).padStart(2, '0')} · {item.tag}
+    <article ref={ref} id={`solution-${item.id}`} className="reveal mt-16 scroll-mt-28 sm:mt-24 sm:scroll-mt-24">
+      <p className="font-mono text-sm text-accent">
+        {String(index + 1).padStart(2, '0')} · {item.tag}
+      </p>
+      <h3 className="mt-3 max-w-2xl text-3xl leading-[1.1] font-semibold tracking-tight text-fg sm:text-[2.75rem]">
+        {item.title}
+      </h3>
+      <p className="mt-4 max-w-xl text-lg leading-relaxed">{item.text}</p>
+
+      {/* The real case comes last: screens, one sentence, details. */}
+      <figure className="mt-8 overflow-hidden rounded-xl border border-line bg-surface shadow-[0_16px_40px_-24px_color-mix(in_srgb,var(--fg)_35%,transparent)]">
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-line px-4 py-3 text-xs font-medium tracking-wide text-accent uppercase sm:px-5">
+          {c.solutions.caseLabel} · {caseText.title}
+          {caseText.status && (
+            <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2 py-0.5 tracking-normal normal-case">
+              {caseText.status}
+            </span>
+          )}
         </p>
-        <h3 className="mt-3 text-3xl leading-[1.1] font-semibold tracking-tight text-fg sm:text-4xl">{item.title}</h3>
-        <p className="mt-4 text-lg leading-relaxed">{item.text}</p>
-
-        {/* The real case, in one sentence. */}
-        <div className="mt-6 rounded-r-lg border-l-2 border-accent bg-[color-mix(in_srgb,var(--accent)_7%,transparent)] py-3 pr-4 pl-4">
-          <p className="flex flex-wrap items-center gap-x-2 text-xs font-medium tracking-wide text-accent uppercase">
-            {c.solutions.caseLabel} · {caseText.title}
-            {caseText.status && (
-              <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2 py-0.5 tracking-normal normal-case">
-                {caseText.status}
-              </span>
-            )}
-          </p>
-          <p className="mt-1.5 leading-relaxed text-fg">{item.case.text}</p>
-          <button
-            type="button"
-            onClick={() => onOpen(item.case.project)}
-            aria-haspopup="dialog"
-            className="mt-2 text-sm font-medium text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
-          >
-            {c.solutions.details} <span aria-hidden="true">↗</span>
-          </button>
-        </div>
-
-        <a
-          href="#contact"
-          className="group mt-6 inline-flex items-center gap-1.5 rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
-        >
-          {c.solutions.cta}
-          <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">
-            →
-          </span>
-        </a>
-
-        {item.also && item.also.length > 0 && (
-          <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-muted">{c.solutions.alsoLabel}:</span>
-            {item.also.map((id) => (
-              <ProjectButton key={id} id={id} onOpen={onOpen} />
-            ))}
+        {item.flow ? (
+          <div className="px-4 pb-2 sm:px-5">
+            <Pipeline data={item.flow} />
           </div>
+        ) : (
+          <Gallery project={item.case.project} onOpen={onOpen} />
         )}
-      </div>
+        <figcaption className="border-t border-line px-4 py-4 sm:px-5">
+          <p className="text-lg leading-relaxed text-fg">{item.case.text}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <button
+              type="button"
+              onClick={() => onOpen(item.case.project)}
+              aria-haspopup="dialog"
+              className="inline-flex items-center gap-1.5 rounded-md border border-line bg-bg px-3 py-1.5 text-sm font-medium text-fg hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]"
+            >
+              {c.solutions.details} <span aria-hidden="true">↗</span>
+            </button>
+            {item.also && item.also.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-muted">{c.solutions.alsoLabel}:</span>
+                {item.also.map((id) => (
+                  <ProjectButton key={id} id={id} onOpen={onOpen} />
+                ))}
+              </div>
+            )}
+          </div>
+        </figcaption>
+      </figure>
 
-      <div className="min-w-0">
-        {item.flow ? <Pipeline data={item.flow} /> : <Gallery project={item.case.project} onOpen={onOpen} />}
-      </div>
+      <a
+        href="#contact"
+        className="group mt-6 inline-flex items-center gap-1.5 rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
+      >
+        {c.solutions.cta}
+        <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">
+          →
+        </span>
+      </a>
     </article>
   )
 }
@@ -154,7 +157,7 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
       <div
         ref={track}
         onScroll={(e) => setIndex(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}
-        className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-lg border border-line bg-surface shadow-[0_12px_32px_-18px_color-mix(in_srgb,var(--fg)_35%,transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain bg-bg [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {images.map((image) => (
           <button
@@ -177,7 +180,7 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
       </div>
 
       {images.length > 1 && (
-        <div className="mt-2.5 flex items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-3 py-1.5">
           <button
             type="button"
             onClick={() => goTo(index - 1)}

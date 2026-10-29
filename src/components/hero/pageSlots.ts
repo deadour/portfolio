@@ -18,8 +18,8 @@ export type Slot = {
 const SLOTS: Slot[] = [
   // Solutions (home and services page) and How I work go first, so both pages get their drawings;
   // later spots skip whatever is already taken.
-  { options: [S.dataPipeline, S.sqlCode, S.uml], at: '#solution-integration', y: 0.3, side: 'left' },
-  { options: [S.compass, S.globe, S.prism], at: '#solution-integration', y: 0.8, side: 'right' },
+  { options: [S.dataPipeline, S.sqlCode, S.uml], at: '#solution-ecommerce', y: 0.3, side: 'left' },
+  { options: [S.compass, S.globe, S.prism], at: '#solution-ecommerce', y: 0.8, side: 'right' },
   { options: [S.database, S.pythonCode], at: '#solution-reporting', y: 0.35, side: 'right' },
   { options: [S.crane, S.drill], at: '#solution-software', y: 0.4, side: 'left' },
   { options: [S.neuralNetwork, S.sigmoid], at: '#solution-ai', y: 0.4, side: 'right' },
