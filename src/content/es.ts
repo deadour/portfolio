@@ -143,19 +143,34 @@ export const es: Content = {
       imagesNote: 'Pantallas con datos de ejemplo. Clic para ampliar.',
     },
     intelligence: {
-      title: 'BIAMAQ Intelligence',
-      kind: 'Proyecto laboral · BIAMAQ · Datos e IA aplicada',
-      status: 'En desarrollo',
+      title: 'BIAMAQ Ventas',
+      kind: 'Proyecto laboral · BIAMAQ · IA aplicada a ventas',
+      badge: 'Sistema interno · Producción',
       summary:
-        'Plataforma de inteligencia comercial que estoy desarrollando sobre los datos del ERP de BIAMAQ. El objetivo es enriquecer el catálogo automáticamente y recomendar productos relacionados y alternativos, con una escala objetivo de unos 20.000 artículos entre productos y repuestos.',
-      highlightsLabel: 'Alcance previsto',
+        'Asistente de venta que cambió la forma de vender en BIAMAQ: los vendedores pasaron de la PC del mostrador a una tablet en la mano, al lado del cliente, conectada en vivo con el ERP. Detrás hay una IA que sugiere qué más ofrecer, propone alternativas y completa sola fichas, fotos y manuales cada noche.',
+      caseStudy: {
+        problem:
+          'BIAMAQ vende máquinas y herramientas de marcas como STIHL, Makita y Husqvarna. La venta se hacía desde la PC del mostrador, y ofrecer lo que acompaña a cada máquina o una alternativa dependía de la memoria de cada vendedor.',
+        role: 'Lo diseñé y desarrollé de punta a punta (datos, modelo de recomendación, API, app y despliegue) y lo mantengo.',
+        solution:
+          'Una app para tablet y celular conectada en vivo con el ERP: el vendedor busca un producto y ve la ficha, la foto, el stock por sucursal, qué sumar a la venta y alternativas más baratas o más caras. Las recomendaciones salen de años de ventas y presupuestos reales, y cada noche el sistema completa fichas, fotos y manuales y se reentrena solo.',
+        outcome:
+          'Los vendedores lo usan en el mostrador. Cada atención se cierra como pedido, presupuesto o "no compró" con su motivo, y eso alimenta un embudo comercial para la gerencia. Las recomendaciones aciertan 3 veces más que sugerir lo más vendido.',
+      },
       highlights: [
-        'ETL y normalización de los datos del ERP.',
-        'Clasificación y enriquecimiento de productos, incluida la extracción de información técnica.',
-        'LLMs locales y similitud semántica.',
-        'Recomendaciones de productos relacionados y alternativos.',
-        'Integración con las aplicaciones comerciales de la empresa.',
+        'Red de productos aprendida del historial de ventas y presupuestos desde 2023: combina co-compra, presupuestos, recompra del mismo cliente y compatibilidad declarada en el catálogo, con filtros de pertinencia por tipo de máquina y reordenamiento por sucursal y recencia.',
+        'Evaluado con validación temporal (entrenar con el pasado y probar con los trimestres siguientes): el acierto top-3 pasó de 32% a 40% en datos que no se usaron para ajustar. Usé scikit-learn para evaluar un re-ranker.',
+        'Enriquecimiento automático de fichas con conectores a sitios de fabricantes y distribuidores y búsqueda web con Brave Search API, verificando marca y modelo exactos y respetando robots.txt.',
+        'Corre solo todas las noches: extrae datos del ERP en SQL Server en modo solo lectura, enriquece, reentrena, mide y publica el modelo nuevo sólo si no empeora.',
+        'API en Django REST Framework y PWA en React 19 + TypeScript + Vite. Login con los usuarios de la plataforma interna o usuarios propios con Argon2, cookie HttpOnly, límite de intentos, CSP y permisos por rol.',
+        'Docker Compose y CI/CD con GitHub Actions en un runner self-hosted: tests, imagen en Docker Hub y deploy con smoke test.',
       ],
+      images: [
+        { src: '/images/ventas-tablet-thumb.webp', href: '/images/ventas-tablet.webp', alt: 'Ficha de una motosierra a batería en la tablet, con foto, precio, stock y despiece; "Sumá a la venta" sugiere aceite, cargador y batería de la misma marca, y abajo la venta en curso con 3 ítems' },
+        { src: '/images/ventas-phone-thumb.webp', href: '/images/ventas-phone.webp', alt: 'La misma ficha en el celular, con la venta en curso abajo' },
+        { src: '/images/ventas-desktop-thumb.webp', href: '/images/ventas-desktop.webp', alt: 'Ficha de una motosierra con productos para sumar a la venta y alternativas más barata y más cara con su stock' },
+      ],
+      imagesNote: 'Búsquedas de ejemplo sobre el catálogo. Clic para ampliar.',
     },
     casaPalma: {
       title: 'Casa Palma',
@@ -304,8 +319,8 @@ export const es: Content = {
         tag: 'IA aplicada',
         title: 'IA aplicada a tus datos',
         text: 'Modelos que clasifican, completan información y detectan casos.',
-        case: { project: 'cesiDl', text: 'En CESI entrenamos un modelo que bajó los casos de diabetes no detectados de 6.704 a 2.035.' },
-        also: ['intelligence'],
+        case: { project: 'intelligence', text: 'Les di a los vendedores de BIAMAQ una tablet con una IA que sugiere qué más ofrecer, aprendida de años de ventas reales.' },
+        also: ['cesiDl'],
       },
     ],
   },

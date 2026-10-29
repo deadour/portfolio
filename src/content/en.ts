@@ -143,19 +143,34 @@ export const en: Content = {
       imagesNote: 'Screens shown with sample data. Click to enlarge.',
     },
     intelligence: {
-      title: 'BIAMAQ Intelligence',
-      kind: 'Work project · BIAMAQ · Data & applied AI',
-      status: 'In development',
+      title: 'BIAMAQ Sales',
+      kind: 'Work project · BIAMAQ · AI applied to sales',
+      badge: 'Internal production system',
       summary:
-        'Commercial intelligence platform I’m building on top of BIAMAQ’s ERP data. The goal is to enrich the catalog automatically and recommend related products and alternatives, for a target catalog of around 20,000 products and spare parts.',
-      highlightsLabel: 'Planned scope',
+        'Sales assistant that changed the way BIAMAQ sells: salespeople went from the counter PC to a tablet in hand, next to the customer, connected live to the ERP. Behind it, an AI suggests what else to offer, proposes alternatives and fills in product sheets, photos and manuals on its own every night.',
+      caseStudy: {
+        problem:
+          'BIAMAQ sells machines and tools from brands like STIHL, Makita and Husqvarna. Sales happened at the counter PC, and offering what goes with each machine, or an alternative, depended on each salesperson’s memory.',
+        role: 'I designed and built it end to end (data, recommendation model, API, app and deployment) and I maintain it.',
+        solution:
+          'A tablet and phone app connected live to the ERP: the salesperson searches for a product and sees its sheet, photo, stock per branch, what to add to the sale and cheaper or pricier alternatives. Recommendations come from years of real sales and quotes, and every night the system fills in sheets, photos and manuals and retrains itself.',
+        outcome:
+          'Salespeople use it at the counter. Each visit is closed as an order, a quote or "didn’t buy" with the reason, which feeds a sales funnel for management. Recommendations hit 3 times more often than suggesting the best sellers.',
+      },
       highlights: [
-        'ETL and normalization of ERP data.',
-        'Product classification and enrichment, including extraction of technical attributes.',
-        'Local LLMs and semantic similarity.',
-        'Recommendations of related products and alternatives.',
-        'Integration with the company’s sales applications.',
+        'Product network learned from sales and quote history since 2023: it combines co-purchases, quotes, repeat purchases by the same customer and compatibility declared in the catalog, with relevance filters by machine type and re-ranking by branch and recency.',
+        'Evaluated with temporal validation (train on the past, test on the following quarters): top-3 hit rate went from 32% to 40% on data not used for tuning. I used scikit-learn to evaluate a re-ranker.',
+        'Automatic product sheet enrichment through connectors to manufacturer and distributor sites plus web search with the Brave Search API, checking exact brand and model and respecting robots.txt.',
+        'Runs on its own every night: extracts data from the SQL Server ERP in read-only mode, enriches, retrains, measures and publishes the new model only if it doesn’t get worse.',
+        'Django REST Framework API and a React 19 + TypeScript + Vite PWA. Sign-in with the internal platform’s users or its own users with Argon2, HttpOnly cookie, login attempt limits, CSP and role-based permissions.',
+        'Docker Compose and CI/CD with GitHub Actions on a self-hosted runner: tests, image on Docker Hub and deploy with a smoke test.',
       ],
+      images: [
+        { src: '/images/ventas-tablet-thumb.webp', href: '/images/ventas-tablet.webp', alt: 'Battery chainsaw product sheet on the tablet, with photo, price, stock and parts diagram; "Add to the sale" suggests oil, charger and battery of the same brand, with the sale in progress below with 3 items' },
+        { src: '/images/ventas-phone-thumb.webp', href: '/images/ventas-phone.webp', alt: 'The same product sheet on a phone, with the sale in progress below' },
+        { src: '/images/ventas-desktop-thumb.webp', href: '/images/ventas-desktop.webp', alt: 'Chainsaw product sheet with items to add to the sale and cheaper and pricier alternatives with their stock' },
+      ],
+      imagesNote: 'Sample searches over the catalog. Click to enlarge.',
     },
     casaPalma: {
       title: 'Casa Palma',
@@ -304,8 +319,8 @@ export const en: Content = {
         tag: 'Applied AI',
         title: 'AI applied to your data',
         text: 'Models that classify, fill in information and detect cases.',
-        case: { project: 'cesiDl', text: 'At CESI, we trained a model that cut missed diabetes cases from 6,704 to 2,035.' },
-        also: ['intelligence'],
+        case: { project: 'intelligence', text: 'I gave BIAMAQ’s salespeople a tablet with an AI that suggests what else to offer, learned from years of real sales.' },
+        also: ['cesiDl'],
       },
     ],
   },

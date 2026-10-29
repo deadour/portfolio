@@ -36,21 +36,21 @@ export const projects: {
     links: [],
   },
   {
+    // Internal system: screens show catalog products only, never customers or sales figures.
+    id: 'intelligence',
+    logo: { src: '/images/logo-biamaq.webp' },
+    group: 'professional',
+    gallery: 'wide',
+    stack: ['Python', 'Pandas', 'Parquet', 'scikit-learn', 'Django REST Framework', 'SQL Server', 'React', 'TypeScript', 'Vite', 'Docker', 'GitHub Actions', 'Brave Search API'],
+    links: [],
+  },
+  {
     // TODO: add a { kind: 'live', href } link once it's launched.
     id: 'ecommerce',
     logo: { src: '/images/logo-malaca.webp', shape: 'circle', fit: 'contain' },
     group: 'professional',
     gallery: 'wide',
     stack: ['Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
-    links: [],
-  },
-  {
-    // In development: no screenshots, results or stack until they're approved for publication.
-    id: 'intelligence',
-    logo: { src: '/images/logo-biamaq.webp' },
-    group: 'professional',
-    tier: 'secondary',
-    stack: [],
     links: [],
   },
   {
