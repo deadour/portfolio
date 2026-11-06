@@ -91,7 +91,7 @@ export type Content = {
     status: Record<ProjectStatus, string>
   }
   hero: { title: string; tagline: string; cta: string; downloadCv: string }
-  // What I'm working on right now. The month/year is rendered from the current date.
+  // What I'm working on right now; `text` may contain [text](https://…) links. The month/year is rendered from the current date.
   now: { label: string; text: string }
   sections: {
     about: string

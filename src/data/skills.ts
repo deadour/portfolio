@@ -15,7 +15,7 @@ export const skills: Record<SkillGroup, { title: L; items: string[] }> = {
   frontend: { title: { en: 'Frontend', es: 'Frontend' }, items: ['React', 'Next.js', 'Vite', 'Tailwind CSS'] },
   infra: {
     title: { en: 'Infrastructure & testing', es: 'Infraestructura y testing' },
-    items: ['Docker', 'Linux', 'Nginx', 'GitHub Actions', 'Google Cloud Run', 'Vercel', 'pytest', 'Playwright'],
+    items: ['Docker', 'Linux', 'Nginx', 'Git', 'GitHub Actions', 'CI/CD', 'Cloud Run', 'Vercel', 'pytest', 'Playwright'],
   },
   ml: {
     title: { en: 'Machine learning', es: 'Machine learning' },

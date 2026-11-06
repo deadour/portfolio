@@ -139,13 +139,13 @@ export default function CvDocument({
         <h2>{l.education}</h2>
         {education.map((item) => (
           <div key={item.id} className="cv-entry cv-education">
-            <div className="cv-row">
-              <h3>
-                {item.institution} <span className="cv-kind">— {t(item.location, lang)}</span>
-              </h3>
-              <span className="cv-date">{t(item.period, lang)}</span>
-            </div>
-            <p>{t(item.degree, lang)}</p>
+            <h3>
+              {item.institution} <span className="cv-kind">— {t(item.location, lang)}</span>
+            </h3>
+            {/* The period sits on the degree line, so text extraction keeps it with its entry. */}
+            <p>
+              {t(item.degree, lang)} · <span className="cv-date">{t(item.period, lang)}</span>
+            </p>
           </div>
         ))}
       </section>

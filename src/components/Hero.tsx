@@ -4,6 +4,7 @@ import { cvPath } from '../data/cv'
 import { t } from '../data/localize'
 import { useLang } from '../i18n'
 import LinkIcon from './LinkIcon'
+import { withLinks } from './Work'
 
 const secondary =
   'inline-flex items-center gap-2 rounded-md border border-line bg-surface px-4 py-2 text-sm font-medium text-fg hover:border-muted'
@@ -72,7 +73,7 @@ export default function Hero() {
         <span>
           <span className="font-medium text-fg">{c.now.label}</span>
           <span className="text-muted"> · {currentMonth(lang)} — </span>
-          {c.now.text}
+          {withLinks(c.now.text)}
         </span>
       </p>
 
@@ -86,7 +87,7 @@ export default function Hero() {
             ↓
           </span>
         </a>
-        <a href={cvPath('general', lang)} download className={secondary}>
+        <a href={cvPath('general', lang)} download={`Eduardo-Ramirez-CV-${lang.toUpperCase()}.pdf`} className={secondary}>
           <LinkIcon name="download" />
           {c.hero.downloadCv}
         </a>

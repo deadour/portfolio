@@ -11,7 +11,7 @@ import { siLastdotfm } from 'simple-icons'
 type Project = (typeof projects)[number]
 
 // Turns [text](https://…) inside a highlight into an external link; everything else stays plain text.
-function withLinks(text: string) {
+export function withLinks(text: string) {
   return text.split(/(\[[^\]]+\]\(https:\/\/[^)]+\))/).map((part, i) => {
     const m = part.match(/^\[([^\]]+)\]\((https:\/\/[^)]+)\)$/)
     if (!m) return part

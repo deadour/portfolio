@@ -39,7 +39,7 @@ export const en: Content = {
   },
   now: {
     label: 'Now',
-    text: 'Building BIAMAQ Sales and Casa Palma’s management system.',
+    text: 'Building smart sales tools for [BIAMAQ](https://biamaq.com.ar) and a management system for [Casa Palma](https://www.instagram.com/casapalma_deco/).',
   },
   sections: {
     about: 'About',

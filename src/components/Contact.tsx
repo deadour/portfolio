@@ -163,7 +163,7 @@ export default function Contact() {
             <li>
               <a
                 href={cvPath('general', lang)}
-                download
+                download={`Eduardo-Ramirez-CV-${lang.toUpperCase()}.pdf`}
                 className="inline-flex items-center gap-2 text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
               >
                 <LinkIcon name="download" />

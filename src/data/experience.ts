@@ -21,8 +21,8 @@ export const experience: Experience[] = [
         id: 'service',
         cvOnly: true,
         text: {
-          en: 'Built Service BIAMAQ for repairs and after-sales: versioned quotes, workshop tracking, ERP orders and read-only Infolab history.',
-          es: 'Desarrollé Service BIAMAQ para reparación y postventa: presupuestos versionados, seguimiento de taller, pedidos ERP e historial Infolab de solo lectura.',
+          en: 'Built Service BIAMAQ: versioned repair quotes, workshop tracking, ERP orders and Infolab history.',
+          es: 'Desarrollé Service BIAMAQ: presupuestos de reparación versionados, taller, pedidos al ERP e historial Infolab.',
         },
         stack: ['Django REST Framework', 'SQL Server', 'React', 'TypeScript', 'Docker'],
       },
@@ -42,8 +42,8 @@ export const experience: Experience[] = [
       {
         id: 'automation',
         cvText: {
-          en: 'Automated invoices, expenses and products with OCR/LLM and tax checks: estimated manual time reduced from 8 to 2 hours (75% less).',
-          es: 'Automaticé facturas, gastos y productos con OCR/LLM y controles fiscales: tiempo manual estimado de 8 a 2 horas (75% menos).',
+          en: 'Automated invoices, expenses and products with OCR/LLM and tax checks: manual time from 8 to 2 hours (75% less).',
+          es: 'Automaticé facturas, gastos y productos con OCR/LLM y controles fiscales: de 8 a 2 horas manuales (75% menos).',
         },
         text: {
           en: 'Automated invoice, expense and product-data workflows with OCR/LLM assistants and tax checks, reducing estimated manual processing time from 8 to 2 hours (6 hours saved; 75% less manual time).',
@@ -54,8 +54,8 @@ export const experience: Experience[] = [
       {
         id: 'sales',
         cvText: {
-          en: 'Built ERP/DW-connected sales assistance with customer segmentation and nightly recommendations: ~40% offline hit@3 vs ~20% for best sellers.',
-          es: 'Desarrollé asistencia comercial con ERP/DW, segmentación de clientes y recomendaciones nocturnas: hit@3 offline ~40% vs ~20% de lo más vendido.',
+          en: 'Built a sales assistant on the ERP and DW with customer segmentation and nightly recommendations, twice as accurate as best sellers (~40% vs ~20%).',
+          es: 'Desarrollé un asistente de ventas sobre ERP y DW con segmentación y recomendaciones nocturnas: el doble de aciertos que lo más vendido (~40% vs ~20%).',
         },
         project: 'sales',
         text: {
@@ -91,6 +91,10 @@ export const experience: Experience[] = [
       },
       {
         id: 'infra',
+        cvText: {
+          en: 'Run infrastructure and deployments: Docker on Linux with Nginx and CI/CD on GitHub Actions.',
+          es: 'Administro infraestructura y despliegues: Docker en Linux con Nginx y CI/CD en GitHub Actions.',
+        },
         text: {
           en: 'Run the infrastructure: Docker on Linux servers and CI/CD with GitHub Actions on a self-hosted runner.',
           es: 'Administro la infraestructura: Docker en servidores Linux y CI/CD con GitHub Actions en un runner self-hosted.',

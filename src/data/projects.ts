@@ -276,8 +276,8 @@ export const projects: Project[] = [
         es: 'El worker nocturno extrae snapshots del ERP en solo lectura, enriquece, reentrena y evalúa. Si el hit@3 de venta cruzada cae más de un punto porcentual, conserva el índice anterior.',
       },
       {
-        en: 'Two services share the published index: nightly enriches, trains and evaluates; web serves recommendations without training during a sale. Customer segmentation and monthly history are read from the DW, while stock and balances come from the ERP. The app does not calculate RFM. ERP order and quote writes remain restricted to a test database or simulation.',
-        es: 'Dos servicios comparten el índice publicado: nightly enriquece, entrena y evalúa; web sirve recomendaciones sin entrenar durante la venta. La segmentación e historia mensual se leen del DW; el stock y los saldos, del ERP. La app no calcula el RFM. Las escrituras de pedidos y presupuestos en el ERP siguen limitadas a una base de prueba o simulación.',
+        en: 'Two services share the published index: nightly enriches, trains and evaluates; web serves recommendations without training during a sale. Customer segmentation and monthly history are read from the DW, while stock and balances come from the ERP. The app does not calculate RFM.',
+        es: 'Dos servicios comparten el índice publicado: nightly enriquece, entrena y evalúa; web sirve recomendaciones sin entrenar durante la venta. La segmentación e historia mensual se leen del DW; el stock y los saldos, del ERP. La app no calcula el RFM.',
       },
       {
         en: 'Django REST Framework API and a React 19 + TypeScript + Vite PWA. Sign-in with the internal platform’s users or its own users with Argon2, HttpOnly cookie, login attempt limits, CSP and role-based permissions.',
@@ -589,7 +589,7 @@ export const projects: Project[] = [
     links: [],
     cv: {
       en: 'Ecommerce with guest checkout, Mercado Pago, stock reservations, shipping, order tracking and an admin panel.',
-      es: 'Ecommerce con checkout invitado, Mercado Pago, reservas de stock, envíos, seguimiento de pedidos y panel de gestión.',
+      es: 'Ecommerce con checkout invitado, Mercado Pago, reservas de stock, envíos y panel de gestión de pedidos.',
     },
   },
   {

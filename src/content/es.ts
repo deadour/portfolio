@@ -39,7 +39,7 @@ export const es: Content = {
   },
   now: {
     label: 'Ahora',
-    text: 'Desarrollando BIAMAQ Ventas y el sistema de gestión de Casa Palma.',
+    text: 'Desarrollando ventas inteligentes para [BIAMAQ](https://biamaq.com.ar) y la gestión de [Casa Palma](https://www.instagram.com/casapalma_deco/).',
   },
   sections: {
     about: 'Sobre mí',
