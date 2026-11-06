@@ -132,12 +132,12 @@
 .footer-sketch .hero-sketch {
   filter: brightness(0);
 }
-/* The bridge drawing is taller than the strip: anchor it at the top so the towers and deck show. */
+/* The bridge drawing is taller than the strip: anchor it at the bottom so the shore, the people and
+   the water show, and the dimension lines at the top stay out of view. */
 .footer-sketch-bridge {
-  top: -0.5rem;
-  bottom: auto;
+  bottom: -0.25rem;
   left: 50%;
-  width: min(36rem, 100%);
+  width: 100%;
   opacity: 0.36;
   transform: translateX(-50%);
 }
@@ -150,6 +150,7 @@
     opacity: 0.38;
   }
   .footer-sketch-bridge {
+    bottom: -0.25rem;
     width: 100%;
     opacity: 0.32;
   }

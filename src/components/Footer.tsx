@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div aria-hidden="true" className="footer-sketches relative -mx-5 mt-5 h-44 sm:-mx-8 sm:h-56">
+      <div aria-hidden="true" className="footer-sketches relative -mx-5 mt-5 h-56 sm:-mx-8 sm:h-[28rem]">
         {FOOTER_SKETCHES.map((sketch) => (
           <div key={sketch.src} className={`footer-sketch ${sketch.className}`}>
             <SketchImage src={sketch.src} />
