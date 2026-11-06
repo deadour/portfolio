@@ -39,7 +39,7 @@ export const en: Content = {
   },
   now: {
     label: 'Now',
-    text: 'Improving BIAMAQ Sales. Malaca’s store is complete.',
+    text: 'Building BIAMAQ Sales and Casa Palma’s management system.',
   },
   sections: {
     about: 'About',

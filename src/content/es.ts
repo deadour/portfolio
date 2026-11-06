@@ -39,7 +39,7 @@ export const es: Content = {
   },
   now: {
     label: 'Ahora',
-    text: 'Evolucionando BIAMAQ Ventas. Tienda de Malaca terminada.',
+    text: 'Desarrollando BIAMAQ Ventas y el sistema de gestión de Casa Palma.',
   },
   sections: {
     about: 'Sobre mí',
