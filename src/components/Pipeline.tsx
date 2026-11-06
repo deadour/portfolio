@@ -1,10 +1,15 @@
 import { Fragment, type CSSProperties } from 'react'
-import type { Pipeline as PipelineData } from '../content/types'
+import type { Pipeline as PipelineData } from '../data/types'
+import { t } from '../data/localize'
+import { useLang } from '../i18n'
 
 // Flow diagram. Desktop: boxes and arrows revealed left to right once, on first view (see .flow in index.css).
 // Mobile: a compact line of chips that wraps, so it doesn't eat the screen.
 export default function Pipeline({ data }: { data: PipelineData }) {
-  const { steps, branch, caption } = data
+  const { lang } = useLang()
+  const steps = data.steps.map((step) => ({ name: t(step.name, lang), detail: t(step.detail, lang) }))
+  const branch = data.branch && { name: t(data.branch.name, lang), detail: t(data.branch.detail, lang), target: data.branch.target }
+  const caption = t(data.caption, lang)
   const columns = `repeat(${steps.length - 1}, minmax(0, 1fr) 1rem) minmax(0, 1fr)`
 
   return (

@@ -15,7 +15,7 @@ const NOSCRIPT: Record<Lang, string> = {
 const attr = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-const url = (route: Route) => ORIGIN + pathFor(route.lang)
+const url = (route: Route) => ORIGIN + pathFor(route.lang, route.page)
 
 function person() {
   const data = {
@@ -24,7 +24,7 @@ function person() {
     name: site.name,
     url: `${ORIGIN}/`,
     image: ORIGIN + site.portrait,
-    jobTitle: 'Software & Data Engineer',
+    jobTitle: site.headline.en,
     email: `mailto:${site.email}`,
     address: { '@type': 'PostalAddress', addressLocality: 'Resistencia', addressRegion: 'Chaco', addressCountry: 'AR' },
     worksFor: { '@type': 'Organization', name: 'BIAMAQ', url: 'https://biamaq.com.ar' },
@@ -35,8 +35,9 @@ function person() {
 }
 
 function head(route: Route) {
-  const meta = content[route.lang].meta
-  const alternates = routes
+  const meta = content[route.lang].meta[route.page]
+  // The same page in every language.
+  const alternates = routes.filter((r) => r.page === route.page)
   const other = alternates.find((r) => r.lang !== route.lang)
   const image = `${ORIGIN}/og.png`
   const tags = [
@@ -44,7 +45,7 @@ function head(route: Route) {
     `<meta name="description" content="${attr(meta.description)}" />`,
     `<link rel="canonical" href="${url(route)}" />`,
     ...alternates.map((r) => `<link rel="alternate" hreflang="${r.lang}" href="${url(r)}" />`),
-    `<link rel="alternate" hreflang="x-default" href="${url({ lang: 'en' })}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${url({ lang: 'en', page: route.page })}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${attr(site.name)}" />`,
     `<meta property="og:url" content="${url(route)}" />`,
@@ -55,12 +56,12 @@ function head(route: Route) {
     `<meta property="og:image" content="${image}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
-    `<meta property="og:image:alt" content="${attr(`${site.name} — Software & Data Engineer`)}" />`,
+    `<meta property="og:image:alt" content="${attr(`${site.name} — ${site.headline.en}`)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${attr(meta.title)}" />`,
     `<meta name="twitter:description" content="${attr(meta.description)}" />`,
     `<meta name="twitter:image" content="${image}" />`,
-    person(),
+    ...(route.page === 'home' ? [person()] : []),
   ]
   return tags.join('\n    ')
 }
@@ -68,7 +69,7 @@ function head(route: Route) {
 // Fills the <!--head--> and <!--noscript--> regions of index.html and sets <html lang>.
 // The markers stay in the output, so a page can be rendered again from another one.
 export function renderPage(html: string, route: Route) {
-  const noscript = `${site.name} — Software &amp; Data Engineer. ${NOSCRIPT[route.lang]} <a href="${site.github}">github.com/deadour</a>.`
+  const noscript = `${site.name} — ${attr(site.headline.en)}. ${NOSCRIPT[route.lang]} <a href="${site.github}">github.com/deadour</a>.`
   return html
     .replace(/<html lang="[^"]*"/, `<html lang="${route.lang}"`)
     .replace(/<!--head-->[\s\S]*?<!--\/head-->/, `<!--head-->\n    ${head(route)}\n    <!--/head-->`)

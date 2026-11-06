@@ -1,0 +1,163 @@
+/* One-page A4 CV. Scoped to .cv so the same rules style the /cv preview and the PDF.
+   Sizes are in pt/mm: what you see in the preview is what gets printed. */
+
+.cv {
+  box-sizing: border-box;
+  width: 210mm;
+  height: 297mm;
+  padding: 12mm 15mm 11mm;
+  overflow: hidden;
+  background: #fff;
+  color: #1f1f23;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 9.4pt;
+  line-height: 1.38;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv11', 'ss01';
+}
+.cv *,
+.cv *::before,
+.cv *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cv a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Header */
+.cv-name {
+  font-size: 21pt;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #111114;
+}
+.cv-headline {
+  margin-top: 1.5mm;
+  font-size: 11pt;
+  font-weight: 500;
+  color: #3a3a40;
+}
+.cv-location {
+  font-weight: 400;
+  color: #55555c;
+}
+.cv-contact {
+  margin-top: 1.2mm;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0;
+  font-size: 8.6pt;
+  color: #46464d;
+}
+.cv-contact > * + *::before {
+  content: '·';
+  margin: 0 2.2mm;
+  color: #9a9aa2;
+}
+
+/* Sections */
+.cv section {
+  margin-top: 3.7mm;
+}
+.cv h2 {
+  margin-bottom: 1.4mm;
+  padding-bottom: 0.8mm;
+  border-bottom: 0.6pt solid #c9c9cf;
+  font-size: 8.4pt;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #111114;
+}
+.cv h3 {
+  font-size: 9.8pt;
+  font-weight: 600;
+  color: #111114;
+}
+.cv-kind {
+  font-weight: 400;
+  color: #55555c;
+}
+
+.cv-entry + .cv-entry {
+  margin-top: 2.2mm;
+}
+.cv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4mm;
+}
+.cv-date {
+  flex-shrink: 0;
+  font-size: 8.6pt;
+  color: #55555c;
+  white-space: nowrap;
+}
+.cv-meta {
+  margin-top: 0.4mm;
+  color: #46464d;
+}
+
+.cv ul {
+  list-style: none;
+}
+/* Native list markers, not positioned pseudo-elements: positioned boxes are painted in a later
+   layer, which moves the bullets to the end of the PDF's text and scrambles the reading order. */
+.cv-entry ul {
+  margin-top: 1.2mm;
+  padding-left: 3.6mm;
+  list-style: '–' outside;
+}
+.cv-entry li {
+  padding-left: 1.2mm;
+}
+.cv-entry li::marker {
+  color: #7a7a82;
+}
+.cv-entry li + li {
+  margin-top: 1.1mm;
+}
+.cv-project p,
+.cv-education p {
+  margin-top: 0.3mm;
+}
+
+/* Technologies used, under each item: muted so the sentence reads first. */
+.cv-stack {
+  display: block;
+  margin-top: 1mm;
+  font-size: 8.3pt;
+  color: #66666d;
+}
+
+.cv-skills li + li,
+.cv-certs li + li {
+  margin-top: 0.5mm;
+}
+.cv-skills strong {
+  font-weight: 600;
+  color: #111114;
+}
+.cv-certs a {
+  color: #111114;
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+}

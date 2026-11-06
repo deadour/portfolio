@@ -1,10 +1,12 @@
 import { PORTRAITS as P, SKETCHES as S, type Asset } from './sketchAssets'
+import type { Page } from '../../content/types'
+import { parseRoute } from '../../route'
 
-// Spots along the page, each tied to the section it relates to. Every visit, each spot shows
+// Spots along each page, each tied to the section it relates to. Every visit, each spot shows
 // one drawing picked from its own theme, so over several visits the whole set shows up.
 // No drawing belongs to two spots, and spots of the same theme sit a few sections apart.
-// `at` is a CSS selector (project cards have #project-<id>) (+ index when it matches several elements) and `y` the point inside
-// that element, from 0 (top) to 1 (bottom). Sides alternate down the page.
+// `at` is a CSS selector (projects have #project-<id>) (+ index when it matches several elements) and `y` the point inside
+// that element, from 0 (top) to 1 (bottom). Sides alternate down the page. Missing elements are skipped.
 export type Slot = {
   options: Asset[]
   at: string
@@ -15,47 +17,52 @@ export type Slot = {
   jitter?: number
 }
 
-const SLOTS: Slot[] = [
-  // Solutions (home and services page) and How I work go first, so both pages get their drawings;
-  // later spots skip whatever is already taken.
-  { options: [S.dataPipeline, S.sqlCode, S.uml], at: '#solution-ecommerce', y: 0.3, side: 'left' },
-  { options: [S.compass, S.globe, S.prism], at: '#solution-ecommerce', y: 0.8, side: 'right' },
-  { options: [S.database, S.pythonCode], at: '#solution-reporting', y: 0.35, side: 'right' },
-  { options: [S.crane, S.drill], at: '#solution-software', y: 0.4, side: 'left' },
-  { options: [S.neuralNetwork, S.sigmoid], at: '#solution-ai', y: 0.4, side: 'right' },
-  { options: [S.books, S.thermos, S.leaf], at: '#process', y: 0.4, side: 'left' },
-  { options: [S.obelisco, S.colosseum], at: '#about', y: 0.4, side: 'left', jitter: 0.08 },
-  { options: [S.david, S.helmet], at: '#about', y: 0.9, side: 'right' },
-  { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#project-lastfm', y: 0.15, side: 'left' },
-  { options: [S.waves, S.vinyl, S.prism], at: '#project-lastfm', y: 0.6, side: 'right' },
-  { options: [S.dataPipeline, S.pythonCode, S.uml], at: '#work h3.uppercase', index: 0, y: 0, side: 'left' },
-  { options: [S.database, S.sqlCode], at: '#project-reports', y: 0.6, side: 'right', jitter: 0.08 },
-  { options: [S.crane, S.drill], at: '#project-rentalia', y: 0.3, side: 'right' },
-  { options: [S.hardHat], at: '#project-rentalia', y: 0.75, side: 'left' },
-  { options: [S.mate], at: '#project-ecommerce', y: 0.2, side: 'right' },
-  { options: [S.thermos, S.leaf], at: '#project-ecommerce', y: 0.7, side: 'left' },
-  { options: [S.player, S.football], at: '#work h3.uppercase', index: 1, y: 0, side: 'right' },
-  { options: [S.dumbbell], at: '#project-dynamo', y: 0.6, side: 'left' },
-  { options: [S.utn], at: '#project-chedul', y: 0.35, side: 'right' },
-  { options: [S.neuralNetwork, S.sigmoid], at: '#project-cesiDl', y: 0.2, side: 'left' },
-  { options: [S.esp32, S.gameBlock], at: '#project-cesiIot', y: 0.5, side: 'right' },
-  { options: [S.montSaintMichel, S.eiffel], at: '#experience', y: 0.15, side: 'left' },
-  { options: [S.temple, S.airplane], at: '#experience', y: 0.75, side: 'right' },
-  { options: [S.cathedral], at: '#education', y: 0.05, side: 'left' },
-  { options: [S.cliffs, S.wave], at: '#education', y: 0.5, side: 'right' },
-  { options: [S.globe, S.compass], at: '#education', y: 0.95, side: 'left' },
-  { options: [S.column, S.astronaut], at: '#tech', y: 0.1, side: 'right' },
-  { options: [S.solarSystem, S.spinningTop], at: '#tech', y: 0.8, side: 'left' },
-  { options: [S.books, S.clapperboard], at: '#certifications', y: 0.4, side: 'right' },
-  { options: [S.sun, S.mountains, S.forest], at: '#contact', y: 0.35, side: 'left' },
-  // The small data icons: most of them around the BIAMAQ reports, a couple further away.
-  { options: [S.dataMonitor], at: '#project-reports', y: 0.12, side: 'left', jitter: 0.08 },
-  { options: [S.dataServers], at: '#project-reports', y: 0.2, side: 'right', jitter: 0.08 },
-  { options: [S.dataDb], at: '#project-reports', y: 0.42, side: 'left', jitter: 0.08 },
-  { options: [S.dataLine], at: '#project-reports', y: 0.75, side: 'left', jitter: 0.08 },
-  { options: [S.dataPie], at: '#project-lastfm', y: 0.85, side: 'left', jitter: 0.08 },
-  { options: [S.dataClock], at: '#certifications', y: 0.75, side: 'left', jitter: 0.08 },
-]
+// Spots per page. Home follows the sections top to bottom; the other pages have their own few.
+const SLOTS: Record<Page, Slot[]> = {
+  home: [
+    { options: [S.dataPipeline, S.pythonCode, S.uml], at: '#work', y: 0.02, side: 'left' },
+    { options: [S.database, S.sqlCode], at: '#project-reports', y: 0.6, side: 'right', jitter: 0.08 },
+    { options: [S.dataMonitor], at: '#project-reports', y: 0.15, side: 'left', jitter: 0.08 },
+    { options: [S.dataServers], at: '#project-reports', y: 0.25, side: 'right', jitter: 0.08 },
+    { options: [S.dataLine], at: '#project-reports', y: 0.8, side: 'left', jitter: 0.08 },
+    { options: [S.crane, S.drill], at: '#project-rentalia', y: 0.3, side: 'right' },
+    { options: [S.hardHat], at: '#project-rentalia', y: 0.75, side: 'left' },
+    { options: [S.neuralNetwork, S.sigmoid], at: '#project-sales', y: 0.35, side: 'right' },
+    { options: [S.dataDb], at: '#project-sales', y: 0.75, side: 'left', jitter: 0.08 },
+    { options: [S.symbol, S.guitar, S.abbeyRoad, P.sumo, P.calamaro], at: '#project-lastfm', y: 0.15, side: 'left' },
+    { options: [S.waves, S.vinyl, S.prism], at: '#project-lastfm', y: 0.6, side: 'right' },
+    { options: [S.dataPie], at: '#project-lastfm', y: 0.9, side: 'left', jitter: 0.08 },
+    { options: [S.mate], at: '#more-projects', y: 0.15, side: 'right' },
+    { options: [S.dumbbell, S.player, S.football], at: '#more-projects', y: 0.5, side: 'left' },
+    { options: [S.utn, S.esp32, S.gameBlock], at: '#more-projects', y: 0.85, side: 'right' },
+    { options: [S.obelisco, S.colosseum, S.helmet], at: '#experience', y: 0.2, side: 'left' },
+    { options: [S.temple, S.airplane], at: '#experience', y: 0.75, side: 'right' },
+    { options: [S.montSaintMichel, S.eiffel], at: '#education', y: 0.1, side: 'left' },
+    { options: [S.cathedral, S.cliffs, S.wave], at: '#education', y: 0.6, side: 'right' },
+    { options: [S.column, S.astronaut, S.david], at: '#skills', y: 0.3, side: 'left' },
+    { options: [S.solarSystem, S.spinningTop], at: '#certifications', y: 0.3, side: 'right' },
+    { options: [S.books, S.clapperboard, S.dataClock], at: '#certifications', y: 0.9, side: 'left' },
+    { options: [S.compass, S.globe], at: '#companies', y: 0.5, side: 'right' },
+    { options: [S.sun, S.mountains, S.forest], at: '#contact', y: 0.35, side: 'left' },
+  ],
+  services: [
+    { options: [S.crane, S.drill], at: '#solution-software', y: 0.4, side: 'left' },
+    { options: [S.hardHat, S.uml], at: '#solution-software', y: 0.85, side: 'right' },
+    { options: [S.database, S.pythonCode], at: '#solution-reporting', y: 0.35, side: 'right' },
+    { options: [S.dataMonitor, S.dataLine], at: '#solution-reporting', y: 0.8, side: 'left', jitter: 0.08 },
+    { options: [S.mate, S.leaf], at: '#solution-ecommerce', y: 0.3, side: 'left' },
+    { options: [S.thermos, S.compass], at: '#solution-ecommerce', y: 0.8, side: 'right' },
+    { options: [S.neuralNetwork, S.sigmoid], at: '#solution-ai', y: 0.4, side: 'right' },
+    { options: [S.books, S.globe], at: '#process', y: 0.4, side: 'left' },
+    { options: [S.sun, S.mountains, S.forest], at: '#contact', y: 0.35, side: 'right' },
+  ],
+  cv: [
+    { options: [S.books, S.compass], at: '#cv-preview', y: 0.12, side: 'left' },
+    { options: [S.globe, S.eiffel, S.airplane], at: '#cv-preview', y: 0.4, side: 'right' },
+    { options: [S.dataPipeline, S.database], at: '#cv-preview', y: 0.7, side: 'left' },
+    { options: [S.mate, S.utn], at: '#cv-preview', y: 0.92, side: 'right' },
+  ],
+}
 
 const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]
 
@@ -64,7 +71,7 @@ const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)]
 function makeSpots() {
   const mirror = Math.random() < 0.5
   const used = new Set<string>()
-  return SLOTS.flatMap((slot) => {
+  return SLOTS[parseRoute(window.location.pathname).page].flatMap((slot) => {
     const options = slot.options.filter((asset) => !used.has(asset.src))
     if (options.length === 0) return []
     const asset = pick(options)

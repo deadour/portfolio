@@ -1,3 +1,5 @@
-# The former services page now lives on the home page, in the solutions section.
-/services /#solutions 301
-/es/servicios /es/#solutions 301
+# The CVs used to be single PDFs made by hand; each language now points to its general CV.
+/cv/eduardo-ramirez-cv-en.pdf /cv/software-en.pdf 301
+/cv/eduardo-ramirez-cv-es.pdf /cv/software-es.pdf 301
+# Without the trailing slash, each page still opens.
+/es/services /es/servicios/ 301

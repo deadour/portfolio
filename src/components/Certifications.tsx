@@ -1,58 +1,44 @@
 import Section from './Section'
 import Disclosure from './Disclosure'
-import { certifications } from '../data/certifications'
+import { verifiedCertifications } from '../data/certifications'
+import { formatMonth } from '../data/localize'
+import type { Certification } from '../data/types'
 import { useLang } from '../i18n'
 
-// Featured certifications are visible; the rest (newest first) go behind "Show N more".
-const featured = certifications.filter((c) => c.featured)
-const others = certifications.filter((c) => !c.featured)
-
-type Cert = (typeof certifications)[number]
+// Only credentials with a public link. Featured ones are visible; the rest go behind "Show N more".
+const featured = verifiedCertifications.filter((cert) => cert.featured)
+const others = verifiedCertifications.filter((cert) => !cert.featured)
 
 export default function Certifications() {
   const { lang, c } = useLang()
-  const month = new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric', timeZone: 'UTC' })
-  const format = (date: string) => month.format(new Date(`${date}-01T00:00:00Z`))
 
-  const list = (items: Cert[]) => (
+  const list = (items: Certification[]) => (
     <ul className="divide-y divide-line">
       {items.map((cert) => (
-        <li
-          key={cert.title}
-          className="flex flex-col items-start gap-1 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
-        >
+        <li key={cert.id} className="flex flex-col items-start gap-1 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
           <div className="min-w-0">
-            <p lang="es" className="text-sm text-fg">
+            <p lang="es" className="text-fg">
               {cert.title}
             </p>
-            <p className="mt-0.5 text-xs text-muted">
-              {cert.issuer} · {format(cert.date)}
+            <p className="mt-0.5 text-sm text-muted">
+              {cert.issuer} · {formatMonth(cert.date, lang)}
             </p>
           </div>
-          {cert.url && (
-            <a
-              href={cert.url}
-              target="_blank"
-              rel="noreferrer"
-              className="shrink-0 text-xs text-muted underline decoration-line underline-offset-4 hover:text-fg hover:decoration-accent"
-            >
-              {c.ui.credential}
-              <span aria-hidden="true"> ↗</span>
-            </a>
-          )}
+          <a href={cert.url} target="_blank" rel="noreferrer" className="shrink-0 text-sm text-muted underline decoration-line underline-offset-4 hover:text-fg hover:decoration-accent">
+            {c.ui.credential}
+            <span aria-hidden="true"> ↗</span>
+          </a>
         </li>
       ))}
     </ul>
   )
 
-  const rest = others
-
   return (
     <Section id="certifications" title={c.sections.certifications}>
-      <div className="border-y border-line">{list(featured)}</div>
-      {rest.length > 0 && (
-        <Disclosure label={c.ui.showMore.replace('{n}', String(rest.length))}>
-          <div className="mt-2 border-y border-line">{list(rest)}</div>
+      <div className="max-w-2xl border-y border-line">{list(featured)}</div>
+      {others.length > 0 && (
+        <Disclosure label={c.ui.showMore.replace('{n}', String(others.length))}>
+          <div className="mt-2 max-w-2xl border-y border-line">{list(others)}</div>
         </Disclosure>
       )}
     </Section>

@@ -7,23 +7,16 @@ type Props = {
   children: ReactNode
 }
 
+// One section of a page: a small label over the content, separated by a thin rule.
 export default function Section({ id, title, children }: Props) {
   const ref = useReveal<HTMLElement>()
 
   return (
-    <section
-      ref={ref}
-      id={id}
-      aria-labelledby={`${id}-title`}
-      className="reveal grid scroll-mt-28 sm:scroll-mt-16 gap-5 border-t border-line py-12 sm:grid-cols-[9rem_1fr] sm:gap-10 sm:py-16"
-    >
-      <h2
-        id={`${id}-title`}
-        className="self-start text-lg leading-snug font-semibold tracking-tight text-fg before:mb-3 before:block before:h-0.5 before:w-6 before:rounded-full before:bg-accent sm:sticky sm:top-24 sm:text-base"
-      >
+    <section ref={ref} id={id} aria-labelledby={`${id}-title`} className="reveal scroll-mt-24 border-t border-line py-14 sm:py-20">
+      <h2 id={`${id}-title`} className="section-title">
         {title}
       </h2>
-      <div className="min-w-0">{children}</div>
+      <div className="mt-8 min-w-0 sm:mt-10">{children}</div>
     </section>
   )
 }
