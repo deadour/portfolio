@@ -22,6 +22,7 @@ export const education: Education[] = [
     },
     period: { en: 'Spring semester 2026', es: 'Primer semestre 2026' },
     exchange: true,
+    country: 'fr',
     description: {
       en: 'One semester of coursework in data science, AI, IoT and web development, with engineering projects in multidisciplinary teams.',
       es: 'Un semestre de cursada en data science, IA, IoT y desarrollo web, con proyectos de ingeniería en equipos multidisciplinarios.',

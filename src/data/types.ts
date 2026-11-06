@@ -46,8 +46,13 @@ export type Pipeline = {
 // Only verifiable facts: no metrics that haven't been confirmed.
 export type CaseStudy = { problem: L; solution: L; role: L; outcome: L }
 
+// Countries with a flag on the page (src/components/Flag.tsx).
+export type Country = 'fr'
+
 export type Project = {
   id: ProjectId
+  // Where it was done, when it's abroad: shown as a small flag.
+  country?: Country
   title: Text
   kind: L
   // Professional work is shown before personal and academic projects.
@@ -106,6 +111,8 @@ export type Education = {
   period: L
   // International exchange.
   exchange?: boolean
+  // Shown as a small flag next to the institution.
+  country?: Country
   description?: L
   images?: Figure[]
 }

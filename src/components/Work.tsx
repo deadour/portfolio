@@ -6,6 +6,7 @@ import { useLightbox, toLightbox } from './Lightbox'
 import { projects } from '../data/projects'
 import { useLang } from '../i18n'
 import { projectText } from './view'
+import Flag from './Flag'
 import { siLastdotfm } from 'simple-icons'
 
 type Project = (typeof projects)[number]
@@ -130,7 +131,16 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
           </span>
         )}
       </div>
-      <p className="mt-1 text-sm text-accent">{text.kind}</p>
+      <p className="mt-1 text-sm text-accent">
+        {/* The flag follows the part of the line that names the place (e.g. "CESI France"). */}
+        {text.kind.split(' · ').map((part, i, parts) => (
+          <span key={i} className={project.country && /CESI/.test(part) ? 'whitespace-nowrap' : undefined}>
+            {part}
+            {project.country && /CESI/.test(part) && <Flag country={project.country} className="ml-1.5 align-[-0.05em]" />}
+            {i < parts.length - 1 && ' · '}
+          </span>
+        ))}
+      </p>
       <p className={`mt-4 leading-relaxed ${detailed ? '' : 'text-sm'}`}>{text.summary}</p>
       {project.credit && (
         <aside className="mt-4 border-l-2 border-accent pl-4 text-sm leading-relaxed">

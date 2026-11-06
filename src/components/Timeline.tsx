@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Section from './Section'
 import type { Entry } from '../content/types'
+import Flag from './Flag'
 import { useLightbox, toLightbox } from './Lightbox'
 
 type Props = {
@@ -46,6 +47,7 @@ export default function Timeline({ id, title, entries, children }: Props) {
                       ) : (
                         entry.title
                       )}
+                      {entry.country && <Flag country={entry.country} className="ml-2 align-[-0.05em]" />}
                     </h3>
                     {entry.period && <p className="text-sm text-muted">{entry.period}</p>}
                   </div>

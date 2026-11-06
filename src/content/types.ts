@@ -40,6 +40,8 @@ export type Entry = {
   href?: string
   // Optional square logo shown next to the entry.
   logo?: string
+  // Country flag after the title (see Country in src/data/types.ts).
+  country?: 'fr'
   // Role, institution, location… Each item is joined with " · ". Empty items are skipped.
   meta: string[]
   period: string

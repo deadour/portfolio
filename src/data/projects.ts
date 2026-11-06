@@ -787,6 +787,7 @@ export const projects: Project[] = [
   },
   {
     id: 'cesiDl',
+    country: 'fr',
     title: { en: 'Diabetes Prediction with Deep Learning', es: 'Predicción de diabetes con Deep Learning' },
     kind: { en: 'Academic project · CESI France · Team of 4', es: 'Proyecto académico · CESI Francia · Equipo de 4' },
     group: 'personal',
@@ -856,6 +857,7 @@ export const projects: Project[] = [
   },
   {
     id: 'cesiIot',
+    country: 'fr',
     title: { en: 'Classroom Noise Monitor', es: 'Monitor de ruido en aulas' },
     kind: { en: 'Academic project · CESI France · IoT · Team of 4', es: 'Proyecto académico · CESI Francia · IoT · Equipo de 4' },
     group: 'personal',

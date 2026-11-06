@@ -47,6 +47,7 @@ export function educationEntries(lang: Lang): Entry[] {
     title: `${item.institution} — ${t(item.location, lang)}`,
     href: item.href,
     logo: item.logo,
+    country: item.country,
     meta: [t(item.degree, lang)],
     period: t(item.period, lang),
     description: item.description && t(item.description, lang),
