@@ -17,7 +17,6 @@ export type Slot = {
 }
 
 const SLOTS: Slot[] = [
-  { options: [S.puenteGeneralBelgrano], at: '#project-resisCultural', y: 0.35, side: 'right', jitter: 0, prominence: 1.5 },
   // Solutions (home and services page) and How I work go first, so both pages get their drawings;
   // later spots skip whatever is already taken.
   { options: [S.dataPipeline, S.sqlCode, S.uml], at: '#solution-ecommerce', y: 0.3, side: 'left' },

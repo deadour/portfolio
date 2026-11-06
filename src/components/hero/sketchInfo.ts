@@ -8,7 +8,7 @@ type Info = { en?: string; es?: string; href?: string; song?: { title: string; a
 const yt = (id: string) => `https://www.youtube.com/watch?v=${id}`
 
 const INFO: Partial<Record<keyof typeof SKETCHES | keyof typeof PORTRAITS | 'map', Info>> = {
-  puenteGeneralBelgrano: { en: 'Puente General Belgrano', es: 'Puente General Belgrano', href: 'https://resis-cultural.vercel.app/' },
+  puenteGeneralBelgrano: { en: 'Puente General Belgrano', es: 'Puente General Belgrano' },
   eiffel: { en: 'Eiffel Tower, Paris', es: 'Torre Eiffel, París' },
   colosseum: { en: 'Colosseum, Rome', es: 'Coliseo, Roma' },
   helmet: {

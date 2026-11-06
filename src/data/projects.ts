@@ -356,55 +356,6 @@ export const projects: Project[] = [
     links: [],
   },
   {
-    id: 'resisCultural',
-    title: 'Resistencia Cultural',
-    cv: {
-      en: 'Cultural agenda with filters, maps and a Django management panel, based on events published by instagram.com/resis.cultural.',
-      es: 'Agenda cultural con filtros, mapa y panel de gestión Django, basada en eventos publicados por instagram.com/resis.cultural.',
-    },
-    credit: {
-      es: 'Esta agenda web se basa en los eventos que publica [@resis.cultural en Instagram](https://www.instagram.com/resis.cultural/). La selección y difusión de esos eventos corresponde a esa cuenta; mi aporte es el diseño y desarrollo de la web para consultarlos en una agenda y un mapa.',
-      en: 'This web agenda is based on events published by [@resis.cultural on Instagram](https://www.instagram.com/resis.cultural/). The selection and sharing of those events belong to that account; my contribution is designing and developing the website to explore them in an agenda and on a map.',
-    },
-    kind: { en: 'Personal project · Culture & local discovery', es: 'Proyecto personal · Cultura y descubrimiento local' },
-    group: 'personal',
-    tier: 'featured',
-    status: 'live',
-    gallery: 'wide',
-    summary: {
-      en: 'A cultural agenda for Resistencia and nearby towns: discover events by date, category or proximity, explore venues on a map and share plans. A private management panel lets editors keep the agenda up to date without editing code.',
-      es: 'Agenda cultural de Resistencia y alrededores: descubrir qué hacer por fecha, categoría o cercanía, explorar lugares en el mapa y compartir planes. Un panel privado permite mantener la agenda al día sin tocar código.',
-    },
-    highlights: [
-      { en: 'One event can have multiple performances, venues and dates. Filters, map selection and event details stay in sync, with shareable URLs and mobile list/map tabs.', es: 'Un evento puede tener múltiples funciones, lugares y fechas. Filtros, selección en el mapa y detalle se coordinan, con URLs compartibles y pestañas de lista/mapa en celular.' },
-      { en: 'Nearby discovery calculates distances in the browser without sending or storing the visitor’s coordinates. Overnight events remain visible until 07:00.', es: 'Cerca de mí calcula distancias en el navegador sin enviar ni guardar las coordenadas del visitante. Las funciones nocturnas siguen visibles hasta las 07:00.' },
-      { en: 'Staff-only Django panel for events, performances, venues and photos, protected with sessions and CSRF. HTML/text imports from Notion feed the same data model.', es: 'Panel Django para eventos, funciones, lugares y fotos, con acceso staff, sesiones y CSRF. Importación de HTML/texto de Notion al mismo modelo de datos.' },
-      { en: 'Nominatim geocoding with a database cache and manual location review. Signed direct uploads to Cloudinary; a daily Vercel task cleans up old photos.', es: 'Geocodificación con Nominatim, caché en base y revisión manual de ubicaciones. Carga directa firmada a Cloudinary y limpieza diaria de fotos antiguas con Vercel Cron.' },
-    ],
-    pipeline: {
-      steps: [
-        { name: 'React + TypeScript', detail: { en: 'Agenda, filters and event details', es: 'Agenda, filtros y detalles' } },
-        { name: 'Django API', detail: { en: 'Published events and active performances', es: 'Eventos publicados y funciones vigentes' } },
-        { name: 'Django ORM', detail: { en: 'Events, performances and venues', es: 'Eventos, funciones y lugares' } },
-        { name: 'PostgreSQL', detail: { en: 'Production persistence', es: 'Persistencia en producción' } },
-      ],
-      branches: [
-        { name: 'Leaflet + MapLibre', detail: { en: 'OpenFreeMap tiles and venue markers', es: 'Mapa OpenFreeMap y marcadores de lugares' }, target: 0 },
-        { name: { en: 'Management panel', es: 'Panel de gestión' }, detail: { en: 'Django templates, staff sessions and editing', es: 'Plantillas Django, sesiones staff y edición' }, target: 2 },
-      ],
-      caption: { en: 'Django monolith with a React public interface and a server-rendered management panel. Nominatim resolves locations; Cloudinary stores photos uploaded directly from the browser with Django signatures. Deployed on Vercel, with SQLite for local development.', es: 'Monolito Django con interfaz pública React y panel de gestión renderizado en el servidor. Nominatim resuelve ubicaciones; Cloudinary aloja fotos cargadas desde el navegador con firmas de Django. Desplegado en Vercel, con SQLite para desarrollo local.' },
-    },
-    images: [
-      { src: '/images/resis-agenda.png', alt: { en: 'Resistencia Cultural: event agenda and venue map', es: 'Resistencia Cultural: agenda de funciones y mapa de lugares' } },
-      { src: '/images/resis-movil.png', alt: { en: 'Resistencia Cultural agenda on a phone', es: 'Agenda de Resistencia Cultural en celular' } },
-    ],
-    stack: ['React', 'TypeScript', 'Django', 'PostgreSQL', 'Leaflet', 'MapLibre', 'Cloudinary', 'Vercel'],
-    links: [
-      { kind: 'live', href: 'https://resis-cultural.vercel.app/' },
-      { kind: 'repository', href: 'https://github.com/deadour/resis-cultural' },
-    ],
-  },
-  {
     id: 'lastfm',
     title: 'Last.fm Data Platform',
     kind: { en: 'Personal project · Data Engineering', es: 'Proyecto personal · Data Engineering' },

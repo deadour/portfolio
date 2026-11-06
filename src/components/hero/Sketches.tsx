@@ -41,7 +41,7 @@ function layout(W: number, H: number, picks: Set<string>): Placed[] {
   const mapH = (mapW * MAP.h) / MAP.w
   const mapRect = { x: W - mapW - Math.max(16, W * 0.06), y: mobile ? 5 * rem : H * 0.16, w: mapW, h: mapH }
   const placed: Placed[] = [
-    { src: MAP.src, x: mapRect.x, y: mapRect.y, w: mapW, opacity: 0.13, animation: '', duration: 0, home: true },
+    { src: MAP.src, x: mapRect.x, y: mapRect.y, w: mapW, opacity: 0.17, animation: '', duration: 0, home: true },
   ]
   const taken: Rect[] = [mapRect]
 

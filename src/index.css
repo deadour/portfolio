@@ -202,8 +202,9 @@
 :root[data-theme='dark'] .hero-sketch {
   filter: none;
 }
-/* Light lines on a dark page read fainter than dark lines on paper. */
-:root { --sketch-boost: 1.25; }
+/* How strong the sketches read in each theme. Thin graphite lines on the light paper nearly vanish
+   on a phone screen, so the light theme gets the bigger boost. */
+:root { --sketch-boost: 2; }
 :root[data-theme='dark'] { --sketch-boost: 1.6; }
 
 /* Hover effects */

@@ -44,7 +44,6 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
   const text = projectText(project, lang, c)
   const openLightbox = useLightbox()
   const wide = project.gallery === 'wide'
-  const pairedScreens = project.id === 'resisCultural'
   const count = text.images?.length ?? 0
   // Phone screens: up to 4 per row. Wide screens: up to 2. A single image takes the full width.
   const cols = GRID_COLS[Math.min(count, wide ? 2 : 4)]
@@ -221,10 +220,10 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
       {!compact && text.images && text.images.length > 0 && (
         // Swipeable strip on mobile, grid on desktop.
         <div
-          className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${pairedScreens ? 'items-start sm:grid-cols-[minmax(0,1fr)_minmax(0,0.289fr)]' : cols}`}
+          className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${cols}`}
         >
           {text.images.map((image, i) => (
-            <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${pairedScreens ? 'w-auto min-w-0' : itemWidth}`}>
+            <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${itemWidth}`}>
               <a
                 href={image.href ?? image.src}
                 target="_blank"
@@ -240,9 +239,9 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
                 <img
                   src={image.src}
                   alt={image.alt}
-                  {...(pairedScreens ? (i === 0 ? { width: 1440, height: 900 } : { width: 390, height: 844 }) : size)}
+                  {...size}
                   loading="lazy"
-                  className={`${pairedScreens ? 'h-48 w-auto max-w-none sm:h-auto sm:w-full' : `h-auto w-full ${crop}`} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
+                  className={`h-auto w-full ${crop} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
                 />
               </a>
               {image.caption && (

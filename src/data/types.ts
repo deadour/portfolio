@@ -16,7 +16,6 @@ export type ProjectId =
   | 'rentalia'
   | 'sales'
   | 'lastfm'
-  | 'resisCultural'
   | 'ecommerce'
   | 'casaPalma'
   | 'chedul'
