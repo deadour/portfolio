@@ -4,7 +4,8 @@ import SketchImage from './hero/SketchImage'
 import { SKETCHES } from './hero/sketchAssets'
 
 const FOOTER_SKETCHES = [
-  { src: SKETCHES.cliffs.src, className: 'footer-sketch-cliffs' },
+  // The Chaco–Corrientes bridge, close to home.
+  { src: SKETCHES.puenteGeneralBelgrano.src, className: 'footer-sketch-bridge' },
 ]
 
 export default function Footer() {

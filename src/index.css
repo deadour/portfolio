@@ -132,9 +132,13 @@
 .footer-sketch .hero-sketch {
   filter: brightness(0);
 }
-.footer-sketch-cliffs {
+/* The bridge drawing is taller than the strip: anchor it at the top so the towers and deck show. */
+.footer-sketch-bridge {
+  top: -0.5rem;
+  bottom: auto;
   left: 50%;
-  width: min(28rem, 85%);
+  width: min(36rem, 100%);
+  opacity: 0.36;
   transform: translateX(-50%);
 }
 :root[data-theme='dark'] .footer-sketch .hero-sketch {
@@ -145,8 +149,9 @@
     bottom: -1.5rem;
     opacity: 0.38;
   }
-  .footer-sketch-cliffs {
-    width: 85%;
+  .footer-sketch-bridge {
+    width: 100%;
+    opacity: 0.32;
   }
 }
 
