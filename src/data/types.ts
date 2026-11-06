@@ -157,4 +157,8 @@ export type CvVariant = {
   projects: ProjectId[]
   skills: SkillGroup[]
   certifications: CertificationId[]
+  // Pages it may take (default 1). Beyond one, the CV flows across A4 pages without splitting an entry.
+  maxPages?: number
+  // Full bullet texts, job stacks, project context and education details instead of the short CV lines.
+  detailed?: boolean
 }

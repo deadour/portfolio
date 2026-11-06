@@ -6,8 +6,8 @@
 //    component and data the /cv page shows.
 // 2. Playwright's Chromium prints it to an A4 PDF with selectable text and working links.
 // 3. Every PDF is checked: one A4 page, links, real text (scripts/check-cv.mjs).
-// If the content doesn't fit one page the script fails instead of shrinking the type:
-// shorten the texts in src/data/ instead.
+// If a one-page CV doesn't fit, the script fails instead of shrinking the type: shorten the texts
+// in src/data/ instead. Variants with maxPages > 1 (the general one) flow onto more pages.
 
 import { readFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url'
 import { createServer } from 'vite'
 import react from '@vitejs/plugin-react'
 import { chromium } from 'playwright'
-import { LANGS, PROFILES, checkAll, cvFile } from './check-cv.mjs'
+import { LANGS, MAX_PAGES, PROFILES, checkAll, cvFile } from './check-cv.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 // `--png <dir>`: also save a screenshot of each CV (whole content, even past the page) for review.
@@ -50,6 +50,9 @@ try {
   if (cv.cvProfiles.join() !== PROFILES.join() || cv.languages.join() !== LANGS.join()) {
     throw new Error('scripts/check-cv.mjs PROFILES/LANGS are out of sync with src/data/cv.ts and src/content/')
   }
+  if (JSON.stringify(cv.cvMaxPages) !== JSON.stringify(MAX_PAGES)) {
+    throw new Error('scripts/check-cv.mjs MAX_PAGES is out of sync with maxPages in src/data/cv.ts')
+  }
   // The portrait goes inline, since the page is loaded from a string.
   const photo = `data:image/webp;base64,${(await readFile(path.join(root, 'public', 'images', 'portrait.webp'))).toString('base64')}`
   const css = (await readFile(path.join(root, 'src', 'cv', 'cv.css'), 'utf8')) + '\n' + (await fontFaces())
@@ -82,14 +85,16 @@ try {
         await page.locator('.cv').screenshot({ path: path.join(pngDir, `${profile}-${lang}.png`) })
         await page.addStyleTag({ content: '.cv{height:297mm;outline:none}' })
       }
-      if (fit.content > fit.page + 1) overflows.push(`${profile}-${lang}: content is ${fit.content - fit.page}px taller than the page`)
+      // A multi-page CV flows across pages with the same margins the one-page box uses as padding.
+      const multi = MAX_PAGES[profile] > 1
+      if (!multi && fit.content > fit.page + 1) overflows.push(`${profile}-${lang}: content is ${fit.content - fit.page}px taller than the page`)
       await page.pdf({
         path: cvFile(profile, lang),
         format: 'A4',
         printBackground: true,
-        preferCSSPageSize: true,
+        preferCSSPageSize: !multi,
         displayHeaderFooter: false,
-        margin: { top: 0, right: 0, bottom: 0, left: 0 },
+        margin: multi ? { top: '12mm', right: '15mm', bottom: '11mm', left: '15mm' } : { top: 0, right: 0, bottom: 0, left: 0 },
         tagged: true,
       })
     }

@@ -5,7 +5,7 @@ import type { CvProfile, CvVariant } from './types'
 // bullets and skills, and which side projects and certifications make the cut.
 // `npm run cv` writes public/cv/<profile>-<lang>.pdf for each one.
 //
-// Only `general` is linked from the site. The others are for sending when a role asks for them,
+// Only `general` is linked from the site, and it's the complete one (up to 2 pages); the others fit one page. The others are for sending when a role asks for them,
 // at short URLs (public/_redirects): /cv/fs/en, /cv/backend/es, /cv/data/en… and /cv, /cv/es for the general one.
 export const cvProfiles: CvProfile[] = ['general', 'fs', 'backend', 'data']
 
@@ -14,13 +14,15 @@ export const cvVariants: Record<CvProfile, CvVariant> = {
     label: { en: 'General', es: 'General' },
     headline: { en: 'Software & Data Engineer', es: 'Software & Data Engineer' },
     summary: {
-      en: '3+ years building and running the systems of BIAMAQ (industrial machinery, 3 branches): business applications, ERP integrations, ETL, BI and OCR/LLM automation. Final-year Information Systems Engineering student (UTN); exchange at CESI, France.',
-      es: 'Más de 3 años desarrollando y operando los sistemas de BIAMAQ (maquinaria industrial, 3 sucursales): aplicaciones de gestión, integraciones ERP, ETL, BI y automatización con OCR/LLM. Último año de Ingeniería en Sistemas (UTN); intercambio en CESI, Francia.',
+      en: 'Software & Data Engineer with 3+ years in charge of the systems of BIAMAQ, an industrial machinery company with 3 branches in Argentina. I design, build and run end to end the software the company uses every day: rental and after-sales management, a sales assistant with product recommendations, OCR/LLM invoice automation, ETL and a data warehouse on top of the ERP, BI for management, and the infrastructure with Docker and CI/CD. I work with Python, Django REST Framework, SQL Server, PostgreSQL, React and TypeScript. Final-year Information Systems Engineering student at UTN, with an exchange semester in CESI’s Data Science master’s programme in France.',
+      es: 'Software & Data Engineer con más de 3 años a cargo de los sistemas de BIAMAQ, empresa de maquinaria industrial con 3 sucursales en Argentina. Diseño, desarrollo y opero de punta a punta el software que la empresa usa todos los días: gestión de alquileres y service, un asistente de ventas con recomendaciones de productos, automatización de facturas con OCR/LLM, ETL y data warehouse sobre el ERP, BI para la dirección y la infraestructura con Docker y CI/CD. Trabajo con Python, Django REST Framework, SQL Server, PostgreSQL, React y TypeScript. Estudiante de último año de Ingeniería en Sistemas de Información (UTN), con un semestre de intercambio en el Máster en Data Science de CESI, Francia.',
     },
-    experience: ['rentalia', 'automation', 'sales', 'reports', 'service', 'infra'],
-    projects: ['ecommerce', 'resisCultural'],
-    skills: ['languages', 'backend', 'data', 'frontend', 'infra'],
-    certifications: ['fullStack', 'english'],
+    experience: ['rentalia', 'sales', 'automation', 'reports', 'etl', 'service', 'infra'],
+    projects: ['chedul', 'lastfm', 'cesiDl', 'cesiIot', 'dynamo'],
+    skills: ['languages', 'backend', 'data', 'ml', 'frontend', 'infra'],
+    certifications: ['fullStack', 'english', 'powerBi', 'ml', 'pythonFlask'],
+    maxPages: 2,
+    detailed: true,
   },
   fs: {
     label: { en: 'Software Engineer / Full Stack', es: 'Software Engineer / Full Stack' },
@@ -29,8 +31,8 @@ export const cvVariants: Record<CvProfile, CvVariant> = {
       en: '3+ years building and running BIAMAQ’s internal systems end to end: rentals, service, sales, automation and reporting, with Django, React, Docker and CI/CD. Final-year Information Systems Engineering student (UTN); exchange at CESI, France.',
       es: 'Más de 3 años desarrollando y operando los sistemas de BIAMAQ de punta a punta: alquileres, service, ventas, automatización y reportes, con Django, React, Docker y CI/CD. Último año de Ingeniería en Sistemas (UTN); intercambio en CESI, Francia.',
     },
-    experience: ['rentalia', 'automation', 'sales', 'reports', 'service', 'infra'],
-    projects: ['ecommerce', 'resisCultural'],
+    experience: ['rentalia', 'automation', 'sales', 'reports', 'service'],
+    projects: ['chedul', 'dynamo'],
     skills: ['languages', 'backend', 'frontend', 'data', 'infra'],
     certifications: ['fullStack', 'english'],
   },
@@ -42,7 +44,7 @@ export const cvVariants: Record<CvProfile, CvVariant> = {
       es: 'Más de 3 años desarrollando y manteniendo los sistemas internos de BIAMAQ: APIs en Django REST Framework sobre SQL Server y PostgreSQL, asistentes de OCR/LLM, integraciones con un ERP legacy, tareas con Celery y despliegues con Docker y CI/CD en Linux. Estudiante de último año de Ingeniería en Sistemas (UTN); intercambio de un semestre en CESI, Francia.',
     },
     experience: ['service', 'rentalia', 'automation', 'reports', 'infra'],
-    projects: ['resisCultural', 'chedul'],
+    projects: ['chedul', 'dynamo'],
     skills: ['languages', 'backend', 'data', 'infra'],
     certifications: ['pythonFlask', 'english'],
   },

@@ -10,6 +10,9 @@ import type { CvProfile } from '../data/types'
 
 export { cvProfiles, languages, cvPath }
 
+// Pages each variant may take; scripts/check-cv.mjs keeps a copy (MAX_PAGES) and cv.mjs asserts they match.
+export const cvMaxPages = Object.fromEntries(cvProfiles.map((p) => [p, cvVariants[p].maxPages ?? 1]))
+
 export function renderCv(profile: CvProfile, lang: Lang, photo?: string) {
   return renderToStaticMarkup(<CvDocument profile={profile} lang={lang} photo={photo} />)
 }

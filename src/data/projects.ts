@@ -909,6 +909,10 @@ export const projects: Project[] = [
         href: 'https://www.linkedin.com/posts/eduramirez645_iot-esp32-homeassistant-ugcPost-7435821903157719040-VhMi/',
       },
     ],
+    cv: {
+      en: 'Real-time classroom noise monitor: ESP32-S3 with a digital microphone, readings sent through ESPHome to Home Assistant, InfluxDB and Grafana dashboards, never recording audio.',
+      es: 'Monitor de ruido en tiempo real para aulas: ESP32-S3 con micrófono digital, lecturas vía ESPHome a Home Assistant, InfluxDB y tableros en Grafana, sin grabar audio.',
+    },
   },
 ]
 

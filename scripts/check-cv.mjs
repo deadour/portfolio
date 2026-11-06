@@ -1,4 +1,4 @@
-// Checks the published CVs in public/cv/: all of them exist, and each one is a single A4 page
+// Checks the published CVs in public/cv/: all of them exist, and each one fits its page limit on A4
 // with real (selectable) text and clickable links. No dependencies: it reads the PDF structure.
 // Runs after `npm run cv` and as part of `npm run build`.
 //
@@ -11,6 +11,8 @@ import path from 'node:path'
 // Must match cvProfiles in src/data/cv.ts and the languages in src/content/ (scripts/cv.mjs asserts it).
 export const PROFILES = ['general', 'fs', 'backend', 'data']
 export const LANGS = ['en', 'es']
+// Pages each profile may take (maxPages in src/data/cv.ts); any profile not listed must be one page.
+export const MAX_PAGES = { general: 2, fs: 1, backend: 1, data: 1 }
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 export const cvFile = (profile, lang) => path.join(root, 'public', 'cv', `${profile}-${lang}.pdf`)
@@ -50,14 +52,14 @@ export async function checkAll({ log = console.log } = {}) {
         continue
       }
       const issues = [
-        info.pages !== 1 && `${info.pages} pages`,
+        (info.pages < 1 || info.pages > MAX_PAGES[profile]) && `${info.pages} pages (max ${MAX_PAGES[profile]})`,
         !info.a4 && `not A4 (${info.width}×${info.height} pt)`,
         info.links === 0 && 'no links',
         !info.text && 'text is not selectable',
       ].filter(Boolean)
       if (issues.length) problems.push(`${name}: ${issues.join(', ')}`)
       log(
-        `${issues.length ? '✗' : '✓'} ${name} — ${info.pages} page, ${info.width.toFixed(1)}×${info.height.toFixed(1)} pt, ${info.links} links, ${info.kb} KB`,
+        `${issues.length ? '✗' : '✓'} ${name} — ${info.pages} page${info.pages === 1 ? '' : 's'}, ${info.width.toFixed(1)}×${info.height.toFixed(1)} pt, ${info.links} links, ${info.kb} KB`,
       )
     }
   }

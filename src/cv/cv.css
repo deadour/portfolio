@@ -177,3 +177,18 @@
     background: #fff;
   }
 }
+
+/* Multi-page CV (variants with maxPages > 1): the page margins come from the PDF, not the box,
+   and no entry, bullet or heading is split from what follows it. */
+.cv.cv-flow {
+  height: auto;
+  padding: 0;
+  overflow: visible;
+}
+.cv-flow .cv-entry,
+.cv-flow li {
+  break-inside: avoid;
+}
+.cv-flow h2 {
+  break-after: avoid;
+}

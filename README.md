@@ -1,6 +1,6 @@
 # eduramirez.dev
 
-Personal portfolio and CV system of Eduardo M. Ramírez — a static site in English and Spanish, with light and dark themes, plus one-page A4 CVs generated from the same data.
+Personal portfolio and CV system of Eduardo M. Ramírez — a static site in English and Spanish, with light and dark themes, plus A4 CVs generated from the same data: a complete general one (up to 2 pages, linked from the site) and one-page variants for specific roles.
 
 ## Pages
 

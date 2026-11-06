@@ -53,10 +53,13 @@ export default function CvDocument({
 }) {
   const variant = cvVariants[profile]
   const l = LABELS[lang]
+  const detailed = variant.detailed ?? false
+  // Longer than one page: flows across A4 pages (see .cv-flow in cv.css).
+  const flow = (variant.maxPages ?? 1) > 1
   const year = (date: string) => date.slice(0, 4)
 
   return (
-    <article className="cv" lang={lang}>
+    <article className={flow ? 'cv cv-flow' : 'cv'} lang={lang}>
       <header className="cv-header">
         <div className="cv-identity">
           {embedded ? <p className="cv-name">{site.name}</p> : <h1 className="cv-name">{site.name}</h1>}
@@ -71,7 +74,8 @@ export default function CvDocument({
             <Link href={site.github} />
           </p>
         </div>
-        <img className="cv-photo" src={photo} alt={site.name} width={88} height={88} />
+        {/* No photo on the English CVs: US/UK hiring norms advise against it. */}
+        {lang === 'es' && <img className="cv-photo" src={photo} alt={site.name} width={88} height={88} />}
       </header>
 
       <section>
@@ -84,7 +88,7 @@ export default function CvDocument({
         {experience.map((job) => {
           const bullets = variant.experience.flatMap((id) => job.bullets.filter((b) => b.id === id))
           // One technology line per job, in the order the bullets mention them.
-          const stack = [...new Set(bullets.flatMap((b) => b.stack))].slice(0, 9)
+          const stack = [...new Set(bullets.flatMap((b) => b.stack))].slice(0, detailed ? 16 : 9)
           return (
             <div key={job.id} className="cv-entry">
               <div className="cv-row">
@@ -98,7 +102,7 @@ export default function CvDocument({
               </p>
               <ul>
                 {bullets.map((bullet) => (
-                  <li key={bullet.id}>{t(bullet.cvText ?? bullet.text, lang)}</li>
+                  <li key={bullet.id}>{t(detailed ? bullet.text : (bullet.cvText ?? bullet.text), lang)}</li>
                 ))}
               </ul>
               <p className="cv-stack">{stack.join(' · ')}</p>
@@ -118,6 +122,7 @@ export default function CvDocument({
                 <div className="cv-row">
                   <h3>
                     {t(project.title, lang)}
+                    {detailed && <span className="cv-kind"> — {t(project.kind, lang)}</span>}
                   </h3>
                   {link && (
                     <span className="cv-date">
@@ -146,6 +151,7 @@ export default function CvDocument({
             <p>
               {t(item.degree, lang)} · <span className="cv-date">{t(item.period, lang)}</span>
             </p>
+            {detailed && item.description && <p className="cv-meta">{t(item.description, lang)}</p>}
           </div>
         ))}
       </section>

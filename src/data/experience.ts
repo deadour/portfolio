@@ -59,8 +59,8 @@ export const experience: Experience[] = [
         },
         project: 'sales',
         text: {
-          en: 'Transformed BIAMAQ’s sales workflow with customer segmentation, product recommendations and commercial follow-up, integrating the ERP and DW with nightly retraining (about 40% offline hit@3 versus 20% for best sellers).',
-          es: 'Transformé el proceso comercial de BIAMAQ con segmentación de clientes, recomendaciones y seguimiento de oportunidades, integrando ERP y DW con reentrenamiento nocturno (hit@3 offline de ~40% frente a ~20% de lo más vendido).',
+          en: 'Transformed BIAMAQ’s sales workflow with customer segmentation, product recommendations and commercial follow-up, integrating the ERP and data warehouse with nightly retraining: its suggestions are right twice as often as suggesting best sellers (~40% vs ~20% in the top 3, offline).',
+          es: 'Transformé el proceso comercial de BIAMAQ con segmentación de clientes, recomendaciones y seguimiento de oportunidades, integrando ERP y data warehouse con reentrenamiento nocturno: sus sugerencias aciertan el doble que sugerir lo más vendido (~40% vs ~20% en el top 3, offline).',
         },
         stack: ['Python', 'Pandas', 'scikit-learn', 'Django REST Framework', 'React', 'TypeScript'],
       },
