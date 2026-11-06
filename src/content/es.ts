@@ -33,7 +33,7 @@ export const es: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'Desarrollo software y sistemas de datos para empresas: integraciones con ERP, reportes automáticos, sistemas a medida e IA aplicada. Desde 2023, a cargo de los sistemas de BIAMAQ.',
+      'Desarrollo software y sistemas de datos para empresas: integraciones con ERP, reportes automáticos, sistemas a medida e IA aplicada. Más de 3 años a cargo de los sistemas de BIAMAQ.',
     cta: 'Ver qué puedo aportar',
     downloadCv: 'Descargar CV',
   },
@@ -76,7 +76,7 @@ export const es: Content = {
         tag: 'Reportes y datos',
         title: 'Análisis de datos y gestión por área',
         text: 'Conecto los datos del ERP y desarrollo herramientas para consultar ventas por sucursal, seguir objetivos y comisiones, revisar deuda de clientes y planificar compras y reposición de stock. Cada área tiene sus propias consultas, indicadores e históricos.',
-        case: { project: 'reports', text: 'Desarrollé Reportes BIAMAQ para las 3 sucursales: ventas, compras, administración, cobranzas, stock, alquileres y service. Diseñé el data warehouse y los procesos de carga, con cálculos diarios de reposición, análisis de clientes y tableros para la gerencia.' },
+        case: { project: 'reports', text: 'Los datos se generaban todos los días en el ERP, que no traía reportes de gestión. Desarrollé Reportes BIAMAQ para las 3 sucursales: ventas, compras, administración, cobranzas, stock, alquileres y service. Diseñé el data warehouse y los procesos de carga, con cálculos diarios de reposición, análisis de clientes y tableros para la gerencia.' },
         also: ['lastfm'],
       },
       {

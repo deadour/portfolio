@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ProjectCard } from './Work'
+import SolutionIcon from './SolutionIcon'
 import { projects, projectById } from '../data/projects'
 import { projectText } from './view'
 import { useLang } from '../i18n'
@@ -24,21 +25,23 @@ export default function Solutions() {
 
       {/* Everything at a glance; each tile jumps to its block. */}
       <ol className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
-        {items.map((item, i) => (
+        {items.map((item) => (
           <li key={item.id}>
             <a
               href={`#solution-${item.id}`}
-              className="card flex h-full items-baseline gap-2 rounded-lg border border-line bg-surface px-3 py-3 text-sm font-medium text-fg sm:px-4"
+              className="card flex h-full items-center gap-2.5 rounded-lg border border-line bg-surface px-3 py-3 text-sm font-medium text-fg sm:px-4"
             >
-              <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, '0')}</span>
+              <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-accent">
+                <SolutionIcon name={item.id} />
+              </span>
               {item.tag}
             </a>
           </li>
         ))}
       </ol>
 
-      {items.map((item, i) => (
-        <Block key={item.id} item={item} index={i} onOpen={setOpen} />
+      {items.map((item) => (
+        <Block key={item.id} item={item} onOpen={setOpen} />
       ))}
 
       <ProjectDialog id={open} onClose={() => setOpen(null)} />
@@ -48,15 +51,16 @@ export default function Solutions() {
 
 // One block, read top to bottom: what I can solve, then the real case with its screens,
 // how I solved it in one sentence and a button to the full details.
-function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen: (id: ProjectId) => void }) {
+function Block({ item, onOpen }: { item: Solution; onOpen: (id: ProjectId) => void }) {
   const { lang, c } = useLang()
   const ref = useReveal<HTMLElement>()
   const caseText = projectText(projectById[item.case.project], lang, c)
 
   return (
     <article ref={ref} id={`solution-${item.id}`} className="reveal mt-10 scroll-mt-28 sm:mt-24 sm:scroll-mt-24">
-      <p className="font-mono text-sm text-accent">
-        {String(index + 1).padStart(2, '0')} · {item.tag}
+      <p className="flex items-center gap-2 text-sm font-medium text-accent">
+        <SolutionIcon name={item.id} className="size-5" />
+        {item.tag}
       </p>
       <h3 className="mt-3 max-w-2xl text-2xl leading-tight font-semibold tracking-tight text-fg sm:text-[2.75rem] sm:leading-[1.1]">
         {item.title}

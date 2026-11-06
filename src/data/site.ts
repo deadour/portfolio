@@ -15,7 +15,7 @@ export const site = {
   headline: { en: 'Software & Data Engineer', es: 'Software & Data Engineer' } satisfies L,
   // Who I am in two sentences: the first thing a visitor reads.
   summary: {
-    en: 'I build backend systems, data pipelines and internal software used in real business operations. Since 2023 I’ve been in charge of the systems of BIAMAQ, an industrial machinery company with 3 branches in Argentina.',
-    es: 'Desarrollo sistemas backend, pipelines de datos y software interno que se usa en la operación real de empresas. Desde 2023 estoy a cargo de los sistemas de BIAMAQ, una empresa de maquinaria industrial con 3 sucursales en Argentina.',
+    en: 'I build backend systems, data pipelines and internal software used in real business operations. For 3+ years I’ve been in charge of the systems of BIAMAQ, an industrial machinery company with 3 branches in Argentina.',
+    es: 'Desarrollo sistemas backend, pipelines de datos y software interno que se usa en la operación real de empresas. Hace más de 3 años estoy a cargo de los sistemas de BIAMAQ, una empresa de maquinaria industrial con 3 sucursales en Argentina.',
   } satisfies L,
 }

@@ -33,7 +33,7 @@ export const en: Content = {
   hero: {
     title: 'Software & Data Engineer',
     tagline:
-      'I build software and data systems for companies: ERP integrations, automated reporting, custom business software and applied AI. In charge of BIAMAQ’s systems since 2023.',
+      'I build software and data systems for companies: ERP integrations, automated reporting, custom business software and applied AI. 3+ years in charge of BIAMAQ’s systems.',
     cta: 'See how I can help',
     downloadCv: 'Download CV',
   },
@@ -76,7 +76,7 @@ export const en: Content = {
         tag: 'Reporting & data',
         title: 'Data analysis and tools for each department',
         text: 'I connect ERP data and build tools to review branch sales, track targets and commissions, check customer debt and plan purchasing and stock replenishment. Each department gets its own queries, metrics and historical views.',
-        case: { project: 'reports', text: 'Built BIAMAQ Reports for its 3 branches, covering sales, purchasing, administration, collections, inventory, rentals and service. I designed the data warehouse and ingestion processes, with daily replenishment calculations, customer analysis and management dashboards.' },
+        case: { project: 'reports', text: 'The data was generated every day in the ERP, which had no management reporting. I built BIAMAQ Reports for its 3 branches, covering sales, purchasing, administration, collections, inventory, rentals and service. I designed the data warehouse and ingestion processes, with daily replenishment calculations, customer analysis and management dashboards.' },
         also: ['lastfm'],
       },
       {

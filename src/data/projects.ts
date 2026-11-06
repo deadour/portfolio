@@ -17,8 +17,8 @@ export const projects: Project[] = [
     },
     caseStudy: {
       problem: {
-        en: 'Management needed one place to follow sales, purchases, receivables, customers and workshop activity across 3 branches. The data lived in the company’s SQL Server ERP.',
-        es: 'La dirección necesitaba un solo lugar para seguir ventas, compras, cobranzas, clientes y la actividad del taller de las 3 sucursales. Los datos estaban en el ERP de la empresa, en SQL Server.',
+        en: 'Management needed one place to follow sales, purchases, receivables, customers and workshop activity across 3 branches. The data was generated every day in the company’s ERP (SQL Server), which had no management reporting of its own.',
+        es: 'La dirección necesitaba un solo lugar para seguir ventas, compras, cobranzas, clientes y la actividad del taller de las 3 sucursales. Los datos se generaban todos los días en el ERP de la empresa (SQL Server), que no traía reportes de gestión.',
       },
       solution: {
         en: 'Scheduled Python extractors load the ERP into a data warehouse. A Django REST API and a React frontend serve the analyses: sales dashboard, purchases vs sales, 80/20 customers, receivables aging and workshop stock.',
