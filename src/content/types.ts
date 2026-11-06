@@ -66,6 +66,7 @@ export type Content = {
   ui: {
     skip: string
     nav: { work: string; services: string; experience: string; contact: string }
+    backToTop: string
     language: string
     themeToDark: string
     themeToLight: string
@@ -90,8 +91,8 @@ export type Content = {
     status: Record<ProjectStatus, string>
   }
   hero: { title: string; tagline: string; cta: string; downloadCv: string }
-  // What I'm working on right now. `date` is written by hand, so it never claims to be newer than the text.
-  now: { label: string; date: string; text: string }
+  // What I'm working on right now. The month/year is rendered from the current date.
+  now: { label: string; text: string }
   sections: {
     about: string
     work: string
@@ -121,5 +122,13 @@ export type Content = {
     // Subject line of the email the CTA opens.
     emailSubject: string
   }
-  contact: { title: string; intro: string }
+  contact: {
+    title: string
+    intro: string
+    nameLabel: string
+    emailLabel: string
+    messageLabel: string
+    submit: string
+    formNote: string
+  }
 }

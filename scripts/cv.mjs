@@ -54,7 +54,7 @@ try {
   const photo = `data:image/webp;base64,${(await readFile(path.join(root, 'public', 'images', 'portrait.webp'))).toString('base64')}`
   const css = (await readFile(path.join(root, 'src', 'cv', 'cv.css'), 'utf8')) + '\n' + (await fontFaces())
 
-  browser = await chromium.launch()
+  browser = await chromium.launch(process.env.CV_BROWSER_CHANNEL ? { channel: process.env.CV_BROWSER_CHANNEL } : {})
   const page = await browser.newPage()
   await mkdir(path.join(root, 'public', 'cv'), { recursive: true })
 

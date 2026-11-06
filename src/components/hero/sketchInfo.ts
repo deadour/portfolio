@@ -3,11 +3,12 @@ import { MAP, PORTRAITS, SKETCHES } from './sketchAssets'
 
 // Tooltips only for sketches that need a name (obvious ones like mountains or a football get none).
 // A few music sketches also open a song on YouTube.
-type Info = { en?: string; es?: string; song?: { title: string; artist: string; url: string } }
+type Info = { en?: string; es?: string; href?: string; song?: { title: string; artist: string; url: string } }
 
 const yt = (id: string) => `https://www.youtube.com/watch?v=${id}`
 
 const INFO: Partial<Record<keyof typeof SKETCHES | keyof typeof PORTRAITS | 'map', Info>> = {
+  puenteGeneralBelgrano: { en: 'Puente General Belgrano', es: 'Puente General Belgrano', href: 'https://resis-cultural.vercel.app/' },
   eiffel: { en: 'Eiffel Tower, Paris', es: 'Torre Eiffel, París' },
   colosseum: { en: 'Colosseum, Rome', es: 'Coliseo, Roma' },
   helmet: {
@@ -66,7 +67,7 @@ export function sketchLabel(src: string, lang: Lang): { title: string; href?: st
   const info = BY_SRC.get(src)
   if (!info) return { title: '' }
   const name = info[lang] ?? ''
-  if (!info.song) return { title: name }
+  if (!info.song) return { title: name, href: info.href }
   const listen = lang === 'es' ? 'Escuchar' : 'Listen to'
   const song = `▶ ${listen} “${info.song.title}” (${info.song.artist})`
   return { title: name ? `${name} · ${song}` : song, href: info.song.url }

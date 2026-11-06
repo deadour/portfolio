@@ -104,6 +104,52 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
+/* The footer closes the page with the same two transparent sketches, after the contact links. */
+.footer-shell {
+  background: transparent;
+  color: var(--muted);
+}
+.footer-shell .footer-line {
+  border-color: var(--line);
+}
+.footer-shell .footer-link {
+  color: var(--fg);
+  transition: color 120ms, border-color 120ms, opacity 120ms;
+}
+.footer-shell .footer-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.footer-sketches {
+  overflow: hidden;
+}
+.footer-sketch {
+  position: absolute;
+  bottom: -2.5rem;
+  opacity: 0.44;
+  pointer-events: none;
+}
+.footer-sketch .hero-sketch {
+  filter: brightness(0);
+}
+.footer-sketch-cliffs {
+  left: 50%;
+  width: min(28rem, 85%);
+  transform: translateX(-50%);
+}
+:root[data-theme='dark'] .footer-sketch .hero-sketch {
+  filter: none;
+}
+@media (max-width: 639px) {
+  .footer-sketch {
+    bottom: -1.5rem;
+    opacity: 0.38;
+  }
+  .footer-sketch-cliffs {
+    width: 85%;
+  }
+}
+
 .wordmark {
   position: relative;
   display: inline-block;
@@ -259,6 +305,16 @@
 
 /* ---------- Pipeline diagram ---------- */
 
+.architecture { min-width: 0; container-type: inline-size; }
+.architecture-steps { display: grid; grid-template-columns: minmax(0, 1fr); gap: .65rem; }
+.architecture-step { min-width: 0; padding: .85rem; border: 1px solid var(--line); border-radius: .5rem; background: var(--bg); overflow-wrap: anywhere; }
+@container (min-width: 22rem) {
+  .architecture-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container (min-width: 30rem) {
+  .architecture-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 @media (min-width: 40rem) {
   .pipeline {
     grid-template-columns: var(--pipeline-cols);
@@ -278,6 +334,14 @@
   width: 2px;
   height: 100%;
   background: repeating-linear-gradient(180deg, var(--dash) 0 4px, transparent 4px 8px);
+}
+
+.workflow-scroll { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+@keyframes workflow-right { to { background-position: 16px 0; } }
+@keyframes workflow-up { to { background-position: 0 -16px; } }
+@media (prefers-reduced-motion: no-preference) {
+  .flow-h { animation: workflow-right 1.4s linear infinite; }
+  .flow-v { animation: workflow-up 1.4s linear infinite; }
 }
 
 /* ---------- Tech logos ---------- */

@@ -13,6 +13,17 @@ const iconLink = 'grid size-[38px] place-items-center rounded-md border border-l
 // Staggered entrance order for each block (see .enter in index.css).
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
+function currentMonth(lang: 'en' | 'es') {
+  const parts = new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' : 'en-US', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'America/Argentina/Buenos_Aires',
+  }).formatToParts(new Date())
+  const month = parts.find((part) => part.type === 'month')?.value ?? ''
+  const year = parts.find((part) => part.type === 'year')?.value ?? ''
+  return `${lang === 'es' ? month.charAt(0).toUpperCase() + month.slice(1) : month} ${year}`
+}
+
 export default function Hero() {
   const { lang, c } = useLang()
 
@@ -60,14 +71,14 @@ export default function Hero() {
         <span className="now-dot mt-1.5 shrink-0" aria-hidden="true" />
         <span>
           <span className="font-medium text-fg">{c.now.label}</span>
-          <span className="text-muted"> · {c.now.date} — </span>
+          <span className="text-muted"> · {currentMonth(lang)} — </span>
           {c.now.text}
         </span>
       </p>
 
       <div style={step(5)} className="enter mt-10 flex flex-wrap gap-3">
         <a
-          href={lang === 'es' ? '#solutions' : '#work'}
+          href="#solutions"
           className="group inline-flex items-center gap-1.5 rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
         >
           {c.hero.cta}

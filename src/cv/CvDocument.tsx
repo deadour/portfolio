@@ -98,7 +98,7 @@ export default function CvDocument({
               </p>
               <ul>
                 {bullets.map((bullet) => (
-                  <li key={bullet.id}>{t(bullet.text, lang)}</li>
+                  <li key={bullet.id}>{t(bullet.cvText ?? bullet.text, lang)}</li>
                 ))}
               </ul>
               <p className="cv-stack">{stack.join(' · ')}</p>
@@ -117,7 +117,7 @@ export default function CvDocument({
               <div key={id} className="cv-entry cv-project">
                 <div className="cv-row">
                   <h3>
-                    {t(project.title, lang)} <span className="cv-kind">— {t(project.kind, lang)}</span>
+                    {t(project.title, lang)}
                   </h3>
                   {link && (
                     <span className="cv-date">

@@ -43,6 +43,7 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
   const text = projectText(project, lang, c)
   const openLightbox = useLightbox()
   const wide = project.gallery === 'wide'
+  const pairedScreens = project.id === 'resisCultural'
   const count = text.images?.length ?? 0
   // Phone screens: up to 4 per row. Wide screens: up to 2. A single image takes the full width.
   const cols = GRID_COLS[Math.min(count, wide ? 2 : 4)]
@@ -131,6 +132,12 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
       </div>
       <p className="mt-1 text-sm text-accent">{text.kind}</p>
       <p className={`mt-4 leading-relaxed ${detailed ? '' : 'text-sm'}`}>{text.summary}</p>
+      {project.credit && (
+        <aside className="mt-4 border-l-2 border-accent pl-4 text-sm leading-relaxed">
+          <p className="mb-1 font-medium text-fg">{lang === 'es' ? 'Fuente de la agenda' : 'Agenda source'}</p>
+          <p>{withLinks(project.credit[lang])}</p>
+        </aside>
+      )}
       {detailed && caseStudy}
 
       {text.pipeline && <Pipeline data={text.pipeline} />}
@@ -204,10 +211,10 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
       {!compact && text.images && text.images.length > 0 && (
         // Swipeable strip on mobile, grid on desktop.
         <div
-          className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${cols}`}
+          className={`-mx-5 mt-5 flex snap-x gap-3 overflow-x-auto px-5 pb-1 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 ${pairedScreens ? 'items-start sm:grid-cols-[minmax(0,1fr)_minmax(0,0.289fr)]' : cols}`}
         >
           {text.images.map((image, i) => (
-            <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${itemWidth}`}>
+            <figure key={image.src} className={`shrink-0 snap-start sm:w-auto ${pairedScreens ? 'w-auto min-w-0' : itemWidth}`}>
               <a
                 href={image.href ?? image.src}
                 target="_blank"
@@ -223,9 +230,9 @@ export function ProjectCard({ project, detailed = false }: { project: Project; d
                 <img
                   src={image.src}
                   alt={image.alt}
-                  {...size}
+                  {...(pairedScreens ? (i === 0 ? { width: 1440, height: 900 } : { width: 390, height: 844 }) : size)}
                   loading="lazy"
-                  className={`h-auto w-full ${crop} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
+                  className={`${pairedScreens ? 'h-48 w-auto max-w-none sm:h-auto sm:w-full' : `h-auto w-full ${crop}`} transition-transform duration-300 hover:scale-[1.015] motion-reduce:transition-none motion-reduce:hover:scale-100`}
                 />
               </a>
               {image.caption && (
@@ -291,6 +298,8 @@ function Group({ group, label, compactLabel }: { group: Project['group']; label:
   const items = projects.filter((p) => p.group === group)
   const full = items.filter((p) => p.tier !== 'secondary')
   const compact = items.filter((p) => p.tier === 'secondary')
+  const personalCompact = compact.filter((p) => p.status !== 'academic')
+  const academic = compact.filter((p) => p.status === 'academic')
   return (
     <>
       <GroupLabel>{label}</GroupLabel>
@@ -299,7 +308,12 @@ function Group({ group, label, compactLabel }: { group: Project['group']; label:
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-      {compact.length > 0 && (
+      {personalCompact.length > 0 && (
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {personalCompact.map((project) => <ProjectCard key={project.id} project={project} />)}
+        </div>
+      )}
+      {academic.length > 0 && (
         <>
           {compactLabel ? (
             <p className="mt-8 mb-4 text-sm font-medium text-muted">{compactLabel}</p>
@@ -307,7 +321,7 @@ function Group({ group, label, compactLabel }: { group: Project['group']; label:
             <div className="mt-4" />
           )}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {compact.map((project) => (
+            {academic.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>

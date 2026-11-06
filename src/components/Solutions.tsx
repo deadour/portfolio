@@ -11,6 +11,8 @@ import type { ProjectId, Solution } from '../content/types'
 export default function Solutions() {
   const { c } = useLang()
   const s = c.solutions
+  const order = ['software', 'ai', 'reporting', 'ecommerce']
+  const items = [...s.items].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
   const [open, setOpen] = useState<ProjectId | null>(null)
 
   return (
@@ -22,7 +24,7 @@ export default function Solutions() {
 
       {/* Everything at a glance; each tile jumps to its block. */}
       <ol className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
-        {s.items.map((item, i) => (
+        {items.map((item, i) => (
           <li key={item.id}>
             <a
               href={`#solution-${item.id}`}
@@ -35,7 +37,7 @@ export default function Solutions() {
         ))}
       </ol>
 
-      {s.items.map((item, i) => (
+      {items.map((item, i) => (
         <Block key={item.id} item={item} index={i} onOpen={setOpen} />
       ))}
 
@@ -52,17 +54,17 @@ function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen:
   const caseText = projectText(projectById[item.case.project], lang, c)
 
   return (
-    <article ref={ref} id={`solution-${item.id}`} className="reveal mt-16 scroll-mt-28 sm:mt-24 sm:scroll-mt-24">
+    <article ref={ref} id={`solution-${item.id}`} className="reveal mt-10 scroll-mt-28 sm:mt-24 sm:scroll-mt-24">
       <p className="font-mono text-sm text-accent">
         {String(index + 1).padStart(2, '0')} · {item.tag}
       </p>
-      <h3 className="mt-3 max-w-2xl text-3xl leading-[1.1] font-semibold tracking-tight text-fg sm:text-[2.75rem]">
+      <h3 className="mt-3 max-w-2xl text-2xl leading-tight font-semibold tracking-tight text-fg sm:text-[2.75rem] sm:leading-[1.1]">
         {item.title}
       </h3>
-      <p className="mt-4 max-w-xl text-lg leading-relaxed">{item.text}</p>
+      <p className="mt-3 max-w-xl text-base leading-relaxed sm:mt-4 sm:text-lg">{item.text}</p>
 
       {/* The real case comes last: screens, one sentence, details. */}
-      <figure className="mt-8 overflow-hidden rounded-xl border border-line bg-surface shadow-[0_16px_40px_-24px_color-mix(in_srgb,var(--fg)_35%,transparent)]">
+      <figure className="mt-5 overflow-hidden rounded-xl border border-line bg-surface shadow-[0_16px_40px_-24px_color-mix(in_srgb,var(--fg)_35%,transparent)] sm:mt-8">
         <p className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-line px-4 py-3 text-xs font-medium tracking-wide text-accent uppercase sm:px-5">
           {c.solutions.caseLabel} · {caseText.title}
           {caseText.status && (
@@ -73,7 +75,7 @@ function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen:
         </p>
         <Gallery project={item.case.project} onOpen={onOpen} />
         <figcaption className="border-t border-line px-4 py-4 sm:px-5">
-          <p className="text-lg leading-relaxed text-fg">{item.case.text}</p>
+          <p className="text-base leading-relaxed text-fg sm:text-lg">{item.case.text}</p>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3">
             <button
               type="button"
@@ -138,7 +140,7 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (!visible || stopped || reduced || images.length < 2) return
+    if (!visible || stopped || reduced || window.matchMedia('(pointer: coarse)').matches || images.length < 2) return
     const timer = window.setInterval(() => goTo(index + 1), 3500)
     return () => window.clearInterval(timer)
   })
@@ -179,7 +181,7 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
             type="button"
             onClick={() => goTo(index - 1)}
             aria-label={c.ui.lightbox.previous}
-            className="grid size-8 place-items-center rounded-full text-lg text-muted hover:text-fg"
+            className="grid size-11 place-items-center rounded-full text-lg text-muted hover:text-fg"
           >
             ‹
           </button>
@@ -191,7 +193,7 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
                 onClick={() => goTo(i)}
                 aria-label={`${i + 1} / ${images.length}`}
                 aria-current={i === index ? 'true' : undefined}
-                className="grid h-6 place-items-center"
+                className="grid h-11 min-w-6 place-items-center"
               >
                 <span className={`block h-1.5 rounded-full transition-all ${i === index ? 'w-4 bg-accent' : 'w-1.5 bg-line'}`} />
               </button>
@@ -201,7 +203,7 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
             type="button"
             onClick={() => goTo(index + 1)}
             aria-label={c.ui.lightbox.next}
-            className="grid size-8 place-items-center rounded-full text-lg text-muted hover:text-fg"
+            className="grid size-11 place-items-center rounded-full text-lg text-muted hover:text-fg"
           >
             ›
           </button>

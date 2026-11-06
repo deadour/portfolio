@@ -8,6 +8,7 @@ import { shuffleSketches } from './hero/pageSlots'
 
 // Icon buttons and language links share a 36px hit area, comfortable on touch screens.
 const iconButton = 'grid size-9 place-items-center rounded-md text-muted hover:text-fg'
+const NAV_SECTION_IDS = ['solutions', 'work', 'experience', 'contact'] as const
 
 function ThemeToggle() {
   const { c } = useLang()
@@ -69,18 +70,32 @@ function ShuffleButton() {
 export default function Header() {
   const { lang, setLang, c } = useLang()
   const nav = [
-    { label: c.ui.nav.services, href: '#solutions' },
-    { label: c.ui.nav.work, href: '#work' },
-    { label: c.ui.nav.experience, href: '#experience' },
-    { label: c.ui.nav.contact, href: '#contact' },
+    { id: 'solutions', label: c.ui.nav.services, href: '#solutions' },
+    { id: 'work', label: c.ui.nav.work, href: '#work' },
+    { id: 'experience', label: c.ui.nav.experience, href: '#experience' },
+    { id: 'contact', label: c.ui.nav.contact, href: '#contact' },
   ]
   // The header stays pinned; its soft backdrop only appears once the page has scrolled.
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const sections = NAV_SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8)
+      const marker = window.scrollY + 150
+      let current = ''
+      for (const section of sections) {
+        if (section.offsetTop <= marker) current = section.id
+      }
+      setActiveSection(current)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   return (
@@ -93,10 +108,14 @@ export default function Header() {
       </a>
       {/* On phones the links take a full row under the logo and controls. */}
       <nav aria-label="Main" className="order-last -mx-1 w-full sm:order-none sm:mx-0 sm:ml-auto sm:w-auto">
-        <ul className="flex gap-1 overflow-x-auto text-sm text-muted sm:gap-6">
+        <ul className="flex justify-between gap-1 overflow-x-auto pb-1 text-sm text-muted sm:justify-start sm:gap-6 sm:overflow-visible sm:pb-0">
           {nav.map((item) => (
             <li key={item.href} className="shrink-0">
-              <a href={item.href} className="block rounded-md px-1 py-2 hover:text-fg sm:p-0">
+              <a
+                href={item.href}
+                aria-current={activeSection === item.id ? 'location' : undefined}
+                className={`relative flex min-h-11 items-center rounded-md px-1 py-2 hover:text-fg sm:block sm:min-h-0 sm:p-0 ${activeSection === item.id ? 'text-fg after:absolute after:right-1 after:bottom-1 after:left-1 after:h-px after:bg-accent sm:after:right-0 sm:after:bottom-[-0.65rem] sm:after:left-0' : ''}`}
+              >
                 {item.label}
               </a>
             </li>

@@ -37,6 +37,14 @@ function layout(layer: HTMLElement, spots: PageSpot[]): Placed[] {
       x = spot.side === 'left' ? -w * 0.45 : W - w * 0.55
       opacity = 0.09
     }
+    // Give selected landmarks more presence while keeping them in the side margin.
+    const prominence = spot.prominence ?? 1
+    if (prominence > 1) {
+      const center = x + w / 2
+      w *= prominence
+      x = center - w / 2
+      opacity *= prominence
+    }
     const h = (w * asset.h) / asset.w
     out.push({
       src: asset.src,

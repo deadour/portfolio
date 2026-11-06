@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Section from './Section'
 import { site } from '../data/site'
 import { cvPath } from '../data/cv'
@@ -40,11 +40,63 @@ export default function Contact() {
     timer.current = window.setTimeout(() => setCopied(false), 1800)
   }
 
+  function submitInquiry(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const form = new FormData(event.currentTarget)
+    const name = String(form.get('name') ?? '').trim()
+    const email = String(form.get('email') ?? '').trim()
+    const message = String(form.get('message') ?? '').trim()
+    const subject = `${c.services.emailSubject} · ${name}`
+    const body = `${c.contact.nameLabel}: ${name}\n${c.contact.emailLabel}: ${email}\n\n${message}`
+    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  }
+
   return (
     <Section id="contact" title={c.sections.contact}>
       <div className="pt-2 pb-8 sm:pb-12">
         <p className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">{c.contact.title}</p>
         <p className="mt-4 max-w-xl leading-relaxed">{c.contact.intro}</p>
+
+        <form onSubmit={submitInquiry} className="mt-8 grid max-w-2xl gap-5">
+          <div className="grid gap-5 sm:grid-cols-2">
+            <label className="grid gap-2 text-sm font-medium text-fg">
+              {c.contact.nameLabel}
+              <input
+                name="name"
+                type="text"
+                required
+                autoComplete="name"
+                className="min-h-11 rounded-md border border-line bg-surface px-3 text-base font-normal text-fg placeholder:text-muted focus:border-accent focus:outline-none"
+              />
+            </label>
+            <label className="grid gap-2 text-sm font-medium text-fg">
+              {c.contact.emailLabel}
+              <input
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                className="min-h-11 rounded-md border border-line bg-surface px-3 text-base font-normal text-fg placeholder:text-muted focus:border-accent focus:outline-none"
+              />
+            </label>
+          </div>
+          <label className="grid gap-2 text-sm font-medium text-fg">
+            {c.contact.messageLabel}
+            <textarea
+              name="message"
+              required
+              rows={5}
+              className="resize-y rounded-md border border-line bg-surface px-3 py-2 text-base font-normal leading-relaxed text-fg placeholder:text-muted focus:border-accent focus:outline-none"
+            />
+          </label>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+            <button type="submit" className="inline-flex items-center gap-2 rounded-md bg-fg px-4 py-2.5 text-sm font-medium text-bg hover:opacity-85">
+              {c.contact.submit}
+              <span aria-hidden="true">→</span>
+            </button>
+            <p className="text-xs text-muted">{c.contact.formNote}</p>
+          </div>
+        </form>
 
         {site.email && (
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">

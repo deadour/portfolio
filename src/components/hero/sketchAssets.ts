@@ -3,6 +3,7 @@
 // `dense` drawings (second sheet) have heavier hatching, so they're shown a little fainter.
 
 import airplane from '../../assets/hero-sketches/airplane.webp'
+import puenteGeneralBelgrano from '../../assets/hero-sketches/puente-general-belgrano.webp'
 import argentina from '../../assets/hero-sketches/argentina.webp'
 import astronaut from '../../assets/hero-sketches/astronaut.webp'
 import clapperboard from '../../assets/hero-sketches/clapperboard.webp'
@@ -64,6 +65,7 @@ export type Asset = { src: string; w: number; h: number; size: number; dense?: b
 export const MAP: Asset = { src: argentina, w: 226, h: 245, size: 12.5 }
 
 export const SKETCHES = {
+  puenteGeneralBelgrano: { src: puenteGeneralBelgrano, w: 1448, h: 1086, size: 13 },
   eiffel: { src: eiffel, w: 200, h: 282, size: 6 },
   colosseum: { src: colosseum, w: 267, h: 245, size: 8 },
   helmet: { src: helmet, w: 209, h: 247, size: 5.5 },

@@ -16,6 +16,7 @@ export type ProjectId =
   | 'rentalia'
   | 'sales'
   | 'lastfm'
+  | 'resisCultural'
   | 'ecommerce'
   | 'casaPalma'
   | 'chedul'
@@ -28,7 +29,7 @@ export type LinkKind = 'repository' | 'backend' | 'frontend' | 'walkthrough' | '
 // Where a project stands today. Labels live in src/content/ (ui.status).
 // internal: running in production inside the company · development: not finished yet
 // live: deployed and public · repository: public code, runs locally · academic: finished university project
-export type ProjectStatus = 'internal' | 'development' | 'live' | 'repository' | 'academic'
+export type ProjectStatus = 'internal' | 'completed' | 'development' | 'live' | 'repository' | 'academic'
 
 // `href` optionally points to a larger version opened on click.
 export type Figure = { src: string; alt: L; href?: string }
@@ -38,6 +39,7 @@ export type Pipeline = {
   steps: { name: Text; detail: L }[]
   // Side input that feeds one of the steps (by index).
   branch?: { name: Text; detail: L; target: number }
+  branches?: { name: Text; detail: L; target: number }[]
   caption: L
 }
 
@@ -54,6 +56,7 @@ export type Project = {
   tier?: 'featured' | 'secondary'
   status: ProjectStatus
   summary: L
+  credit?: L
   caseStudy?: CaseStudy
   // Technical details. Each item may contain [text](https://…) links.
   highlights: L[]
@@ -72,7 +75,7 @@ export type Project = {
   cv?: L
 }
 
-export type BulletId = 'reports' | 'rentalia' | 'sales' | 'etl' | 'infra'
+export type BulletId = 'reports' | 'rentalia' | 'sales' | 'automation' | 'etl' | 'infra' | 'service'
 
 export type Experience = {
   id: string
@@ -89,7 +92,7 @@ export type Experience = {
   end?: YearMonth
   description: L
   // Shown on the portfolio in this order; each CV variant picks and reorders them by id.
-  bullets: { id: BulletId; text: L; project?: ProjectId; stack: string[] }[]
+  bullets: { id: BulletId; text: L; cvText?: L; cvOnly?: boolean; project?: ProjectId; stack: string[] }[]
 }
 
 export type Education = {

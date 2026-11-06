@@ -39,20 +39,10 @@ export default function App() {
       <Header />
       <main id="main">
         <Hero />
-        {/* Spanish leads with what I can solve for a company (local businesses); English with my work (recruiters). */}
-        {lang === 'es' ? (
-          <>
-            <Solutions />
-            <Work />
-            <Process />
-          </>
-        ) : (
-          <>
-            <Work />
-            <Solutions />
-            <Process />
-          </>
-        )}
+        {/* Lead with the business value in both languages, then prove it with selected projects. */}
+        <Solutions />
+        <Work />
+        <Process />
         <About />
         <Timeline id="experience" title={c.sections.experience} entries={experienceEntries(lang)} />
         <Timeline id="education" title={c.sections.education} entries={educationEntries(lang)}>

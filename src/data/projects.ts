@@ -12,8 +12,8 @@ export const projects: Project[] = [
     logo: { src: '/images/logo-biamaq.webp' },
     gallery: 'wide',
     summary: {
-      en: 'Internal platform where BIAMAQ’s management follows sales, purchases, receivables, customers and the workshop across its 3 branches, with data that updates itself from the ERP every day.',
-      es: 'Plataforma interna donde la dirección de BIAMAQ sigue ventas, compras, cobranzas, clientes y el taller de sus 3 sucursales, con datos que se actualizan solos desde el ERP todos los días.',
+      en: 'An internal platform spanning the whole company and its 3 branches. Sales, purchasing, administration, collections, inventory, rentals and service each have their own data and workflows, while management gets a shared view of the business.',
+      es: 'Plataforma interna que abarca toda la empresa y sus 3 sucursales. Ventas, compras, administración, cobranzas, stock, alquileres y service tienen sus propios datos y circuitos de trabajo, mientras la dirección dispone de una visión compartida del negocio.',
     },
     caseStudy: {
       problem: {
@@ -29,14 +29,14 @@ export const projects: Project[] = [
         es: 'Lo diseñé y desarrollé de punta a punta (extractores, data warehouse, API, frontend y despliegue) y lo mantengo.',
       },
       outcome: {
-        en: 'Used by management in day-to-day operations.',
-        es: 'La dirección lo usa en la operación diaria.',
+        en: 'Used by management in day-to-day operations; daily stock intelligence turns replenishment rules and reorder points into a repeatable process instead of spreadsheet review.',
+        es: 'La dirección lo usa en la operación diaria; el stock inteligente calcula cada día reglas de reabastecimiento y puntos de pedido en vez de depender de una revisión manual en planillas.',
       },
     },
     highlights: [
       {
-        en: 'Django REST Framework API over SQL Server (ERP + data warehouse), with a React frontend.',
-        es: 'API en Django REST Framework sobre SQL Server (ERP + data warehouse), con frontend en React.',
+        en: 'Modules by business area: sales targets and commissions; purchasing, suppliers and payment orders; customers, collections and accounts; stock, rentals, contracts and service. Excel/PDF exports and Google Sheets/Drive integrations connect daily work.',
+        es: 'Módulos por área: ventas, objetivos y comisiones; compras, proveedores y órdenes de pago; clientes, cobranzas y cuenta corriente; stock, alquileres, contratos y service. Exportaciones Excel/PDF e integraciones con Google Sheets/Drive conectan el trabajo diario.',
       },
       {
         en: 'Python and Pandas extractors, scheduled with Celery and Redis: daily loads, monthly receivables snapshots and customer classification.',
@@ -47,10 +47,33 @@ export const projects: Project[] = [
         es: 'Incluye tablero gerencial de ventas, histórico de compras vs ventas, análisis 80/20 de clientes con retención, antigüedad de deuda y stock del taller.',
       },
       {
+        en: 'Daily stock intelligence combines current stock, sales history and reorder rules to support replenishment and seller-order decisions.',
+        es: 'El stock inteligente combina stock actual, historial de ventas y reglas de punto de pedido para apoyar el reabastecimiento y las decisiones sobre pedidos de vendedores.',
+      },
+      {
         en: 'CI/CD with GitHub Actions: Docker images published to Docker Hub and deployed on a self-hosted runner.',
         es: 'CI/CD con GitHub Actions: imágenes Docker publicadas en Docker Hub y desplegadas en un runner self-hosted.',
       },
     ],
+    pipeline: {
+      steps: [
+        { name: { en: 'SQL Server ERP', es: 'ERP SQL Server' }, detail: { en: 'transactional DB', es: 'BD transaccional' } },
+        { name: { en: 'Python ETL', es: 'ETL en Python' }, detail: { en: 'extract · transform · load', es: 'extraer · transformar · cargar' } },
+        { name: { en: 'Data warehouse', es: 'Data warehouse' }, detail: { en: 'modeled data', es: 'datos modelados' } },
+        { name: { en: 'Calculations', es: 'Cálculos' }, detail: { en: 'KPIs · snapshots · stock', es: 'KPIs · snapshots · stock' } },
+        { name: { en: 'Django REST', es: 'Django REST' }, detail: { en: 'backend API', es: 'API backend' } },
+        { name: 'React', detail: { en: 'dashboards and workflows by area', es: 'tableros y gestión por área' } },
+      ],
+      branch: {
+        name: { en: 'Redis + Celery', es: 'Redis + Celery' },
+        detail: { en: 'daily jobs and snapshots', es: 'tareas diarias y snapshots' },
+        target: 1,
+      },
+      caption: {
+        en: 'Analytical data flow. The API also queries operational SQL Server data directly. The warehouse supports historical analysis, KPIs and daily stock calculations; each area consumes the information it needs.',
+        es: 'Recorrido analítico de los datos. La API también consulta directamente la base operativa en SQL Server. El warehouse permite analizar históricos, KPIs y cálculos diarios de stock; cada área consume la información que necesita.',
+      },
+    },
     images: [
       {
         src: '/images/reports-sales-thumb.webp',
@@ -116,8 +139,8 @@ export const projects: Project[] = [
         es: 'Lideré su reingeniería y desarrollo: arquitectura, backend, frontend, integración con el ERP y despliegue.',
       },
       outcome: {
-        en: 'In use in BIAMAQ’s rental operations. The standalone mode lets rental businesses of other products and equipment use it without BIAMAQ’s ERP.',
-        es: 'En uso en la operación de alquileres de BIAMAQ. El modo independiente permite que negocios de alquiler de otros productos y equipos lo usen sin el ERP de BIAMAQ.',
+        en: 'In use in BIAMAQ’s rental operations. The contract flow moved from paper to professional PDF signatures on a tablet; the standalone mode also lets other rental businesses use it without BIAMAQ’s ERP.',
+        es: 'En uso en la operación de alquileres de BIAMAQ. El flujo de contratos pasó del papel a firmas profesionales en PDF desde una tableta; el modo independiente también permite usarlo sin el ERP de BIAMAQ.',
       },
     },
     highlights: [
@@ -138,21 +161,37 @@ export const projects: Project[] = [
         es: 'Frontend en React 19 con Tailwind, Recharts y Framer Motion; tests end-to-end con Playwright; Docker y CI con deploy automático, migraciones y smoke tests.',
       },
     ],
-    images: [
-      {
-        src: '/images/rentos-new-rental-thumb.webp',
-        href: '/images/rentos-new-rental.webp',
-        alt: {
-          en: 'Rental wizard, step 2: equipment catalog with the price per day',
-          es: 'Asistente de alquiler, paso 2: catálogo de equipos con precio por día',
-        },
+    pipeline: {
+      steps: [
+        { name: 'React + Vite', detail: { en: 'Customer, equipment and availability', es: 'Cliente, equipos y disponibilidad' } },
+        { name: 'Django REST', detail: { en: 'Rental rules, tenant and branch validation', es: 'Reglas de alquiler, empresa y sucursal' } },
+        { name: 'SQL Server', detail: { en: 'Inventory, rentals and returns', es: 'Inventario, alquileres y devoluciones' } },
+      ],
+      branch: {
+        name: { en: 'Backend integrations', es: 'Integraciones del backend' },
+        detail: { en: 'ERP sync, PDF contracts, Wacom signatures and audit trail', es: 'Sincronización ERP, contratos PDF, firma Wacom y auditoría' },
+        target: 1,
       },
+      caption: {
+        en: 'Modular monolith: the API coordinates booking, signing, pickup, partial returns and closure. Workers handle synchronization with the ERP.',
+        es: 'Monolito modular: la API coordina reserva, firma, retiro, devoluciones parciales y cierre. Los workers gestionan la sincronización con el ERP.',
+      },
+    },
+    images: [
       {
         src: '/images/rentos-bi-thumb.webp',
         href: '/images/rentos-bi.webp',
         alt: {
           en: 'Management & BI view with billing, occupancy and profitability per equipment',
           es: 'Vista de Gestión & BI con facturación, ocupación y rentabilidad por equipo',
+        },
+      },
+      {
+        src: '/images/rentos-new-rental-thumb.webp',
+        href: '/images/rentos-new-rental.webp',
+        alt: {
+          en: 'Rental wizard, step 2: equipment catalog with the price per day',
+          es: 'Asistente de alquiler, paso 2: catálogo de equipos con precio por día',
         },
       },
       {
@@ -186,8 +225,8 @@ export const projects: Project[] = [
     logo: { src: '/images/logo-biamaq.webp' },
     gallery: 'wide',
     summary: {
-      en: 'Sales assistant that changed the way BIAMAQ sells: salespeople went from the counter PC to a tablet in hand, next to the customer, connected live to the ERP. Behind it, an AI suggests what else to offer, proposes alternatives and fills in product sheets, photos and manuals on its own every night.',
-      es: 'Asistente de venta que cambió la forma de vender en BIAMAQ: los vendedores pasaron de la PC del mostrador a una tablet en la mano, al lado del cliente, conectada en vivo con el ERP. Detrás hay una IA que sugiere qué más ofrecer, propone alternativas y completa sola fichas, fotos y manuales cada noche.',
+      en: 'I changed how BIAMAQ sells with an intelligent system that brings customer segmentation, product recommendations and live stock together. Salespeople can understand each customer’s buying profile, find relevant products and identify opportunities to reconnect.',
+      es: 'Cambié la forma de vender en BIAMAQ con un sistema inteligente que reúne segmentación de clientes, recomendaciones de productos y stock en vivo. Los vendedores pueden entender el perfil de compra de cada cliente, encontrar productos relevantes y detectar oportunidades para retomar el contacto.',
     },
     caseStudy: {
       problem: {
@@ -195,16 +234,16 @@ export const projects: Project[] = [
         es: 'BIAMAQ vende máquinas y herramientas de marcas como STIHL, Makita y Husqvarna. La venta se hacía desde la PC del mostrador, y ofrecer lo que acompaña a cada máquina o una alternativa dependía de la memoria de cada vendedor.',
       },
       solution: {
-        en: 'A tablet and phone app connected live to the ERP: the salesperson searches for a product and sees its sheet, photo, stock per branch, what to add to the sale and cheaper or pricier alternatives. Recommendations come from years of real sales and quotes, and every night the system fills in sheets, photos and manuals and retrains itself.',
-        es: 'Una app para tablet y celular conectada en vivo con el ERP: el vendedor busca un producto y ve la ficha, la foto, el stock por sucursal, qué sumar a la venta y alternativas más baratas o más caras. Las recomendaciones salen de años de ventas y presupuestos reales, y cada noche el sistema completa fichas, fotos y manuales y se reentrena solo.',
+        en: 'A sales workspace connected to the ERP and data warehouse: RFM segments, buying affinities, customer profiles and monthly history help prepare each contact. Product recommendations learned from sales and quotes suggest complementary items and alternatives. A nightly worker enriches the catalog and rebuilds the recommendation index.',
+        es: 'Un espacio comercial conectado al ERP y al data warehouse: segmentos RFM, afinidades de compra, radiografía del cliente e historia mensual para preparar cada contacto. Las recomendaciones aprendidas de ventas y presupuestos sugieren productos complementarios y alternativas. Un worker nocturno enriquece el catálogo y reconstruye el índice de recomendaciones.',
       },
       role: {
         en: 'I designed and built it end to end (data, recommendation model, API, app and deployment) and I maintain it.',
         es: 'Lo diseñé y desarrollé de punta a punta (datos, modelo de recomendación, API, app y despliegue) y lo mantengo.',
       },
       outcome: {
-        en: 'Salespeople use it at the counter. Each visit is closed as an order, a quote or "didn’t buy" with the reason, which feeds a sales funnel for management. Recommendations hit 3 times more often than suggesting the best sellers.',
-        es: 'Los vendedores lo usan en el mostrador. Cada atención se cierra como pedido, presupuesto o "no compró" con su motivo, y eso alimenta un embudo comercial para la gerencia. Las recomendaciones aciertan 3 veces más que sugerir lo más vendido.',
+        en: 'Brings assisted selling and customer follow-up together: at-risk customers, VIPs, reactivation and quote follow-up. The sales funnel records each interaction and its outcome; product purchase history helps identify customers to contact.',
+        es: 'Integra venta asistida y seguimiento de cartera: clientes en riesgo, VIP, reactivación y seguimiento de presupuestos. El embudo comercial registra cada atención y su resultado; el historial de compradores de un producto ayuda a identificar a quién contactar.',
       },
     },
     highlights: [
@@ -213,16 +252,24 @@ export const projects: Project[] = [
         es: 'Red de productos aprendida del historial de ventas y presupuestos desde 2023: combina co-compra, presupuestos, recompra del mismo cliente y compatibilidad declarada en el catálogo, con filtros de pertinencia por tipo de máquina y reordenamiento por sucursal y recencia.',
       },
       {
-        en: 'Evaluated with temporal validation (train on the past, test on the following quarters): top-3 hit rate went from 32% to 40% on data not used for tuning. I used scikit-learn to evaluate a re-ranker.',
-        es: 'Evaluado con validación temporal (entrenar con el pasado y probar con los trimestres siguientes): el acierto top-3 pasó de 32% a 40% en datos que no se usaron para ajustar. Usé scikit-learn para evaluar un re-ranker.',
+        en: 'Offline evaluation across four rolling quarters: approximately 40% top-3 hit rate versus 20% for best-seller recommendations. This measures recommendation accuracy, not sales growth.',
+        es: 'Evaluación offline en cuatro trimestres móviles: aproximadamente 40% de acierto top-3 frente a 20% al recomendar lo más vendido. Mide acierto de recomendaciones, no crecimiento de ventas.',
+      },
+      {
+        en: 'Customer segmentation by RFM, business unit, branch, salesperson, category and brand. Customer profiles combine buying affinities, balances and up to 24 monthly snapshots from the DW; opportunities highlight VIPs, at-risk customers and reactivation. Product purchase history identifies potential contacts.',
+        es: 'Segmentación de clientes por RFM, unidad de negocio, sucursal, vendedor, categoría y marca. La radiografía reúne afinidades de compra, saldos y hasta 24 snapshots mensuales del DW; las oportunidades destacan VIP, clientes en riesgo y reactivación. El historial de compradores de cada producto orienta a quién contactar.',
       },
       {
         en: 'Automatic product sheet enrichment through connectors to manufacturer and distributor sites plus web search with the Brave Search API, checking exact brand and model and respecting robots.txt.',
         es: 'Enriquecimiento automático de fichas con conectores a sitios de fabricantes y distribuidores y búsqueda web con Brave Search API, verificando marca y modelo exactos y respetando robots.txt.',
       },
       {
-        en: 'Runs on its own every night: extracts data from the SQL Server ERP in read-only mode, enriches, retrains, measures and publishes the new model only if it doesn’t get worse.',
-        es: 'Corre solo todas las noches: extrae datos del ERP en SQL Server en modo solo lectura, enriquece, reentrena, mide y publica el modelo nuevo sólo si no empeora.',
+        en: 'Nightly worker extracts read-only ERP snapshots, enriches, retrains and evaluates. If cross-selling hit@3 drops by more than one percentage point, it keeps the previous index.',
+        es: 'El worker nocturno extrae snapshots del ERP en solo lectura, enriquece, reentrena y evalúa. Si el hit@3 de venta cruzada cae más de un punto porcentual, conserva el índice anterior.',
+      },
+      {
+        en: 'Two services share the published index: nightly enriches, trains and evaluates; web serves recommendations without training during a sale. Customer segmentation and monthly history are read from the DW, while stock and balances come from the ERP. The app does not calculate RFM. ERP order and quote writes remain restricted to a test database or simulation.',
+        es: 'Dos servicios comparten el índice publicado: nightly enriquece, entrena y evalúa; web sirve recomendaciones sin entrenar durante la venta. La segmentación e historia mensual se leen del DW; el stock y los saldos, del ERP. La app no calcula el RFM. Las escrituras de pedidos y presupuestos en el ERP siguen limitadas a una base de prueba o simulación.',
       },
       {
         en: 'Django REST Framework API and a React 19 + TypeScript + Vite PWA. Sign-in with the internal platform’s users or its own users with Argon2, HttpOnly cookie, login attempt limits, CSP and role-based permissions.',
@@ -233,6 +280,43 @@ export const projects: Project[] = [
         es: 'Docker Compose y CI/CD con GitHub Actions en un runner self-hosted: tests, imagen en Docker Hub y deploy con smoke test.',
       },
     ],
+    pipeline: {
+      steps: [
+        { name: 'ERP + DW', detail: { en: 'Read-only sales, quotes and catalog', es: 'Ventas, presupuestos y catálogo en solo lectura' } },
+        { name: 'Worker nightly', detail: { en: 'Nightly snapshots and retraining', es: 'Snapshots y reentrenamiento nocturno' } },
+        { name: { en: 'Enrichment', es: 'Enriquecimiento' }, detail: { en: 'Manufacturer data with source evidence', es: 'Datos de fabricantes con evidencia de origen' } },
+        { name: { en: 'Recommendations', es: 'Recomendaciones' }, detail: { en: 'Product network and alternatives', es: 'Red de productos y alternativas' } },
+        { name: { en: 'Evaluation', es: 'Evaluación' }, detail: { en: 'Quality gate before publishing the index', es: 'Control de calidad antes de publicar el índice' } },
+        { name: 'Django REST', detail: { en: 'Precomputed index in RAM + live ERP stock', es: 'Índice precalculado en RAM + stock en vivo del ERP' } },
+        { name: 'React PWA', detail: { en: 'Assisted sales, customer profiles and opportunities', es: 'Venta asistida, radiografías y oportunidades' } },
+      ],
+      branches: [
+        {
+          name: 'Brave Search API',
+          detail: { en: 'Web searches for product sheets and manuals', es: 'Búsquedas web de fichas y manuales' },
+          target: 2,
+        },
+        {
+          name: { en: 'Customer DW', es: 'DW de clientes' },
+          detail: { en: 'RFM segments, buying affinities and 24 monthly snapshots', es: 'Segmentos RFM, afinidades de compra y 24 snapshots mensuales' },
+          target: 5,
+        },
+        {
+          name: { en: 'Live ERP', es: 'ERP en vivo' },
+          detail: { en: 'Branch stock, account balances and outstanding invoices', es: 'Stock por sucursal, saldos y comprobantes pendientes' },
+          target: 5,
+        },
+        {
+          name: { en: 'Manufacturer connectors', es: 'Conectores de fabricantes' },
+          detail: { en: 'Brand and model verification; source evidence', es: 'Verificación de marca y modelo; evidencia de origen' },
+          target: 2,
+        },
+      ],
+      caption: {
+        en: 'From sales history to product recommendations and customer follow-up.',
+        es: 'Del historial de ventas a recomendaciones de productos y seguimiento de clientes.',
+      },
+    },
     images: [
       {
         src: '/images/ventas-tablet-thumb.webp',
@@ -262,6 +346,55 @@ export const projects: Project[] = [
     imagesNote: { en: 'Sample searches over the catalog.', es: 'Búsquedas de ejemplo sobre el catálogo.' },
     stack: ['Python', 'Pandas', 'Parquet', 'scikit-learn', 'Django REST Framework', 'SQL Server', 'React', 'TypeScript', 'Vite', 'Docker', 'GitHub Actions', 'Brave Search API'],
     links: [],
+  },
+  {
+    id: 'resisCultural',
+    title: 'Resistencia Cultural',
+    cv: {
+      en: 'Cultural agenda with filters, maps and a Django management panel, based on events published by instagram.com/resis.cultural.',
+      es: 'Agenda cultural con filtros, mapa y panel de gestión Django, basada en eventos publicados por instagram.com/resis.cultural.',
+    },
+    credit: {
+      es: 'Esta agenda web se basa en los eventos que publica [@resis.cultural en Instagram](https://www.instagram.com/resis.cultural/). La selección y difusión de esos eventos corresponde a esa cuenta; mi aporte es el diseño y desarrollo de la web para consultarlos en una agenda y un mapa.',
+      en: 'This web agenda is based on events published by [@resis.cultural on Instagram](https://www.instagram.com/resis.cultural/). The selection and sharing of those events belong to that account; my contribution is designing and developing the website to explore them in an agenda and on a map.',
+    },
+    kind: { en: 'Personal project · Culture & local discovery', es: 'Proyecto personal · Cultura y descubrimiento local' },
+    group: 'personal',
+    tier: 'featured',
+    status: 'live',
+    gallery: 'wide',
+    summary: {
+      en: 'A cultural agenda for Resistencia and nearby towns: discover events by date, category or proximity, explore venues on a map and share plans. A private management panel lets editors keep the agenda up to date without editing code.',
+      es: 'Agenda cultural de Resistencia y alrededores: descubrir qué hacer por fecha, categoría o cercanía, explorar lugares en el mapa y compartir planes. Un panel privado permite mantener la agenda al día sin tocar código.',
+    },
+    highlights: [
+      { en: 'One event can have multiple performances, venues and dates. Filters, map selection and event details stay in sync, with shareable URLs and mobile list/map tabs.', es: 'Un evento puede tener múltiples funciones, lugares y fechas. Filtros, selección en el mapa y detalle se coordinan, con URLs compartibles y pestañas de lista/mapa en celular.' },
+      { en: 'Nearby discovery calculates distances in the browser without sending or storing the visitor’s coordinates. Overnight events remain visible until 07:00.', es: 'Cerca de mí calcula distancias en el navegador sin enviar ni guardar las coordenadas del visitante. Las funciones nocturnas siguen visibles hasta las 07:00.' },
+      { en: 'Staff-only Django panel for events, performances, venues and photos, protected with sessions and CSRF. HTML/text imports from Notion feed the same data model.', es: 'Panel Django para eventos, funciones, lugares y fotos, con acceso staff, sesiones y CSRF. Importación de HTML/texto de Notion al mismo modelo de datos.' },
+      { en: 'Nominatim geocoding with a database cache and manual location review. Signed direct uploads to Cloudinary; a daily Vercel task cleans up old photos.', es: 'Geocodificación con Nominatim, caché en base y revisión manual de ubicaciones. Carga directa firmada a Cloudinary y limpieza diaria de fotos antiguas con Vercel Cron.' },
+    ],
+    pipeline: {
+      steps: [
+        { name: 'React + TypeScript', detail: { en: 'Agenda, filters and event details', es: 'Agenda, filtros y detalles' } },
+        { name: 'Django API', detail: { en: 'Published events and active performances', es: 'Eventos publicados y funciones vigentes' } },
+        { name: 'Django ORM', detail: { en: 'Events, performances and venues', es: 'Eventos, funciones y lugares' } },
+        { name: 'PostgreSQL', detail: { en: 'Production persistence', es: 'Persistencia en producción' } },
+      ],
+      branches: [
+        { name: 'Leaflet + MapLibre', detail: { en: 'OpenFreeMap tiles and venue markers', es: 'Mapa OpenFreeMap y marcadores de lugares' }, target: 0 },
+        { name: { en: 'Management panel', es: 'Panel de gestión' }, detail: { en: 'Django templates, staff sessions and editing', es: 'Plantillas Django, sesiones staff y edición' }, target: 2 },
+      ],
+      caption: { en: 'Django monolith with a React public interface and a server-rendered management panel. Nominatim resolves locations; Cloudinary stores photos uploaded directly from the browser with Django signatures. Deployed on Vercel, with SQLite for local development.', es: 'Monolito Django con interfaz pública React y panel de gestión renderizado en el servidor. Nominatim resuelve ubicaciones; Cloudinary aloja fotos cargadas desde el navegador con firmas de Django. Desplegado en Vercel, con SQLite para desarrollo local.' },
+    },
+    images: [
+      { src: '/images/resis-agenda.png', alt: { en: 'Resistencia Cultural: event agenda and venue map', es: 'Resistencia Cultural: agenda de funciones y mapa de lugares' } },
+      { src: '/images/resis-movil.png', alt: { en: 'Resistencia Cultural agenda on a phone', es: 'Agenda de Resistencia Cultural en celular' } },
+    ],
+    stack: ['React', 'TypeScript', 'Django', 'PostgreSQL', 'Leaflet', 'MapLibre', 'Cloudinary', 'Vercel'],
+    links: [
+      { kind: 'live', href: 'https://resis-cultural.vercel.app/' },
+      { kind: 'repository', href: 'https://github.com/deadour/resis-cultural' },
+    ],
   },
   {
     id: 'lastfm',
@@ -383,17 +516,17 @@ export const projects: Project[] = [
     title: 'Malaca',
     kind: { en: 'Client project · E-commerce', es: 'Proyecto para cliente · E-commerce' },
     group: 'professional',
-    status: 'development',
+    status: 'completed',
     logo: { src: '/images/logo-malaca.webp', shape: 'circle', fit: 'contain' },
     gallery: 'wide',
     summary: {
-      en: 'Online store for a brand of herbal blends, built for a real client. A mobile-first catalog where customers buy or ask through WhatsApp, plus a custom admin panel to run the store.',
-      es: 'Tienda online de una marca de blends de hierbas, desarrollada para un cliente real. Un catálogo mobile-first donde se compra o consulta por WhatsApp, más un panel de administración propio para gestionar la tienda.',
+      en: 'Completed online store for a herbal blends brand: catalog, cart, guest checkout, payments and order management.',
+      es: 'Tienda online terminada para una marca de blends de hierbas: catálogo, carrito, checkout invitado, pagos y gestión de pedidos.',
     },
     highlights: [
       {
-        en: 'WhatsApp checkout: each button opens a prefilled message with the product, price and link.',
-        es: 'Compra por WhatsApp: cada botón abre un mensaje armado con el producto, el precio y el enlace.',
+        en: 'Persistent cart, guest checkout, Mercado Pago and bank transfers, stock reservations and private order tracking. WhatsApp contact works independently.',
+        es: 'Carrito persistente, checkout invitado, Mercado Pago y transferencias, reservas de stock y seguimiento privado de pedidos. Contacto por WhatsApp independiente.',
       },
       {
         en: 'Admin panel for products, up to 5 photos per product, prices, stock, featured items and optional categories.',
@@ -447,8 +580,8 @@ export const projects: Project[] = [
     stack: ['Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Cloudinary', 'Docker', 'Render'],
     links: [],
     cv: {
-      en: 'Online store for a herbal blends brand (client, in development): mobile-first catalog, WhatsApp checkout and a custom admin panel with drag-and-drop ordering.',
-      es: 'Tienda online para una marca de blends de hierbas (cliente, en desarrollo): catálogo mobile-first, compra por WhatsApp y panel de administración propio con orden por arrastre.',
+      en: 'Ecommerce with guest checkout, Mercado Pago, stock reservations, shipping, order tracking and an admin panel.',
+      es: 'Ecommerce con checkout invitado, Mercado Pago, reservas de stock, envíos, seguimiento de pedidos y panel de gestión.',
     },
   },
   {
@@ -490,7 +623,7 @@ export const projects: Project[] = [
   {
     id: 'chedul',
     title: 'Chedul',
-    kind: { en: 'Team project · UTN · Team of 3', es: 'Proyecto en equipo · UTN · Equipo de 3' },
+    kind: { en: 'Personal project · Team of 3', es: 'Proyecto personal · Equipo de 3' },
     group: 'personal',
     tier: 'secondary',
     status: 'live',

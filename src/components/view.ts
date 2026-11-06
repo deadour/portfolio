@@ -38,7 +38,7 @@ export function experienceEntries(lang: Lang): Entry[] {
     meta: [t(job.role, lang), t(job.meta, lang)],
     period: formatPeriod(job.start, job.end, lang),
     description: t(job.description, lang),
-    highlights: job.bullets.map((b) => t(b.text, lang)),
+    highlights: job.bullets.filter((b) => !b.cvOnly).map((b) => t(b.text, lang)),
   }))
 }
 
