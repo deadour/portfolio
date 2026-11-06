@@ -178,7 +178,7 @@
   }
 }
 
-/* Multi-page CV (variants with maxPages > 1): the page margins come from the PDF, not the box,
+/* Multi-page CV (variants with maxPages > 1): the page margins come from @page (set by scripts/cv.mjs), not the box,
    and no entry, bullet or heading is split from what follows it. */
 .cv.cv-flow {
   height: auto;

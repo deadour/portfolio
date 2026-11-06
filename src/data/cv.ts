@@ -18,7 +18,7 @@ export const cvVariants: Record<CvProfile, CvVariant> = {
       es: 'Software & Data Engineer con más de 3 años a cargo de los sistemas de BIAMAQ, empresa de maquinaria industrial con 3 sucursales en Argentina. Diseño, desarrollo y opero de punta a punta el software que la empresa usa todos los días: gestión de alquileres y service, un asistente de ventas con recomendaciones de productos, automatización de facturas con OCR/LLM, ETL y data warehouse sobre el ERP, BI para la dirección y la infraestructura con Docker y CI/CD. Trabajo con Python, Django REST Framework, SQL Server, PostgreSQL, React y TypeScript. Estudiante de último año de Ingeniería en Sistemas de Información (UTN), con un semestre de intercambio en el Máster en Data Science de CESI, Francia.',
     },
     experience: ['rentalia', 'sales', 'automation', 'reports', 'etl', 'service', 'infra'],
-    projects: ['chedul', 'lastfm', 'cesiDl', 'cesiIot', 'dynamo'],
+    projects: ['ecommerce', 'casaPalma', 'resisCultural', 'chedul', 'lastfm', 'dynamo', 'cesiDl', 'cesiIot'],
     skills: ['languages', 'backend', 'data', 'ml', 'frontend', 'infra'],
     certifications: ['fullStack', 'english', 'powerBi', 'ml', 'pythonFlask'],
     maxPages: 2,

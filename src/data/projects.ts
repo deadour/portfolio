@@ -627,6 +627,10 @@ export const projects: Project[] = [
     ],
     stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Drizzle ORM', 'Vitest'],
     links: [],
+    cv: {
+      en: 'In development. Management system for a collaborative store of local makers: sales register with mixed payments, stock per maker, expenses, payouts, Excel and Tiendanube import, and role-based permissions.',
+      es: 'En desarrollo. Sistema de gestión para una tienda colaborativa de emprendedoras: caja con pagos mixtos, stock por emprendedora, gastos, liquidaciones, importación desde Excel y Tienda Nube, y roles con permisos.',
+    },
   },
   {
     id: 'chedul',

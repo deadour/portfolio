@@ -70,8 +70,11 @@ try {
 
   const overflows = []
   for (const profile of PROFILES) {
+    // A multi-page CV flows across pages; each page gets the margins the one-page box uses as padding.
+    const multi = MAX_PAGES[profile] > 1
+    const pageCss = multi ? '\n@page{size:A4;margin:12mm 15mm 11mm}' : ''
     for (const lang of LANGS) {
-      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>${escape(cv.cvTitle(profile, lang))}</title><style>${css}\nhtml,body{margin:0;background:#fff}</style></head><body>${cv.renderCv(profile, lang, photo)}</body></html>`
+      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>${escape(cv.cvTitle(profile, lang))}</title><style>${css}\nhtml,body{margin:0;background:#fff}${pageCss}</style></head><body>${cv.renderCv(profile, lang, photo)}</body></html>`
       await page.setContent(html, { waitUntil: 'load' })
       await page.evaluate(() => document.fonts.ready)
       // The page is a fixed A4 box: anything taller would be cut, so stop instead.
@@ -85,16 +88,14 @@ try {
         await page.locator('.cv').screenshot({ path: path.join(pngDir, `${profile}-${lang}.png`) })
         await page.addStyleTag({ content: '.cv{height:297mm;outline:none}' })
       }
-      // A multi-page CV flows across pages with the same margins the one-page box uses as padding.
-      const multi = MAX_PAGES[profile] > 1
       if (!multi && fit.content > fit.page + 1) overflows.push(`${profile}-${lang}: content is ${fit.content - fit.page}px taller than the page`)
       await page.pdf({
         path: cvFile(profile, lang),
         format: 'A4',
         printBackground: true,
-        preferCSSPageSize: !multi,
+        preferCSSPageSize: true,
         displayHeaderFooter: false,
-        margin: multi ? { top: '12mm', right: '15mm', bottom: '11mm', left: '15mm' } : { top: 0, right: 0, bottom: 0, left: 0 },
+        margin: { top: 0, right: 0, bottom: 0, left: 0 },
         tagged: true,
       })
     }
