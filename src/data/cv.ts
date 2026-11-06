@@ -1,13 +1,28 @@
 import type { CvProfile, CvVariant } from './types'
 
-// The three CV variants. They share the template (src/cv/CvDocument.tsx) and all the data in
+// The CV variants. They share the template (src/cv/CvDocument.tsx) and all the data in
 // src/data/: here only the focus changes — headline, summary, the order of the experience
 // bullets and skills, and which side projects and certifications make the cut.
 // `npm run cv` writes public/cv/<profile>-<lang>.pdf for each one.
-export const cvProfiles: CvProfile[] = ['software', 'backend', 'data']
+//
+// Only `general` is linked from the site. The others are for sending when a role asks for them,
+// at short URLs (public/_redirects): /cv/fs/en, /cv/backend/es, /cv/data/en… and /cv, /cv/es for the general one.
+export const cvProfiles: CvProfile[] = ['general', 'fs', 'backend', 'data']
 
 export const cvVariants: Record<CvProfile, CvVariant> = {
-  software: {
+  general: {
+    label: { en: 'General', es: 'General' },
+    headline: { en: 'Software & Data Engineer', es: 'Software & Data Engineer' },
+    summary: {
+      en: 'Since 2023 I build and run the systems of BIAMAQ, an industrial machinery company with 3 branches: a rental platform, an ERP-connected sales assistant with recommendations, ETL into a data warehouse and management’s BI platform. Final-year Information Systems Engineering student at UTN; exchange semester at CESI, France.',
+      es: 'Desde 2023 desarrollo y opero los sistemas de BIAMAQ, empresa de maquinaria industrial con 3 sucursales: una plataforma de alquileres, un asistente de venta con recomendaciones conectado al ERP, ETL a un data warehouse y la plataforma de BI de la dirección. Último año de Ingeniería en Sistemas (UTN); intercambio en CESI, Francia.',
+    },
+    experience: ['rentalia', 'sales', 'reports', 'etl', 'infra'],
+    projects: ['lastfm', 'chedul'],
+    skills: ['languages', 'backend', 'data', 'frontend', 'infra'],
+    certifications: ['fullStack', 'english'],
+  },
+  fs: {
     label: { en: 'Software Engineer / Full Stack', es: 'Software Engineer / Full Stack' },
     headline: { en: 'Software Engineer · Full Stack', es: 'Desarrollador de Software Full Stack' },
     summary: {

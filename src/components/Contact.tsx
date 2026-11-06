@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import Section from './Section'
 import { site } from '../data/site'
+import { cvPath } from '../data/cv'
 import { useLang } from '../i18n'
 import LinkIcon, { type LinkIconName } from './LinkIcon'
 import { inquiryHref } from './Services'
-import { pathFor } from '../route'
 
 // Entries with an empty href (not configured yet) are skipped.
 const links = [
@@ -12,11 +12,8 @@ const links = [
   { label: 'GitHub', icon: 'github', href: site.github },
 ].filter((link) => link.href) as { label: string; icon: LinkIconName; href: string }[]
 
-// Same block on every page. On the services page the main button opens an email with a subject,
-// so business inquiries are easy to spot; elsewhere the CV and the services page are one click away.
 export default function Contact() {
-  const { lang, page, c } = useLang()
-  const business = page === 'services'
+  const { lang, c } = useLang()
   const [copied, setCopied] = useState(false)
   const timer = useRef<number>(undefined)
 
@@ -47,7 +44,7 @@ export default function Contact() {
     <Section id="contact" title={c.sections.contact}>
       <div className="pt-2 pb-8 sm:pb-12">
         <p className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">{c.contact.title}</p>
-        <p className="mt-4 max-w-xl leading-relaxed">{business ? c.services.solutions.cta + '.' : c.contact.intro}</p>
+        <p className="mt-4 max-w-xl leading-relaxed">{c.contact.intro}</p>
 
         {site.email && (
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -60,7 +57,7 @@ export default function Contact() {
             <button
               type="button"
               onClick={copyEmail}
-              className="btn"
+              className="inline-flex items-center gap-1.5 rounded-md border border-line px-3 py-1.5 text-sm text-fg hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]"
             >
               <svg
                 aria-hidden="true"
@@ -83,12 +80,13 @@ export default function Contact() {
               </svg>
               <span aria-live="polite">{copied ? c.ui.copied : c.ui.copyEmail}</span>
             </button>
-            {business && (
-              <a href={inquiryHref(c.services.emailSubject)} className="btn-primary">
-                <LinkIcon name="email" className="size-4" />
-                {c.services.cta}
-              </a>
-            )}
+            <a
+              href={inquiryHref(c.services.emailSubject)}
+              className="inline-flex items-center gap-1.5 rounded-md border border-line px-3 py-1.5 text-sm text-fg hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]"
+            >
+              <LinkIcon name="email" className="size-4 text-muted" />
+              {c.services.cta}
+            </a>
           </div>
         )}
 
@@ -109,17 +107,15 @@ export default function Contact() {
               </a>
             </li>
           ))}
-          <li>
-            <a href={pathFor(lang, 'cv')} className="inline-flex items-center gap-2 text-fg underline decoration-line underline-offset-4 hover:decoration-accent">
-              <LinkIcon name="download" />
-              {c.ui.nav.cv}
-            </a>
-          </li>
-          {!business && (
+          {(
             <li>
-              <a href={pathFor(lang, 'services')} className="inline-flex items-center gap-2 text-fg underline decoration-line underline-offset-4 hover:decoration-accent">
-                {c.ui.nav.services}
-                <span aria-hidden="true" className="text-muted">→</span>
+              <a
+                href={cvPath('general', lang)}
+                download
+                className="inline-flex items-center gap-2 text-fg underline decoration-line underline-offset-4 hover:decoration-accent"
+              >
+                <LinkIcon name="download" />
+                {c.hero.downloadCv}
               </a>
             </li>
           )}

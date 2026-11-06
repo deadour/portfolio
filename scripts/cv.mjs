@@ -1,4 +1,4 @@
-// Generates the six CV PDFs (3 profiles × 2 languages) into public/cv/.
+// Generates the CV PDFs (every profile × language) into public/cv/.
 //
 //   npm run cv
 //
@@ -50,6 +50,8 @@ try {
   if (cv.cvProfiles.join() !== PROFILES.join() || cv.languages.join() !== LANGS.join()) {
     throw new Error('scripts/check-cv.mjs PROFILES/LANGS are out of sync with src/data/cv.ts and src/content/')
   }
+  // The portrait goes inline, since the page is loaded from a string.
+  const photo = `data:image/webp;base64,${(await readFile(path.join(root, 'public', 'images', 'portrait.webp'))).toString('base64')}`
   const css = (await readFile(path.join(root, 'src', 'cv', 'cv.css'), 'utf8')) + '\n' + (await fontFaces())
 
   browser = await chromium.launch()
@@ -59,7 +61,7 @@ try {
   const overflows = []
   for (const profile of PROFILES) {
     for (const lang of LANGS) {
-      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>${escape(cv.cvTitle(profile, lang))}</title><style>${css}\nhtml,body{margin:0;background:#fff}</style></head><body>${cv.renderCv(profile, lang)}</body></html>`
+      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>${escape(cv.cvTitle(profile, lang))}</title><style>${css}\nhtml,body{margin:0;background:#fff}</style></head><body>${cv.renderCv(profile, lang, photo)}</body></html>`
       await page.setContent(html, { waitUntil: 'load' })
       await page.evaluate(() => document.fonts.ready)
       // The page is a fixed A4 box: anything taller would be cut, so stop instead.

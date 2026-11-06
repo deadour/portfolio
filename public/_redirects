@@ -1,5 +1,20 @@
-# The CVs used to be single PDFs made by hand; each language now points to its general CV.
-/cv/eduardo-ramirez-cv-en.pdf /cv/software-en.pdf 301
-/cv/eduardo-ramirez-cv-es.pdf /cv/software-es.pdf 301
-# Without the trailing slash, each page still opens.
-/es/services /es/servicios/ 301
+# The former services page lives on the home page, in the solutions section.
+/services /#solutions 301
+/es/servicios /es/#solutions 301
+
+# CVs. The site links only the general one; the others are sent by hand when a role asks for them.
+# 200 = served at the short URL (it opens the PDF without changing the address).
+/cv /cv/general-en.pdf 200
+/cv/ /cv/general-en.pdf 200
+/cv/en /cv/general-en.pdf 200
+/cv/es /cv/general-es.pdf 200
+/cv/fs/en /cv/fs-en.pdf 200
+/cv/fs/es /cv/fs-es.pdf 200
+/cv/backend/en /cv/backend-en.pdf 200
+/cv/backend/es /cv/backend-es.pdf 200
+/cv/data/en /cv/data-en.pdf 200
+/cv/data/es /cv/data-es.pdf 200
+
+# Old hand-made CVs.
+/cv/eduardo-ramirez-cv-en.pdf /cv/general-en.pdf 301
+/cv/eduardo-ramirez-cv-es.pdf /cv/general-es.pdf 301

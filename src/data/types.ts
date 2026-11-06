@@ -50,8 +50,8 @@ export type Project = {
   kind: L
   // Professional work is shown before personal and academic projects.
   group: 'professional' | 'personal'
-  // Featured projects are told as full case studies on the home page, in this file's order.
-  featured?: boolean
+  // 'featured': highlighted card. 'secondary': compact cards in a two-column grid at the end of its block.
+  tier?: 'featured' | 'secondary'
   status: ProjectStatus
   summary: L
   caseStudy?: CaseStudy
@@ -132,7 +132,7 @@ export type Certification = {
   featured?: boolean
 }
 
-export type CvProfile = 'software' | 'backend' | 'data'
+export type CvProfile = 'general' | 'fs' | 'backend' | 'data'
 
 // One CV variant. All of them share the template and the data; only the focus changes.
 export type CvVariant = {

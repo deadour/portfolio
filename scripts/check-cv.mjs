@@ -1,4 +1,4 @@
-// Checks the published CVs in public/cv/: all six exist, and each one is a single A4 page
+// Checks the published CVs in public/cv/: all of them exist, and each one is a single A4 page
 // with real (selectable) text and clickable links. No dependencies: it reads the PDF structure.
 // Runs after `npm run cv` and as part of `npm run build`.
 //
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
 // Must match cvProfiles in src/data/cv.ts and the languages in src/content/ (scripts/cv.mjs asserts it).
-export const PROFILES = ['software', 'backend', 'data']
+export const PROFILES = ['general', 'fs', 'backend', 'data']
 export const LANGS = ['en', 'es']
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')

@@ -1,35 +1,26 @@
-import { defaultLang, languages, type Lang } from './content'
-import type { Page } from './content/types'
+import { defaultLang, type Lang } from './content'
 
-// Three pages in two languages. The URL decides both, so any page can be shared in either language.
-// Shared by the app and the build (see vite.config.ts), which writes one HTML file per route.
-export type Route = { lang: Lang; page: Page }
+// One page in two languages: / in English and /es/ in Spanish. The URL decides the language,
+// so a link can open the Spanish version directly. Shared by the app and the build (see vite.config.ts).
+export type Route = { lang: Lang }
 
-const PATHS: Record<Lang, Record<Page, string>> = {
-  en: { home: '/', cv: '/cv/', services: '/services/' },
-  es: { home: '/es/', cv: '/es/cv/', services: '/es/servicios/' },
+const PATHS: Record<Lang, string> = { en: '/', es: '/es/' }
+
+export const routes: Route[] = [{ lang: 'en' }, { lang: 'es' }]
+
+export function pathFor(lang: Lang) {
+  return PATHS[lang]
 }
 
-const pages: Page[] = ['home', 'cv', 'services']
-export const routes: Route[] = languages.flatMap((lang) => pages.map((page) => ({ lang, page })))
-
-export function pathFor(lang: Lang, page: Page = 'home') {
-  return PATHS[lang][page]
-}
-
-// Anything under /es is Spanish; everything else is English. Unknown paths show the home page.
+// Anything under /es is Spanish (including the old /es/servicios); everything else is English.
 export function parseRoute(pathname: string): Route {
-  const lang: Lang = /^\/es(\/|\.html$|$)/.test(pathname) ? 'es' : defaultLang
-  const rest = lang === 'es' ? pathname.replace(/^\/es/, '') : pathname
-  const page: Page = /^\/cv(\/|\.html)?$/.test(rest)
-    ? 'cv'
-    : /^\/(services|servicios)(\/|\.html)?$/.test(rest)
-      ? 'services'
-      : 'home'
-  return { lang, page }
+  return { lang: /^\/es(\/|\.html$|$)/.test(pathname) ? 'es' : defaultLang }
 }
 
-// File each route is written to in dist/. Cloudflare Pages serves /es/cv/index.html at /es/cv/.
-export function fileFor({ lang, page }: Route) {
-  return `${pathFor(lang, page).slice(1)}index.html`
+// The former services page now lives on the home page, in the solutions section.
+export const isLegacyServicesPath = (pathname: string) => /^\/(es\/servicios|services)(\.html)?\/?$/.test(pathname)
+
+// File each route is written to in dist/. Cloudflare Pages serves /es/index.html at /es/.
+export function fileFor({ lang }: Route) {
+  return `${PATHS[lang].slice(1)}index.html`
 }

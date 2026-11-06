@@ -29,7 +29,23 @@
   text-decoration: none;
 }
 
-/* Header */
+/* Header: name, role and contact on the left, the portrait on the right. */
+.cv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4mm;
+}
+.cv-identity {
+  min-width: 0;
+}
+.cv-photo {
+  flex-shrink: 0;
+  width: 22mm;
+  height: 22mm;
+  border-radius: 50%;
+  object-fit: cover;
+}
 .cv-name {
   font-size: 21pt;
   font-weight: 700;
@@ -57,7 +73,7 @@
 }
 .cv-contact > * + *::before {
   content: '·';
-  margin: 0 2.2mm;
+  margin: 0 1.5mm;
   color: #9a9aa2;
 }
 

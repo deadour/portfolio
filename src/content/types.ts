@@ -1,14 +1,55 @@
-// Interface and marketing texts, one file per language. Each language file must implement this
-// fully, so a missing translation is a type error.
-// Professional data (experience, projects, education, skills…) is NOT here: it lives once, in
-// both languages, in src/data/, and is shared with the CVs.
+// Shape of every translatable text on the page. Each language file must implement it fully,
+// so a missing translation is a type error.
+// Professional data (projects, experience, education, skills, certifications) lives once, in both
+// languages, in src/data/ and is shared with the CVs. ProjectText and Entry below are how the page
+// receives it, already in one language (see src/components/view.ts).
 
-import type { CaseStudy, LinkKind, ProjectId, ProjectStatus } from '../data/types'
+import type { LinkKind, Pipeline as DataPipeline, ProjectId, ProjectStatus } from '../data/types'
 
-export type Page = 'home' | 'cv' | 'services'
+export type { LinkKind, ProjectId }
 
-// One block of the services page: what I can do, in a title and one line, and one real case
-// told in a sentence, with its screens as a swipeable gallery.
+// `href` optionally points to a larger version opened on click.
+export type Figure = { src: string; alt: string; caption?: string; href?: string }
+
+// Short case-study summary shown instead of the plain summary on professional projects.
+// Only verifiable facts: no metrics that haven't been confirmed.
+export type CaseStudy = { problem: string; role: string; solution: string; outcome: string }
+
+export type ProjectText = {
+  title: string
+  kind: string
+  summary: string
+  caseStudy?: CaseStudy
+  // Each item may contain [text](https://…) links.
+  highlights: string[]
+  // Label of the button that opens the highlights. Defaults to "How it's built".
+  highlightsLabel?: string
+  // Short label shown on cards that are not finished yet.
+  status?: string
+  // Short factual tag shown as a pill, e.g. that a system runs in production.
+  badge?: string
+  pipeline?: DataPipeline
+  images?: Figure[]
+  // Short note under the images, e.g. that the data is fictional.
+  imagesNote?: string
+}
+
+export type Entry = {
+  title: string
+  // Optional website for the title.
+  href?: string
+  // Optional square logo shown next to the entry.
+  logo?: string
+  // Role, institution, location… Each item is joined with " · ". Empty items are skipped.
+  meta: string[]
+  period: string
+  description?: string
+  highlights?: string[]
+  images?: Figure[]
+}
+
+// One block of the solutions section: what I can do, in a title and one line, and one real case
+// told in a sentence. The case's screens are shown as a swipeable gallery.
 export type Solution = {
   // Anchor (#solution-<id>). Same in every language, so switching keeps it.
   id: string
@@ -21,10 +62,10 @@ export type Solution = {
 }
 
 export type Content = {
-  meta: Record<Page, { title: string; description: string }>
+  meta: { title: string; description: string }
   ui: {
     skip: string
-    nav: { work: string; experience: string; cv: string; services: string; contact: string }
+    nav: { work: string; services: string; experience: string; contact: string }
     language: string
     themeToDark: string
     themeToLight: string
@@ -34,67 +75,51 @@ export type Content = {
     credential: string
     howItsBuilt: string
     caseStudy: Record<keyof CaseStudy, string>
-    stack: string
-    status: Record<ProjectStatus, string>
     lightbox: { close: string; previous: string; next: string }
     // {n} is replaced by the number of hidden items.
     showMore: string
-    // {n} is replaced by the number of images.
-    viewImages: string
-    viewPhotos: string
-    details: string
-    copyEmail: string
-    copied: string
-    exchange: string
-  }
-  hero: {
-    // Line under the summary with the current job. {role}, {company} and {since} are filled in.
-    current: string
-    work: string
-    cv: string
-  }
-  sections: {
-    work: string
+    featured: string
+    academic: string
     professional: string
     personal: string
-    more: string
+    copyEmail: string
+    copied: string
+    // {n} is replaced by the number of photos.
+    viewPhotos: string
+    // Pill on each project card; empty strings show none.
+    status: Record<ProjectStatus, string>
+  }
+  hero: { title: string; tagline: string; cta: string; downloadCv: string }
+  // What I'm working on right now. `date` is written by hand, so it never claims to be newer than the text.
+  now: { label: string; date: string; text: string }
+  sections: {
+    about: string
+    work: string
     experience: string
     education: string
     languages: string
-    skills: string
     certifications: string
+    tech: string
     contact: string
   }
-  // Short block on the home page that sends companies to the services page.
-  companies: { title: string; text: string; cta: string }
-  // The services page, for companies.
-  services: {
-    eyebrow: string
+  about: string[]
+  solutions: {
     title: string
     intro: string
+    caseLabel: string
+    alsoLabel: string
+    // Button that opens the case in the project dialog.
+    details: string
+    // Button to the contact section.
+    cta: string
+    items: Solution[]
+  }
+  // How I work, plus the business inquiry button in Contact.
+  services: {
     process: { title: string; steps: { title: string; text: string }[] }
     cta: string
     // Subject line of the email the CTA opens.
     emailSubject: string
-    solutions: {
-      caseLabel: string
-      alsoLabel: string
-      // Button that opens the case in the project dialog.
-      details: string
-      // Button to the contact section.
-      cta: string
-      items: Solution[]
-    }
-  }
-  cv: {
-    title: string
-    intro: string
-    profile: string
-    language: string
-    download: string
-    open: string
-    // Under the preview: the PDF is the same document.
-    note: string
   }
   contact: { title: string; intro: string }
 }

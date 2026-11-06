@@ -1,7 +1,6 @@
 import type { Project } from './types'
 
 // Every project, in the order it's shown: professional work first, then personal and academic.
-// Featured projects are told as case studies on the home page; the rest are listed compactly.
 // Internal systems: screens must be mockups with sample data only.
 export const projects: Project[] = [
   {
@@ -9,7 +8,6 @@ export const projects: Project[] = [
     title: { en: 'BIAMAQ Reports', es: 'Reportes BIAMAQ' },
     kind: { en: 'BIAMAQ · Business Intelligence', es: 'BIAMAQ · Business Intelligence' },
     group: 'professional',
-    featured: true,
     status: 'internal',
     logo: { src: '/images/logo-biamaq.webp' },
     gallery: 'wide',
@@ -97,7 +95,6 @@ export const projects: Project[] = [
     title: 'RentalIA',
     kind: { en: 'BIAMAQ · Full-stack platform', es: 'BIAMAQ · Plataforma full-stack' },
     group: 'professional',
-    featured: true,
     status: 'internal',
     logo: { src: '/images/logo-rentos.png', fit: 'contain' },
     gallery: 'wide',
@@ -185,7 +182,6 @@ export const projects: Project[] = [
     title: { en: 'BIAMAQ Sales', es: 'BIAMAQ Ventas' },
     kind: { en: 'BIAMAQ · AI applied to sales', es: 'BIAMAQ · IA aplicada a ventas' },
     group: 'professional',
-    featured: true,
     status: 'internal',
     logo: { src: '/images/logo-biamaq.webp' },
     gallery: 'wide',
@@ -272,7 +268,7 @@ export const projects: Project[] = [
     title: 'Last.fm Data Platform',
     kind: { en: 'Personal project · Data Engineering', es: 'Proyecto personal · Data Engineering' },
     group: 'personal',
-    featured: true,
+    tier: 'featured',
     status: 'repository',
     gallery: 'wide',
     summary: {
@@ -461,6 +457,7 @@ export const projects: Project[] = [
     title: 'Casa Palma',
     kind: { en: 'Client project · Business management', es: 'Proyecto para cliente · Gestión comercial' },
     group: 'professional',
+    tier: 'secondary',
     status: 'development',
     summary: {
       en: 'Management system for a collaborative store that sells products from different local makers. It replaces the spreadsheets the store used for daily sales, expenses and payouts to each maker.',
@@ -495,6 +492,7 @@ export const projects: Project[] = [
     title: 'Chedul',
     kind: { en: 'Team project · UTN · Team of 3', es: 'Proyecto en equipo · UTN · Equipo de 3' },
     group: 'personal',
+    tier: 'secondary',
     status: 'live',
     logo: { src: '/images/logo-chedul.svg', shape: 'plain', fit: 'contain' },
     gallery: 'wide',
@@ -576,6 +574,7 @@ export const projects: Project[] = [
     title: 'Dynamo',
     kind: { en: 'Personal project · Full-stack web app', es: 'Proyecto personal · Aplicación web full-stack' },
     group: 'personal',
+    tier: 'secondary',
     status: 'live',
     logo: { src: '/images/logo-dynamo.png' },
     gallery: 'phone',
@@ -650,6 +649,7 @@ export const projects: Project[] = [
     title: { en: 'Diabetes Prediction with Deep Learning', es: 'Predicción de diabetes con Deep Learning' },
     kind: { en: 'Academic project · CESI France · Team of 4', es: 'Proyecto académico · CESI Francia · Equipo de 4' },
     group: 'personal',
+    tier: 'secondary',
     status: 'academic',
     gallery: 'wide',
     summary: {
@@ -718,6 +718,7 @@ export const projects: Project[] = [
     title: { en: 'Classroom Noise Monitor', es: 'Monitor de ruido en aulas' },
     kind: { en: 'Academic project · CESI France · IoT · Team of 4', es: 'Proyecto académico · CESI Francia · IoT · Equipo de 4' },
     group: 'personal',
+    tier: 'secondary',
     status: 'academic',
     gallery: 'photo',
     summary: {

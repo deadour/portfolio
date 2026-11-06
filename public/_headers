@@ -1,0 +1,3 @@
+# CVs: shareable, but kept out of search results.
+/cv/*
+  X-Robots-Tag: noindex

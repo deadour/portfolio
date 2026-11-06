@@ -39,7 +39,18 @@ const Link = ({ href, children }: { href: string; children?: string }) => (
 )
 
 // `embedded`: shown inside a page that has its own <h1> (the /cv preview), so the name isn't one.
-export default function CvDocument({ profile, lang, embedded = false }: { profile: CvProfile; lang: Lang; embedded?: boolean }) {
+// `photo`: image source for the portrait (the PDF generator passes it inline).
+export default function CvDocument({
+  profile,
+  lang,
+  embedded = false,
+  photo = site.portrait,
+}: {
+  profile: CvProfile
+  lang: Lang
+  embedded?: boolean
+  photo?: string
+}) {
   const variant = cvVariants[profile]
   const l = LABELS[lang]
   const year = (date: string) => date.slice(0, 4)
@@ -47,17 +58,20 @@ export default function CvDocument({ profile, lang, embedded = false }: { profil
   return (
     <article className="cv" lang={lang}>
       <header className="cv-header">
-        {embedded ? <p className="cv-name">{site.name}</p> : <h1 className="cv-name">{site.name}</h1>}
-        <p className="cv-headline">
-          {t(variant.headline, lang)}
-          <span className="cv-location"> · {t(site.location, lang)}</span>
-        </p>
-        <p className="cv-contact">
-          <Link href={`mailto:${site.email}`}>{site.email}</Link>
-          <Link href={`https://${site.domain}`} />
-          <Link href={site.linkedin} />
-          <Link href={site.github} />
-        </p>
+        <div className="cv-identity">
+          {embedded ? <p className="cv-name">{site.name}</p> : <h1 className="cv-name">{site.name}</h1>}
+          <p className="cv-headline">
+            {t(variant.headline, lang)}
+            <span className="cv-location"> · {t(site.location, lang)}</span>
+          </p>
+          <p className="cv-contact">
+            <Link href={`mailto:${site.email}`}>{site.email}</Link>
+            <Link href={`https://${site.domain}`} />
+            <Link href={site.linkedin} />
+            <Link href={site.github} />
+          </p>
+        </div>
+        <img className="cv-photo" src={photo} alt={site.name} width={88} height={88} />
       </header>
 
       <section>

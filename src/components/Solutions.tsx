@@ -1,28 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
-import { ProjectLogo, figures, useProjectDialog } from './Project'
-import { projectById } from '../data/projects'
-import { t } from '../data/localize'
-import type { ProjectId } from '../data/types'
-import type { Solution } from '../content/types'
+import { ProjectCard } from './Work'
+import { projects, projectById } from '../data/projects'
+import { projectText } from './view'
 import { useLang } from '../i18n'
 import { useReveal } from '../useReveal'
+import type { ProjectId, Solution } from '../content/types'
 
-// What I can solve for a company: an overview of every kind of work, then one block per kind
-// with a real case in one sentence. Projects open in a dialog, so the reader keeps their place.
+// How I can help: an overview of every kind of work, then one block per kind with a real case
+// in one sentence. Projects open in a dialog, so the reader keeps their place.
 export default function Solutions() {
   const { c } = useLang()
-  const s = c.services.solutions
-  const onOpen = useProjectDialog()
+  const s = c.solutions
+  const [open, setOpen] = useState<ProjectId | null>(null)
 
   return (
-    <section id="solutions" aria-label={c.services.eyebrow} className="scroll-mt-24 pb-14 sm:pb-20">
+    <section id="solutions" aria-labelledby="solutions-title" className="scroll-mt-28 border-t border-line py-14 sm:scroll-mt-16 sm:py-20">
+      <h2 id="solutions-title" className="text-3xl leading-tight font-semibold tracking-tight text-fg sm:text-5xl">
+        {s.title}
+      </h2>
+      <p className="mt-3 text-lg text-muted">{s.intro}</p>
+
       {/* Everything at a glance; each tile jumps to its block. */}
       <ol className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {s.items.map((item, i) => (
           <li key={item.id}>
             <a
               href={`#solution-${item.id}`}
-              className="flex h-full items-baseline gap-2 rounded-lg border border-line bg-surface px-3 py-3 text-sm font-medium text-fg hover:border-muted sm:px-4"
+              className="card flex h-full items-baseline gap-2 rounded-lg border border-line bg-surface px-3 py-3 text-sm font-medium text-fg sm:px-4"
             >
               <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, '0')}</span>
               {item.tag}
@@ -32,8 +36,10 @@ export default function Solutions() {
       </ol>
 
       {s.items.map((item, i) => (
-        <Block key={item.id} item={item} index={i} onOpen={onOpen} />
+        <Block key={item.id} item={item} index={i} onOpen={setOpen} />
       ))}
+
+      <ProjectDialog id={open} onClose={() => setOpen(null)} />
     </section>
   )
 }
@@ -42,9 +48,8 @@ export default function Solutions() {
 // how I solved it in one sentence and a button to the full details.
 function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen: (id: ProjectId) => void }) {
   const { lang, c } = useLang()
-  const s = c.services.solutions
   const ref = useReveal<HTMLElement>()
-  const project = projectById[item.case.project]
+  const caseText = projectText(projectById[item.case.project], lang, c)
 
   return (
     <article ref={ref} id={`solution-${item.id}`} className="reveal mt-16 scroll-mt-28 sm:mt-24 sm:scroll-mt-24">
@@ -57,11 +62,13 @@ function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen:
       <p className="mt-4 max-w-xl text-lg leading-relaxed">{item.text}</p>
 
       {/* The real case comes last: screens, one sentence, details. */}
-      <figure className="mt-8 overflow-hidden rounded-xl border border-line bg-surface">
+      <figure className="mt-8 overflow-hidden rounded-xl border border-line bg-surface shadow-[0_16px_40px_-24px_color-mix(in_srgb,var(--fg)_35%,transparent)]">
         <p className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-line px-4 py-3 text-xs font-medium tracking-wide text-accent uppercase sm:px-5">
-          {s.caseLabel} · {t(project.title, lang)}
-          {project.status === 'development' && (
-            <span className="tracking-normal text-muted normal-case">· {c.ui.status.development}</span>
+          {c.solutions.caseLabel} · {caseText.title}
+          {caseText.status && (
+            <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-2 py-0.5 tracking-normal normal-case">
+              {caseText.status}
+            </span>
           )}
         </p>
         <Gallery project={item.case.project} onOpen={onOpen} />
@@ -74,11 +81,11 @@ function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen:
               aria-haspopup="dialog"
               className="inline-flex items-center gap-1.5 rounded-md border border-line bg-bg px-3 py-1.5 text-sm font-medium text-fg hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]"
             >
-              {s.details} <span aria-hidden="true">↗</span>
+              {c.solutions.details} <span aria-hidden="true">↗</span>
             </button>
             {item.also && item.also.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs text-muted">{s.alsoLabel}:</span>
+                <span className="text-xs text-muted">{c.solutions.alsoLabel}:</span>
                 {item.also.map((id) => (
                   <ProjectButton key={id} id={id} onOpen={onOpen} />
                 ))}
@@ -90,9 +97,9 @@ function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen:
 
       <a
         href="#contact"
-        className="btn-primary group mt-6"
+        className="group mt-6 inline-flex items-center gap-1.5 rounded-md bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
       >
-        {s.cta}
+        {c.solutions.cta}
         <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">
           →
         </span>
@@ -105,11 +112,10 @@ function Block({ item, index, onOpen }: { item: Solution; index: number; onOpen:
 // It moves on its own while on screen until the visitor touches it; with reduced motion it stays put.
 function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: ProjectId) => void }) {
   const { lang, c } = useLang()
-  const data = projectById[project]
-  const title = t(data.title, lang)
-  const images = figures(data.images, lang)
+  const text = projectText(projectById[project], lang, c)
+  const images = text.images ?? []
   // Phone screenshots fit inside the frame instead of being cropped.
-  const contain = (data.gallery ?? 'phone') === 'phone'
+  const contain = (projects.find((p) => p.id === project)?.gallery ?? 'phone') === 'phone'
   const track = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(false)
@@ -153,7 +159,7 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
             type="button"
             onClick={() => onOpen(project)}
             aria-haspopup="dialog"
-            aria-label={`${title}: ${image.alt}`}
+            aria-label={`${text.title}: ${image.alt}`}
             className="aspect-[16/10] w-full shrink-0 snap-center"
           >
             <img
@@ -208,7 +214,8 @@ function Gallery({ project, onOpen }: { project: ProjectId; onOpen: (id: Project
 // A project as a small button: logo, name and its status when it isn't finished.
 function ProjectButton({ id, onOpen }: { id: ProjectId; onOpen: (id: ProjectId) => void }) {
   const { lang, c } = useLang()
-  const project = projectById[id]
+  const text = projectText(projectById[id], lang, c)
+  const logo = projects.find((p) => p.id === id)?.logo
   return (
     <button
       type="button"
@@ -216,9 +223,73 @@ function ProjectButton({ id, onOpen }: { id: ProjectId; onOpen: (id: ProjectId) 
       aria-haspopup="dialog"
       className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pr-3 pl-2 text-sm text-fg hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--line))]"
     >
-      <ProjectLogo project={project} className="size-4" />
-      {t(project.title, lang)}
-      {project.status === 'development' && <span className="text-xs text-muted">· {c.ui.status.development}</span>}
+      {logo ? (
+        <img src={logo.src} alt="" width={16} height={16} className="size-4 rounded object-contain" />
+      ) : (
+        <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
+      )}
+      {text.title}
+      {text.status && <span className="text-xs text-accent">· {text.status}</span>}
     </button>
+  )
+}
+
+// The full project card over the page: business first, then the technical part.
+// Closing it leaves the reader exactly where they were.
+function ProjectDialog({ id, onClose }: { id: ProjectId | null; onClose: () => void }) {
+  const { lang, c } = useLang()
+  const ref = useRef<HTMLDialogElement>(null)
+  const project = projects.find((p) => p.id === id)
+
+  useEffect(() => {
+    const dialog = ref.current
+    if (!dialog) return
+    if (project && !dialog.open) {
+      dialog.showModal()
+      document.documentElement.style.overflow = 'hidden'
+    }
+  }, [project])
+
+  useEffect(() => {
+    const dialog = ref.current
+    if (!dialog) return
+    const handle = () => {
+      document.documentElement.style.overflow = ''
+      onClose()
+    }
+    dialog.addEventListener('close', handle)
+    return () => dialog.removeEventListener('close', handle)
+  }, [onClose])
+
+  return (
+    <dialog
+      ref={ref}
+      aria-label={project ? projectText(projectById[project.id], lang, c).title : undefined}
+      onClick={(e) => e.target === e.currentTarget && ref.current?.close()}
+      className="m-auto max-h-[calc(100dvh-2rem)] w-[min(48rem,calc(100vw-2rem))] overflow-y-auto rounded-xl bg-transparent p-0 backdrop:bg-black/50 backdrop:backdrop-blur-[2px]"
+    >
+      {project && (
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => ref.current?.close()}
+            aria-label={c.ui.lightbox.close}
+            className="absolute top-3 right-3 z-10 grid size-9 place-items-center rounded-full border border-line bg-surface text-fg hover:border-muted"
+          >
+            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+          <ProjectCard project={project} detailed />
+          <a
+            href="#contact"
+            onClick={() => ref.current?.close()}
+            className="mt-3 flex items-center justify-center gap-1.5 rounded-lg bg-fg px-4 py-3 text-sm font-medium text-bg hover:opacity-85"
+          >
+            {c.solutions.cta} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      )}
+    </dialog>
   )
 }
