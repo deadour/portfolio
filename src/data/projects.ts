@@ -179,35 +179,43 @@ export const projects: Project[] = [
     },
     images: [
       {
-        src: '/images/rentos-bi-thumb.webp',
-        href: '/images/rentos-bi.webp',
+        src: '/images/rentalia-dashboard-thumb.webp',
+        href: '/images/rentalia-dashboard.webp',
         alt: {
-          en: 'Management & BI view with billing, occupancy and profitability per equipment',
-          es: 'Vista de Gestión & BI con facturación, ocupación y rentabilidad por equipo',
+          en: 'Daily dashboard: equipment out, the day’s projected rental and today’s priorities',
+          es: 'Panel del día: equipos fuera, proyección del alquiler diario y prioridades de hoy',
         },
       },
       {
-        src: '/images/rentos-new-rental-thumb.webp',
-        href: '/images/rentos-new-rental.webp',
+        src: '/images/rentalia-equipment-thumb.webp',
+        href: '/images/rentalia-equipment.webp',
         alt: {
-          en: 'Rental wizard, step 2: equipment catalog with the price per day',
-          es: 'Asistente de alquiler, paso 2: catálogo de equipos con precio por día',
+          en: 'Rental wizard, step 2: equipment catalog with photos and price per day',
+          es: 'Asistente de alquiler, paso 2: catálogo de equipos con foto y precio por día',
         },
       },
       {
-        src: '/images/rentos-workshop-thumb.webp',
-        href: '/images/rentos-workshop.webp',
+        src: '/images/rentalia-contract-thumb.webp',
+        href: '/images/rentalia-contract.webp',
         alt: {
-          en: 'Workshop with counters, days in repair and a delay alert',
-          es: 'Taller con contadores, días en reparación y alerta de demora',
+          en: 'Review and confirm: customer, serial numbers and daily total before generating the contract',
+          es: 'Revisar y confirmar: cliente, números de serie y total por día antes de generar el contrato',
         },
       },
       {
-        src: '/images/rentos-returns-thumb.webp',
-        href: '/images/rentos-returns.webp',
+        src: '/images/rentalia-return-thumb.webp',
+        href: '/images/rentalia-return.webp',
         alt: {
-          en: 'Returning a rental, with a summary of the amount to charge',
-          es: 'Devolución de un alquiler con el resumen del cobro',
+          en: 'Returning a rental: days computed, discounts and the amount to charge',
+          es: 'Devolución de un alquiler: días computados, descuentos y monto a cobrar',
+        },
+      },
+      {
+        src: '/images/rentalia-bi-thumb.webp',
+        href: '/images/rentalia-bi.webp',
+        alt: {
+          en: 'Management & BI: billed revenue, occupancy and profitability per equipment',
+          es: 'Gestión & BI: facturación conciliada, ocupación y rentabilidad por equipo',
         },
       },
     ],
